@@ -13,6 +13,8 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: ['react', '@typescript-eslint', 'prettier'],
   ignorePatterns: [
+    '*.spec.ts',
+    '*.test.ts',
     'vite.config.ts',
     'tailwind.config.cjs',
     '/__tests__/*',
