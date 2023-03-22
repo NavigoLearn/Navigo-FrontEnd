@@ -4,5 +4,6 @@
     "jsx": "react-jsx",
     "jsxImportSource": "react"
   },
-  "include": ["src/**/*", ".eslintrc.cjs"]
+  "include": ["src/**/*", ".eslintrcworka.cjs"]
+  // "include": ["src/**/*"]
 }
