@@ -3,15 +3,6 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: [
-    'airbnb',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:react/recommended',
-    // 'plugin:astro/recommended',
-    'plugin:prettier/recommended',
-  ],
-  parser: '@typescript-eslint/parser',
-  plugins: ['react', '@typescript-eslint', 'prettier'],
   ignorePatterns: [
     '*.spec.ts',
     '*.test.ts',
@@ -21,32 +12,57 @@ module.exports = {
     '/cypress/*',
   ],
 
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: './tsconfig.json',
-  },
+  overrides: [
+    {
+      // react files config
+      files: ['*.js', '*.jsx', '*.ts', '*.tsx'],
+      extends: [
+        'airbnb',
+        'plugin:@typescript-eslint/recommended',
+        'plugin:react/recommended',
+        'plugin:prettier/recommended',
+      ],
 
-  rules: {
-    'prettier/prettier': [
-      'error',
-      {
-        singleQuote: true,
-        endOfLine: 'auto',
+      parser: '@typescript-eslint/parser',
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+        project: './tsconfig.json',
       },
-    ],
-    'react/jsx-filename-extension': [
-      1,
-      { extensions: ['.js', '.jsx', '.tsx'] },
-    ],
-    'react/function-component-definition': [
-      2,
-      {
-        namedComponents: 'arrow-function',
-        unnamedComponents: 'arrow-function',
+
+      rules: {
+        'prettier/prettier': [
+          'error',
+          {
+            singleQuote: true,
+            endOfLine: 'auto',
+          },
+        ],
+        'react/jsx-filename-extension': [
+          1,
+          { extensions: ['.js', '.jsx', '.tsx'] },
+        ],
+        'react/function-component-definition': [
+          2,
+          {
+            namedComponents: 'arrow-function',
+            unnamedComponents: 'arrow-function',
+          },
+        ],
       },
-    ],
-    // 'react/function-component-definition': ['arrow-function'],
-  },
-  overrides: [],
+    },
+    {
+      extends: [
+        'plugin:astro/all',
+        'plugin:@typescript-eslint/recommended',
+        'plugin:jsx-a11y/recommended',
+      ],
+      files: ['*.astro'],
+      parser: 'astro-eslint-parser',
+      parserOptions: {
+        parser: '@typescript-eslint/parser',
+        extraFileExtensions: ['.astro'],
+      },
+    },
+  ],
 };
