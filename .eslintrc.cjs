@@ -23,7 +23,14 @@ module.exports = {
         'plugin:@typescript-eslint/recommended',
         'plugin:react/recommended',
         'plugin:prettier/recommended',
+        'plugin:import/typescript',
       ],
+      settings: {
+        'import/resolver': {
+          typescript: {},
+        },
+      },
+      plugins: ['@typescript-eslint'],
 
       parser: '@typescript-eslint/parser',
       parserOptions: {
@@ -33,6 +40,16 @@ module.exports = {
       },
 
       rules: {
+        'import/extensions': [
+          'error',
+          'ignorePackages',
+          {
+            js: 'never',
+            jsx: 'never',
+            ts: 'never',
+            tsx: 'never',
+          },
+        ],
         'prettier/prettier': [
           'error',
           {
@@ -44,6 +61,7 @@ module.exports = {
           1,
           { extensions: ['.js', '.jsx', '.tsx'] },
         ],
+        'import/no-extraneous-dependencies': 'off',
         'react/function-component-definition': [
           2,
           {
