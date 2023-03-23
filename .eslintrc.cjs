@@ -7,6 +7,7 @@ module.exports = {
     '*.spec.ts',
     '*.test.ts',
     'vite.config.ts',
+    'vitest.config.ts',
     'tailwind.config.cjs',
     'astro.config.mjs',
     'playwright.config.ts',
