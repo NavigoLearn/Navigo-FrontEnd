@@ -12,7 +12,7 @@ const LoginF = () => {
   };
 
   return (
-    <div>
+    <div className='w-96 drop-shadow-sm border-2 border-gray-100 p-6 rounded'>
       <form className='flex flex-col gap-4 w-full' onSubmit={handleSubmit}>
         <div>
           <input
