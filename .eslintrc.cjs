@@ -8,6 +8,8 @@ module.exports = {
     '*.test.ts',
     'vite.config.ts',
     'tailwind.config.cjs',
+    'astro.config.mjs',
+    'playwright.config.ts',
     '/__tests__/*',
     '/cypress/*',
   ],

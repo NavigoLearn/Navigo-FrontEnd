@@ -1,0 +1,12 @@
+---
+import Base from '../../layouts/Base.astro';
+const { id } = Astro.params;
+// request for user data
+// const user = ...
+console.log(Astro.params);
+---
+
+<Base title='Welcome to Astro.'>
+  <div class='text-6xl'>Profile</div>
+  <div class='text-6xl'>{id}</div>
+</Base>

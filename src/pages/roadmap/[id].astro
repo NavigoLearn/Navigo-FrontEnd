@@ -1,0 +1,23 @@
+---
+import Base from '../../layouts/Base.astro';
+const { id } = Astro.params;
+async function getData() {
+  // dummy example of getting data from an endpoint
+  const response = await fetch(`${import.meta.env.API_URL}/roadmap/${id}}`);
+  const data = await response.json();
+  return data;
+}
+// here we should get the data for the actual roadmap
+// const data = await getData();
+const data = { id: '123' };
+console.log(data);
+console.log(Astro.params);
+---
+
+<Base title='Welcome to Astro.'>
+  <div class='text-6xl'>Roadmap</div>
+
+  <div class='text-4xl text-black'>
+    {id}
+  </div>
+</Base>
