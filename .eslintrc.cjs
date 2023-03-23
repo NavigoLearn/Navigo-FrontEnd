@@ -84,6 +84,9 @@ module.exports = {
         parser: '@typescript-eslint/parser',
         extraFileExtensions: ['.astro'],
       },
+      rules: {
+        'jsx-quotes': ['error', 'prefer-single'],
+      },
     },
   ],
 };
