@@ -1,7 +1,10 @@
 ---
 import Base from '../../layouts/Base.astro';
+import SignupF from './components/SignupF';
 ---
 
 <Base title='Welcome to Astro.'>
-  <div class='text-6xl'>SignUp</div>
+  <div class='flex justify-center items-center h-[800px]'>
+    <SignupF client:load/>
+  </div>
 </Base>
