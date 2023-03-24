@@ -10,7 +10,8 @@
       "@styles/*": ["src/styles/*"],
       "@layouts/*": ["src/layouts/*"],
       "@store/*": ["src/store/*"],
-      "@src/*": ["src/*"]
+      "@src/*": ["src/*"],
+      "@typescript/*": ["src/typescript/*"]
     }
   },
   "include": ["src/**/*", ".eslintrcworka.cjs", "__tests__/unit/**/*"],
