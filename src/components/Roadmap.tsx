@@ -1,7 +1,6 @@
 /* eslint-disable*/
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-
 import { useEffect } from 'react';
 import * as d3 from 'd3';
 import node from '@typescript/nodes';
@@ -37,6 +36,7 @@ const Roadmap = () => {
     },
   ];
   useEffect(() => {
+    console.log('ran once');
     // renders some elements in svg based on an array
     const g = document.getElementById('rootGroup');
     let nodeE = node({
@@ -48,25 +48,41 @@ const Roadmap = () => {
     });
     console.log(nodeE);
 
-    d3.select(g)
+    // Perform the data join
+    const nodeSelection = d3
+      .select(g)
       .selectAll('g')
-      .data(nodes)
+      .data(nodes, (d) => {
+        return d.id;
+      }); // Use the data value as the key function
+
+    const enterSelection = nodeSelection
       .enter()
       .append('g')
-      .attr('id', (d) => {
-        return '0';
-      })
-      .attr('transform', (d) => {
-        return `translate(${d.x}, ${d.y})`;
-      });
+      .attr('id', (d) => d.id)
+      .attr('transform', (d) => `translate(${d.x}, ${d.y})`)
+      .each(function (d) {
+        const current = d3.select(this);
+        const foreignObject = current
+          .append('foreignObject')
+          .attr('x', '0')
+          .attr('y', '0')
+          .attr('width', '0')
+          .attr('height', '0')
+          .attr('overflow', 'visible');
 
-    // nodes.map((node) => {
-    //   ReactDOM.createRoot(document.getElementById(node.id)).render(
-    //     <foreignObject x='0' y='0' width='100' height='100'>
-    //       <TestComp2 />
-    //     </foreignObject>
-    //   );
-    // });
+        // Render the TestComp2 component inside the foreignObject
+        const root = ReactDOM.createRoot(foreignObject.node());
+        root.render(
+          <TestComp2
+            sizeCb={(size: any) => {
+              console.log(size);
+              foreignObject.attr('width', size.width);
+              foreignObject.attr('height', size.height);
+            }}
+          />
+        );
+      });
   }, []);
 
   return (
@@ -74,13 +90,17 @@ const Roadmap = () => {
       <div>Here is roadmap component</div>
       <svg id='rootSvg' width={'1000px'} height={'1000px'}>
         <g id='rootGroup'>
-          {nodes.map((node) => (
-            <g id={node.id} transform={`translate(${node.x}, ${node.y})`}>
+          {/* {nodes.map((node) => (
+            <g
+              key={node.id}
+              id={node.id}
+              transform={`translate(${node.x}, ${node.y})`}
+            >
               <foreignObject x='0' y='0' width='100' height='100'>
                 <TestComp2 />
               </foreignObject>
             </g>
-          ))}
+          ))} */}
         </g>
       </svg>
     </div>
