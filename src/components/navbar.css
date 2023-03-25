@@ -58,6 +58,10 @@
     position: relative;
   }
 
+  .navbar.nav-menu-active {
+    height: 200px;
+  }
+
   .nav-menu {
     display: flex;
     flex-direction: column;

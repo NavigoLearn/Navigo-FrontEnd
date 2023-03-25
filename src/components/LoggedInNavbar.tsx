@@ -9,8 +9,8 @@ const LoggedInNavbar = () => {
     
     const handleClick = () => setClick(!click);
 
-        
-    return <nav className="navbar">
+
+    return <nav className={click ? 'navbar nav-menu-active' : 'navbar'}>
         <a className="navbar-logo">
             <img className="w-20" src="src/Assets/logo.png"></img>
         </a>
