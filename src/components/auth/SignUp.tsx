@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const SignupF = () => {
+const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
@@ -64,19 +64,6 @@ const SignupF = () => {
             className='p-1 mt-2 border-b border-gray-300 w-full focus:border-gray-500 outline-none placeholder:text-sm font-light'
           />
         </div>
-        <div className='flex justify-between items-center text-sm'>
-          <div>
-            <input type='checkbox' />
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-            <label className='font-light ml-1'>Remember me</label>
-          </div>
-          <div>
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            <a href='#' className='font-light'>
-              Forgot Password?
-            </a>
-          </div>
-        </div>
         <div className='flex justify-center'>
           <button
             className='bg-blue-500 mt-2 w-28 h-8 rounded-lg font-semibold text-white text-sm hover:text-gray-500'
@@ -111,4 +98,4 @@ const SignupF = () => {
   );
 };
 
-export default SignupF;
+export default SignUp;
