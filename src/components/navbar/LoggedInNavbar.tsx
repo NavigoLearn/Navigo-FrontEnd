@@ -5,12 +5,15 @@ import dropclose from 'src/Assets/cross.png';
 const LoggedInNavbar = () => {
   const [click, setClick] = useState(false);
 
-  const handleClick = () => setClick(!click);
+  const handleClick = () => {
+    console.log('clicked');
+    setClick((prev) => !prev);
+  };
 
   return (
     <nav className='bg-[#000000] h-16 w-full flex'>
       <a href='/home' className='ml-5 justify-start'>
-        <img className='w-20" src="src/Assets/logo.png' alt='navbar-logo' />
+        <img className='w-20' src='src/Assets/logo.png' alt='navbar-logo' />
       </a>
       <div
         className='block absolute top-0 right-0 translate-y-2 mr-5 w-12 cursor-pointer md:hidden'
@@ -48,17 +51,9 @@ const LoggedInNavbar = () => {
         <li className='flex items-center h-16 justify-self-end text-center'>
           <a
             className='text-center text-2xl text-primary hover:text-white hover:underline'
-            href='/signup'
+            href='/profile'
           >
-            Sign Up
-          </a>
-        </li>
-        <li className='flex items-center h-16 justify-self-end text-center'>
-          <a
-            className='text-center text-2xl text-primary hover:text-white hover:underline'
-            href='/login'
-          >
-            Log In
+            Profile
           </a>
         </li>
       </ul>
@@ -86,20 +81,12 @@ const LoggedInNavbar = () => {
               Feedback
             </a>
           </li>
-          <li className='flex items-center h-16 justify-self-end text-center'>
+          <li className='bg-[#242222] flex items-center h-16 justify-self-end hover:bg-[#7a0bc0]/25'>
             <a
-              className='text-center text-2xl text-primary hover:text-white hover:underline'
-              href='/signup'
+              className='text-center text-2xl text-primary p-8 w-full table'
+              href='/profile'
             >
-              Sign Up
-            </a>
-          </li>
-          <li className='flex items-center h-16 justify-self-end text-center'>
-            <a
-              className='text-center text-2xl text-primary hover:text-white hover:underline'
-              href='/signup'
-            >
-              Sign Up
+              Profile
             </a>
           </li>
         </ul>

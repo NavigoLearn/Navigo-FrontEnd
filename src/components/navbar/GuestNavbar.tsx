@@ -10,7 +10,7 @@ const LoggedInNavbar = () => {
   return (
     <nav className='bg-[#000000] h-16 w-full flex'>
       <a href='/home' className='ml-5 justify-start'>
-        <img className='w-20' src='src/Assets/logo.png' alt='navbar-logo' />
+        <img className='w-20" src="src/Assets/logo.png' alt='navbar-logo' />
       </a>
       <div
         className='block absolute top-0 right-0 translate-y-2 mr-5 w-12 cursor-pointer md:hidden'
@@ -48,9 +48,17 @@ const LoggedInNavbar = () => {
         <li className='flex items-center h-16 justify-self-end text-center'>
           <a
             className='text-center text-2xl text-primary hover:text-white hover:underline'
-            href='/profile'
+            href='/signup'
           >
-            Profile
+            Sign Up
+          </a>
+        </li>
+        <li className='flex items-center h-16 justify-self-end text-center'>
+          <a
+            className='text-center text-2xl text-primary hover:text-white hover:underline'
+            href='/login'
+          >
+            Log In
           </a>
         </li>
       </ul>
@@ -59,10 +67,10 @@ const LoggedInNavbar = () => {
           className={
             click
               ? ' bg-[#242222] left-0 absolute min-h-full opacity-100 transition-all ease-linear duration-150 w-full top-16'
-              : 'flex flex-col w-full absolute top-16 -left-full opacity-100 transition-all duration-150 ease-linear h-full'
+              : 'flex bg-[#242222]  flex-col w-full absolute top-16 -left-full opacity-100 transition-all duration-150 ease-linear h-full'
           }
         >
-          <li className='bg-[#242222] flex items-center h-16 justify-self-end hover:bg-[#7a0bc0]/25'>
+          <li className='bg-[#ad4242] flex items-center h-16 justify-self-end hover:bg-highlight'>
             <a
               className='text-center text-2xl text-primary p-8 w-full table'
               href='/home'
@@ -78,12 +86,20 @@ const LoggedInNavbar = () => {
               Feedback
             </a>
           </li>
-          <li className='bg-[#242222] flex items-center h-16 justify-self-end hover:bg-[#7a0bc0]/25'>
+          <li className='flex items-center h-16 justify-self-end text-center'>
             <a
-              className='text-center text-2xl text-primary p-8 w-full table'
-              href='/profile'
+              className='text-center text-2xl text-primary hover:text-white hover:underline'
+              href='/signup'
             >
-              Profile
+              Sign Up
+            </a>
+          </li>
+          <li className='flex items-center h-16 justify-self-end text-center'>
+            <a
+              className='text-center text-2xl text-primary hover:text-white hover:underline'
+              href='/signup'
+            >
+              Sign Up
             </a>
           </li>
         </ul>
