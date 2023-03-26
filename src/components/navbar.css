@@ -1,5 +1,6 @@
 :root {
   --mov: #7a0bc0;
+  --black: #000000;
 }
 
 .navbar {
@@ -59,7 +60,8 @@
   }
 
   .navbar.nav-menu-active {
-    height: 200px;
+    height: 100%;
+    position: absolute;
   }
 
   .nav-menu {
@@ -69,8 +71,9 @@
     position: absolute;
     top: 80px;
     left: -100%;
-    opacity: 0;
+    opacity: 1;
     transition: all 0.5s ease;
+    height: 100%;
   }
 
   .nav-item {

@@ -13,7 +13,7 @@ function handleLogin() {
 
 const Navbar = () => {
     return (
-        <nav className='nav'>
+        <nav>
         <ul>
             {isLoggedIn ? (
             <>
