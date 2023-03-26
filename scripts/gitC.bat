@@ -1,6 +1,8 @@
 @echo off
 setlocal
 
+
+
 if "%1"=="--C" (
     set MESSAGE= "(create)[%date%] %~2" 
 ) else if "%1"=="--F" (
@@ -9,9 +11,13 @@ if "%1"=="--C" (
     set MESSAGE="(refactor)[%date%] %~2"
 ) else if "%1"=="--D" (
     set MESSAGE="(delete)[%date%]  %~2" 
+) else if "%1"=="--M" (
+    set MESSAGE="(merge)[%date%]  %~2" 
+) else if "%1"=="--P" (
+    set MESSAGE="(progress)[%date%]  %~2" 
 ) else (
-    echo Invalid option: %1
-    echo Usage: gitC [--C|--F|--R|--D] message
+ 
+    echo "Usage: gitC [--(C)reate|--(F)ix|--(R)refactor|--(D)elete|--(M)erge|--(P)rogess] message"
     goto end
 )
 
