@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
-
+import { addZoom } from '@typescript/testscript';
 import * as d3 from 'd3';
 import TestComp2 from './TestComp2';
 
@@ -26,7 +26,7 @@ const Roadmap = () => {
   useEffect(() => {
     // renders some elements in svg based on an array
     const g = document.getElementById('rootGroup');
-
+    addZoom('#rootSvg', '#rootGroup');
     // Perform the data join
     const nodeSelection = d3
       .select(g)

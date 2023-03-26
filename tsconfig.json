@@ -10,7 +10,6 @@
       "@styles/*": ["src/styles/*"],
       "@layouts/*": ["src/layouts/*"],
       "@store/*": ["src/store/*"],
-      "@src/*": ["src/*"],
       "@typescript/*": ["src/typescript/*"]
     }
   },
