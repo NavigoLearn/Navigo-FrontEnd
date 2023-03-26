@@ -5,13 +5,13 @@ import SignUp from '@components/auth/SignUp';
 
 describe('Login component', () => {
   afterEach(() => {
-    document.getElementsByTagName('html')[0].innerHTML = ''; 
+    document.getElementsByTagName('body')[0].innerHTML = '';
   });
   //login by Eugene
   //1
   it('should update email and password inputs when typing', () => {
     render(<Login />);
-    const emailInput = screen.getByPlaceholderText('Email')
+    const emailInput = screen.getByPlaceholderText('Email');
     const passwordInput = screen.getByPlaceholderText('Password');
 
     expect(emailInput).toBeInTheDocument();
@@ -26,8 +26,8 @@ describe('Login component', () => {
   // // Login test by Rus
   // //2
   it('should reset input fields after submitting the form (for signup)', () => {
-    render(<Login />)
-    const emailInput = screen.getByPlaceholderText('Email')
+    render(<Login />);
+    const emailInput = screen.getByPlaceholderText('Email');
     const passwordInput = screen.getByPlaceholderText('Password');
 
     fireEvent.submit(screen.getByText('Login'));
@@ -39,32 +39,34 @@ describe('Login component', () => {
   // sign up by Rus
   // 1
   it('should update all fields when typing', () => {
-    render(<SignUp />)
+    render(<SignUp />);
     expect(screen.getByText('Sign Up')).toBeInTheDocument();
     const nameInput = screen.getByPlaceholderText('Name');
     const emailInput = screen.getByPlaceholderText('Email');
     const passwordInput = screen.getByPlaceholderText('Password');
     const repeatPasswordInput = screen.getByPlaceholderText('Repeat password');
-    
+
     expect(nameInput).toBeInTheDocument();
     expect(emailInput).toBeInTheDocument();
     expect(passwordInput).toBeInTheDocument();
-    expect(repeatPasswordInput).toBeInTheDocument();  
+    expect(repeatPasswordInput).toBeInTheDocument();
 
-    fireEvent.change(nameInput, { target: { value:'testname' } });
-    fireEvent.change(emailInput, { target: { value:'test@example.com' } });
-    fireEvent.change(passwordInput, { target: { value:'testpassword' } });
-    fireEvent.change(repeatPasswordInput, { target: { value:'testrepeatpassword' } });
+    fireEvent.change(nameInput, { target: { value: 'testname' } });
+    fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
+    fireEvent.change(passwordInput, { target: { value: 'testpassword' } });
+    fireEvent.change(repeatPasswordInput, {
+      target: { value: 'testrepeatpassword' },
+    });
 
     expect(nameInput).toHaveValue('testname');
     expect(emailInput).toHaveValue('test@example.com');
     expect(passwordInput).toHaveValue('testpassword');
     expect(repeatPasswordInput).toHaveValue('testrepeatpassword');
-  })
+  });
 
   //2
   it('should reset input fields after submitting the form (for signup)', () => {
-    render(<SignUp />)
+    render(<SignUp />);
     const nameInput = screen.getByPlaceholderText('Name');
     const emailInput = screen.getByPlaceholderText('Email');
     const passwordInput = screen.getByPlaceholderText('Password');
