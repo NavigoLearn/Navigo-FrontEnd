@@ -20,6 +20,7 @@ const Login = () => {
             type='text'
             placeholder='Email'
             value={email}
+            data-testid='email'
             onChange={({ target }) => setEmail(target.value)}
             className='p-1 border-b border-gray-300 w-full focus:border-gray-500 outline-none placeholder:text-sm font-light'
           />
@@ -30,6 +31,7 @@ const Login = () => {
             type='password'
             placeholder='Password'
             value={password}
+            data-testid='password'
             onChange={({ target }) => setPassword(target.value)}
             className='p-1 mt-2 border-b border-gray-300 w-full focus:border-gray-500 outline-none placeholder:text-sm font-light'
           />

@@ -4,9 +4,9 @@ import { test, expect } from '@playwright/test';
 test.describe('Login testing', () => {
   test('Login testing', async ({ page }) => {
     await page.goto('/login');
-    const email = page.getByTestId('loginEmail');
+    const email = page.getByTestId('email');
     await email.fill('example@gmail.com');
-    const password = page.getByTestId('loginPassword');
+    const password = page.getByTestId('password');
     await password.fill('123456');
 
     await expect(email).toHaveValue('example@gmail.com');
