@@ -1,6 +1,6 @@
 import React from 'react';
 import { useStore } from '@nanostores/react';
-import user from '../store/userStore';
+import user from '../../store/userStore';
 
 const Profile = () => {
   const userData = useStore(user);
