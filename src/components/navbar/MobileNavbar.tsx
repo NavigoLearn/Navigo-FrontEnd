@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import dropdown from 'src/Assets/burger-menu.png';
 import dropclose from 'src/Assets/cross.png';
 
-const LoggedInNavbar = () => {
+const MobileNavbar = () => {
   const [click, setClick] = useState(false);
 
   const handleClick = () => setClick(!click);
@@ -108,4 +108,4 @@ const LoggedInNavbar = () => {
   );
 };
 
-export default LoggedInNavbar;
+export default MobileNavbar;
