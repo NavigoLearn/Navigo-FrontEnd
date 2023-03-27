@@ -1,0 +1,117 @@
+/* styles.css */
+@import url('https://fonts.googleapis.com/css?family=Inter&display=swap');
+.Profile {
+  @apply relative;
+}
+.previewSpace {
+  @apply absolute w-[739px] h-[723px] flex flex-col justify-start items-center rounded-[49px] top-[1013px];
+  background: #F0F0F0;/* Center the roadmap previews horizontally */
+}
+.previewSpace-content {
+  @apply pt-[200px];/* Adjust the starting point from the top */
+}
+.roadmapPreview {
+  @apply relative w-[612px] h-[155px] mb-5;
+}
+
+/* Rectangle 13 & Text */
+.rectangle13 {
+  @apply absolute w-[612px] h-[155px] rounded-[19px];
+  background: #D9D9D9;
+}
+.previewTitle {
+  @apply absolute not-italic font-normal text-xs leading-[15px] text-center text-black left-2.5 top-2.5;
+  font-family: 'Inter';
+}
+.previewDescription {
+  @apply absolute w-[221px] h-[95px] not-italic font-normal text-[10px] leading-3 text-center text-black overflow-auto whitespace-pre-wrap left-2.5 top-[30px];
+  font-family: 'Inter';/* Add a scrollbar if the content overflows *//* Break long words and maintain line breaks */
+  word-wrap: break-word;/* Break long words if necessary */
+}
+.estimatedTime {
+  @apply absolute not-italic font-normal text-xs leading-[15px] text-center text-[rgba(0,0,0,0.35)] left-[390px] top-[70px];
+  font-family: 'Inter';
+}
+.numberOfNodes {
+  @apply absolute not-italic font-normal text-xs leading-[15px] text-center text-[rgba(0,0,0,0.35)] left-[390px] top-10;
+  font-family: 'Inter';
+}
+
+/* Rectangle 8 & stuff*/
+.rectangle8 {
+  @apply absolute w-[88px] h-[27px] -translate-y-2/4 rounded-[9px] right-5 top-[70%];
+  background: #5597FA;
+}
+.previewSpaceLeft {
+  @apply left-[197px];
+}
+.previewSpaceRight {
+  @apply left-[993px];
+}
+.rectangle1 {
+  @apply absolute w-[1920px] h-[65px] left-0 top-0;
+  background: #ECECEC;
+}
+.rectangle2 {
+  @apply absolute w-[1552px] h-[723px] rounded-[49px] left-[197px] top-[184px];
+  background: #F0F0F0;
+}
+.progressBarContainer {
+  @apply absolute h-[5px] bg-[white] rounded-[3px] bottom-[5px] inset-x-0;/* adjust this value to position the progress bar *//* adjust this value to change the height of the progress bar */
+}
+.progressBar {
+  @apply h-full bg-[blue] rounded-[3px];
+}
+
+
+
+/* Text & Profile-Pic */
+.profile-pic {
+  @apply absolute w-[204px] h-[204px] rounded-[102px] left-[858px] top-[249px];
+  background: #D9D9D9;
+}
+.completed-roadmaps {
+  @apply absolute w-[237px] h-6 not-italic font-normal text-xl leading-6 text-black left-[841px] top-[557px];
+  font-family: 'Inter';
+}
+.created-roadmaps {
+  @apply absolute w-[209px] h-[21px] not-italic font-normal text-xl leading-6 text-black left-[858px] top-[611px];
+  font-family: 'Inter';
+}
+.profile-field {
+  @apply absolute w-[200px] h-6 not-italic font-normal text-xl leading-6 text-black left-[909px] top-[458px];
+  font-family: 'Inter';
+}
+
+/* Buttons */
+.feedbackButton {
+  @apply w-[70px] h-[18px] not-italic font-normal text-[15px] leading-[18px] text-black border cursor-pointer transition-[background-color] duration-[0.2s] p-2.5 border-solid border-[#ccc] hover:bg-[#d0d0d0];
+  font-family: 'Inter', sans-serif;
+  background: #e0e0e0;
+}
+.feedbackButton:focus {
+  outline: none;
+}
+.explore {
+  @apply relative w-[42px] h-[15px] not-italic font-normal text-xs leading-[15px] text-center text-white border cursor-pointer transition-[background-color] duration-[0.2s] m-auto border-solid border-[#ccc] hover:bg-[#d0d0d0];
+  font-family: 'Inter';/* identical to box height */
+}
+.explore:focus {
+  outline: none;
+}
+.followProfileButton {
+  @apply absolute w-[209px] h-[21px] not-italic font-normal text-xl leading-6 text-center text-white bg-black cursor-pointer z-[1] border-[none] left-[855px] top-[739px];
+  font-family: 'Inter', sans-serif;/* Add a background color, so the text is visible *//* Remove the default border of the button *//* Change the cursor to pointer when hovering over the button */
+}
+.inprogress-roadmaps {
+  @apply absolute w-[322.84px] h-[39px] not-italic font-normal text-[32px] leading-[39px] text-center text-black left-[406px] top-[1048px];
+  font-family: 'Inter';
+}
+.yourRoadmapsText {
+  @apply absolute w-[330.26px] h-[39px] not-italic font-normal text-[32px] leading-[39px] text-center text-black left-[1206px] top-[1048px];
+  font-family: 'Inter';
+}
+
+
+
+

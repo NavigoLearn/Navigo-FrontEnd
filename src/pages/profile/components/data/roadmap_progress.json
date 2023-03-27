@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "title": "Roadmap 1",
+    "description": "A short description for Roadmap 1...",
+    "estimatedTime": 5,
+    "numberOfNodes": 2,
+    "progressBar": 70
+  },
+  {
+    "id": 2,
+    "title": "Roadmap 2",
+    "description": "Bomba Nucleara",
+    "estimatedTime": 10,
+    "numberOfNodes": 2,
+    "progressBar": 23
+  },
+  {
+    "id": 3,
+    "title": "Roadmap 3",
+    "description": "Lorem Ipsum Yada Yada",
+    "estimatedTime": 10,
+    "numberOfNodes": 4,
+    "progressBar": 90
+  }
+]

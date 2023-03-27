@@ -1,0 +1,24 @@
+[
+    {
+      "id": 1,
+      "title": "Roadmap 1",
+      "description": "Not even here",
+      "estimatedTime": 10,
+      "numberOfNodes": 5
+    },
+    {
+      "id": 2,
+      "title": "Roadmap 2",
+      "description": "ssassssssssssssssssssssssssssssssssssssssssssssss",
+      "estimatedTime": 8,
+      "numberOfNodes": 4
+    },
+    {
+      "id": 3,
+      "title": "Roadmap 2",
+      "description": "ssassssssssssssssssssssssssssssssssssssssssssssss",
+      "estimatedTime": 8,
+      "numberOfNodes": 4
+    }
+]
+  
