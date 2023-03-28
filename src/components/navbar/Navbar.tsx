@@ -7,7 +7,7 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 900);
+      setIsDesktop(window.innerWidth >= 950);
     };
 
     handleResize();

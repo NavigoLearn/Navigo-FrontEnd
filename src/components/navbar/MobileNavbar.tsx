@@ -4,7 +4,7 @@ import dropclose from 'src/Assets/cross.svg';
 import { mobileLogged, mobileGuest } from './Links';
 
 const DesktopNavbar = () => {
-  const isLoggedIn = false;
+  const isLoggedIn = true;
 
   const [click, setClick] = useState(false);
 
@@ -37,8 +37,8 @@ const DesktopNavbar = () => {
         <ul
           className={
             click
-              ? 'bg-background flex-col absolute min-h-full opacity-100 transition-all ease-linear duration-150 w-full top-20 items-center'
-              : 'flex-col bg-background w-full absolute top-20 -left-full opacity-100 transition-all duration-150 ease-linear h-full items-center'
+              ? 'bg-background left-0 flex-col absolute opacity-100 transition-all ease-linear duration-150 w-screen top-20 items-center z-10'
+              : 'flex-col bg-background w-screen absolute top-20 -left-full opacity-0 transition-all duration-150 ease-linear items-center'
           }
         >
           <a href='/home' className='justify-start cursor-pointer flex'>
@@ -51,10 +51,7 @@ const DesktopNavbar = () => {
           {isLoggedIn
             ? mobileLogged.map((link) => {
                 return (
-                  <li
-                    key={link.id}
-                    className='flex items-center justify-self-end text-center'
-                  >
+                  <li key={link.id} className='flex items-center text-center'>
                     <a className={link.cName} href={link.path}>
                       {link.cIcon && (
                         <img
@@ -70,7 +67,7 @@ const DesktopNavbar = () => {
               })
             : mobileGuest.map((link) => {
                 return (
-                  <li key={link.id}>
+                  <li key={link.id} className='flex items-center text-center'>
                     <a className={link.cName} href={link.path}>
                       {link.cIcon && (
                         <img
