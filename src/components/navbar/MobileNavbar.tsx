@@ -11,6 +11,16 @@ const DesktopNavbar = () => {
   const handleClick = () => {
     console.log('clicked');
     setClick((prev) => !prev);
+
+    // body overflow hidden
+    const body = document.querySelector('body');
+    if (body) {
+      if (click) {
+        body.style.overflow = 'auto';
+      } else {
+        body.style.overflow = 'hidden';
+      }
+    }
   };
 
   return (
