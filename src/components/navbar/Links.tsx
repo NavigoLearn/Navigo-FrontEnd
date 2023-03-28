@@ -65,7 +65,7 @@ const mobileLogged = [
     title: 'Home',
     path: '/home',
     cName:
-      'flex items-center text-center text-2xl p-16 m-auto hover:underline w-10/12 h-20 justify-center font-normal',
+      'flex items-center text-center text-2xl p-12 m-auto hover:underline w-10/12 h-12 justify-center font-normal',
     cIcon: home,
     id: 1,
   },
@@ -73,7 +73,7 @@ const mobileLogged = [
     title: 'Explore',
     path: '/explore',
     cName:
-      'flex items-center text-center text-2xl p-16 m-auto hover:underline w-10/12 h-20 justify-center font-medium',
+      'flex items-center text-center text-2xl p-12 m-auto hover:underline w-10/12 h-12 justify-center font-medium',
     cIcon: explore,
     id: 2,
   },
@@ -81,7 +81,7 @@ const mobileLogged = [
     title: 'Feedback',
     path: '/feedback',
     cName:
-      'flex items-center text-center text-2xl p-16 m-auto hover:underline w-10/12 h-20 justify-center font-normal',
+      'flex items-center text-center text-2xl p-12 m-auto hover:underline w-10/12 h-12 justify-center font-normal',
     cIcon: feedback,
     id: 3,
   },
@@ -89,7 +89,7 @@ const mobileLogged = [
     title: 'Profile',
     path: '/profile',
     cName:
-      'flex items-center text-center text-2xl p-16 m-auto hover:underline w-10/12 h-20 justify-center font-normal',
+      'flex items-center text-center text-2xl p-12 m-auto hover:underline w-10/12 h-12 justify-center font-normal',
     cIcon: profile,
     id: 4,
   },
