@@ -8,20 +8,21 @@ const universalLinks = [
   {
     title: 'Home',
     path: '/home',
-    cName: 'text-2xl hover:underline flex items-center text-center',
+    cName: 'text-xl hover:underline flex items-center text-center font-normal',
     id: 1,
   },
   {
     title: 'Explore',
     path: '/explore',
-    cName: 'text-3xl hover:underline flex items-center text-center',
+    cName:
+      'text-2xl hover:underline flex items-center text-center font-medium text-text/80',
     cIcon: explore,
     id: 2,
   },
   {
     title: 'Feedback',
     path: '/feedback',
-    cName: 'text-2xl hover:underline flex items-center text-center',
+    cName: 'text-xl hover:underline flex items-center text-center font-normal',
     id: 3,
   },
 ];
@@ -30,7 +31,7 @@ const loggedLinks = [
   {
     title: 'Profile',
     path: '/profile',
-    cName: 'text-2xl hover:underline flex items-center text-center',
+    cName: 'text-2xl hover:underline flex items-center text-center font-normal',
     cIcon: profile,
     id: 1,
   },
@@ -46,14 +47,15 @@ const guestLinks = [
   {
     title: 'Login',
     path: '/login',
-    cName: 'text-2xl hover:underline flex items-center text-center justify-end',
+    cName:
+      'text-xl hover:underline flex items-center text-center justify-end font-normal',
     id: 1,
   },
   {
     title: 'Get Started',
     path: '/signup',
     cName:
-      'text-2xl text-background hover:underline flex items-center text-center bg-primary rounded-full px-4 py-2 justify-end ml-auto',
+      'text-xl text-background hover:underline flex items-center text-center bg-primary rounded-xl px-4 py-2 justify-end ml-auto font-medium',
     id: 2,
   },
 ];
@@ -63,7 +65,7 @@ const mobileLogged = [
     title: 'Home',
     path: '/home',
     cName:
-      'flex items-center text-center text-2xl p-16 m-auto hover:underline w-10/12 h-20 justify-center',
+      'flex items-center text-center text-2xl p-16 m-auto hover:underline w-10/12 h-20 justify-center font-normal',
     cIcon: home,
     id: 1,
   },
@@ -71,7 +73,7 @@ const mobileLogged = [
     title: 'Explore',
     path: '/explore',
     cName:
-      'flex items-center text-center text-2xl p-16 m-auto hover:underline w-10/12 h-20 justify-center',
+      'flex items-center text-center text-2xl p-16 m-auto hover:underline w-10/12 h-20 justify-center font-medium',
     cIcon: explore,
     id: 2,
   },
@@ -79,7 +81,7 @@ const mobileLogged = [
     title: 'Feedback',
     path: '/feedback',
     cName:
-      'flex items-center text-center text-2xl p-16 m-auto hover:underline w-10/12 h-20 justify-center',
+      'flex items-center text-center text-2xl p-16 m-auto hover:underline w-10/12 h-20 justify-center font-normal',
     cIcon: feedback,
     id: 3,
   },
@@ -87,7 +89,7 @@ const mobileLogged = [
     title: 'Profile',
     path: '/profile',
     cName:
-      'flex items-center text-center text-2xl p-16 m-auto hover:underline w-10/12 h-20 justify-center',
+      'flex items-center text-center text-2xl p-16 m-auto hover:underline w-10/12 h-20 justify-center font-normal',
     cIcon: profile,
     id: 4,
   },
@@ -98,7 +100,7 @@ const mobileGuest = [
     title: 'Home',
     path: '/home',
     cName:
-      'flex items-center text-center text-2xl p-16 m-auto hover:underline w-10/12 h-20 justify-center',
+      'flex items-center text-center text-2xl p-12 m-auto hover:underline w-10/12 h-12 justify-center',
     cIcon: home,
     id: 1,
   },
@@ -106,7 +108,7 @@ const mobileGuest = [
     title: 'Explore',
     path: '/explore',
     cName:
-      'flex items-center text-center text-2xl p-16 m-auto hover:underline w-10/12 h-20 justify-center',
+      'flex items-center text-center text-2xl p-12 m-auto hover:underline w-10/12 h-12 justify-center font-medium',
     cIcon: explore,
     id: 2,
   },
@@ -114,7 +116,7 @@ const mobileGuest = [
     title: 'Feedback',
     path: '/feedback',
     cName:
-      'flex items-center text-center text-2xl p-16 m-auto hover:underline w-10/12 h-20 justify-center',
+      'flex items-center text-center text-2xl p-12 m-auto hover:underline w-10/12 h-12 justify-center',
     cIcon: feedback,
     id: 3,
   },
@@ -122,7 +124,7 @@ const mobileGuest = [
     title: 'Login',
     path: '/login',
     cName:
-      'flex items-center text-center text-2xl p-16 m-auto hover:underline w-10/12 h-20 justify-center',
+      'flex items-center text-center text-2xl p-12 m-auto hover:underline w-10/12 h-12 justify-center',
     cIcon: profile,
     id: 4,
   },
@@ -130,7 +132,7 @@ const mobileGuest = [
     title: 'Get Started',
     path: '/signup',
     cName:
-      'flex items-center text-center text-2xl p-16 m-auto hover:underline bg-primary text-background rounded-full px-4 py-2 justify-center h-20',
+      'flex items-center text-center text-2xl m-auto hover:underline bg-primary text-background rounded-full px-4 py-8 justify-center h-12 rounded-xl w-56 h-14',
     id: 5,
   },
 ];
