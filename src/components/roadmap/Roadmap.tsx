@@ -81,7 +81,7 @@ const Roadmap = () => {
   }, []);
 
   return (
-    <div className='w-full h-full'>
+    <div className='w-full h-full border-2 border-black'>
       <svg id='rootSvg' width='100%' height='100%'>
         <g id='rootGroup'>{/* placeholder for eslint to not scream at me */}</g>
       </svg>

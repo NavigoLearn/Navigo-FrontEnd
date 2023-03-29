@@ -6,11 +6,11 @@ const DesktopNavbar = () => {
   const isLoggedIn = false;
 
   return (
-    <nav className='bg-transparent  flex w-full h-20 z-10 justify-between'>
+    <nav className='bg-transparent  flex w-full h-16 z-10 justify-between'>
       <a href='/home' className='justify-start cursor-pointer flex'>
         <img className='w-20 ml-8' src={logoSrc} alt='navbar-logo' />
       </a>
-      <ul className='flex text-center items-center gap-10 h-4 justify-items-center ml-28'>
+      <ul className='flex text-center items-center gap-10 h-full justify-items-center ml-28'>
         {universalLinks.map((link) => {
           return (
             <li key={link.id} className='flex'>
@@ -24,7 +24,7 @@ const DesktopNavbar = () => {
           );
         })}
       </ul>
-      <ul className='flex text-center items-center gap-10 h-8 justify-items-end mx-4'>
+      <ul className='flex text-center items-center gap-10 h-full justify-items-end mx-4'>
         {isLoggedIn
           ? loggedLinks.map((link) => {
               return (
