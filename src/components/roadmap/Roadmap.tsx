@@ -24,6 +24,20 @@ const Roadmap = () => {
     },
   ];
   useEffect(() => {
+    // sets overflow hidden on body
+    const body = document.querySelector('body');
+    if (body) {
+      body.style.overflow = 'hidden';
+    }
+    return () => {
+      // sets overflow auto on body
+      if (body) {
+        body.style.overflow = 'auto';
+      }
+    };
+  }, []);
+
+  useEffect(() => {
     // renders some elements in svg based on an array
     const g = document.getElementById('rootGroup');
     addZoom('#rootSvg', '#rootGroup');
@@ -65,9 +79,8 @@ const Roadmap = () => {
   }, []);
 
   return (
-    <div>
-      <div>Here is roadmap component</div>
-      <svg id='rootSvg' width='1000px' height='1000px'>
+    <div className='w-full h-full'>
+      <svg id='rootSvg' width='100%' height='100%'>
         <g id='rootGroup'>{/* placeholder for eslint to not scream at me */}</g>
       </svg>
     </div>
