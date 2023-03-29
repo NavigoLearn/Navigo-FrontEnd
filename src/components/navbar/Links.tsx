@@ -8,21 +8,23 @@ const universalLinks = [
   {
     title: 'Home',
     path: '/home',
-    cName: 'text-xl hover:underline flex items-center text-center font-normal',
+    cName:
+      'text-[12px] hover:underline flex items-center text-center font-normal',
     id: 1,
   },
   {
     title: 'Explore',
     path: '/explore',
     cName:
-      'text-2xl hover:underline flex items-center text-center font-medium text-text/80',
+      ' text-[12px] hover:underline flex items-center text-center font-medium text-text/80',
     cIcon: explore,
     id: 2,
   },
   {
     title: 'Feedback',
     path: '/feedback',
-    cName: 'text-xl hover:underline flex items-center text-center font-normal',
+    cName:
+      'text-[12px] hover:underline flex items-center text-center font-normal',
     id: 3,
   },
 ];
@@ -31,7 +33,8 @@ const loggedLinks = [
   {
     title: 'Profile',
     path: '/profile',
-    cName: 'text-2xl hover:underline flex items-center text-center font-normal',
+    cName:
+      ' text-[12px] hover:underline flex items-center text-center font-normal',
     cIcon: profile,
     id: 1,
   },
@@ -48,14 +51,14 @@ const guestLinks = [
     title: 'Login',
     path: '/login',
     cName:
-      'text-xl hover:underline flex items-center text-center justify-end font-normal',
+      'text-[12px] hover:underline flex items-center text-center justify-end font-normal',
     id: 1,
   },
   {
     title: 'Get Started',
     path: '/signup',
     cName:
-      'text-xl text-background hover:underline flex items-center text-center bg-primary rounded-xl px-4 py-2 justify-end ml-auto font-medium',
+      'text-background text-[12px] hover:underline flex items-center text-center bg-primary rounded-md px-4 py-1 justify-end font-medium',
     id: 2,
   },
 ];
