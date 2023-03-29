@@ -1,18 +1,20 @@
 ---
 import Base from '@layouts/Base.astro';
 import Roadmap from '@components/roadmap/Roadmap';
+import Sidebar from '@components/roadmap/Sidebar';
 const { id } = Astro.params;
 // here we should get the data for the actual roadmap
 const data = { id: '123' };
 ---
-
 <Base title='Welcome to Astro.'>
   <div class='text-6xl'>Roadmap</div>
-
   <div class='text-4xl text-black'>
     {id}
   </div>
-  <div>
+  <div class='top-12 left-12'>
     <Roadmap client:load />
+  </div>
+  <div>
+    <Sidebar client:load />
   </div>
 </Base>
