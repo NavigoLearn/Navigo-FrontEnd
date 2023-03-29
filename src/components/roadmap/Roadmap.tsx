@@ -88,9 +88,9 @@ const Roadmap = () => {
               foreignObject.attr('width', width).attr('height', height);
             }}
             title='Test'
-            width={22}
-            height={22}
-            bgColor='red'
+            width='100px'
+            height='50px'
+            bgColor='white'
             resourceCb={() => {
               // add 2 numbers
               return 2 + 2;

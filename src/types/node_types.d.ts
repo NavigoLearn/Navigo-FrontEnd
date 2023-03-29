@@ -1,7 +1,7 @@
 export interface NodeProps {
   title: string;
-  width: number;
-  height: number;
+  width: string;
+  height: string;
   bgColor: string;
   resourceCb: () => void;
 }
