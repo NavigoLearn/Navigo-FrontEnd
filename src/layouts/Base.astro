@@ -16,7 +16,7 @@ const { title } = Astro.props;
     <meta name='generator' content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body class='bg-background'>
+  <body class='bg-background relative'>
     <Navbar client:load />
     <slot />
   </body>

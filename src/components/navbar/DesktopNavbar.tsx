@@ -6,7 +6,7 @@ const DesktopNavbar = () => {
   const isLoggedIn = false;
 
   return (
-    <nav className='bg-background flex w-full h-20 z-10 justify-between'>
+    <nav className='bg-transparent  flex w-full h-20 z-10 justify-between'>
       <a href='/home' className='justify-start cursor-pointer flex'>
         <img className='w-20 ml-8' src={logoSrc} alt='navbar-logo' />
       </a>
