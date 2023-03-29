@@ -72,7 +72,6 @@ const Roadmap = () => {
       .attr('id', (d) => d.id)
       .attr('transform', (d) => `translate(${d.x}, ${d.y})`)
       .each(function (d, idx) {
-      .each(function (d, idx) {
         const current = d3.select(this);
         const foreignObject = current
           .append('foreignObject')
