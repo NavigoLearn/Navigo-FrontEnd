@@ -10,10 +10,10 @@
       "@styles/*": ["src/styles/*"],
       "@layouts/*": ["src/layouts/*"],
       "@store/*": ["src/store/*"],
-      "@typescript/*": ["src/typescript/*"]
+      "@typescript/*": ["src/typescript/*"],
+      "@type/*": ["src/types/*"]
     }
   },
   "include": ["src/**/*", ".eslintrcworka.cjs", "__tests__/unit/**/*"],
   "exclude": ["node_modules", "build", "dist", "vitest.config.ts"]
-  // "include": ["src/**/*"]
 }

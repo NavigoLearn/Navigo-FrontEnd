@@ -18,7 +18,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav>
+    <nav className='z-10'>
       <ul>{isDesktop ? <DesktopNavbar /> : <MobileNavbar />}</ul>
     </nav>
   );
