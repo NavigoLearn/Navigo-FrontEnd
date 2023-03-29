@@ -4,8 +4,6 @@ import { addZoom } from '@typescript/testscript';
 import * as d3 from 'd3';
 import NodeManager from './NodeManager';
 import Node from './nodes/Node';
-import NodeManager from './NodeManager';
-import Node from './nodes/Node';
 
 const Roadmap = () => {
   const nodes = [

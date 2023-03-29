@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import buttons from './Buttons';
 
 const sideBar = () => {
   const [hover, setHover] = useState(false);
@@ -17,20 +18,26 @@ const sideBar = () => {
       onMouseEnter={handleHover}
       onMouseLeave={handleHover}
     >
-      <ul className='flex-col-4 min-h-full w-full'>
-        {hover ? (
-          <li className='w-full'>
-            <button name='Edit' type='button' className='w-full'>
-              <img src='src/assets/edit.svg' alt='edit' />
-            </button>
-          </li>
-        ) : (
-          <li className='w-full'>
-            <button type='button' className='w-full'>
-              <img src='src/assets/edit.svg' alt='edit' />
-            </button>
-          </li>
-        )}
+      <ul className='flex-col-4 min-h-full w-full gap-10'>
+        {hover
+          ? buttons.map((button) => {
+              return (
+                <li key={button.id} className={button.cName}>
+                  <button type='button'>
+                    <img src={button.cIcon} alt={button.cName} />
+                  </button>
+                </li>
+              );
+            })
+          : buttons.map((button) => {
+              return (
+                <li key={button.id} className={button.cName}>
+                  <button type='button'>
+                    <img src={button.cIcon} alt={button.cName} />
+                  </button>
+                </li>
+              );
+            })}
       </ul>
     </div>
   );
