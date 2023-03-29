@@ -41,7 +41,7 @@ const Roadmap = () => {
   useEffect(() => {
     // renders some elements in svg based on an array
     const g = document.getElementById('rootGroup');
-    // addZoom('#rootSvg', '#rootGroup');
+    addZoom('#rootSvg', '#rootGroup');
     // Perform the data join
     const nodeSelection = d3
       .select(g)
@@ -69,13 +69,12 @@ const Roadmap = () => {
         const root = ReactDOM.createRoot(foreignObject.node());
         root.render(
           <NodeManager
-            nodeType='Node'
+            nodeType='Resource'
             sizeCb={(width: number, height: number) => {
               // sets foreignObject size to the size of the rendered component
               foreignObject.attr('width', width).attr('height', height);
             }}
-            title={` Node title ${idx} `}
-            bgColor='white'
+            title='Test'
           />
         );
       });

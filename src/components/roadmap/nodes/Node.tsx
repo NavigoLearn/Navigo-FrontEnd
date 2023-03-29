@@ -7,7 +7,7 @@ const Node = ({ title, level, bgColor, resourceCb }: NodeProps) => {
   return (
     <div
       ref={rootRef}
-      className={` w-64 h-32 bg-${bgColor} text-xl font-semibold`}
+      className={` w-48 h-16 bg-${bgColor} text-sm p-2 font-semibold`}
     >
       {title}
       <button

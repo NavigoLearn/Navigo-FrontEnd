@@ -1,5 +1,5 @@
 export declare interface NodeProps {
-  title?: string;
+  title: string;
   level?: number;
   bgColor?: string;
   resourceCb?: () => void;
@@ -11,7 +11,7 @@ export declare interface ResourceProps {
   nodes?: NodeProps[];
 }
 
-export declare interface NodeManagerProps extends NodeProps, ResourceProps {
-  nodeType: string;
+export declare interface NodeManagerProps<T> {
+  nodeType: T;
   sizeCb: (width: number, height: number) => void;
 }

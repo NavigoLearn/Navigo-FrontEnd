@@ -1,10 +1,26 @@
 import React, { useEffect, useRef } from 'react';
-import { NodeManagerProps } from '@type/node_types';
+import { NodeProps, ResourceProps } from '@type/node_types';
+
 import Node from './nodes/Node';
 import Resource from './nodes/Resource';
 
-const NodeManager = ({ nodeType, sizeCb, ...args }: NodeManagerProps) => {
-  const { title, bgColor } = args;
+type NodeComponents = {
+  Node: NodeProps;
+  Resource: ResourceProps;
+};
+
+type NodeKeys = keyof NodeComponents;
+
+type NodeManagerProps<T extends NodeKeys> = {
+  nodeType: T;
+  sizeCb: (width: number, height: number) => void;
+} & NodeComponents[T];
+
+const NodeManager = <T extends NodeKeys>({
+  nodeType,
+  sizeCb,
+  ...args
+}: NodeManagerProps<T>) => {
   const rootRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (rootRef) {
@@ -14,8 +30,8 @@ const NodeManager = ({ nodeType, sizeCb, ...args }: NodeManagerProps) => {
   }, []);
 
   const nodeMapping = {
-    Node: <Node title={title} bgColor={bgColor} />,
-    Resource: <Resource title={title} bgColor={bgColor} />,
+    Node: <Node {...args} />,
+    Resource: <Resource title={title} bgColor={bgColor} nodes={nodes} />,
   };
 
   return (
