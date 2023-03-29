@@ -4,17 +4,16 @@ const sideBar = () => {
   const [hover, setHover] = useState(false);
 
   const handleHover = () => {
-    console.log('hovered');
+    // console.log('hovered');
     setHover((prev) => !prev);
   };
 
   return (
     <div
-      className={
-        hover
-          ? 'bg-background w-32 min-h-full top-12 left-0 absolute transition-all ease-linear duration-100 drop-shadow-xl flex-col-4 gap-5 items-center justify-center'
-          : 'bg-background w-12 min-h-full transition-all ease-linear duration-100 top-12 left-0 absolute drop-shadow-xl flex-col-4 gap-5 items-center justify-center m-auto'
-      }
+      className={`
+      bg-background min-h-full transition-all ease-linear duration-100 items-center justify-center gap-5 drop-shadow-xl flex-col-4 absolute top-16 left-0
+       ${hover ? ' w-32  ' : ' w-12 m-auto'} 
+        `}
       onMouseEnter={handleHover}
       onMouseLeave={handleHover}
     >
