@@ -4,6 +4,8 @@ import { addZoom } from '@typescript/testscript';
 import * as d3 from 'd3';
 import NodeManager from './NodeManager';
 import Node from './nodes/Node';
+import NodeManager from './NodeManager';
+import Node from './nodes/Node';
 
 const Roadmap = () => {
   const nodes = [
@@ -39,9 +41,23 @@ const Roadmap = () => {
   }, []);
 
   useEffect(() => {
+    // sets overflow hidden on body
+    const body = document.querySelector('body');
+    if (body) {
+      body.style.overflow = 'hidden';
+    }
+    return () => {
+      // sets overflow auto on body
+      if (body) {
+        body.style.overflow = 'auto';
+      }
+    };
+  }, []);
+
+  useEffect(() => {
     // renders some elements in svg based on an array
     const g = document.getElementById('rootGroup');
-    addZoom('#rootSvg', '#rootGroup');
+    // addZoom('#rootSvg', '#rootGroup');
     // Perform the data join
     const nodeSelection = d3
       .select(g)
@@ -55,6 +71,7 @@ const Roadmap = () => {
       .append('g')
       .attr('id', (d) => d.id)
       .attr('transform', (d) => `translate(${d.x}, ${d.y})`)
+      .each(function (d, idx) {
       .each(function (d, idx) {
         const current = d3.select(this);
         const foreignObject = current
