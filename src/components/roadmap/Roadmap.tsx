@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import { addZoom } from '@typescript/testscript';
 import * as d3 from 'd3';
-import TestComp2 from './TestComp2';
+import NodeManager from './NodeManager';
+import Node from './nodes/Node';
 
 const Roadmap = () => {
   const nodes = [
@@ -40,7 +41,7 @@ const Roadmap = () => {
   useEffect(() => {
     // renders some elements in svg based on an array
     const g = document.getElementById('rootGroup');
-    addZoom('#rootSvg', '#rootGroup');
+    // addZoom('#rootSvg', '#rootGroup');
     // Perform the data join
     const nodeSelection = d3
       .select(g)
@@ -54,7 +55,7 @@ const Roadmap = () => {
       .append('g')
       .attr('id', (d) => d.id)
       .attr('transform', (d) => `translate(${d.x}, ${d.y})`)
-      .each(function (d) {
+      .each(function (d, idx) {
         const current = d3.select(this);
         const foreignObject = current
           .append('foreignObject')
@@ -67,12 +68,14 @@ const Roadmap = () => {
         // Render the TestComp2 component inside the foreignObject
         const root = ReactDOM.createRoot(foreignObject.node());
         root.render(
-          <TestComp2
-            sizeCb={(size: any) => {
-              // console.log(size);
-              foreignObject.attr('width', size.width);
-              foreignObject.attr('height', size.height);
+          <NodeManager
+            nodeType='Node'
+            sizeCb={(width: number, height: number) => {
+              // sets foreignObject size to the size of the rendered component
+              foreignObject.attr('width', width).attr('height', height);
             }}
+            title={` Node title ${idx} `}
+            bgColor='white'
           />
         );
       });
