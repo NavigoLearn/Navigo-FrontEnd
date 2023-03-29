@@ -1,28 +1,30 @@
-import explore from 'src/Assets/explore.svg';
-import feedback from 'src/Assets/feedback.svg';
-import home from 'src/Assets/home.svg';
-import profile from 'src/Assets/profile.svg';
-import circle from 'src/Assets/circle.svg';
+import explore from 'src/assets/explore.svg';
+import feedback from 'src/assets/feedback.svg';
+import home from 'src/assets/home.svg';
+import profile from 'src/assets/profile.svg';
+import circle from 'src/assets/circle.svg';
 
 const universalLinks = [
   {
     title: 'Home',
     path: '/home',
-    cName: 'text-xl hover:underline flex items-center text-center font-normal',
+    cName:
+      'text-[12px] hover:underline flex items-center text-center font-normal',
     id: 1,
   },
   {
     title: 'Explore',
     path: '/explore',
     cName:
-      'text-2xl hover:underline flex items-center text-center font-medium text-text/80',
+      ' text-[12px] hover:underline flex items-center text-center font-medium text-text/80',
     cIcon: explore,
     id: 2,
   },
   {
     title: 'Feedback',
     path: '/feedback',
-    cName: 'text-xl hover:underline flex items-center text-center font-normal',
+    cName:
+      'text-[12px] hover:underline flex items-center text-center font-normal',
     id: 3,
   },
 ];
@@ -31,7 +33,8 @@ const loggedLinks = [
   {
     title: 'Profile',
     path: '/profile',
-    cName: 'text-2xl hover:underline flex items-center text-center font-normal',
+    cName:
+      ' text-[12px] hover:underline flex items-center text-center font-normal',
     cIcon: profile,
     id: 1,
   },
@@ -48,14 +51,14 @@ const guestLinks = [
     title: 'Login',
     path: '/login',
     cName:
-      'text-xl hover:underline flex items-center text-center justify-end font-normal',
+      'text-[12px] hover:underline flex items-center text-center justify-end font-normal',
     id: 1,
   },
   {
     title: 'Get Started',
     path: '/signup',
     cName:
-      'text-xl text-background hover:underline flex items-center text-center bg-primary rounded-xl px-4 py-2 justify-end ml-auto font-medium',
+      'text-background text-[12px] hover:underline flex items-center text-center bg-primary rounded-md px-4 py-1 justify-end font-medium',
     id: 2,
   },
 ];
@@ -65,7 +68,7 @@ const mobileLogged = [
     title: 'Home',
     path: '/home',
     cName:
-      'flex items-center text-center text-2xl p-16 m-auto hover:underline w-10/12 h-20 justify-center font-normal',
+      'flex items-center text-center text-2xl p-12 m-auto hover:underline w-10/12 h-12 justify-center font-normal',
     cIcon: home,
     id: 1,
   },
@@ -73,7 +76,7 @@ const mobileLogged = [
     title: 'Explore',
     path: '/explore',
     cName:
-      'flex items-center text-center text-2xl p-16 m-auto hover:underline w-10/12 h-20 justify-center font-medium',
+      'flex items-center text-center text-2xl p-12 m-auto hover:underline w-10/12 h-12 justify-center font-medium',
     cIcon: explore,
     id: 2,
   },
@@ -81,7 +84,7 @@ const mobileLogged = [
     title: 'Feedback',
     path: '/feedback',
     cName:
-      'flex items-center text-center text-2xl p-16 m-auto hover:underline w-10/12 h-20 justify-center font-normal',
+      'flex items-center text-center text-2xl p-12 m-auto hover:underline w-10/12 h-12 justify-center font-normal',
     cIcon: feedback,
     id: 3,
   },
@@ -89,7 +92,7 @@ const mobileLogged = [
     title: 'Profile',
     path: '/profile',
     cName:
-      'flex items-center text-center text-2xl p-16 m-auto hover:underline w-10/12 h-20 justify-center font-normal',
+      'flex items-center text-center text-2xl p-12 m-auto hover:underline w-10/12 h-12 justify-center font-normal',
     cIcon: profile,
     id: 4,
   },
