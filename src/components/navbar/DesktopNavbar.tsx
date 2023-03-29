@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import logoSrc from '@assets/logo.svg';
 import { loggedLinks, guestLinks, universalLinks } from './Links';
 
 const DesktopNavbar = () => {
@@ -7,11 +8,7 @@ const DesktopNavbar = () => {
   return (
     <nav className='bg-background flex w-full h-20 z-10 justify-between'>
       <a href='/home' className='justify-start cursor-pointer flex'>
-        <img
-          className='w-20 ml-8'
-          src='src/Assets/logo.svg'
-          alt='navbar-logo'
-        />
+        <img className='w-20 ml-8' src={logoSrc} alt='navbar-logo' />
       </a>
       <ul className='flex text-center items-center gap-10 justify-center'>
         {universalLinks.map((link) => {

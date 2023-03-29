@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import dropdown from 'src/Assets/menu.svg';
-import dropclose from 'src/Assets/cross.svg';
+import dropdown from '@assets/menu.svg';
+import dropclose from '@assets/cross.svg';
 import { mobileLogged, mobileGuest } from './Links';
 
 const DesktopNavbar = () => {

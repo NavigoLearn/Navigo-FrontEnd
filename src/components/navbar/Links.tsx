@@ -1,8 +1,8 @@
-import explore from 'src/Assets/explore.svg';
-import feedback from 'src/Assets/feedback.svg';
-import home from 'src/Assets/home.svg';
-import profile from 'src/Assets/profile.svg';
-import circle from 'src/Assets/circle.svg';
+import explore from '@assets/explore.svg';
+import feedback from '@assets/feedback.svg';
+import home from '@assets/home.svg';
+import profile from '@assets/profile.svg';
+import circle from '@assets/circle.svg';
 
 const universalLinks = [
   {
