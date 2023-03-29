@@ -72,7 +72,6 @@ const Roadmap = () => {
       .attr('id', (d) => d.id)
       .attr('transform', (d) => `translate(${d.x}, ${d.y})`)
       .each(function (d, idx) {
-      .each(function (d, idx) {
         const current = d3.select(this);
         const foreignObject = current
           .append('foreignObject')
@@ -98,7 +97,7 @@ const Roadmap = () => {
   }, []);
 
   return (
-    <div className='w-full h-full border-2 border-black'>
+    <div className='w-full h-full '>
       <svg id='rootSvg' width='100%' height='100%'>
         <g id='rootGroup'>{/* placeholder for eslint to not scream at me */}</g>
       </svg>
