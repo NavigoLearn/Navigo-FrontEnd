@@ -1,20 +1,31 @@
 import React, { useEffect, useRef } from 'react';
-import { NodeProps, ResourceProps } from '@type/node_types';
+import {
+  NodeProps,
+  ResourceProps,
+  NodeKeys,
+  NodeManagerProps,
+} from '@type/roadmap/node_types';
 
 import Node from './nodes/Node';
 import Resource from './nodes/Resource';
 
-type NodeComponents = {
-  Node: NodeProps;
-  Resource: ResourceProps;
-};
+function isNodeProps(props: any): props is NodeProps {
+  return (
+    !!(props as NodeProps).title &&
+    !!(props as NodeProps).width &&
+    !!(props as NodeProps).height &&
+    !!(props as NodeProps).bgColor &&
+    !!(props as NodeProps).resourceCb
+  );
+}
 
-type NodeKeys = keyof NodeComponents;
-
-type NodeManagerProps<T extends NodeKeys> = {
-  nodeType: T;
-  sizeCb: (width: number, height: number) => void;
-} & NodeComponents[T];
+function isResourceProps(props: any): props is ResourceProps {
+  return (
+    !!(props as ResourceProps).title &&
+    !!(props as ResourceProps).bgColor &&
+    !!(props as ResourceProps).nodes
+  );
+}
 
 const NodeManager = <T extends NodeKeys>({
   nodeType,
@@ -29,14 +40,29 @@ const NodeManager = <T extends NodeKeys>({
     }
   }, []);
 
-  const nodeMapping = {
-    Node: <Node {...args} />,
-    Resource: <Resource title={title} bgColor={bgColor} nodes={nodes} />,
+  const renderNode = () => {
+    if (isNodeProps(args)) {
+      const { title, width, height, bgColor, resourceCb } = args as NodeProps;
+      return (
+        <Node
+          title={title}
+          width={width}
+          height={height}
+          bgColor={bgColor}
+          resourceCb={resourceCb}
+        />
+      );
+    }
+    if (isResourceProps(args)) {
+      const { title, bgColor, nodes } = args as ResourceProps;
+      return <Resource title={title} bgColor={bgColor} nodes={nodes} />;
+    }
+    return null;
   };
 
   return (
     <div ref={rootRef} className=' inline-block'>
-      {nodeMapping[nodeType]}
+      {renderNode()}
     </div>
   );
 };

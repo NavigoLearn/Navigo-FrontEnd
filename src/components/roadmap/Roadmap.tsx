@@ -3,9 +3,6 @@ import ReactDOM from 'react-dom/client';
 import { addZoom } from '@typescript/testscript';
 import * as d3 from 'd3';
 import NodeManager from './NodeManager';
-import Node from './nodes/Node';
-import NodeManager from './NodeManager';
-import Node from './nodes/Node';
 
 const Roadmap = () => {
   const nodes = [
@@ -57,7 +54,7 @@ const Roadmap = () => {
   useEffect(() => {
     // renders some elements in svg based on an array
     const g = document.getElementById('rootGroup');
-    // addZoom('#rootSvg', '#rootGroup');
+    addZoom('#rootSvg', '#rootGroup');
     // Perform the data join
     const nodeSelection = d3
       .select(g)
@@ -85,19 +82,26 @@ const Roadmap = () => {
         const root = ReactDOM.createRoot(foreignObject.node());
         root.render(
           <NodeManager
-            nodeType='Resource'
+            nodeType='Node'
             sizeCb={(width: number, height: number) => {
               // sets foreignObject size to the size of the rendered component
               foreignObject.attr('width', width).attr('height', height);
             }}
             title='Test'
+            width='100px'
+            height='50px'
+            bgColor='white'
+            resourceCb={() => {
+              // add 2 numbers
+              return 2 + 2;
+            }}
           />
         );
       });
   }, []);
 
   return (
-    <div className='w-full h-full border-2 border-black'>
+    <div className='w-full h-full '>
       <svg id='rootSvg' width='100%' height='100%'>
         <g id='rootGroup'>{/* placeholder for eslint to not scream at me */}</g>
       </svg>

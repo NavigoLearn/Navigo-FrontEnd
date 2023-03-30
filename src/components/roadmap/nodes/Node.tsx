@@ -1,14 +1,17 @@
 import React, { useRef, useEffect } from 'react';
-import { NodeProps } from '@type/node_types';
+import { NodeProps } from '@type/roadmap/node_types';
 
-const Node = ({ title, level, bgColor, resourceCb }: NodeProps) => {
+const Node = ({ title, width, height, bgColor, resourceCb }: NodeProps) => {
   const rootRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    rootRef.current.style.width = width;
+    rootRef.current.style.height = height;
+    rootRef.current.style.backgroundColor = bgColor;
+  }, []);
+
   return (
-    <div
-      ref={rootRef}
-      className={` w-48 h-16 bg-${bgColor} text-sm p-2 font-semibold`}
-    >
+    <div ref={rootRef} className={`bg-${bgColor} text-sm p-2 font-semibold`}>
       {title}
       <button
         type='button'
