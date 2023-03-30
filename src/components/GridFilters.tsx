@@ -20,15 +20,35 @@ const GridFilters = () => {
         >
           {selected1}
           {isOpen1 ? (
-            <BiChevronUp
-              size={30}
-              className='ml-[190px] absolute text-gray-400'
-            />
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              fill='none'
+              viewBox='0 0 24 24'
+              strokeWidth={1.5}
+              stroke='currentColor'
+              className='w-5 h-5 ml-[190px] absolute text-gray-400'
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                d='M4.5 15.75l7.5-7.5 7.5 7.5'
+              />
+            </svg>
           ) : (
-            <BiChevronDown
-              size={30}
-              className='ml-[190px] absolute text-gray-400'
-            />
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              fill='none'
+              viewBox='0 0 24 24'
+              strokeWidth={1.5}
+              stroke='currentColor'
+              className='w-5 h-5 ml-[190px] absolute text-gray-400'
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                d='M19.5 8.25l-7.5 7.5-7.5-7.5'
+              />
+            </svg>
           )}
         </button>
         {isOpen1 && (
@@ -64,6 +84,7 @@ const GridFilters = () => {
           </ul>
         )}
       </div>
+
       <div className='flex flex-col items-center'>
         {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
         <label>Results per page</label>
@@ -74,15 +95,35 @@ const GridFilters = () => {
         >
           {selected2}
           {isOpen2 ? (
-            <BiChevronUp
-              size={30}
-              className='ml-[190px] absolute text-gray-400'
-            />
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              fill='none'
+              viewBox='0 0 24 24'
+              strokeWidth={1.5}
+              stroke='currentColor'
+              className='w-5 h-5 ml-[190px] absolute text-gray-400'
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                d='M4.5 15.75l7.5-7.5 7.5 7.5'
+              />
+            </svg>
           ) : (
-            <BiChevronDown
-              size={30}
-              className='ml-[190px] absolute text-gray-400'
-            />
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              fill='none'
+              viewBox='0 0 24 24'
+              strokeWidth={1.5}
+              stroke='currentColor'
+              className='w-5 h-5 ml-[190px] absolute text-gray-400'
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                d='M19.5 8.25l-7.5 7.5-7.5-7.5'
+              />
+            </svg>
           )}
         </button>
         {isOpen2 && (
@@ -118,6 +159,7 @@ const GridFilters = () => {
           </ul>
         )}
       </div>
+
       <div className='flex flex-col items-center'>
         {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
         <label>Tags</label>
