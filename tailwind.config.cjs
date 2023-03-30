@@ -23,6 +23,9 @@ module.exports = {
         'roboto-text': ['"Roboto"'],
         'oxygen-text': ['"Oxygen"'],
       },
+      boxShadow: {
+        standard: '0px 4px 20px rgba(0, 0, 0, 0.15)',
+      },
     },
   },
   plugins: [],
