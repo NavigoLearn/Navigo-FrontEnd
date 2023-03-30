@@ -11,6 +11,7 @@ module.exports = {
     'tailwind.config.cjs',
     'astro.config.mjs',
     'playwright.config.ts',
+
     '/__tests__/*',
     '/cypress/*',
   ],

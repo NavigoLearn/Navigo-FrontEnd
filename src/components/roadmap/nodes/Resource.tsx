@@ -1,5 +1,5 @@
 import React from 'react';
-import { ResourceProps } from '@type/node_types';
+import { ResourceProps } from '@type/roadmap/node_types';
 import Node from './Node';
 
 const Resource = ({ title, nodes, bgColor }: ResourceProps) => {

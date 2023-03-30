@@ -4,7 +4,7 @@ import {
   ResourceProps,
   NodeKeys,
   NodeManagerProps,
-} from '@type/node_types';
+} from '@type/roadmap/node_types';
 
 import Node from './nodes/Node';
 import Resource from './nodes/Resource';
@@ -41,7 +41,6 @@ const NodeManager = <T extends NodeKeys>({
   }, []);
 
   const renderNode = () => {
-    console.log(args);
     if (isNodeProps(args)) {
       const { title, width, height, bgColor, resourceCb } = args as NodeProps;
       return (

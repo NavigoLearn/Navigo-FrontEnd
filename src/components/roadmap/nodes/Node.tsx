@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { NodeProps } from '@type/node_types';
+import { NodeProps } from '@type/roadmap/node_types';
 
 const Node = ({ title, width, height, bgColor, resourceCb }: NodeProps) => {
   const rootRef = useRef<HTMLDivElement>(null);

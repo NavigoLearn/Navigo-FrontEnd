@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
   theme: {
@@ -16,6 +17,11 @@ module.exports = {
         main: 'rgb(0,0,0)',
         secondary: 'rgb(0,0,0,0.6)',
         placeholder: 'rgb(0,0,0,0.3)',
+      },
+      fontFamily: {
+        'kanit-text': ['"Kanit"'],
+        'roboto-text': ['"Roboto"'],
+        'oxygen-text': ['"Oxygen"'],
       },
     },
   },
