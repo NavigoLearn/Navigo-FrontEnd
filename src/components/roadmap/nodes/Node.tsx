@@ -1,27 +1,45 @@
-import React, { useRef, useEffect } from 'react';
-import { NodeProps } from '@type/roadmap/node_types';
+import React, { useRef, useEffect, useState } from 'react';
+import { NodeProps } from '@type/roadmap/nodes';
+import tabStore, { flipOpen, setInfo } from '@store/tabinfo';
+import roadmap from '@store/roadmap';
+import { useStore } from '@nanostores/react';
 
-const Node = ({ title, width, height, bgColor, resourceCb }: NodeProps) => {
-  const rootRef = useRef<HTMLDivElement>(null);
+const Node = ({ type, title, tabId }: NodeProps) => {
+  const rootRef = useRef<HTMLButtonElement>(null);
+  const tabData = useStore(tabStore);
+  const roadmapData = useStore(roadmap);
 
-  useEffect(() => {
-    rootRef.current.style.width = width;
-    rootRef.current.style.height = height;
-    rootRef.current.style.backgroundColor = bgColor;
-  }, []);
-
+  const variants = {
+    Node: {
+      className:
+        ' text-sm p-2 font-semibold rounded-xl shadow-standard w-64 h-12 bg-white ',
+      text: 'text-lg',
+    },
+    resourceSubNode: {
+      className:
+        ' text-sm p-2 font-semibold rounded-xl shadow-standard w-48 h-8 bg-resourceSubNode border-2 border-light font-medium',
+      text: 'text-sm',
+    },
+  };
   return (
-    <div ref={rootRef} className={`bg-${bgColor} text-sm p-2 font-semibold`}>
-      {title}
-      <button
-        type='button'
-        onClick={() => {
-          console.log('i have bee click');
-        }}
+    <button
+      type='button'
+      ref={rootRef}
+      className={variants[type].className}
+      onClick={() => {
+        // tab changing logic
+
+        console.log(tabData.open);
+        flipOpen();
+        setInfo(roadmapData.data[tabId]);
+      }}
+    >
+      <div
+        className={` h-full font-roboto-text  w-full flex justify-center items-center ${variants[type].text} `}
       >
-        click me for test
-      </button>
-    </div>
+        {title}
+      </div>
+    </button>
   );
 };
 

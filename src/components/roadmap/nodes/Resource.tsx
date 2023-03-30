@@ -1,15 +1,31 @@
 import React from 'react';
-import { ResourceProps } from '@type/roadmap/node_types';
+import { ResourceProps } from '@type/roadmap/nodes';
+import roadmap from '@store/roadmap';
+import { useStore } from '@nanostores/react';
 import Node from './Node';
 
-const Resource = ({ title, nodes, bgColor }: ResourceProps) => {
+const Resource = ({ title, nodes }: ResourceProps) => {
+  const roadmapData = useStore(roadmap);
+  function renderNode(id) {
+    const data = roadmapData.resourceNodes[id];
+    return (
+      <div className='flex justify-center items-center my-2'>
+        <Node
+          type='resourceSubNode'
+          title={data.title}
+          key={data.title}
+          tabId={data.tabId}
+        />
+      </div>
+    );
+  }
   return (
-    <div className='w-48 h-96 relative'>
-      <div className='text-2xl mt-10 '>{title}</div>
-      {nodes.map((el) => {
-        return (
-          <Node key={`${el.title}`} title={el.title} bgColor='background' />
-        );
+    <div className={` w-[250px]  pb-6 relative bg-white rounded-md `}>
+      <div className='text-lg py-4 flex justify-center items-center text-placeholder  '>
+        {title}
+      </div>
+      {nodes.map((id) => {
+        return renderNode(id);
       })}
     </div>
   );
