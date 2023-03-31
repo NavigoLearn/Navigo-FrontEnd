@@ -7,7 +7,7 @@ import Node from './Node';
 const Resource = ({ title, nodes }: ResourceProps) => {
   const roadmapData = useStore(roadmap);
   function renderNode(id) {
-    const data = roadmapData.resourceNodes[id];
+    const data = roadmapData.resourceSubNodes[id];
     return (
       <div className='flex justify-center items-center my-2'>
         <Node

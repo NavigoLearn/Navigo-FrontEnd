@@ -1,19 +1,29 @@
-type infoTab = {
+type Link = {
+  title: string;
+  link: string;
+};
+
+type RoadmapPreview = {
+  title: string;
+  id: string;
+};
+
+export type InfoTab = {
   title: string;
   done: boolean;
   description: string;
-  links: string[];
-  roadmap?: string[];
-  additionalInfo?: string;
+  links: Link[];
+  roadmap: RoadmapPreview;
+  additionalInfo: string;
 };
 
-type aboutTab = {
+type AboutTab = {
   name: string;
   author: string;
   description: string;
 };
 
-type issuesTab = {
+type IssuesTab = {
   issues: string[]; // issue ids
 };
 
