@@ -3,8 +3,8 @@ import dropdown from '@assets/menu.svg';
 import dropclose from '@assets/cross.svg';
 import { mobileLogged, mobileGuest } from './Links';
 
-const DesktopNavbar = () => {
-  const isLoggedIn = false;
+const MobileNavbar = () => {
+  const isLoggedIn = true;
 
   const [click, setClick] = useState(false);
 
@@ -93,4 +93,4 @@ const DesktopNavbar = () => {
   );
 };
 
-export default DesktopNavbar;
+export default MobileNavbar;
