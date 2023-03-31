@@ -1,7 +1,10 @@
 ---
 import Base from '@layouts/Base.astro';
+import Search from '@components/Search';
 ---
 
 <Base title='Welcome to Astro.'>
-  <div class='text-6xl'>Search</div>
+    <div class='h-[1280px] h-min-screen bg-slate-200'>
+      <Search client:load/>
+    </div>
 </Base>

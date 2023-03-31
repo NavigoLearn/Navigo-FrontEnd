@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
+import {
+  GoogleLoginButton,
+  GithubLoginButton,
+} from 'react-social-login-buttons';
 
+// Aici trebuie rescrise testele pentru ca name field a fost sters din register
 const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
   const [reapeatPassword, setRepeatPassword] = useState('');
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -18,80 +22,85 @@ const SignUp = () => {
     setRepeatPassword('');
     setPassword('');
     setEmail('');
-    setName('');
   };
 
   return (
-    <div className='w-96 drop-shadow-sm border-2 border-gray-100 p-6 rounded'>
-      <form className='flex flex-col gap-4 w-full' onSubmit={handleSubmit}>
-        <div>
-          <input
-            required
-            type='text'
-            placeholder='Name'
-            value={name}
-            onChange={({ target }) => setName(target.value)}
-            className='p-1 border-b border-gray-300 w-full focus:border-gray-500 outline-none placeholder:text-sm font-light'
-          />
+    <div className='mt-[107px]'>
+      <h1 className='text-[54px]'>Ya gave in too, right?</h1>
+      <div className='text-[15px] mt-[2px] font-light flex items-center justify-center'>
+        <span className='pr-1'>Already have an account?</span>
+        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+        <a href='#' className='text-blue-500'>
+          Log in here.
+        </a>
+      </div>
+      <form className='mt-[57px]' onSubmit={handleSubmit}>
+        <div className='flex flex-col'>
+          <div className='flex justify-start items-start ml-[49px] mb-[10px]'>
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+            <label className='text-[18px]'>Email</label>
+          </div>
+          <div className='flex justify-center items-center'>
+            <input
+              required
+              type='text'
+              placeholder='Email'
+              value={email}
+              onChange={({ target }) => setEmail(target.value)}
+              className='rounded-[12px] w-[363px] pl-3 placeholder:font-light h-[45px]'
+            />
+          </div>
         </div>
-        <div>
-          <input
-            required
-            type='text'
-            placeholder='Email'
-            value={email}
-            onChange={({ target }) => setEmail(target.value)}
-            className='p-1 mt-2 border-b border-gray-300 w-full focus:border-gray-500 outline-none placeholder:text-sm font-light'
-          />
+        <div className='flex flex-col mt-[20px]'>
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+          <div className='flex justify-start items-start ml-[49px] mb-[10px]'>
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+            <label className='text-[18px]'>Password</label>
+          </div>
+          <div className='flex justify-center items-center'>
+            <input
+              required
+              type='password'
+              placeholder='Password'
+              value={password}
+              onChange={({ target }) => setPassword(target.value)}
+              className='rounded-[12px] w-[363px] pl-3 placeholder:font-light h-[45px]'
+            />
+          </div>
         </div>
-        <div>
-          <input
-            required
-            type='password'
-            placeholder='Password'
-            value={password}
-            onChange={({ target }) => setPassword(target.value)}
-            className='p-1 mt-2 border-b border-gray-300 w-full focus:border-gray-500 outline-none placeholder:text-sm font-light'
-          />
+        <div className='flex flex-col mt-[20px]'>
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+          <div className='flex justify-start items-start ml-[49px] mb-[10px]'>
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+            <label className='text-[18px]'>Confirm Password</label>
+          </div>
+          <div className='flex justify-center items-center'>
+            <input
+              required
+              type='password'
+              placeholder='Password'
+              value={reapeatPassword}
+              onChange={({ target }) => setRepeatPassword(target.value)}
+              className='rounded-[12px] w-[363px] pl-3 placeholder:font-light h-[45px]'
+            />
+          </div>
         </div>
-        <div>
-          <input
-            required
-            type='password'
-            placeholder='Repeat password'
-            value={reapeatPassword}
-            onChange={({ target }) => setRepeatPassword(target.value)}
-            className='p-1 mt-2 border-b border-gray-300 w-full focus:border-gray-500 outline-none placeholder:text-sm font-light'
-          />
-        </div>
-        <div className='flex justify-center'>
+        <div className='flex justify-center items-center text-[18px]'>
           <button
-            className='bg-blue-500 mt-2 w-28 h-8 rounded-lg font-semibold text-white text-sm hover:text-gray-500'
+            className='bg-blue-500 mt-[42px] py-[10px] text-white w-[242px] rounded-full'
             type='submit'
           >
             Sign Up
           </button>
         </div>
-        <div className='mt-1 grid grid-cols-3 items-center text-gray-300'>
-          <hr className='border-gray-300' />
-          <p className='text-sm text-center'>OR</p>
-          <hr className='border-gray-300' />
+        <div className='mt-[54px] grid grid-cols-3 items-center text-gray-500'>
+          <hr className='border-gray-500' />
+          <p className='text-center text-[12px]'>OR</p>
+          <hr className='border-gray-500' />
         </div>
-        <div className='flex justify-center'>
-          <button
-            className='bg-gray-800 w-40 h-12 rounded-lg font-semibold text-white text-sm hover:text-gray-500'
-            type='submit'
-          >
-            Github authentication
-          </button>
-        </div>
-        <div className='flex justify-center'>
-          <button
-            className='bg-[#FF0000] w-40 h-12 rounded-lg font-semibold text-white text-sm hover:text-gray-500'
-            type='submit'
-          >
-            Google authentication
-          </button>
+        <div className='grid gap-[10px] mt-[50px]'>
+          <GoogleLoginButton />
+          <GithubLoginButton />
         </div>
       </form>
     </div>

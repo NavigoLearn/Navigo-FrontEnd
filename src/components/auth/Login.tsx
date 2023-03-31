@@ -1,4 +1,8 @@
 import React, { useState } from 'react';
+import {
+  GoogleLoginButton,
+  GithubLoginButton,
+} from 'react-social-login-buttons';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -12,9 +16,19 @@ const Login = () => {
   };
 
   return (
-    <div className='w-96 drop-shadow-sm border-2 border-gray-100 p-6 rounded'>
-      <form className='flex flex-col gap-4 w-full' onSubmit={handleSubmit}>
-        <div>
+    <div className='mt-[107px]'>
+      <h1 className='text-[54px]'>Welcome back!</h1>
+      <div className='text-[15px] mt-3 font-light flex items-center justify-center'>
+        <span className='pr-1'>You don&apos;t have an account?</span>
+        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+        <a href='#' className='text-blue-500'>
+          Create one here.
+        </a>
+      </div>
+      <form className='mt-[49px]' onSubmit={handleSubmit}>
+        <div className='flex flex-col'>
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+          <label className='text-[18px]'>Email</label>
           <input
             required
             type='text'
@@ -22,61 +36,44 @@ const Login = () => {
             value={email}
             data-testid='email'
             onChange={({ target }) => setEmail(target.value)}
-            className='p-1 border-b border-gray-300 w-full focus:border-gray-500 outline-none placeholder:text-sm font-light'
+            className='py-[12px] mt-[12px] rounded-[12px] ml-[1px] w-[363px] pl-3 placeholder:font-light h-[45px]'
           />
         </div>
-        <div>
+        <div className='flex flex-col mt-5'>
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+          <label className='text-[18px]'>Password</label>
           <input
             required
-            type='password'
+            type='text'
             placeholder='Password'
-            value={password}
-            data-testid='password'
-            onChange={({ target }) => setPassword(target.value)}
-            className='p-1 mt-2 border-b border-gray-300 w-full focus:border-gray-500 outline-none placeholder:text-sm font-light'
+            value={email}
+            data-testid='email'
+            onChange={({ target }) => setEmail(target.value)}
+            className='py-[12px] mt-[12px] rounded-[12px] ml-[1px] w-[363px] pl-3 placeholder:font-light h-[45px]'
           />
         </div>
-        <div className='flex justify-between items-center text-sm'>
-          <div>
-            <input type='checkbox' />
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-            <label className='font-light ml-1'>Remember me</label>
-          </div>
-          <div>
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            <a href='#' className='font-light'>
-              Forgot Password?
-            </a>
-          </div>
-        </div>
-        <div className='flex justify-center'>
+        <div className='flex justify-center items-center text-[18px]'>
           <button
-            className='bg-blue-500 mt-2 w-28 h-8 rounded-lg font-semibold text-white text-sm hover:text-gray-500'
+            className='bg-blue-500 mt-[42px] py-[10px] text-white w-[242px] rounded-full'
             type='submit'
           >
             Login
           </button>
         </div>
-        <div className='mt-1 grid grid-cols-3 items-center text-gray-300'>
-          <hr className='border-gray-300' />
-          <p className='text-sm text-center'>OR</p>
-          <hr className='border-gray-300' />
+        <div className='flex justify-center items-center mt-[14px]'>
+          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+          <a href='#' className='text-[14px]'>
+            Forgot password?
+          </a>
         </div>
-        <div className='flex justify-center'>
-          <button
-            className='bg-gray-800 w-40 h-12 rounded-lg font-semibold text-white text-sm hover:text-gray-500'
-            type='submit'
-          >
-            Github authentication
-          </button>
+        <div className='mt-[54px] grid grid-cols-3 items-center text-gray-500'>
+          <hr className='border-gray-500' />
+          <p className='text-center text-[12px]'>OR</p>
+          <hr className='border-gray-500' />
         </div>
-        <div className='flex justify-center'>
-          <button
-            className='bg-[#FF0000] w-40 h-12 rounded-lg font-semibold text-white text-sm hover:text-gray-500'
-            type='submit'
-          >
-            Google authentication
-          </button>
+        <div className='grid gap-[10px] mt-[50px]'>
+          <GoogleLoginButton />
+          <GithubLoginButton />
         </div>
       </form>
     </div>
