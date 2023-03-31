@@ -1,90 +1,131 @@
+import { Roadmap, About, Issue } from '@type/roadmap/roadmap';
+import {
+  NodeStore,
+  ResourceStore,
+  ResourceSubNodeStore,
+} from '@type/roadmap/nodes';
 import { atom } from 'nanostores';
+import { InfoTab } from '@type/roadmap/tab';
+
+function generateAbout(
+  name: string,
+  author: string,
+  description: string
+): About {
+  return {
+    name,
+    author,
+    description,
+  };
+}
+
+function generateIssue(id: string, title: string, author: string): Issue {
+  return {
+    id,
+    title,
+    author,
+  };
+}
+
+function generateTab(
+  title: string,
+  done: boolean,
+  description: string,
+  links: { title: string; link: string }[],
+  roadmap: { id: string; title: string },
+  additionalInfo: string
+): InfoTab {
+  return {
+    title,
+    done,
+    description,
+    links,
+    roadmap,
+    additionalInfo,
+  };
+}
+
+function generateNode(
+  id: string,
+  title: string,
+  tabId: string,
+  x: number,
+  y: number
+): NodeStore {
+  return {
+    id,
+    title,
+    nodeType: 'Node',
+    tabId,
+    x,
+    y,
+  };
+}
+
+function generateResource(
+  id: string,
+  title: string,
+  x: number,
+  y: number,
+  nodes: string[]
+): ResourceStore {
+  return {
+    id,
+    title,
+    nodeType: 'Resource',
+    nodes,
+    x,
+    y,
+  };
+}
+
+function generateResSubNode(
+  id: string,
+  title: string,
+  tabId: string
+): ResourceSubNodeStore {
+  return {
+    id,
+    title,
+    nodeType: 'resourceSubNode',
+    tabId,
+  };
+}
 
 const roadmap = atom({
-  about: {
-    name: '',
-    author: '',
-    description: '',
-  },
+  about: generateAbout('', '', ''),
   issues: [
-    {
-      id: '1',
-      title: 'Issue 1',
-      author: 'Author 1',
-    },
-    {
-      id: '2',
-      title: 'Issue 2',
-      author: 'Author 2',
-    },
-    {
-      id: '3',
-      title: 'Issue 3',
-      author: 'Author 3',
-    },
+    generateIssue('id1Issue', 'Issue 1', 'Author 1'),
+    generateIssue('id2Issue', 'Issue 2', 'Author 2'),
+    generateIssue('id3Issue', 'Issue 3', 'Author 3'),
   ],
+
   data: {
     // the basic nodes data
-    tabid1: {
-      title: 'tab1',
-      done: false,
-      description: 'this is a tab',
-      links: ['link1', 'link2'],
-      roadmap: 'tab1 roadmao',
-      additionalInfo: 'this is some lorem ipsum addition info',
-    },
-    tabid2: {
-      title: 'tab2',
-      done: false,
-      description: 'this is a tab',
-      links: ['link1', 'link2'],
-      roadmap: 'tab1 roadmao',
-      additionalInfo: 'this is some lorem ipsum addition info',
-    },
-    tabid3: {
-      title: 'tab3',
-      done: false,
-      description: 'this is a tab',
-      links: ['link1', 'link2'],
-      roadmap: 'tab1 roadmao',
-      additionalInfo: 'this is some lorem ipsum addition info',
-    },
+    tabid0: generateTab(
+      'ESLint',
+      false,
+      'With eslint you can impose a coding standard using a certain set of rules and good practices',
+      [
+        { title: 'ESLint official Website', link: 'https://eslint.org/' },
+        { title: 'Introduction to ESLint', link: 'https://eslint.org/' },
+        { title: 'Some other useful Link', link: 'https://eslint.org/' },
+      ],
+      { id: '42124', title: 'Eslint roadmap' },
+      'this is some lorem ipsum addition info'
+    ),
   },
 
   nodes: [
     // list of all nodes
-    {
-      id: '1',
-      title: 'Node 1',
-      nodeType: 'Node',
-      tabId: 'tabid1',
-      x: 100,
-      y: 500,
-    },
-    {
-      id: 'res1',
-      nodeType: 'Resource',
-      title: 'My Resource',
-      x: 400,
-      y: 400,
-      nodes: ['res1node1', 'res1node2'],
-    },
+    generateNode('1', 'Node1', 'tabid0', 100, 100),
+    generateResource('2', 'Resource1', 300, 300, ['res1node1', 'res1node2']),
   ],
-  resourceNodes: {
+  resourceSubNodes: {
     // list of all resource nodes
-    res1node1: {
-      id: 'res1node1',
-      title: 'Resource Node 1',
-      nodeType: 'resourceSubNode',
-      tabId: 'tabid2',
-    },
-    res1node2: {
-      id: 'res1node2',
-      title: 'Resource Node 2',
-      nodeType: 'resourceSubNode',
-      tabId: 'tabid3',
-    },
+    res1node1: generateResSubNode('res1node1', 'Resource Node 1', 'tabid0'),
+    res1node2: generateResSubNode('res1node2', 'Resource Node 2', 'tabid0'),
   },
-} as any);
+} as Roadmap);
 
 export default roadmap;

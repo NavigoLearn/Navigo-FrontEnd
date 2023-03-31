@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
-import { addZoom } from '@typescript/testscript';
+import { addZoom } from '@typescript/d3utils';
 import * as d3 from 'd3';
 import roadmap from '@store/roadmap';
 import { useStore } from '@nanostores/react';
