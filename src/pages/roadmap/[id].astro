@@ -2,6 +2,7 @@
 import Base from '@layouts/Base.astro';
 import Roadmap from '@components/roadmap/Roadmap';
 import Sidebar from '@components/roadmap/Sidebar';
+import Tab from '@components/roadmap/Tab';
 const { id } = Astro.params;
 // here we should get the data for the actual roadmap
 const data = { id: '123' };
@@ -14,5 +15,10 @@ const data = { id: '123' };
   </div>
   <div>
     <Sidebar client:load />
+  </div>
+  <div
+    class='absolute top-16 mt-2 shadow-standard right-2 w-80 h-screen bg-white'
+  >
+    <Tab client:load />
   </div>
 </Base>

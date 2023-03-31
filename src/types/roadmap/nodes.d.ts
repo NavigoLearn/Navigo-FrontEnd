@@ -1,14 +1,11 @@
 export interface NodeProps {
   title: string;
-  width: string;
-  height: string;
-  bgColor: string;
-  resourceCb: () => void;
+  type: 'Node' | 'resourceSubNode';
+  tabId: string;
 }
 
 export interface ResourceProps {
   title: string;
-  bgColor: string;
   nodes: NodeProps[];
 }
 
@@ -19,7 +16,7 @@ export type NodeComponents = {
 
 export type NodeKeys = keyof NodeComponents;
 
-type NodeManagerProps<T extends NodeKeys> = {
+export type NodeManagerProps<T extends NodeKeys> = {
   nodeType: T;
   sizeCb: (width: number, height: number) => void;
 } & NodeComponents[T];
