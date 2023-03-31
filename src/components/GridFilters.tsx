@@ -9,7 +9,7 @@ const GridFilters = () => {
   const [selected2, setSelected2] = useState(9);
 
   return (
-    <div className='grid grid-cols-3 mt-9 px-40'>
+    <div className='grid lg:grid-cols-3 mt-9 lg:px-40 lg:gap-24 absolute ml-12 z-10'>
       <div className='flex flex-col items-center'>
         {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
         <label>Sort By</label>
@@ -55,28 +55,28 @@ const GridFilters = () => {
           <ul className='p-1 bg-white rounded-lg mt-1 w-[220px] flex flex-col items-center justify-center text-[14.5px]'>
             <button
               type='button'
-              className='font-thin py-[4px]'
+              className='font-thin py-[4px] w-full'
               onClick={() => setSelected1('Likes')}
             >
               Likes
             </button>
             <button
               type='button'
-              className='font-thin py-[4px]'
+              className='font-thin py-[4px] w-full'
               onClick={() => setSelected1('Trending')}
             >
               Trending
             </button>
             <button
               type='button'
-              className='font-thin py-[4px]'
+              className='font-thin py-[4px] w-full'
               onClick={() => setSelected1('Views')}
             >
               Views
             </button>
             <button
               type='button'
-              className='font-thin py-[4px]'
+              className='font-thin py-[4px] w-full'
               onClick={() => setSelected1('Comments')}
             >
               Comments
@@ -130,28 +130,28 @@ const GridFilters = () => {
           <ul className='p-1 bg-white rounded-lg mt-1 w-[220px] flex flex-col items-center justify-center text-[14.5px]'>
             <button
               type='button'
-              className='font-thin py-[4px]'
+              className='font-thin py-[4px] w-full'
               onClick={() => setSelected2(4)}
             >
               4
             </button>
             <button
               type='button'
-              className='font-thin py-[4px]'
+              className='font-thin py-[4px] w-full'
               onClick={() => setSelected2(2)}
             >
               2
             </button>
             <button
               type='button'
-              className='font-thin py-[4px]'
+              className='font-thin py-[4px] w-full'
               onClick={() => setSelected2(9)}
             >
               9
             </button>
             <button
               type='button'
-              className='font-thin py-[4px]'
+              className='font-thin py-[4px] w-full'
               onClick={() => setSelected2(6)}
             >
               6

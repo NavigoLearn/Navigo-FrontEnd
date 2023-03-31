@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import 'src/components/curve.css';
 import GridFilters from './GridFilters';
 import CardGrid from './CardGrid';
+import Scroll from './Scroll';
 
 type Roamdmap1 = {
   id: number;
@@ -93,7 +94,8 @@ const Search = () => {
         </form>
 
         <GridFilters />
-        <ul className='grid grid-cols-3 mt-[116px] px-2 gap-12'>
+
+        <ul className='grid lg:grid-cols-3 mt-[228px] px-2 gap-12'>
           {filterItems().map((value) => (
             <div key={value.id}>
               <CardGrid
@@ -105,7 +107,8 @@ const Search = () => {
             </div>
           ))}
         </ul>
-        <h1>dawg</h1>
+
+        <Scroll />
       </main>
     </div>
   );
