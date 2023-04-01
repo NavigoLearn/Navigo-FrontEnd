@@ -56,5 +56,13 @@
   },
   "engines": {
     "node": ">=16"
+  },
+  "_moduleAliases": {
+    "@src": "./src",
+    "@assets": "./src/assets",
+    "@components": "./src/components",
+    "@pages": "./src/pages",
+    "@styles": "./src/styles",
+    "@utils": "./src/utils"
   }
 }

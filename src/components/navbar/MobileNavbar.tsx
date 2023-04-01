@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import dropdown from '@assets/menu.svg';
 import dropclose from '@assets/cross.svg';
+import logoSrc from '@assets/logo.svg';
 import { mobileLogged, mobileGuest } from './Links';
 
-const DesktopNavbar = () => {
-  const isLoggedIn = false;
+const MobileNavbar = () => {
+  const isLoggedIn = true;
 
   const [click, setClick] = useState(false);
 
@@ -54,7 +55,7 @@ const DesktopNavbar = () => {
           <a href='/home' className='justify-start cursor-pointer flex'>
             <img
               className='w-full h-20 object-contain items-center'
-              src='src/assets/logo.svg'
+              src={logoSrc}
               alt='navbar-logo'
             />
           </a>
@@ -93,4 +94,4 @@ const DesktopNavbar = () => {
   );
 };
 
-export default DesktopNavbar;
+export default MobileNavbar;
