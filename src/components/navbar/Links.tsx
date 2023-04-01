@@ -9,7 +9,7 @@ const universalLinks = [
     title: 'Home',
     path: '/home',
     cName:
-      'text-[12px] hover:underline flex items-center text-center font-normal',
+      'text-[12px] hover:underline flex items-center text-center font-normal inline-block',
     id: 1,
   },
   {

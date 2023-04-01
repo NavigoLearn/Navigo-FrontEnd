@@ -2,6 +2,8 @@ import React from 'react';
 import { useStore } from '@nanostores/react';
 import user from '../../store/userStore';
 import eugene from '../../assets/eugensex.png';
+import followers from '../../assets/followers.svg';
+import link from '../../assets/link.svg';
 
 user.set({
   id: '1',
@@ -74,31 +76,42 @@ const Profile = () => {
                 </h2>
               </div>
               <div className='flex gap-10 mt-6'>
-                <h2 className='text-2xl font-normal text-center'>
+                <h2 className='text-[20px] font-normal text-center flex'>
+                  <img
+                    src={followers}
+                    className='flex mx-4'
+                    alt='followersicon'
+                  />
                   {userData.followers}
                 </h2>
-                <h2 className='text-2xl font-normal text-center'>
+                <h2 className='text-[20px] font-normal text-center flex'>
+                  <img
+                    src={followers}
+                    className='flex mx-4'
+                    alt='followingicon'
+                  />
                   {userData.following}
                 </h2>
               </div>
               <button type='button'>
-                <h2 className='text-2xl text-white font-normal py-2 px-16 bg-primary rounded-3xl mt-4'>
+                <h2 className='text-[16px] hover:underline text-white font-normal py-2 px-16 bg-primary rounded-3xl mt-4'>
                   Follow
                 </h2>
               </button>
               <div className='flex-col justify-center items-center w-fit mt-4'>
                 <h3 className='text-sm text-center text-slate-400'>Quote</h3>
-                <h2 className='text-2xl font-normal text-center'>
+                <h2 className='italic  font-normal text-center text-placeholder'>
                   &quot;{userData.quote}&quot;
                 </h2>
               </div>
               <a
                 href={userData.link}
-                className='flex justify-center items-center w-fit mt-4 text-primary'
+                className='flex justify-center text-[20px] items-center w-fit mt-4 text-primary'
                 aria-label='Link to external website'
                 target='_blank'
                 rel='noopener noreferrer'
               >
+                <img src={link} className='flex mx-4 w-8' alt='linkicon' />
                 {userData.link}
               </a>
               <div className='flex flex-col justify-start text-start font-bold mt-4 mx-24'>
