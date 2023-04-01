@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import buttons from './Buttons';
+import buttons from './buttons';
 
 const sideBar = () => {
   const [hover, setHover] = useState(false);
@@ -12,7 +12,8 @@ const sideBar = () => {
   return (
     <div
       className={`
-      bg-white min-h-full transition-all ease-linear duration-100 items-center justify-center gap-5 drop-shadow-xl flex-col-4 absolute top-16 left-0
+      bg-white  h-full top-0 transition-all ease-linear duration-100 items-center justify-center gap-5 drop-shadow-xl flex-col-4 absolute left-0
+      
        ${hover ? 'w-56' : 'w-20 m-auto'} 
         `}
       onMouseEnter={handleHover}

@@ -23,20 +23,6 @@ const Roadmap = () => {
     };
   }, []);
 
-  useEffect(() => {
-    // sets overflow hidden on body
-    const body = document.querySelector('body');
-    if (body) {
-      body.style.overflow = 'hidden';
-    }
-    return () => {
-      // sets overflow auto on body
-      if (body) {
-        body.style.overflow = 'auto';
-      }
-    };
-  }, []);
-
   function renderNode(root, data, foreignObject) {
     if (data.nodeType === 'Node') {
       root.render(
