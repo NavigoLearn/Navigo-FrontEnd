@@ -1,20 +1,14 @@
 import React, { useEffect, useRef } from 'react';
-import { NodeProps, ResourceProps } from '@type/node_types';
+import {
+  NodeProps,
+  ResourceProps,
+  NodeKeys,
+  NodeManagerProps,
+} from '@type/roadmap/nodes';
 
+import { isNodeProps, isResourceProps } from '@type/roadmap/typecheckers';
 import Node from './nodes/Node';
 import Resource from './nodes/Resource';
-
-type NodeComponents = {
-  Node: NodeProps;
-  Resource: ResourceProps;
-};
-
-type NodeKeys = keyof NodeComponents;
-
-type NodeManagerProps<T extends NodeKeys> = {
-  nodeType: T;
-  sizeCb: (width: number, height: number) => void;
-} & NodeComponents[T];
 
 const NodeManager = <T extends NodeKeys>({
   nodeType,
@@ -28,15 +22,21 @@ const NodeManager = <T extends NodeKeys>({
       sizeCb(width, height);
     }
   }, []);
-
-  const nodeMapping = {
-    Node: <Node {...args} />,
-    Resource: <Resource title={title} bgColor={bgColor} nodes={nodes} />,
+  const renderNode = () => {
+    if (isNodeProps(args)) {
+      const { title, type, tabId } = args as NodeProps;
+      return <Node type={type} title={title} tabId={tabId} />;
+    }
+    if (isResourceProps(args)) {
+      const { title, nodes } = args as ResourceProps;
+      return <Resource title={title} nodes={nodes} />;
+    }
+    return null;
   };
 
   return (
-    <div ref={rootRef} className=' inline-block'>
-      {nodeMapping[nodeType]}
+    <div ref={rootRef} className=' inline-block border-0 '>
+      {renderNode()}
     </div>
   );
 };
