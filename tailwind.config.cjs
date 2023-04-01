@@ -30,6 +30,10 @@ module.exports = {
       boxShadow: {
         standard: '0px 4px 20px rgba(0, 0, 0, 0.15)',
       },
+      screens: {
+        'big': '1277px',
+        'medium': '841px',
+      }
     },
   },
   plugins: [],
