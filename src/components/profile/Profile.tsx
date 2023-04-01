@@ -4,6 +4,8 @@ import user from '../../store/userStore';
 import eugene from '../../assets/eugensex.png';
 import followers from '../../assets/followers.svg';
 import link from '../../assets/link.svg';
+import dizaign from '../../assets/dizaign.svg';
+import placeholderchart from '../../assets/placeholderchart.png';
 
 user.set({
   id: '1',
@@ -68,10 +70,10 @@ const Profile = () => {
                 />
               </div>
               <div className='flex justify-center items-center text-center w-fit'>
-                <h1 className='text-3xl font-bold'>{userData.name}</h1>
+                <h1 className='text-[32px] font-semibold'>{userData.name}</h1>
               </div>
               <div>
-                <h2 className='text-2xl font-normal text-center mt-2'>
+                <h2 className='text-[16px] font-light text-center mt-2'>
                   {userData.description}
                 </h2>
               </div>
@@ -83,6 +85,9 @@ const Profile = () => {
                     alt='followersicon'
                   />
                   {userData.followers}
+                  <h2 className='flex text-[20px] text-placeholder mx-2'>
+                    followers
+                  </h2>
                 </h2>
                 <h2 className='text-[20px] font-normal text-center flex'>
                   <img
@@ -91,6 +96,9 @@ const Profile = () => {
                     alt='followingicon'
                   />
                   {userData.following}
+                  <h2 className='flex text-[20px] text-placeholder mx-2'>
+                    following
+                  </h2>
                 </h2>
               </div>
               <button type='button'>
@@ -99,14 +107,16 @@ const Profile = () => {
                 </h2>
               </button>
               <div className='flex-col justify-center items-center w-fit mt-4'>
-                <h3 className='text-sm text-center text-slate-400'>Quote</h3>
-                <h2 className='italic  font-normal text-center text-placeholder'>
+                <h3 className='text-[14px] text-center text-placeholder'>
+                  Quote
+                </h3>
+                <h2 className='italic text-[20px] font-normal text-center text-secondary'>
                   &quot;{userData.quote}&quot;
                 </h2>
               </div>
               <a
                 href={userData.link}
-                className='flex justify-center text-[20px] items-center w-fit mt-4 text-primary'
+                className='flex justify-center text-[20px] items-center font-normal w-fit mt-4 mx-12 text-primary'
                 aria-label='Link to external website'
                 target='_blank'
                 rel='noopener noreferrer'
@@ -114,36 +124,48 @@ const Profile = () => {
                 <img src={link} className='flex mx-4 w-8' alt='linkicon' />
                 {userData.link}
               </a>
-              <div className='flex flex-col justify-start text-start font-bold mt-4 mx-24'>
+              <div className='flex flex-col justify-start text-start text-[20px] text-main font-normal mt-4 mx-16'>
                 BIO
-                <h2 className='text-md flex font-normal text-start mt-4 text-black'>
+                <h2 className='text-md flex font-normal text-start text-[16px] mt-4 text-secondary'>
                   {userData.BIO}
                 </h2>
               </div>
             </div>
           </div>
-          <div className='flex w-full justify-around rounded-3xl my-24'>
-            <div className='flex w-fit flex-col items-center'>
-              <div className='flex'>
-                <h1 className='font-bold text-slate-400'>Completed Roadmaps</h1>
+          <div className='flex w-full flex-col justify-around rounded-3xl my-24'>
+            <div className='flex w-full justify-around'>
+              <div className='flex w-fit flex-col items-center'>
+                <div className='flex'>
+                  <h1 className='font-normal text-secondary text-[16px]'>
+                    Completed Roadmaps
+                  </h1>
+                </div>
+                <div className='flex'>
+                  <img src={dizaign} className='flex' alt='line' />
+                  <h2 className='text-2xl font-normal mx-4 text-center'>
+                    {userData.completedRoadmaps}
+                  </h2>
+                  <img src={dizaign} className='flex' alt='line' />
+                </div>
               </div>
-              <div className='flex'>
-                <h2 className='text-2xl font-normal text-center'>
-                  {userData.completedRoadmaps}
-                </h2>
+              <div className='flex flex-col items-center w-fit'>
+                <div className='flex items-center w-fit'>
+                  <h1 className='font-normal text-secondary text-[16px]'>
+                    Roadmaps in progress
+                  </h1>
+                </div>
+                <div className='flex items-center w-fit'>
+                  <img src={dizaign} className='flex' alt='line' />
+
+                  <h2 className='text-2xl font-normal text-center mx-4'>
+                    {userData.roadmapProgressData.length}
+                  </h2>
+                  <img src={dizaign} className='flex' alt='line' />
+                </div>
               </div>
             </div>
-            <div className='flex flex-col items-center w-fit'>
-              <div className='flex items-center w-fit'>
-                <h1 className='font-bold text-slate-400'>
-                  Roadmaps in progress
-                </h1>
-              </div>
-              <div className='flex items-center w-fit'>
-                <h2 className='text-2xl font-normal text-center'>
-                  {userData.roadmapProgressData.length}
-                </h2>
-              </div>
+            <div className='flex justify-center'>
+              <img src={placeholderchart} alt='chart' />
             </div>
           </div>
         </div>
