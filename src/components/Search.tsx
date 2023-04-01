@@ -41,7 +41,7 @@ const Search = () => {
 
   return (
     <div className='relative mt-40'>
-      <div className="bg-[gray] absolute w-full h-40 top-[-160px]"></div>
+      <div className='bg-[gray] absolute w-full h-40 top-[-160px]' />
       <main className='px-20 pb-8'>
         <div className='absolute top-0 left-0 w-full custom-shape-divider-top-1680108220 '>
           <svg
