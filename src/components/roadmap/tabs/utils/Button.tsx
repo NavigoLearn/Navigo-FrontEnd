@@ -8,7 +8,7 @@ type ButtonProps = {
 const Button = ({ text, callback }: ButtonProps) => {
   return (
     <button
-      className='bg-secondary flex justify-center items-center rounded-2xl w-32 h-10 text-white font-medium text-sm '
+      className='bg-secondary flex justify-center items-center rounded-2xl px-4 h-8 text-white font-medium text-sm '
       type='button'
     >
       {text}

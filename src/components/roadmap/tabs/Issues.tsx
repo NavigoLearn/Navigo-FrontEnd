@@ -1,11 +1,86 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useStore } from '@nanostores/react';
 import tabStore from '@store/tabinfo';
+import Button from '@components/roadmap/tabs/utils/Button';
+import arrowleft from '@assets/arrowleft.svg';
+import arrowright from '@assets/arrowright.svg';
+import doublearrowleft from '@assets/doublearrowleft.svg';
+import doublearrowright from '@assets/doublearrowright.svg';
+import Issue from './utils/Issue';
+import IssueButton from './utils/IssueButton';
+import { divWrapper } from './utils/logic';
 
 const Issues = () => {
-  const tabData = useStore(tabStore);
+  const [page, setPage] = useState(1);
+  const { issues } = useStore(tabStore);
+  return (
+    <div className='w-full h-full relative'>
+      <div className='w-5/6 flex justify-between items-center mx-8 mt-6 '>
+        <div className=' font-kanit-text font-semibold text-4xl  '>Issues</div>
+        <div className='mt-2'>
+          <Button
+            text='Add issue'
+            callback={() => {
+              // to be done
+            }}
+          />
+        </div>
+      </div>
+      {divWrapper(<IssueButton />)}
+      {divWrapper(
+        <div>
+          {issues.issues.map((issue) => {
+            return (
+              <Issue
+                key={issue.title}
+                title={issue.title}
+                author={issue.author}
+              />
+            );
+          })}
+        </div>
+      )}
 
-  return <div>Issues</div>;
+      <div className='absolute bottom-14 w-full flex justify-center items-center gap-4'>
+        <button
+          type='button'
+          onClick={() => {
+            // go to first page
+          }}
+        >
+          <img src={doublearrowright} alt='' />
+        </button>
+        <button
+          type='button'
+          onClick={() => {
+            // go to prev page
+          }}
+        >
+          <img src={arrowright} alt='' />
+        </button>
+        <div className=' text-main font-semibold text-2xl font-kanit-text '>
+          {page}
+        </div>
+
+        <button
+          type='button'
+          onClick={() => {
+            // go to next page
+          }}
+        >
+          <img src={arrowleft} alt='' />
+        </button>
+        <button
+          type='button'
+          onClick={() => {
+            // go to last page
+          }}
+        >
+          <img src={doublearrowleft} alt='' />
+        </button>
+      </div>
+    </div>
+  );
 };
 
 export default Issues;

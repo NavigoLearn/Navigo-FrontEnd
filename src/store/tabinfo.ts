@@ -5,19 +5,35 @@ const tab = atom({
   type: 'about',
   open: false,
   about: {
-    name: '',
-    author: '',
-    description: '',
+    name: 'Nice roadmap',
+    author: 'Nice author',
+    description: 'very very nice description',
   },
   issues: {
-    issues: [],
+    issues: [
+      {
+        id: 1,
+        title: 'Add the useRef hook to the hooks resources',
+        author: 'Eughen',
+      },
+      {
+        id: 2,
+        title: 'Issue 2',
+        author: 'Author 2',
+      },
+      {
+        id: 3,
+        title: 'Issue 3',
+        author: 'Author 3',
+      },
+    ],
   },
   info: {
     title: '',
     done: false,
     description: '',
     links: [],
-    roadmaps: [],
+    roadmap: {},
     additionalInfo: '',
   },
 } as any);
@@ -31,9 +47,27 @@ export function flipOpen() {
   });
 }
 
+function trueOpen() {
+  const newTab = tab.get();
+  newTab.open = true;
+  tab.set({
+    ...newTab,
+    open: newTab.open,
+  });
+}
+
+function falseOpen() {
+  const newTab = tab.get();
+  newTab.open = false;
+  tab.set({
+    ...newTab,
+    open: newTab.open,
+  });
+}
+
 export function setInfo(infoData) {
   const newTab = tab.get();
-  flipOpen();
+  trueOpen();
   tab.set({
     ...newTab,
     type: 'info',
@@ -43,7 +77,7 @@ export function setInfo(infoData) {
 
 export function setAbout() {
   const newTab = tab.get();
-  flipOpen();
+  trueOpen();
   tab.set({
     ...newTab,
     type: 'about',
@@ -52,7 +86,7 @@ export function setAbout() {
 
 export function setIssues() {
   const newTab = tab.get();
-  flipOpen();
+  trueOpen();
   tab.set({
     ...newTab,
     type: 'issues',
