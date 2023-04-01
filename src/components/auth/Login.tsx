@@ -79,7 +79,7 @@ const Login = () => {
           </p>
           <hr className='border-gray-500' />
         </div>
-        <div className='grid gap-[10px] mt-[50px]'>
+        <div className='grid gap-[10px] mt-[50px] w-full justify-center items-center'>
           <GoogleLoginButton />
           <GithubLoginButton />
         </div>

@@ -104,7 +104,7 @@ const SignUp = () => {
           <p className='text-center text-[12px] font-roboto-text'>OR</p>
           <hr className='border-gray-500' />
         </div>
-        <div className='grid gap-[10px] mt-[50px]'>
+        <div className='grid gap-[10px] mt-[50px] items-center justify-center'>
           <GoogleLoginButton />
           <GithubLoginButton />
         </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import 'src/components/curve.css';
+import './curve.css';
 import GridFilters from './GridFilters';
 import CardGrid from './CardGrid';
 import Scroll from './Scroll';
@@ -18,7 +18,7 @@ const Search = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch('./src/components/roadmapTests.json');
+      const response = await fetch('src/components/search/roadmapTests.json');
       const jsonData = await response.json();
       setData(jsonData);
     };
