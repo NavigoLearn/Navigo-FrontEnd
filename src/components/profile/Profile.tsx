@@ -1,6 +1,6 @@
 import React from 'react';
 import { useStore } from '@nanostores/react';
-import user from '../../store/userStore';
+import user from '../../store/user';
 import eugene from '../../assets/eugensex.png';
 import followers from '../../assets/followers.svg';
 import link from '../../assets/link.svg';
