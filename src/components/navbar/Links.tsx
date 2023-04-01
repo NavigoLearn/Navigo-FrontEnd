@@ -9,14 +9,14 @@ const universalLinks = [
     title: 'Home',
     path: '/home',
     cName:
-      'text-[12px] hover:underline flex items-center text-center font-normal',
+      'text-sm hover:underline flex items-center text-center font-normal inline-block text-secondary ',
     id: 1,
   },
   {
     title: 'Explore',
     path: '/explore',
     cName:
-      ' text-[12px] hover:underline flex items-center text-center font-medium text-text/80',
+      ' text-base hover:underline flex items-center text-center font-medium text-text/80',
     cIcon: explore,
     id: 2,
   },
@@ -24,7 +24,7 @@ const universalLinks = [
     title: 'Feedback',
     path: '/feedback',
     cName:
-      'text-[12px] hover:underline flex items-center text-center font-normal',
+      'text-sm hover:underline flex items-center text-center font-normal text-secondary ',
     id: 3,
   },
 ];
@@ -33,8 +33,7 @@ const loggedLinks = [
   {
     title: 'Profile',
     path: '/profile',
-    cName:
-      ' text-[12px] hover:underline flex items-center text-center font-normal',
+    cName: ' text-sm hover:underline flex items-center text-center font-normal',
     cIcon: profile,
     id: 1,
   },
@@ -51,14 +50,14 @@ const guestLinks = [
     title: 'Login',
     path: '/login',
     cName:
-      'text-[12px] hover:underline flex items-center text-center justify-end font-normal',
+      'text-sm hover:underline flex items-center text-center justify-end font-normal',
     id: 1,
   },
   {
     title: 'Get Started',
     path: '/signup',
     cName:
-      'text-background text-[12px] hover:underline flex items-center text-center bg-primary rounded-md px-4 py-1 justify-end font-medium',
+      'text-background text-sm hover:underline flex items-center text-center bg-primary rounded-md px-4 py-1 justify-end font-medium',
     id: 2,
   },
 ];
