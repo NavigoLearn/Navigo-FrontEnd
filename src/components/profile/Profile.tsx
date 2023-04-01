@@ -1,11 +1,11 @@
 import React from 'react';
 import { useStore } from '@nanostores/react';
-import user from '../../store/user';
-import eugene from '../../assets/eugensex.png';
-import followers from '../../assets/followers.svg';
-import link from '../../assets/link.svg';
-import dizaign from '../../assets/dizaign.svg';
-import placeholderchart from '../../assets/placeholderchart.png';
+import user from '@store/user';
+import eugene from '@assets/eugensex.png';
+import followers from '@assets/followers.svg';
+import link from '@assets/link.svg';
+import dizaign from '@assets/dizaign.svg';
+import placeholderchart from '@assets/placeholderchart.png';
 
 user.set({
   id: '1',
