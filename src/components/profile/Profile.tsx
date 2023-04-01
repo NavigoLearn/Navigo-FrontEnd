@@ -56,11 +56,12 @@ user.set({
 
 const Profile = () => {
   const userData = useStore(user);
+  // eslint-disable-next-line no-console
   console.log('in react component', userData);
 
   return (
-    <div className='flex flex-col w-full h-screen justify-center items-center my-40'>
-      <div className='flex justify-center mx-auto w-screen h-screen my-96'>
+    <div className='flex flex-col w-full h-screen justify-center items-center my-40 '>
+      <div className='flex justify-center mx-auto w-full h-screen my-96'>
         <div className='flex w-10/12 shadow-xl bg-white relative rounded-3xl min-h-10/12'>
           <div className='flex justify-between rounded-3xl w-10/12 mt-44 items-center text-center'>
             <div className='flex flex-col justify-center items-center w-full transform my-12'>
