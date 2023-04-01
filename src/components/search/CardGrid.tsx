@@ -11,12 +11,12 @@ const CardGrid = ({ name, madeby, nolikes, description }: Roamdmap2) => {
   const [count, setCount] = useState(0);
   const [isClicked, setIsClicked] = useState(false);
   return (
-    <div className='bg-blue-400 justify-between h-[200px] relative rounded-lg mb-4'>
+    <div className='bg-white justify-between h-[200px] relative rounded-lg font-roboto-text'>
       {/* card go here */}
       <div className='flex justify-center items-center'>
-        <h1 className='font-bold p-3 mt-1 text-xl'>{name}</h1>
+        <h1 className='font-bold p-3 mt-1 text-xl font-kanit-text'>{name}</h1>
         <div className='flex flex-col absolute right-[23px] text-[10px] top-[12px]'>
-          <span className=''>Made by</span>
+          <span>Made by</span>
           <span>{madeby}</span>
         </div>
       </div>
@@ -24,7 +24,7 @@ const CardGrid = ({ name, madeby, nolikes, description }: Roamdmap2) => {
       <div className='flex justify-center items-center'>
         <button
           type='button'
-          className='absolute bottom-3 bg-white text-xs py-[6px] px-[24px] rounded-lg'
+          className='absolute bottom-3 bg-secondary text-xs py-[6px] px-[24px] rounded-lg text-white'
         >
           Explore
         </button>
