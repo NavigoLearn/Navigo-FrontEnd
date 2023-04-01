@@ -4,9 +4,9 @@ import buttons from './Buttons';
 const sideBar = () => {
   const [hover, setHover] = useState(false);
 
-  const handleHover = () => {
-    // console.log('hovered');
-    setHover((prev) => !prev);
+  const handleHover = (e) => {
+    // set hover based on weather event is mouseenter or mouseleave
+    setHover(e.type === 'mouseenter');
   };
 
   return (
