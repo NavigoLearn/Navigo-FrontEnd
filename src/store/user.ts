@@ -12,6 +12,7 @@ type User = {
   following: number;
   BIO: string;
   completedRoadmaps: number;
+  createdRoadmaps: number;
   roadmapProgressData: string[{
     roadmapId: string;
     roadmapName: string;

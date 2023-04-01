@@ -18,7 +18,8 @@ user.set({
   followers: 69,
   following: 420,
   BIO: 'Avid and passionate learner -- insert more linkedin boilerplate --. Average math enjoyer, likes a bit of competitive programming,  likes gym and the pump, likes nietzsche but goes out of his way to not read books despite wanting to.  Loves making startups and bringing ideas and meaningful changes to reality. Also likes speaking in public but is antisocial. If you want to contact me you are welcome to leave me alone',
-  completedRoadmaps: 5,
+  completedRoadmaps: 3,
+  createdRoadmaps: 12,
   roadmapProgressData: [
     {
       roadmapId: 1,
@@ -71,54 +72,56 @@ const Profile = () => {
                 />
               </div>
               <div className='flex justify-center items-center text-center w-fit'>
-                <h1 className='text-[32px] font-semibold'>{userData.name}</h1>
+                <h1 className='text-[32px] font-semibold font-roboto-text'>
+                  {userData.name}
+                </h1>
               </div>
               <div>
-                <h2 className='text-[16px] font-light text-center mt-2'>
+                <h2 className='text-[16px] font-light text-center mt-2 font-roboto-text text-secondary'>
                   {userData.description}
                 </h2>
               </div>
               <div className='flex gap-10 mt-6'>
-                <h2 className='text-[20px] font-normal text-center flex'>
+                <h2 className='text-[20px] font-normal text-center flex font-roboto-text'>
                   <img
                     src={followers}
                     className='flex mx-4'
                     alt='followersicon'
                   />
                   {userData.followers}
-                  <h2 className='flex text-[20px] text-placeholder mx-2'>
+                  <h2 className='flex text-[20px] text-placeholder mx-2 font-roboto-text'>
                     followers
                   </h2>
                 </h2>
-                <h2 className='text-[20px] font-normal text-center flex'>
+                <h2 className='text-[20px] font-normal text-center flex font-roboto-text'>
                   <img
                     src={followers}
                     className='flex mx-4'
                     alt='followingicon'
                   />
                   {userData.following}
-                  <h2 className='flex text-[20px] text-placeholder mx-2'>
+                  <h2 className='flex text-[20px] text-placeholder mx-2 font-roboto-text'>
                     following
                   </h2>
                 </h2>
               </div>
               <button type='button'>
-                <h2 className='text-[16px] hover:underline text-white font-normal py-2 px-16 bg-primary rounded-3xl mt-4'>
+                <h2 className='text-[16px] hover:underline text-white font-normal py-2 px-16 bg-primary rounded-3xl mt-4 font-roboto-text'>
                   Follow
                 </h2>
               </button>
               <div className='flex-col justify-center items-center w-fit mt-4'>
-                <h3 className='text-[14px] text-center text-placeholder'>
+                <h3 className='text-[14px] text-center text-placeholder font-roboto-text'>
                   Quote
                 </h3>
-                <h2 className='italic text-[20px] font-normal text-center text-secondary'>
+                <h2 className='italic text-[20px] font-normal text-center text-secondary font-roboto-text'>
                   &quot;{userData.quote}&quot;
                 </h2>
               </div>
               <div className='flex justify-center text-center items-center mt-4 w-fit'>
                 <a
                   href={userData.link}
-                  className='inline-block text-[20px] font-normal text-center text-primary'
+                  className='inline-block text-[20px] font-normal text-center text-primary font-roboto-text'
                   aria-label='Link to external website'
                   target='_blank'
                   rel='noopener noreferrer'
@@ -131,9 +134,9 @@ const Profile = () => {
                   {userData.link}
                 </a>
               </div>
-              <div className='flex flex-col justify-start text-start text-[20px] text-main font-normal mt-4 mx-16'>
+              <div className='flex flex-col justify-start text-start text-[20px] text-main font-normal font-roboto-text mt-4 mx-16'>
                 BIO
-                <h2 className='text-md flex font-normal text-start text-[16px] mt-4 text-secondary'>
+                <h2 className='text-md flex font-normal text-start text-[16px] mt-4 text-secondary font-roboto-text'>
                   {userData.BIO}
                 </h2>
               </div>
@@ -143,13 +146,27 @@ const Profile = () => {
             <div className='flex w-full justify-around'>
               <div className='flex w-fit flex-col items-center'>
                 <div className='flex'>
-                  <h1 className='font-normal text-secondary text-[16px]'>
+                  <h1 className='font-normal text-secondary text-center text-[16px] font-roboto-text'>
+                    Created Roadmaps
+                  </h1>
+                </div>
+                <div className='flex'>
+                  <img src={dizaign} className='flex' alt='line' />
+                  <h2 className='text-2xl font-normal mx-4 text-center font-roboto-text'>
+                    {userData.createdRoadmaps}
+                  </h2>
+                  <img src={dizaign} className='flex' alt='line' />
+                </div>
+              </div>
+              <div className='flex w-fit flex-col items-center'>
+                <div className='flex'>
+                  <h1 className='font-normal text-secondary text-center text-[16px] font-roboto-text'>
                     Completed Roadmaps
                   </h1>
                 </div>
                 <div className='flex'>
                   <img src={dizaign} className='flex' alt='line' />
-                  <h2 className='text-2xl font-normal mx-4 text-center'>
+                  <h2 className='text-2xl font-normal mx-4 text-center font-roboto-text'>
                     {userData.completedRoadmaps}
                   </h2>
                   <img src={dizaign} className='flex' alt='line' />
@@ -157,14 +174,13 @@ const Profile = () => {
               </div>
               <div className='flex flex-col items-center w-fit'>
                 <div className='flex items-center w-fit'>
-                  <h1 className='font-normal text-secondary text-[16px]'>
+                  <h1 className='font-normal text-secondary text-center text-[16px] font-roboto-text'>
                     Roadmaps in progress
                   </h1>
                 </div>
                 <div className='flex items-center w-fit'>
                   <img src={dizaign} className='flex' alt='line' />
-
-                  <h2 className='text-2xl font-normal text-center mx-4'>
+                  <h2 className='text-2xl font-normal text-center mx-4 font-roboto-text'>
                     {userData.roadmapProgressData.length}
                   </h2>
                   <img src={dizaign} className='flex' alt='line' />
