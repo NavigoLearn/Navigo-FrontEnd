@@ -56,11 +56,12 @@ user.set({
 const Profile = () => {
   const userData = useStore(user);
   console.log('in react component', userData);
+
   return (
     <div className='flex flex-col w-full h-screen justify-center items-center my-40'>
       <div className='flex justify-center mx-auto w-screen h-screen my-96'>
         <div className='flex w-10/12 shadow-xl bg-white relative rounded-3xl min-h-10/12'>
-          <div className='flex justify-between rounded-3xl w-10/12 mt-44 '>
+          <div className='flex justify-between rounded-3xl w-10/12 mt-44 items-center text-center'>
             <div className='flex flex-col justify-center items-center w-full transform my-12'>
               <div className='w-fit absolute -top-80'>
                 <img
@@ -114,16 +115,22 @@ const Profile = () => {
                   &quot;{userData.quote}&quot;
                 </h2>
               </div>
-              <a
-                href={userData.link}
-                className='flex justify-center text-[20px] items-center font-normal w-fit mt-4 mx-12 text-primary'
-                aria-label='Link to external website'
-                target='_blank'
-                rel='noopener noreferrer'
-              >
-                <img src={link} className='flex mx-4 w-8' alt='linkicon' />
-                {userData.link}
-              </a>
+              <div className='flex justify-center text-center items-center mt-4 w-fit'>
+                <a
+                  href={userData.link}
+                  className='inline-block text-[20px] font-normal text-center text-primary'
+                  aria-label='Link to external website'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
+                  <img
+                    src={link}
+                    className='mx-2 inline-block'
+                    alt='linkicon'
+                  />
+                  {userData.link}
+                </a>
+              </div>
               <div className='flex flex-col justify-start text-start text-[20px] text-main font-normal mt-4 mx-16'>
                 BIO
                 <h2 className='text-md flex font-normal text-start text-[16px] mt-4 text-secondary'>
