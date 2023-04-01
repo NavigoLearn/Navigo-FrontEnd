@@ -6,7 +6,6 @@ import { mobileLogged, mobileGuest } from './Links';
 
 const MobileNavbar = () => {
   const isLoggedIn = true;
-
   const [click, setClick] = useState(false);
 
   const handleClick = () => {
@@ -28,7 +27,7 @@ const MobileNavbar = () => {
     <nav
       className={
         click
-          ? 'bg-background h-12 flex w-screen justify-center items-center'
+          ? 'bg-background h-12 flex w-screen justify-center items-center '
           : 'bg-background h-12 flex w-screen justify-center'
       }
     >
