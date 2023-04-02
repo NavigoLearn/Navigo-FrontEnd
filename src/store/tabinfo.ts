@@ -47,7 +47,7 @@ export function flipOpen() {
   });
 }
 
-function trueOpen() {
+export function trueOpen() {
   const newTab = tab.get();
   newTab.open = true;
   tab.set({
@@ -56,7 +56,7 @@ function trueOpen() {
   });
 }
 
-function falseOpen() {
+export function falseOpen() {
   const newTab = tab.get();
   newTab.open = false;
   tab.set({
@@ -67,6 +67,14 @@ function falseOpen() {
 
 export function setInfo(infoData) {
   const newTab = tab.get();
+  if (
+    newTab.type === 'info' &&
+    newTab.open &&
+    newTab.info.description === infoData.description
+  ) {
+    falseOpen();
+    return;
+  }
   trueOpen();
   tab.set({
     ...newTab,
@@ -77,6 +85,10 @@ export function setInfo(infoData) {
 
 export function setAbout() {
   const newTab = tab.get();
+  if (newTab.type === 'about' && newTab.open) {
+    falseOpen();
+    return;
+  }
   trueOpen();
   tab.set({
     ...newTab,
@@ -86,6 +98,11 @@ export function setAbout() {
 
 export function setIssues() {
   const newTab = tab.get();
+
+  if (newTab.type === 'issues' && newTab.open) {
+    falseOpen();
+    return;
+  }
   trueOpen();
   tab.set({
     ...newTab,

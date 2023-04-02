@@ -8,26 +8,24 @@ const About = () => {
   const { about } = useStore(tabStore);
   return (
     <div className='h-full w-full relative'>
-      <div className='w-full h-full '>
-        <div className='w-5/6 flex justify-between items-center mx-8 mt-6 '>
-          <div className=' font-kanit-text font-semibold text-4xl  '>About</div>
-        </div>
+      <div className='w-5/6 flex justify-between items-center mx-8 mt-6 '>
+        <div className=' font-kanit-text font-semibold text-4xl  '>About</div>
       </div>
 
-      {divWrapper('som text')}
-      {/* {divWrapper(<div>some text er</div>)}
-      {fields.map((field) => {
-        return divWrapper(
-          <div key={field}>
-            <div key={field} className=''>
-              {field}
+      <div className='mt-4'>
+        {fields.map((field) => {
+          return divWrapper(
+            <div key={field} className=' flex gap-2 items-center'>
+              <div key={field} className=' font-light text-secondary text-base'>
+                {field} :
+              </div>
+              <div key={field} className=' font-semibold text-main text-lg '>
+                {about[field]}
+              </div>
             </div>
-            <div key={field} className=''>
-              {about[field]}
-            </div>
-          </div>
-        );
-      })} */}
+          );
+        })}
+      </div>
     </div>
   );
 };

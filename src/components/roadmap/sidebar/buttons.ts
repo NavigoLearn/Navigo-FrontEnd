@@ -4,6 +4,7 @@ import about from '@assets/about.svg';
 import report from '@assets/report.svg';
 
 import { setAbout, setIssues } from '@store/tabinfo';
+import { setReport } from '@store/popup';
 
 const buttons = [
   {
@@ -16,6 +17,7 @@ const buttons = [
       console.log('edit');
     },
   },
+
   {
     id: 2,
     cName:
@@ -26,6 +28,7 @@ const buttons = [
       setIssues();
     },
   },
+
   {
     id: 3,
     cName:
@@ -36,6 +39,7 @@ const buttons = [
       setAbout();
     },
   },
+
   {
     id: 4,
     cName:
@@ -43,7 +47,7 @@ const buttons = [
     cIcon: report,
     title: 'Report',
     clickHandler: () => {
-      console.log('report');
+      setReport();
     },
   },
 ];
