@@ -14,6 +14,7 @@ const About = () => {
 
       <div className='mt-4'>
         {fields.map((field) => {
+          console.log(field);
           return divWrapper(
             <div key={field} className=' flex gap-2 items-center'>
               <div key={field} className=' font-light text-secondary text-base'>

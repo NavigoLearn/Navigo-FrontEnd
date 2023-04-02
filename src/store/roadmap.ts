@@ -55,7 +55,7 @@ function generateNode(
   return {
     id,
     title,
-    nodeType: 'Node',
+    type: 'Node',
     tabId,
     x,
     y,
@@ -72,7 +72,7 @@ function generateResource(
   return {
     id,
     title,
-    nodeType: 'Resource',
+    type: 'Resource',
     nodes,
     x,
     y,
@@ -87,7 +87,7 @@ function generateResSubNode(
   return {
     id,
     title,
-    nodeType: 'resourceSubNode',
+    type: 'ResourceSubNode',
     tabId,
   };
 }

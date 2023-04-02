@@ -1,13 +1,13 @@
 export interface NodeProps {
   title: string;
-  type: 'Node' | 'resourceSubNode';
+  type: 'Node' | 'ResourceSubNode';
   tabId: string;
 }
 
 export interface NodeStore {
   id: string;
   title: string;
-  nodeType: 'Node';
+  type: 'Node';
   tabId: string;
   x: number;
   y: number;
@@ -16,7 +16,7 @@ export interface NodeStore {
 export interface ResourceStore {
   id: string;
   title: string;
-  nodeType: 'Resource';
+  type: 'Resource';
   x: number;
   y: number;
   nodes: string[];
@@ -24,8 +24,8 @@ export interface ResourceStore {
 
 export interface ResourceSubNodeStore {
   id: string;
+  type: 'ResourceSubNode';
   title: string;
-  nodeType: string;
   tabId: string;
 }
 
@@ -34,14 +34,21 @@ export interface ResourceProps {
   nodes: NodeProps[];
 }
 
-export type NodeComponents = {
-  Node: NodeProps;
-  Resource: ResourceProps;
-};
+// export type NodeComponents = {
+//   Node: NodeProps;
+//   Resource: ResourceProps;
+// };
 
-export type NodeKeys = keyof NodeComponents;
+// export type NodeKeys = keyof NodeComponents;
 
-export type NodeManagerProps<T extends NodeKeys> = {
-  nodeType: T;
+// export type NodeManagerProps<T extends NodeTypes> = {
+//   nodeType: T;
+//   sizeCb: (width: number, height: number) => void;
+// } & T;
+
+export type NodeTypes = NodeProps | ResourceProps;
+
+export type ManagerProps = {
+  data: NodeTypes;
   sizeCb: (width: number, height: number) => void;
-} & NodeComponents[T];
+};
