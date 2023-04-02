@@ -15,12 +15,13 @@ const Node = ({ type, title, tabId }: NodeProps) => {
         ' text-sm p-2 font-semibold rounded-xl shadow-standard w-64 h-12 bg-white ',
       text: 'text-lg',
     },
-    resourceSubNode: {
+    ResourceSubNode: {
       className:
         ' text-sm p-2 font-semibold rounded-xl shadow-standard w-48 h-8 bg-resourceSubNode border-2 border-light font-medium',
       text: 'text-sm',
     },
   };
+
   return (
     <button
       type='button'

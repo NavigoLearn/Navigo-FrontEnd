@@ -11,7 +11,7 @@ const Resource = ({ title, nodes }: ResourceProps) => {
     return (
       <div className='flex justify-center items-center my-2'>
         <Node
-          type='resourceSubNode'
+          type='ResourceSubNode'
           title={data.title}
           key={data.title}
           tabId={data.tabId}

@@ -4,8 +4,9 @@ import { addZoom } from '@typescript/d3utils';
 import * as d3 from 'd3';
 import roadmap from '@store/roadmap';
 import { useStore } from '@nanostores/react';
-import NodeManager from './NodeManager';
+import { NodeTypes } from '@type/roadmap/nodes';
 import Report from './tabs/Report';
+import NodeManager from './NodeManager';
 
 const Roadmap = () => {
   const roadmapData = useStore(roadmap);
@@ -24,38 +25,49 @@ const Roadmap = () => {
     };
   }, []);
 
-  function renderNode(root, data, foreignObject) {
-    if (data.nodeType === 'Node') {
-      root.render(
-        <NodeManager
-          nodeType='Node'
-          sizeCb={(width: number, height: number) => {
-            // sets foreignObject size to the size of the rendered component
-            foreignObject.attr('width', width).attr('height', height);
-          }}
-          type='Node'
-          title={data.title}
-          tabId={data.tabId}
-        />
-      );
-    }
+  function renderNode(root, data: NodeTypes, foreignObject) {
+    // if (data.nodeType === 'Node') {
+    //   root.render(
+    //     <NodeManager
+    //       nodeType='Node'
+    //       sizeCb={(width: number, height: number) => {
+    //         // sets foreignObject size to the size of the rendered component
+    //         foreignObject.attr('width', width).attr('height', height);
+    //       }}
+    //       type='Node'
+    //       title={data.title}
+    //       tabId={data.tabId}
+    //     />
+    //   );
+    // }
 
-    if (data.nodeType === 'Resource') {
-      root.render(
-        <NodeManager
-          nodeType='Resource'
-          title={data.title}
-          sizeCb={(width: number, height: number) => {
-            // sets foreignObject size to the size of the rendered component
-            foreignObject.attr('width', width).attr('height', height);
-          }}
-          nodes={data.nodes}
-        />
-      );
-    }
+    // if (data.nodeType === 'Resource') {
+    //   root.render(
+    //     <NodeManager
+    //       nodeType='Resource'
+    //       title={data.title}
+    //       sizeCb={(width: number, height: number) => {
+    //         // sets foreignObject size to the size of the rendered component
+    //         foreignObject.attr('width', width).attr('height', height);
+    //       }}
+    //       nodes={data.nodes}
+    //     />
+    //   );
+    // }
+
+    console.log(data);
+    root.render(
+      <NodeManager
+        data={data}
+        sizeCb={(width: number, height: number) => {
+          // sets foreignObject size to the size of the rendered component
+          foreignObject.attr('width', width).attr('height', height);
+        }}
+      />
+    );
   }
 
-  function appendToD3(obj, data) {
+  function appendToD3(obj, data: NodeTypes) {
     const current = d3.select(obj);
     const foreignObject = current
       .append('foreignObject')

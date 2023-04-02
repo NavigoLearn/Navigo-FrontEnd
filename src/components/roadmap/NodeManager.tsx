@@ -2,19 +2,14 @@ import React, { useEffect, useRef } from 'react';
 import {
   NodeProps,
   ResourceProps,
-  NodeKeys,
-  NodeManagerProps,
+  NodeTypes,
+  ManagerProps,
 } from '@type/roadmap/nodes';
-
 import { isNodeProps, isResourceProps } from '@type/roadmap/typecheckers';
 import Node from './nodes/Node';
 import Resource from './nodes/Resource';
 
-const NodeManager = <T extends NodeKeys>({
-  nodeType,
-  sizeCb,
-  ...args
-}: NodeManagerProps<T>) => {
+const NodeManager = ({ data, sizeCb }: ManagerProps) => {
   const rootRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (rootRef) {
@@ -23,14 +18,16 @@ const NodeManager = <T extends NodeKeys>({
     }
   }, []);
   const renderNode = () => {
-    if (isNodeProps(args)) {
-      const { title, type, tabId } = args as NodeProps;
+    if (isNodeProps(data)) {
+      const { title, type, tabId } = data as NodeProps;
       return <Node type={type} title={title} tabId={tabId} />;
     }
-    if (isResourceProps(args)) {
-      const { title, nodes } = args as ResourceProps;
+    if (isResourceProps(data)) {
+      const { title, nodes } = data as ResourceProps;
       return <Resource title={title} nodes={nodes} />;
     }
+    console.log(data, 'something went wrong');
+    throw new Error('something went wrong');
     return null;
   };
 
