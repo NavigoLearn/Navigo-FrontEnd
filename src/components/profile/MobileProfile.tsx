@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useStore } from '@nanostores/react';
 import user from '@store/user';
 import eugene from '@assets/eugensex.png';
@@ -7,6 +7,9 @@ import link from '@assets/link.svg';
 import dizaign from '@assets/dizaign.svg';
 import arrowdwn from '@assets/arrow-down.svg';
 import arrowup from '@assets/arrow-up.svg';
+import GridFilters from '../search/GridFilters';
+import CardGrid from '../search/CardGrid';
+import Scroll from '../search/Scroll';
 
 user.set({
   id: '1',
@@ -21,45 +24,37 @@ user.set({
   BIO: 'Avid and passionate learner -- insert more linkedin boilerplate --. Average math enjoyer, likes a bit of competitive programming,  likes gym and the pump, likes nietzsche but goes out of his way to not read books despite wanting to.  Loves making startups and bringing ideas and meaningful changes to reality. Also likes speaking in public but is antisocial. If you want to contact me you are welcome to leave me alone',
   completedRoadmaps: 3,
   createdRoadmaps: 12,
-  roadmapProgressData: [
-    {
-      roadmapId: 1,
-      roadmapName: 'Roadmap 1',
-      roadmapDescription: 'This is a description of roadmap 1',
-      roadmapLikes: 10,
-    },
-    {
-      roadmapId: 2,
-      roadmapName: 'Roadmap 2',
-      roadmapDescription: 'This is a description of roadmap 2',
-      roadmapLikes: 10,
-    },
-    {
-      roadmapId: 3,
-      roadmapName: 'Roadmap 3',
-      roadmapDescription: 'This is a description of roadmap 3',
-      roadmapLikes: 10,
-    },
-    {
-      roadmapId: 4,
-      roadmapName: 'Roadmap 4',
-      roadmapDescription: 'This is a description of roadmap 4',
-      roadmapLikes: 10,
-    },
-    {
-      roadmapId: 5,
-      roadmapName: 'Roadmap 5',
-      roadmapDescription: 'This is a description of roadmap 5',
-      roadmapLikes: 10,
-    },
-  ],
+  inProgressRoadmaps: 7,
 });
+
+type Roamdmap = {
+  id: number;
+  name: string;
+  madeby: string;
+  nolikes: number;
+  description: string;
+};
 
 const DesktopProfile = () => {
   const userData = useStore(user);
+  const [data, setData] = useState<Roamdmap[]>([]);
   // eslint-disable-next-line no-console
   console.log('in react component', userData);
-  const [click, setClick] = useState(true);
+  const [click, setClick] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        '../src/components/search/roadmapTests.json'
+      );
+      const jsonData = await response.json();
+      setData(jsonData);
+    };
+
+    fetchData();
+  }, []);
+
+  console.log(data);
 
   const handleClick = () => {
     setClick((prev) => !prev);
@@ -184,6 +179,20 @@ const DesktopProfile = () => {
           </button>
         )}
       </div>
+      <ul className='flex justify-center mt-12'>
+        <div className='grid big:grid-cols-3 medium:gap-x-[48px] medium:gap-y-[61px] medium:grid-cols-2 gap-y-[35px]'>
+          {data.map((value) => (
+            <div key={value.id} className='w-[389px]'>
+              <CardGrid
+                name={value.name}
+                madeby={value.madeby}
+                nolikes={value.nolikes}
+                description={value.description}
+              />
+            </div>
+          ))}
+        </div>
+      </ul>
     </div>
   );
 };

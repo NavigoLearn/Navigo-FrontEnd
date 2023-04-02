@@ -26,6 +26,8 @@ const Search = () => {
     fetchData();
   }, []);
 
+  console.log(data);
+
   const filterItems = (): Roamdmap1[] => {
     if (!query) {
       return data;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useStore } from '@nanostores/react';
 import user from '@store/user';
 import eugene from '@assets/eugensex.png';
@@ -6,62 +6,41 @@ import followers from '@assets/followers.svg';
 import link from '@assets/link.svg';
 import dizaign from '@assets/dizaign.svg';
 import placeholderchart from '@assets/placeholderchart.png';
+import GridFilters from '../search/GridFilters';
+import CardGrid from '../search/CardGrid';
+import Scroll from '../search/Scroll';
 
-user.set({
-  id: '1',
-  name: 'Eughen',
-  email: 'pussyslayer69@gmail.com',
-  avatar: eugene,
-  quote: 'Pentru ca la Cluj au apa calda',
-  link: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-  description: 'sunt cel mai sex baiat',
-  followers: 69,
-  following: 420,
-  BIO: 'Avid and passionate learner -- insert more linkedin boilerplate --. Average math enjoyer, likes a bit of competitive programming,  likes gym and the pump, likes nietzsche but goes out of his way to not read books despite wanting to.  Loves making startups and bringing ideas and meaningful changes to reality. Also likes speaking in public but is antisocial. If you want to contact me you are welcome to leave me alone',
-  completedRoadmaps: 3,
-  createdRoadmaps: 12,
-  roadmapProgressData: [
-    {
-      roadmapId: 1,
-      roadmapName: 'Roadmap 1',
-      roadmapDescription: 'This is a description of roadmap 1',
-      roadmapLikes: 10,
-    },
-    {
-      roadmapId: 2,
-      roadmapName: 'Roadmap 2',
-      roadmapDescription: 'This is a description of roadmap 2',
-      roadmapLikes: 10,
-    },
-    {
-      roadmapId: 3,
-      roadmapName: 'Roadmap 3',
-      roadmapDescription: 'This is a description of roadmap 3',
-      roadmapLikes: 10,
-    },
-    {
-      roadmapId: 4,
-      roadmapName: 'Roadmap 4',
-      roadmapDescription: 'This is a description of roadmap 4',
-      roadmapLikes: 10,
-    },
-    {
-      roadmapId: 5,
-      roadmapName: 'Roadmap 5',
-      roadmapDescription: 'This is a description of roadmap 5',
-      roadmapLikes: 10,
-    },
-  ],
-});
+type Roamdmap = {
+  id: number;
+  name: string;
+  madeby: string;
+  nolikes: number;
+  description: string;
+};
 
 const DesktopProfile = () => {
+  const [data, setData] = useState<Roamdmap[]>([]);
   const userData = useStore(user);
   // eslint-disable-next-line no-console
-  console.log('in react component', userData);
+  // console.log('in react component', userData);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        '../src/components/search/roadmapTests.json'
+      );
+      const jsonData = await response.json();
+      setData(jsonData);
+    };
+
+    fetchData();
+  }, []);
+
+  console.log(data);
 
   return (
-    <div className='flex flex-col w-full h-screen justify-center items-center my-40 '>
-      <div className='flex justify-center mx-auto w-full h-screen my-96'>
+    <div className='flex flex-col w-full h-full justify-center items-center my-40 '>
+      <div className='flex flex-col gap-10 justify-center items-center mx-auto w-full h-screen my-96'>
         <div className='flex w-10/12 shadow-xl bg-white relative rounded-3xl min-h-10/12'>
           <div className='flex justify-between w-10/12 mt-44 items-center text-center'>
             <div className='flex flex-col justify-center items-center w-full transform my-12'>
@@ -182,7 +161,7 @@ const DesktopProfile = () => {
                 <div className='flex items-center w-fit'>
                   <img src={dizaign} className='flex' alt='line' />
                   <h2 className='text-2xl font-normal text-center mx-4 font-roboto-text'>
-                    {userData.roadmapProgressData.length}
+                    {userData.inProgressRoadmaps}
                   </h2>
                   <img src={dizaign} className='flex' alt='line' />
                 </div>
@@ -193,6 +172,20 @@ const DesktopProfile = () => {
             </div>
           </div>
         </div>
+        <ul className='flex justify-center mt-[228px]'>
+          <div className='grid big:grid-cols-3 medium:gap-x-[48px] medium:gap-y-[61px] medium:grid-cols-2 gap-y-[35px]'>
+            {data.map((value) => (
+              <div key={value.id} className='w-[389px]'>
+                <CardGrid
+                  name={value.name}
+                  madeby={value.madeby}
+                  nolikes={value.nolikes}
+                  description={value.description}
+                />
+              </div>
+            ))}
+          </div>
+        </ul>
       </div>
     </div>
   );

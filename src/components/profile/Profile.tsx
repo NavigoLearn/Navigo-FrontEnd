@@ -3,7 +3,7 @@ import DesktopProfile from './DesktopProfile';
 import MobileProfile from './MobileProfile';
 
 const Navbar = () => {
-  const [isDesktop, setIsDesktop] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(true);
 
   useEffect(() => {
     const handleResize = () => {
