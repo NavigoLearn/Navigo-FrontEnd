@@ -28,9 +28,9 @@ type IssuesTab = {
 };
 
 type TabManager = {
-  info: infoTab;
-  about: aboutTab;
-  issues: issuesTab;
+  info: InfoTab;
+  about: AboutTab;
+  issues: IssuesTab;
 };
 
 export type TabKeys = keyof TabManager;

@@ -1,5 +1,5 @@
 import { NodeStore, ResourceSubNodeStore } from './nodes';
-import { infoTab } from './tab';
+import { InfoTab } from './tab';
 
 interface HashMap<T> {
   [key: string]: T;
@@ -20,7 +20,7 @@ export type Issue = {
 export type Roadmap = {
   about: About;
   issues: Issue[];
-  data: HashMap<infoTab>;
+  data: HashMap<InfoTab>;
   nodes: NodeStore[];
   resourceSubNodes: HashMap<ResourceSubNodeStore>;
 };

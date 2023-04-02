@@ -15,7 +15,7 @@ const Report = () => {
             Report roadmap
           </div>
           {divWrapper(
-            <div className=' bg-gray-300 shadow-standard w-full h-40 rounded-2xl p-2'>
+            <div className=' bg-gray-300 shadow-standard w-full h-32 rounded-2xl p-2'>
               <input
                 className='w-full h-full bg-transparent border-none outline-none text-main align-top text-left py-1'
                 placeholder='write issue here'
@@ -26,6 +26,14 @@ const Report = () => {
               />
             </div>
           )}
+          <div className='w-full flex justify-center '>
+            <button
+              className=' w-28 h-10 text-white font-semibold font-roboto-text rounded-2xl mt-8 bg-red-600'
+              type='submit'
+            >
+              Report
+            </button>
+          </div>
         </div>
       ) : null}
     </div>
