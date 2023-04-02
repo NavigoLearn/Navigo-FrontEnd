@@ -28,9 +28,6 @@ const Node = ({ type, title, tabId }: NodeProps) => {
       className={variants[type].className}
       onClick={() => {
         // tab changing logic
-
-        console.log(tabData.open);
-        flipOpen();
         setInfo(roadmapData.data[tabId]);
       }}
     >

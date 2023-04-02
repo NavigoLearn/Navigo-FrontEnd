@@ -1,27 +1,14 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
-import { addZoom } from '@typescript/testscript';
+import { addZoom } from '@typescript/d3utils';
 import * as d3 from 'd3';
 import roadmap from '@store/roadmap';
 import { useStore } from '@nanostores/react';
 import NodeManager from './NodeManager';
+import Report from './tabs/Report';
 
 const Roadmap = () => {
   const roadmapData = useStore(roadmap);
-
-  useEffect(() => {
-    // sets overflow hidden on body
-    const body = document.querySelector('body');
-    if (body) {
-      body.style.overflow = 'hidden';
-    }
-    return () => {
-      // sets overflow auto on body
-      if (body) {
-        body.style.overflow = 'auto';
-      }
-    };
-  }, []);
 
   useEffect(() => {
     // sets overflow hidden on body
@@ -109,6 +96,7 @@ const Roadmap = () => {
 
   return (
     <div className='w-full h-full '>
+      <Report />
       <svg id='rootSvg' width='100%' height='100%'>
         <g id='rootGroup'>{/* placeholder for eslint to not scream at me */}</g>
       </svg>

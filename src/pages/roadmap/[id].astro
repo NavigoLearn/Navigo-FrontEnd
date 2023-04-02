@@ -1,7 +1,7 @@
 ---
 import Base from '@layouts/Base.astro';
 import Roadmap from '@components/roadmap/Roadmap';
-import Sidebar from '@components/roadmap/Sidebar';
+import Sidebar from '@components/roadmap/sidebar/Sidebar';
 import Tab from '@components/roadmap/Tab';
 const { id } = Astro.params;
 // here we should get the data for the actual roadmap
@@ -10,15 +10,17 @@ const data = { id: '123' };
 
 <Base title='Welcome to Astro.'>
   <div class='absolute w-full top-0 h-16 bg-white z-[-10]'></div>
-  <div class='ml-20 w-full h-screen'>
-    <Roadmap client:load />
-  </div>
-  <div>
-    <Sidebar client:load />
-  </div>
-  <div
-    class='absolute top-16 mt-2 shadow-standard right-2 w-80 h-screen bg-white'
-  >
-    <Tab client:load />
+
+  <div class='h-[calc(100vh-64px)] relative'>
+    <!-- offset from nav reduced from total screen size -->
+    <div class='ml-20 w-full h-full'>
+      <Roadmap client:load />
+    </div>
+    <div class=''>
+      <Sidebar client:load />
+    </div>
+    <div class=''>
+      <Tab client:load />
+    </div>
   </div>
 </Base>

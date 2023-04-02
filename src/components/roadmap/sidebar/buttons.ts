@@ -1,7 +1,10 @@
 import edit from '@assets/edit.svg';
 import issues from '@assets/issues.svg';
-import help from '@assets/help.svg';
+import about from '@assets/about.svg';
 import report from '@assets/report.svg';
+
+import { setAbout, setIssues } from '@store/tabinfo';
+import { setReport } from '@store/popup';
 
 const buttons = [
   {
@@ -14,6 +17,7 @@ const buttons = [
       console.log('edit');
     },
   },
+
   {
     id: 2,
     cName:
@@ -21,19 +25,21 @@ const buttons = [
     cIcon: issues,
     title: 'Issues',
     clickHandler: () => {
-      console.log('issues');
+      setIssues();
     },
   },
+
   {
     id: 3,
     cName:
       'w-10 flex justify-self-center items-center text-center text-2xl hover:underline',
-    cIcon: help,
-    title: 'Help',
+    cIcon: about,
+    title: 'About',
     clickHandler: () => {
-      console.log('help');
+      setAbout();
     },
   },
+
   {
     id: 4,
     cName:
@@ -41,7 +47,7 @@ const buttons = [
     cIcon: report,
     title: 'Report',
     clickHandler: () => {
-      console.log('report');
+      setReport();
     },
   },
 ];
