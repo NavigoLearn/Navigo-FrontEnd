@@ -13,12 +13,7 @@ type User = {
   BIO: string;
   completedRoadmaps: number;
   createdRoadmaps: number;
-  roadmapProgressData: string[{
-    roadmapId: string;
-    roadmapName: string;
-    roadmapDescription: string;
-    roadmapLikes: number;
-  }];
+  inProgressRoadmaps: number;
 };
 const user = atom({} as User);
 export default user;
