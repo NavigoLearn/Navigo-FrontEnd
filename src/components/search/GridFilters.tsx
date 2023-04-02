@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 // installed react-icons library
-import { BiChevronDown, BiChevronUp } from 'react-icons/bi';
 
 const GridFilters = () => {
   const [isOpen1, setIsOpen1] = useState(false);
@@ -9,14 +8,14 @@ const GridFilters = () => {
   const [selected2, setSelected2] = useState(9);
 
   return (
-    <div className='grid lg:grid-cols-3 mt-9 lg:px-40 lg:gap-24 absolute ml-12 z-10'>
-      <div className='flex flex-col items-center'>
+    <div className='grid grid-cols-3 gap-[80px] mt-[143px] absolute'>
+      <div className='flex flex-col items-center relative font-roboto-text'>
         {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
         <label>Sort By</label>
         <button
           onClick={() => setIsOpen1((prev) => !prev)}
           type='button'
-          className='bg-white py-[6px] font-thin w-56 rounded-lg mt-4 shadow-md flex items-center justify-center'
+          className='bg-white py-[6px] font-thin w-56 rounded-lg mt-4 shadow-standard flex justify-center items-center'
         >
           {selected1}
           {isOpen1 ? (
@@ -52,7 +51,7 @@ const GridFilters = () => {
           )}
         </button>
         {isOpen1 && (
-          <ul className='p-1 bg-white rounded-lg mt-1 w-[220px] flex flex-col items-center justify-center text-[14.5px]'>
+          <ul className='p-1 bg-white rounded-lg w-[220px] flex flex-col items-center justify-center text-[14.5px] absolute mt-[80px] z-10'>
             <button
               type='button'
               className='font-thin py-[4px] w-full'
@@ -85,13 +84,13 @@ const GridFilters = () => {
         )}
       </div>
 
-      <div className='flex flex-col items-center'>
+      <div className='flex flex-col items-center font-roboto-text'>
         {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
         <label>Results per page</label>
         <button
           onClick={() => setIsOpen2((prev) => !prev)}
           type='button'
-          className='bg-white py-[6px] font-thin w-56 rounded-lg mt-4 shadow-md flex items-center justify-center'
+          className='bg-white py-[6px] w-56 rounded-lg mt-4 shadow-standard flex items-center justify-center'
         >
           {selected2}
           {isOpen2 ? (
@@ -127,7 +126,7 @@ const GridFilters = () => {
           )}
         </button>
         {isOpen2 && (
-          <ul className='p-1 bg-white rounded-lg mt-1 w-[220px] flex flex-col items-center justify-center text-[14.5px]'>
+          <ul className='p-1 bg-white rounded-lg w-[220px] flex flex-col items-center justify-center text-[14.5px] absolute mt-[80px] z-10'>
             <button
               type='button'
               className='font-thin py-[4px] w-full'
@@ -160,7 +159,7 @@ const GridFilters = () => {
         )}
       </div>
 
-      <div className='flex flex-col items-center'>
+      <div className='flex flex-col items-center font-roboto-text'>
         {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
         <label>Tags</label>
       </div>
