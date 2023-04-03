@@ -1,0 +1,17 @@
+name: Sync Submodule
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger sync in parent repository
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.PAT }}
+          repository: NavigoLearn/MonoRepo
+          event-type: submodule-sync
