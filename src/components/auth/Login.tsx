@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   GoogleLoginButton,
   GithubLoginButton,
 } from 'react-social-login-buttons';
+import { handleGoogleLogin, handleGitHubLogin } from "@components/auth/socialAuth";
 
 const Login = () => {
+  useEffect(() => {
+    if (document.cookie.includes('token')) {
+      // redirect to home page
+      window.location.href = '/home';
+    }
+  }, []);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -80,8 +88,8 @@ const Login = () => {
           <hr className='border-gray-500' />
         </div>
         <div className='grid gap-[10px] mt-[50px] w-full justify-center items-center'>
-          <GoogleLoginButton />
-          <GithubLoginButton />
+          <GoogleLoginButton onClick={handleGoogleLogin}/>
+          <GithubLoginButton onClick={handleGitHubLogin}/>
         </div>
       </form>
     </div>

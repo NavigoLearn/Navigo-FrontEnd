@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import logoSrc from '@assets/logo.svg';
 import { loggedLinks, guestLinks, universalLinks } from './Links';
 
 const DesktopNavbar = () => {
-  const isLoggedIn = true;
+  let [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    if (document.cookie.includes('token')) {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   return (
     <nav className='bg-transparent  flex w-full h-16 z-10 justify-between'>
