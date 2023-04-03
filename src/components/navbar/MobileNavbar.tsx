@@ -1,11 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import dropdown from '@assets/menu.svg';
 import dropclose from '@assets/cross.svg';
 import logoSrc from '@assets/logo.svg';
 import { mobileLogged, mobileGuest } from './Links';
 
 const MobileNavbar = () => {
-  const isLoggedIn = true;
+  let [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    if (document.cookie.includes('token')) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
   const [click, setClick] = useState(false);
 
   const handleClick = () => {
