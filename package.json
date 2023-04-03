@@ -2,6 +2,10 @@
   "name": "navigolearn-front",
   "type": "module",
   "version": "0.0.1",
+  "description": "Navigo Front End",
+  "repository": "https://github.com/NavigoLearn/Navigo-FrontEnd.git",
+  "author": "Navigo",
+  "license": "BSD 3-Clause",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
