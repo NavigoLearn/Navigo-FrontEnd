@@ -6,9 +6,9 @@ import followers from '@assets/followers.svg';
 import link from '@assets/link.svg';
 import dizaign from '@assets/dizaign.svg';
 import placeholderchart from '@assets/placeholderchart.png';
-import GridFilters from '../search/GridFilters';
-import CardGrid from '../search/CardGrid';
-import Scroll from '../search/Scroll';
+import GridFilters from '../explore/GridFilters';
+import CardGrid from '../explore/CardGrid';
+import Scroll from '../explore/Scroll';
 
 type Roamdmap = {
   id: number;

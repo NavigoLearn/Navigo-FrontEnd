@@ -18,7 +18,7 @@ const Search = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch('src/components/search/roadmapTests.json');
+      const response = await fetch('src/components/explore/roadmapTests.json');
       const jsonData = await response.json();
       setData(jsonData);
     };
