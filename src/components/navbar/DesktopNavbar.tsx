@@ -16,7 +16,7 @@ const DesktopNavbar = () => {
       <a href='/home' className='justify-start cursor-pointer flex'>
         <img className='w-20 ml-8' src={logoSrc} alt='navbar-logo' />
       </a>
-      <ul className='flex text-center items-center gap-10 h-full justify-items-center ml-28'>
+      <ul className='flex flex-grow border-2 border-black justify-center text-center items-center gap-10 h-full  ml-28'>
         {universalLinks.map((link) => {
           return (
             <li key={link.id} className='flex'>

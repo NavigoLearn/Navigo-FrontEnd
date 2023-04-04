@@ -7,9 +7,9 @@ import link from '@assets/link.svg';
 import dizaign from '@assets/dizaign.svg';
 import arrowdwn from '@assets/arrow-down.svg';
 import arrowup from '@assets/arrow-up.svg';
-import GridFilters from '../search/GridFilters';
-import CardGrid from '../search/CardGrid';
-import Scroll from '../search/Scroll';
+import GridFilters from '../explore/GridFilters';
+import CardGrid from '../explore/CardGrid';
+import Scroll from '../explore/Scroll';
 
 user.set({
   id: '1',

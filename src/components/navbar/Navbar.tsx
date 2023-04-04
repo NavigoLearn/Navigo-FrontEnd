@@ -3,7 +3,7 @@ import DesktopNavbar from './DesktopNavbar';
 import MobileNavbar from './MobileNavbar';
 
 const Navbar = () => {
-  const [isDesktop, setIsDesktop] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(undefined);
 
   useEffect(() => {
     const handleResize = () => {
@@ -19,7 +19,10 @@ const Navbar = () => {
 
   return (
     <nav className='z-100'>
-      <ul>{isDesktop ? <DesktopNavbar /> : <MobileNavbar />}</ul>
+      <ul>
+        {typeof isDesktop !== 'undefined' &&
+          (isDesktop ? <DesktopNavbar /> : <MobileNavbar />)}
+      </ul>
     </nav>
   );
 };
