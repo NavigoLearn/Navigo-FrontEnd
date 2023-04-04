@@ -3,8 +3,7 @@ import logoSrc from '@assets/logo.svg';
 import { loggedLinks, guestLinks, universalLinks } from './Links';
 
 const DesktopNavbar = () => {
-  let [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect(() => {
     if (document.cookie.includes('token')) {
       setIsLoggedIn(true);
@@ -16,7 +15,7 @@ const DesktopNavbar = () => {
       <a href='/home' className='justify-start cursor-pointer flex'>
         <img className='w-20 ml-8' src={logoSrc} alt='navbar-logo' />
       </a>
-      <ul className='flex flex-grow border-2 border-black justify-center text-center items-center gap-10 h-full  ml-28'>
+      <ul className='flex flex-grow  justify-center text-center items-center gap-10 h-full  ml-28'>
         {universalLinks.map((link) => {
           return (
             <li key={link.id} className='flex'>
