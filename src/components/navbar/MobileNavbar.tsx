@@ -5,7 +5,7 @@ import logoSrc from '@assets/logo.svg';
 import { mobileLogged, mobileGuest } from './Links';
 
 const MobileNavbar = () => {
-  let [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     if (document.cookie.includes('token')) {
@@ -54,7 +54,7 @@ const MobileNavbar = () => {
         <ul
           className={
             click
-              ? 'bg-background left-0 flex-col absolute opacity-100 transition-all min-h-screen ease-linear duration-150 w-screen top-12 items-center z-10'
+              ? 'bg-background left-0 flex-col absolute opacity-100 transition-all min-h-screen ease-linear duration-150 w-screen top-12 items-center z-50'
               : 'flex-col bg-background w-screen absolute top-12 -left-full opacity-0 transition-all duration-150 ease-linear items-center'
           }
         >
