@@ -6,9 +6,9 @@ import followers from '@assets/followers.svg';
 import link from '@assets/link.svg';
 import dizaign from '@assets/dizaign.svg';
 import placeholderchart from '@assets/placeholderchart.png';
-import GridFilters from '../search/GridFilters';
-import CardGrid from '../search/CardGrid';
-import Scroll from '../search/Scroll';
+import GridFilters from '../explore/GridFilters';
+import CardGrid from '../explore/CardGrid';
+import Scroll from '../explore/Scroll';
 
 type Roamdmap = {
   id: number;
@@ -39,8 +39,8 @@ const DesktopProfile = () => {
   console.log(data);
 
   return (
-    <div className='flex flex-col w-full h-full justify-center items-center my-40 '>
-      <div className='flex flex-col gap-10 justify-center items-center mx-auto w-full h-screen my-96'>
+    <div className='flex flex-col w-full h-full justify-center items-center '>
+      <div className='flex flex-col gap-10 justify-center items-center mx-auto w-full h-full my-40'>
         <div className='flex w-10/12 shadow-xl bg-white relative rounded-3xl min-h-10/12'>
           <div className='flex justify-between w-10/12 mt-44 items-center text-center'>
             <div className='flex flex-col justify-center items-center w-full transform my-12'>
