@@ -4,7 +4,7 @@ import GridFilters from './GridFilters';
 import CardGrid from './CardGrid';
 import Scroll from './Scroll';
 
-type Roamdmap1 = {
+type DataType = {
   id: number;
   name: string;
   madeby: string;
@@ -12,23 +12,24 @@ type Roamdmap1 = {
   description: string;
 };
 
-const Search = () => {
+const SearchDesktop = () => {
   const [query, setQuery] = useState('');
-  const [data, setData] = useState<Roamdmap1[]>([]);
+  const [data, setData] = useState<DataType[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch('src/components/search/roadmapTests.json');
+      const response = await fetch(
+        'src/components/explore/desktop/roadmapTests.json'
+      );
       const jsonData = await response.json();
+      console.log(jsonData);
       setData(jsonData);
     };
 
     fetchData();
   }, []);
 
-  console.log(data);
-
-  const filterItems = (): Roamdmap1[] => {
+  const filterItems = (): DataType[] => {
     if (!query) {
       return data;
     }
@@ -118,4 +119,4 @@ const Search = () => {
   );
 };
 
-export default Search;
+export default SearchDesktop;
