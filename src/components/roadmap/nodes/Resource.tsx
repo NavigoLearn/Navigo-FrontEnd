@@ -9,7 +9,7 @@ const Resource = ({ title, nodes }: ResourceProps) => {
   function renderNode(id) {
     const data = roadmapData.resourceSubNodes[id];
     return (
-      <div className='flex justify-center items-center my-2'>
+      <div key={data.id} className='flex justify-center items-center my-2'>
         <Node
           type='ResourceSubNode'
           title={data.title}

@@ -1,4 +1,3 @@
-import { atom } from 'nanostores';
 import {
   generateAbout,
   generateIssue,
@@ -9,7 +8,7 @@ import {
 } from '@typescript/generators';
 import { Roadmap } from '@type/roadmap/roadmap';
 
-const roadmap = atom({
+const roadmap: Roadmap = {
   about: generateAbout('', '', ''),
   issues: {
     id1Issue: generateIssue('id1Issue', 'Issue 1', 'Author 1'),
@@ -46,6 +45,6 @@ const roadmap = atom({
     res1node1: generateResSubNode('res1node1', 'Resource Node 1', 'tabid0'),
     res1node2: generateResSubNode('res1node2', 'Resource Node 2', 'tabid0'),
   },
-} as Roadmap);
+};
 
 export default roadmap;

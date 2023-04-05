@@ -26,36 +26,6 @@ const Roadmap = () => {
   }, []);
 
   function renderNode(root, data: NodeTypes, foreignObject) {
-    // if (data.nodeType === 'Node') {
-    //   root.render(
-    //     <NodeManager
-    //       nodeType='Node'
-    //       sizeCb={(width: number, height: number) => {
-    //         // sets foreignObject size to the size of the rendered component
-    //         foreignObject.attr('width', width).attr('height', height);
-    //       }}
-    //       type='Node'
-    //       title={data.title}
-    //       tabId={data.tabId}
-    //     />
-    //   );
-    // }
-
-    // if (data.nodeType === 'Resource') {
-    //   root.render(
-    //     <NodeManager
-    //       nodeType='Resource'
-    //       title={data.title}
-    //       sizeCb={(width: number, height: number) => {
-    //         // sets foreignObject size to the size of the rendered component
-    //         foreignObject.attr('width', width).attr('height', height);
-    //       }}
-    //       nodes={data.nodes}
-    //     />
-    //   );
-    // }
-
-    console.log(data);
     root.render(
       <NodeManager
         data={data}
@@ -86,13 +56,15 @@ const Roadmap = () => {
   useEffect(() => {
     // renders some elements in svg based on an array
     const { nodes } = roadmapData;
+    // creates array from the nodes json object
+    const nodesArray = Object.keys(nodes).map((key) => nodes[key]);
     const g = document.getElementById('rootGroup');
     addZoom('#rootSvg', '#rootGroup');
     // Perform the data join
     const nodeSelection = d3
       .select(g)
       .selectAll('g')
-      .data(nodes, (d) => {
+      .data(nodesArray, (d) => {
         return d.id;
       }); // Use the data value as the key function
 

@@ -11,7 +11,8 @@
       "@layouts/*": ["src/layouts/*"],
       "@store/*": ["src/store/*"],
       "@typescript/*": ["src/typescript/*"],
-      "@type/*": ["src/types/*"]
+      "@type/*": ["src/types/*"],
+      "@mocks/*": ["src/mockupdata/*"]
     }
   },
   "include": ["src/**/*", ".eslintrcworka.cjs", "__tests__/unit/**/*"],
