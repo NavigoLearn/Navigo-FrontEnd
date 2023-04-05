@@ -34,8 +34,8 @@ const MobileNavbar = () => {
     <nav
       className={
         click
-          ? 'bg-background h-12 flex w-screen justify-center items-center '
-          : 'bg-background h-12 flex w-screen justify-center'
+          ? 'bg-background h-12 flex w-full justify-center items-center'
+          : 'bg-background h-12 flex w-full justify-center'
       }
     >
       <div
@@ -45,12 +45,12 @@ const MobileNavbar = () => {
         role='presentation'
       >
         <img
-          className={click ? 'h-12' : 'h-12 object-contain'}
+          className={click ? 'h-12 w-24' : 'h-12 object-contain'}
           src={click ? dropclose : dropdown}
           alt='dropdown'
         />
       </div>
-      <div className='w-screen overflow-hidden'>
+      <div className='w-full h-full overflow-hidden'>
         <ul
           className={
             click
@@ -68,7 +68,10 @@ const MobileNavbar = () => {
           {isLoggedIn
             ? mobileLogged.map((link) => {
                 return (
-                  <li key={link.id} className='flex items-center text-center'>
+                  <li
+                    key={link.id}
+                    className='flex items-center text-center justify-center'
+                  >
                     <a className={link.cName} href={link.path}>
                       {link.cIcon && (
                         <img src={link.cIcon} alt='icon' className='w-8 flex' />
@@ -80,7 +83,10 @@ const MobileNavbar = () => {
               })
             : mobileGuest.map((link) => {
                 return (
-                  <li key={link.id} className='flex items-center text-center'>
+                  <li
+                    key={link.id}
+                    className='flex items-center text-center justify-center'
+                  >
                     <a className={link.cName} href={link.path}>
                       {link.cIcon && (
                         <img
