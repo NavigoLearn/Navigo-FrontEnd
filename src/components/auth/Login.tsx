@@ -3,7 +3,10 @@ import {
   GoogleLoginButton,
   GithubLoginButton,
 } from 'react-social-login-buttons';
-import { handleGoogleLogin, handleGitHubLogin } from "@components/auth/socialAuth";
+import {
+  handleGoogleLogin,
+  handleGitHubLogin,
+} from '@components/auth/socialAuth';
 
 const Login = () => {
   useEffect(() => {
@@ -88,8 +91,8 @@ const Login = () => {
           <hr className='border-gray-500' />
         </div>
         <div className='grid gap-[10px] mt-[50px] w-full justify-center items-center'>
-          <GoogleLoginButton onClick={handleGoogleLogin}/>
-          <GithubLoginButton onClick={handleGitHubLogin}/>
+          <GoogleLoginButton onClick={handleGoogleLogin} />
+          <GithubLoginButton onClick={handleGitHubLogin} />
         </div>
       </form>
     </div>

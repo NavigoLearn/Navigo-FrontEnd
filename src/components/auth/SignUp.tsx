@@ -3,7 +3,10 @@ import {
   GoogleLoginButton,
   GithubLoginButton,
 } from 'react-social-login-buttons';
-import { handleGoogleLogin, handleGitHubLogin } from '@components/auth/socialAuth';
+import {
+  handleGoogleLogin,
+  handleGitHubLogin,
+} from '@components/auth/socialAuth';
 
 // Aici trebuie rescrise testele pentru ca name field a fost sters din register
 const SignUp = () => {
@@ -106,8 +109,8 @@ const SignUp = () => {
           <hr className='border-gray-500' />
         </div>
         <div className='grid gap-[10px] mt-[50px] items-center justify-center'>
-          <GoogleLoginButton onClick={handleGoogleLogin}/>
-          <GithubLoginButton onClick={handleGitHubLogin}/>
+          <GoogleLoginButton onClick={handleGoogleLogin} />
+          <GithubLoginButton onClick={handleGitHubLogin} />
         </div>
       </form>
     </div>
