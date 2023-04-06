@@ -1,24 +1,45 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+import roadmapState, { setSaveFalse, setSaveTrue } from '@store/roadmap_state';
 import Button from '@components/roadmap/tabs/utils/Button';
 import { changeInfoTab } from '@store/roadmap_edit';
 import { divWrapper } from '@components/roadmap/tabs/utils/logic';
 import { useStore } from '@nanostores/react';
-import tabStore, { changeInfoTabProp } from '@store/tabinfo';
-import roadmapState from '@store/roadmap_state';
+import tabStore, {
+  changeInfoTabProp,
+  changeInfoTabLink,
+  deleteInfoTabLink,
+  addInfoTabLink,
+  flipOpen,
+} from '@store/tabinfo';
+import roadmap from '@store/roadmap';
+
+type link = {
+  title: string;
+  link: string;
+};
 
 const InfoEditing = () => {
   const { info } = useStore(tabStore);
   const { editing } = useStore(roadmapState);
+
+  const [newLink, setNewLink] = useState<link>({
+    title: '',
+    link: '',
+  });
+
+  const save = useRef(true);
   useEffect(() => {
     return () => {
-      if (editing) {
+      if (save.current) {
         changeInfoTab(info.id, info);
+        console.log('changes persistent');
+      } else {
+        console.log('save canceled');
       }
       // when the component unmounts, if editing is true, set roadmap tab to current
     };
   }, []);
 
-  console.log(info);
   return (
     <div className=' w-full h-full relative'>
       <div className='w-5/6 flex justify-between items-center mx-8 mt-6 '>
@@ -29,20 +50,30 @@ const InfoEditing = () => {
             changeInfoTabProp('title', e.target.value);
           }}
         />
-        <div className='mt-2'>
-          {editing && (
-            <Button
-              text={editing ? 'Save' : 'Mark as done'}
-              callback={() => {
-                if (editing) {
-                  changeInfoTab(info.id, info);
-                }
-                // to be done
-              }}
-              color='green'
-              size='medium'
-            />
-          )}
+        <div className='mt-2 flex gap-2 items-center '>
+          <Button
+            text='Cancel'
+            callback={() => {
+              console.log('save is false');
+              save.current = false;
+              flipOpen();
+            }}
+            color='primary'
+            size='small'
+          />
+          <Button
+            text='Save'
+            callback={() => {
+              if (editing) {
+                save.current = true;
+                changeInfoTab(info.id, info);
+                flipOpen();
+              }
+              // to be done
+            }}
+            color='green'
+            size='small'
+          />
         </div>
       </div>
       {divWrapper(
@@ -57,35 +88,63 @@ const InfoEditing = () => {
       {divWrapper(<div>Visit the following resources to learn more</div>)}
       {divWrapper(
         <div>
-          {info.links.map((resource) => {
+          {info.links.map((resource, index) => {
             return (
-              <li key={resource.title} className='list-disc ml-4'>
-                <a
-                  href={resource.link}
-                  target='_blank'
-                  rel='noreferrer'
-                  className='text-main font-semibold font-roboto-text text-lg'
+              // eslint-disable-next-line
+              <div className='flex gap-2 my-2' key={`${index}`}>
+                <input
+                  className='text-main font-semibold font-roboto-text text-lg border-2 border-gray-100'
+                  value={resource.title}
+                  onChange={(e) => {
+                    changeInfoTabLink(index, 'title', e.target.value);
+                  }}
+                />
+                <input
+                  className=' text-blue-400 font-light font-roboto-text text-base border-2 border-gray-100'
+                  value={resource.link}
+                  onChange={(e) => {
+                    changeInfoTabLink(index, 'link', e.target.value);
+                  }}
+                />
+                <button
+                  type='button'
+                  className=' text-sm text-placeholder font-roboto-text font-light'
+                  onClick={() => {
+                    deleteInfoTabLink(index);
+                  }}
                 >
-                  {resource.title}
-                </a>
-              </li>
+                  delete
+                </button>
+              </div>
             );
           })}
-        </div>
-      )}
-      {divWrapper(
-        <div className='flex items-center w-full'>
-          <div className=' text-secondary font-normal font-roboto-text'>
-            Recommended roadmap
+          <div className='flex gap-2 my-2'>
+            <input
+              className='text-main font-semibold font-roboto-text text-lg border-2 border-gray-100'
+              value={newLink.title}
+              onChange={(e) => {
+                setNewLink({ ...newLink, title: e.target.value });
+              }}
+            />
+            <input
+              className=' text-blue-400 font-light font-roboto-text text-base border-2 border-gray-100'
+              value={newLink.link}
+              onChange={(e) => {
+                setNewLink({ ...newLink, link: e.target.value });
+              }}
+            />
+            <button
+              type='button'
+              className=' text-sm text-placeholder font-roboto-text font-light'
+              onClick={() => {
+                // add a new link to the array
+                addInfoTabLink({ ...newLink });
+                setNewLink({ title: '', link: '' });
+              }}
+            >
+              add
+            </button>
           </div>
-          <a
-            href='https://roadmap.sh/'
-            target='_blank'
-            rel='noreferrer'
-            className=' text-blue-600  text-lg  font-semibold font-roboto-text ml-4'
-          >
-            {info.roadmap.title}
-          </a>
         </div>
       )}
       <div className='flex justify-center w-full'>
@@ -94,7 +153,7 @@ const InfoEditing = () => {
       <div className='absolute bottom-20 w-full max-h-20'>
         {divWrapper(
           <textarea
-            className='text-secondary font-normal font-roboto-text w-full h-10 mt-4 max-h-20'
+            className='text-secondary font-normal font-roboto-text w-full h-10 mt-4 max-h-20 border-2 border-gray-200'
             value={info.additionalInfo}
             onChange={(e) => {
               changeInfoTabProp('additionalInfo', e.target.value);

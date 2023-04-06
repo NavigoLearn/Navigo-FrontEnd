@@ -6,7 +6,6 @@ import { divWrapper } from './utils/logic';
 const Report = () => {
   const { type } = useStore(popup);
   const [text, setText] = useState('');
-  console.log(type);
   return (
     <div className='absolute top-0 right-0 h-screen w-screen flex justify-center items-center z-10l bg-transparent pointer-events-none'>
       {type === 'report' ? (

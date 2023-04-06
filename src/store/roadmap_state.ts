@@ -4,6 +4,7 @@ import roadmap from '@store/roadmap';
 
 const state = atom({
   editing: false,
+  save: true,
 } as any);
 // TODO make types for the state
 
@@ -22,6 +23,21 @@ export function setEditingTrue() {
 export function setEditingFalse() {
   const original = state.get();
   state.set({ ...original, editing: false });
+}
+
+export function setSaveTrue() {
+  const original = state.get();
+  state.set({ ...original, save: true });
+}
+
+export function setSaveFalse() {
+  const original = state.get();
+  state.set({ ...original, save: false });
+}
+
+export function toggleSave() {
+  const original = state.get();
+  state.set({ ...original, save: !original.save });
 }
 
 export function transferRoadmapToEdit() {

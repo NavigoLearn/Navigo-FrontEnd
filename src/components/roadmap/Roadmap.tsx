@@ -60,7 +60,6 @@ const Roadmap = () => {
   useEffect(() => {
     // renders some elements in svg based on an array
     let nodes;
-    console.log('editing: ', editing);
     if (!editing) {
       nodes = roadmapData.nodes;
     } else {

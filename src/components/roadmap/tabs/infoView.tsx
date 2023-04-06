@@ -43,21 +43,6 @@ const InfoView = () => {
           })}
         </div>
       )}
-      {divWrapper(
-        <div className='flex items-center w-full'>
-          <div className=' text-secondary font-normal font-roboto-text'>
-            Recommended roadmap
-          </div>
-          <a
-            href='https://roadmap.sh/'
-            target='_blank'
-            rel='noreferrer'
-            className=' text-blue-600  text-lg  font-semibold font-roboto-text ml-4'
-          >
-            {info.roadmap.title}
-          </a>
-        </div>
-      )}
       <div className='flex justify-center w-full'>
         <div className='absolute bottom-32 w-5/6 bg-gray-300 h-[1px] ' />
       </div>

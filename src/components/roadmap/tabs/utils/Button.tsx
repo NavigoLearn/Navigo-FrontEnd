@@ -17,6 +17,7 @@ const Button = ({
     secondary: 'bg-secondary',
     primary: 'bg-primary',
     green: 'bg-green-500',
+    red: 'bg-red-500',
   };
   const sizes = {
     small: 'h-8 text-sm px-4',
@@ -27,6 +28,7 @@ const Button = ({
     <button
       className={` flex justify-center items-center rounded-2xl   text-white font-medium  ${colors[color]} ${sizes[size]}`}
       type='button'
+      onClick={callback}
     >
       {text}
     </button>

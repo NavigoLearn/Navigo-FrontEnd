@@ -2,11 +2,15 @@ import React, { useRef } from 'react';
 import { NodeProps } from '@type/roadmap/nodes';
 import { setInfo } from '@store/tabinfo';
 import roadmap from '@store/roadmap';
+import roadmapEdit from '@store/roadmap_edit';
+import roadmapState from '@store/roadmap_state';
 import { useStore } from '@nanostores/react';
 
 const Node = ({ type, title, tabId }: NodeProps) => {
   const rootRef = useRef<HTMLButtonElement>(null);
   const roadmapData = useStore(roadmap);
+  const roadmapDataEdit = useStore(roadmapEdit);
+  const { editing } = useStore(roadmapState);
 
   const variants = {
     Node: {
@@ -28,7 +32,11 @@ const Node = ({ type, title, tabId }: NodeProps) => {
       className={variants[type].className}
       onClick={() => {
         // tab changing logic
-        setInfo(roadmapData.data[tabId]);
+        if (editing) {
+          setInfo(roadmapDataEdit.data[tabId]);
+        } else {
+          setInfo(roadmapData.data[tabId]);
+        }
       }}
     >
       <div
