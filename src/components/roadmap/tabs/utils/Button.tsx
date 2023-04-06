@@ -3,12 +3,29 @@ import React from 'react';
 type ButtonProps = {
   text: string;
   callback: () => void;
+  color: 'primary' | 'secondary' | 'green';
+  size: 'small' | 'medium' | 'large';
 };
 
-const Button = ({ text, callback }: ButtonProps) => {
+const Button = ({
+  text,
+  callback,
+  color = 'secondary',
+  size = 'small',
+}: ButtonProps) => {
+  const colors = {
+    secondary: 'bg-secondary',
+    primary: 'bg-primary',
+    green: 'bg-green-500',
+  };
+  const sizes = {
+    small: 'h-8 text-sm px-4',
+    medium: 'h-10 text-base px-6',
+    large: 'h-12 text-lg px-6',
+  };
   return (
     <button
-      className='bg-secondary flex justify-center items-center rounded-2xl px-4 h-8 text-white font-medium text-sm '
+      className={` flex justify-center items-center rounded-2xl   text-white font-medium  ${colors[color]} ${sizes[size]}`}
       type='button'
     >
       {text}

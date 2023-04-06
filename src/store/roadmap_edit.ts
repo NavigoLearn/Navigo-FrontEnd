@@ -9,7 +9,11 @@ import {
 } from '@typescript/generators';
 import { Roadmap } from '@type/roadmap/roadmap';
 import { AboutTab, InfoTab, IssuesTab } from '@type/roadmap/tab';
-import { NodeStore } from '@type/roadmap/nodes';
+import {
+  NodeStore,
+  ResourceStore,
+  ResourceSubNodeStore,
+} from '@type/roadmap/nodes';
 
 const roadmapEdit = atom({
   about: generateAbout('', '', ''),
@@ -22,6 +26,7 @@ const roadmapEdit = atom({
   data: {
     // the basic nodes data
     tabid0: generateInfoTab(
+      'tabid0',
       'ESLint',
       false,
       'With eslint you can impose a coding standard using a certain set of rules and good practices',
@@ -38,15 +43,10 @@ const roadmapEdit = atom({
   nodes: {
     // li{t of all nodes
     idnode1: generateNode('idnode1', 'Node1', 'tabid0', 100, 100),
-    idnode2: generateResource('idnode2', 'Resource1', 300, 300, [
-      'res1node1',
-      'res1node2',
-    ]),
   },
   resourceSubNodes: {
     // list of all resource nodes
     res1node1: generateResSubNode('res1node1', 'Resource Node 1', 'tabid0'),
-    res1node2: generateResSubNode('res1node2', 'Resource Node 2', 'tabid0'),
   },
 } as Roadmap);
 
@@ -57,13 +57,26 @@ export function changeAbout(property: keyof AboutTab, value: string) {
   roadmapEdit.set({ ...original, about });
 }
 
-export function changeInfoTab(id: string, property: keyof InfoTab, value: any) {
+export function changeInfoTabProp(
+  id: string,
+  property: keyof InfoTab,
+  value: any
+) {
   const original = roadmapEdit.get();
   const { data } = original;
   if (!data[id]) return;
   // eslint-disable-next-line
   // @ts-ignore
   data[id][property] = value;
+  original.data = data;
+  roadmapEdit.set({ ...original });
+}
+
+export function changeInfoTab(id: string, tab: InfoTab) {
+  const original = roadmapEdit.get();
+  const { data } = original;
+  if (!data[id]) return;
+  data[id] = tab;
   original.data = data;
   roadmapEdit.set({ ...original });
 }
@@ -109,13 +122,14 @@ export function changeInfoNode(
 
 export function changeResourceNode(
   id: string,
-  property: keyof NodeStore,
+  property: keyof ResourceStore,
   value: any
 ) {
   const original = roadmapEdit.get();
-  const { resourceSubNodes } = original;
-  resourceSubNodes[id][property] = value;
-  original.resourceSubNodes = resourceSubNodes;
+  const { nodes } = original;
+  if (!nodes[id] || nodes[id].type !== 'Resource') return;
+  nodes[id][property] = value;
+  original.nodes = nodes;
   roadmapEdit.set({ ...original });
 }
 
@@ -124,6 +138,18 @@ export function changeIssue(id: string, property: keyof IssuesTab, value: any) {
   const { issues } = original;
   issues[id][property] = value;
   original.issues = issues;
+  roadmapEdit.set({ ...original });
+}
+
+export function changeResourceSubNode(
+  id: string,
+  property: keyof ResourceSubNodeStore,
+  value: any
+) {
+  const original = roadmapEdit.get();
+  const { resourceSubNodes } = original;
+  resourceSubNodes[id][property] = value;
+  original.resourceSubNodes = resourceSubNodes;
   roadmapEdit.set({ ...original });
 }
 

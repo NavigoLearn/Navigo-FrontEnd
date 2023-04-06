@@ -1,15 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import { addZoom } from '@typescript/d3utils';
 import * as d3 from 'd3';
 import roadmap from '@store/roadmap';
+import roadmapEdit from '@store/roadmap_edit';
 import { useStore } from '@nanostores/react';
 import { NodeTypes } from '@type/roadmap/nodes';
+import roadmapState from '@store/roadmap_state';
 import Report from './tabs/Report';
 import NodeManager from './NodeManager';
 
 const Roadmap = () => {
+  const { editing } = useStore(roadmapState);
   const roadmapData = useStore(roadmap);
+  const roadmapDataEditable = useStore(roadmapEdit);
 
   useEffect(() => {
     // sets overflow hidden on body
@@ -55,7 +59,13 @@ const Roadmap = () => {
 
   useEffect(() => {
     // renders some elements in svg based on an array
-    const { nodes } = roadmapData;
+    let nodes;
+    console.log('editing: ', editing);
+    if (!editing) {
+      nodes = roadmapData.nodes;
+    } else {
+      nodes = roadmapDataEditable.nodes;
+    }
     // creates array from the nodes json object
     const nodesArray = Object.keys(nodes).map((key) => nodes[key]);
     const g = document.getElementById('rootGroup');
@@ -76,7 +86,7 @@ const Roadmap = () => {
       .each(function (data, idx) {
         appendToD3(this, data);
       });
-  }, []);
+  }, [editing]);
 
   return (
     <div className='w-full h-full '>

@@ -30,6 +30,7 @@ export function generateIssue(
 }
 
 export function generateInfoTab(
+  id: string,
   title: string,
   done: boolean,
   description: string,
@@ -38,6 +39,7 @@ export function generateInfoTab(
   additionalInfo: string
 ): InfoTab {
   return {
+    id,
     title,
     done,
     description,

@@ -6,13 +6,14 @@ type Roamdmap2 = {
   nolikes: number;
   description: string;
 };
+// todo ceav aici
 
 const CardGrid = ({ name, madeby, nolikes, description }: Roamdmap2) => {
   const [count, setCount] = useState(0);
+
   const [isClicked, setIsClicked] = useState(false);
   return (
     <div className='bg-white justify-between h-[256px] m-auto relative rounded-lg font-roboto-text text-center'>
-      {/* card go here */}
       <div className='flex justify-center items-center'>
         <h1 className='font-bold p-3 mt-1 text-xl font-kanit-text'>{name}</h1>
         <div className='flex flex-col absolute right-[23px] text-[10px] top-[12px]'>
@@ -29,6 +30,7 @@ const CardGrid = ({ name, madeby, nolikes, description }: Roamdmap2) => {
           Explore
         </button>
       </div>
+
       <button
         type='button'
         onClick={() => {

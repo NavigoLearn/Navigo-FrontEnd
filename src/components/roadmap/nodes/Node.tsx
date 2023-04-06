@@ -1,12 +1,11 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef } from 'react';
 import { NodeProps } from '@type/roadmap/nodes';
-import tabStore, { flipOpen, setInfo } from '@store/tabinfo';
+import { setInfo } from '@store/tabinfo';
 import roadmap from '@store/roadmap';
 import { useStore } from '@nanostores/react';
 
 const Node = ({ type, title, tabId }: NodeProps) => {
   const rootRef = useRef<HTMLButtonElement>(null);
-  const tabData = useStore(tabStore);
   const roadmapData = useStore(roadmap);
 
   const variants = {

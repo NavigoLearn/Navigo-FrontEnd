@@ -9,6 +9,7 @@ type RoadmapPreview = {
 };
 
 export type InfoTab = {
+  id: string;
   title: string;
   done: boolean;
   description: string;

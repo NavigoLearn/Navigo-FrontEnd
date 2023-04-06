@@ -1,5 +1,4 @@
 import { describe, it, expect, afterEach, beforeAll } from 'vitest';
-import roadmapEdit, { changeResourceNode } from '@store/roadmap_edit';
 import {
   setRoadmap,
   getRoadmap,
@@ -8,7 +7,10 @@ import {
   changeInfoTab,
   changeInfoTabLink,
   changeInfoTabRoadmapId,
+  changeResourceSubNode,
   changeIssue,
+  changeResourceNode,
+  changeInfoTabProp,
 } from '@store/roadmap_edit';
 import roadmap1 from '@mocks/roadmaps';
 
@@ -30,10 +32,10 @@ describe('test roadmap editing logic', () => {
 
   it('change roadmap info Tab', () => {
     let roadmap = getRoadmap();
-    changeInfoTab('tabid0', 'title', 'Docker');
+    changeInfoTabProp('tabid0', 'title', 'Docker');
     expect(roadmap.data['tabid0'].title).toBe('Docker');
     // does the same testing for: done, description, links, roadmap, additionalInfo
-    changeInfoTab('tabid0', 'done', true);
+    changeInfoTabProp('tabid0', 'done', true);
     expect(roadmap.data['tabid0'].done).toBe(true);
     changeInfoTabLink('tabid0', 0, 'title', 'Docker');
     expect(roadmap.data['tabid0'].links[0].title).toBe('Docker');
@@ -41,8 +43,28 @@ describe('test roadmap editing logic', () => {
 
   it('change roadmap info Node', () => {
     let roadmap = getRoadmap();
-    changeInfoNode('idnode2', 'title', 'Newnodetesthere');
+    changeInfoNode('idnode1', 'title', 'Newnodetesthere');
+    expect(roadmap.nodes['idnode1'].title).toBe('Newnodetesthere');
+    changeResourceNode('idnode2', 'title', 'Newnodetesthere');
     expect(roadmap.nodes['idnode2'].title).toBe('Newnodetesthere');
-    changeResourceNode();
+  });
+
+  it('change issue info', () => {
+    let roadmap = getRoadmap();
+    changeIssue('id1Issue', 'title', 'newissuetitle');
+    expect(roadmap.issues['id1Issue'].title).toBe('newissuetitle');
+  });
+
+  it('change Resource Subnodes', () => {
+    let roadmap = getRoadmap();
+    changeResourceSubNode('res1node1', 'title', 'newres1node1title');
+    expect(roadmap.resourceSubNodes['res1node1'].title).toBe(
+      'newres1node1title'
+    );
+  });
+
+  it('change Info tab by id', () => {
+    let roadmap = getRoadmap();
+    // TODO info tab by id test
   });
 });

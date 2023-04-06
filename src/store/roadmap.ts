@@ -20,7 +20,35 @@ const roadmap = atom({
   data: {
     // the basic nodes data
     tabid0: generateInfoTab(
+      'tabid0',
       'ESLint',
+      false,
+      'With eslint you can impose a coding standard using a certain set of rules and good practices',
+      [
+        { title: 'ESLint official Website', link: 'https://eslint.org/' },
+        { title: 'Introduction to ESLint', link: 'https://eslint.org/' },
+        { title: 'Some other useful Link', link: 'https://eslint.org/' },
+      ],
+      { id: '42124', title: 'Eslint roadmap' },
+      'this is some lorem ipsum addition info'
+    ),
+
+    tabid1: generateInfoTab(
+      'tabid1',
+      'Some react roadmp1',
+      false,
+      'With eslint you can impose a coding standard using a certain set of rules and good practices',
+      [
+        { title: 'ESLint official Website', link: 'https://eslint.org/' },
+        { title: 'Introduction to ESLint', link: 'https://eslint.org/' },
+        { title: 'Some other useful Link', link: 'https://eslint.org/' },
+      ],
+      { id: '42124', title: 'Eslint roadmap' },
+      'this is some lorem ipsum addition info'
+    ),
+    tabid2: generateInfoTab(
+      'tabid2',
+      'Prettier node',
       false,
       'With eslint you can impose a coding standard using a certain set of rules and good practices',
       [

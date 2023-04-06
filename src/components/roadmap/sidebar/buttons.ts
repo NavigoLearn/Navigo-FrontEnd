@@ -2,9 +2,9 @@ import edit from '@assets/edit.svg';
 import issues from '@assets/issues.svg';
 import about from '@assets/about.svg';
 import report from '@assets/report.svg';
-
-import { setAbout, setIssues } from '@store/tabinfo';
+import { flipOpen, setAbout, setIssues } from '@store/tabinfo';
 import { setReport } from '@store/popup';
+import { startEditingProtocol, toggleEditing } from '@store/roadmap_state';
 
 const buttons = [
   {
@@ -15,6 +15,8 @@ const buttons = [
     title: 'Edit',
     clickHandler: () => {
       console.log('edit');
+      // startEditingProtocol();
+      toggleEditing();
     },
   },
 

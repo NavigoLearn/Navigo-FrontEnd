@@ -22,7 +22,6 @@ const SearchDesktop = () => {
         'src/components/explore/desktop/roadmapTests.json'
       );
       const jsonData = await response.json();
-      console.log(jsonData);
       setData(jsonData);
     };
 

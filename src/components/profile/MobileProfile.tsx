@@ -24,7 +24,7 @@ user.set({
   BIO: 'Avid and passionate learner -- insert more linkedin boilerplate --. Average math enjoyer, likes a bit of competitive programming,  likes gym and the pump, likes nietzsche but goes out of his way to not read books despite wanting to.  Loves making startups and bringing ideas and meaningful changes to reality. Also likes speaking in public but is antisocial. If you want to contact me you are welcome to leave me alone',
   completedRoadmaps: 3,
   createdRoadmaps: 12,
-  inProgressRoadmaps: 7,
+  // inProgressRoadmaps: 7,
 });
 
 type Roamdmap = {

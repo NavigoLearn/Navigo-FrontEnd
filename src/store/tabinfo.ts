@@ -29,6 +29,7 @@ const tab = atom({
     ],
   },
   info: {
+    id: '',
     title: '',
     done: false,
     description: '',
@@ -56,6 +57,23 @@ export function trueOpen() {
   });
 }
 
+export function changeInfoTabProp(property: string, value: string) {
+  const newTab = tab.get();
+  newTab.info[property] = value;
+  tab.set({
+    ...newTab,
+  });
+}
+
+export function changeAboutTabProp(property: string, value: string) {
+  const newTab = tab.get();
+  newTab.about[property] = value;
+  tab.set({
+    ...newTab,
+  });
+}
+
+// TODO changing the issue tab
 export function falseOpen() {
   const newTab = tab.get();
   newTab.open = false;
