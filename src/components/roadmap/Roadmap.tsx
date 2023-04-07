@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { addZoom } from '@typescript/d3utils';
 import * as d3 from 'd3';
 import roadmap from '@store/roadmap';
-import roadmapEdit from '@store/roadmap_edit';
+import roadmapEdit, { changeAnyNode } from '@store/roadmap_edit';
 import { useStore } from '@nanostores/react';
 import { NodeTypes } from '@type/roadmap/nodes';
 import roadmapState from '@store/roadmap_state';
@@ -29,6 +29,8 @@ const Roadmap = () => {
     };
   }, []);
 
+  console.log('Roadmap rerendered');
+
   function renderNode(root, data: NodeTypes, foreignObject) {
     root.render(
       <NodeManager
@@ -43,7 +45,8 @@ const Roadmap = () => {
 
   function appendToD3(obj, data: NodeTypes) {
     const current = d3.select(obj);
-    const foreignObject = current
+    let foreignObject = current.select('foreignObject');
+    foreignObject = current
       .append('foreignObject')
       .attr('x', '0')
       .attr('y', '0')
@@ -77,6 +80,24 @@ const Roadmap = () => {
         return d.id;
       }); // Use the data value as the key function
 
+    const drag = d3
+      .drag()
+      .on('start', function () {
+        // called when the drag starts
+      })
+      .on('drag', function (event, d) {
+        // called when the element is being dragged
+        // d3.select(this).attr('cx', event.x).attr('cy', event.y);
+        if (!editing) return;
+        d3.select(this).attr('transform', `translate(${event.x}, ${event.y})`);
+      })
+      .on('end', function (event, d) {
+        // saving the new position of the node
+        if (!editing) return;
+        changeAnyNode(d.id, 'x', event.x);
+        changeAnyNode(d.id, 'y', event.y);
+      });
+
     nodeSelection
       .enter()
       .append('g')
@@ -85,7 +106,9 @@ const Roadmap = () => {
       .each(function (data, idx) {
         appendToD3(this, data);
       });
-  }, [editing]);
+    const sel = d3.select('#rootGroup').selectAll('g');
+    sel.call(drag);
+  }, [editing, roadmapDataEditable, roadmapData]);
 
   return (
     <div className='w-full h-full '>

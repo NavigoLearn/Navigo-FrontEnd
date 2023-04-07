@@ -41,7 +41,7 @@ const roadmapEdit = atom({
   },
 
   nodes: {
-    // li{t of all nodes
+    // list of all nodes
     idnode1: generateNode('idnode1', 'Node1', 'tabid0', 100, 100),
   },
   resourceSubNodes: {
@@ -108,6 +108,18 @@ export function changeInfoTabRoadmapId(id: string, newId: string) {
   data[id].roadmap.id = newId;
 }
 
+export function changeAnyNode(
+  id: string,
+  property: keyof (NodeStore & ResourceStore),
+  value: any
+) {
+  const original = roadmapEdit.get();
+  const { nodes } = original;
+  nodes[id][property] = value;
+  original.nodes = nodes;
+  roadmapEdit.set({ ...original });
+}
+
 export function changeInfoNode(
   id: string,
   property: keyof NodeStore,
@@ -116,6 +128,17 @@ export function changeInfoNode(
   const original = roadmapEdit.get();
   const { nodes } = original;
   nodes[id][property] = value;
+  const newNode = { ...nodes[id] };
+  nodes[id] = newNode;
+  original.nodes = nodes;
+  console.log(original);
+  roadmapEdit.set({ ...original });
+}
+
+export function replaceInfoNode(id: string, node: NodeStore) {
+  const original = roadmapEdit.get();
+  const { nodes } = original;
+  nodes[id] = node;
   original.nodes = nodes;
   roadmapEdit.set({ ...original });
 }

@@ -1,10 +1,12 @@
 export interface NodeProps {
+  id: string;
   title: string;
   type: 'Node' | 'ResourceSubNode';
   tabId: string;
 }
 
 export interface ResourceProps {
+  id: string;
   title: string;
   nodes: NodeProps[];
 }
@@ -37,6 +39,7 @@ export interface ResourceSubNodeStore {
 export type NodeTypes = NodeProps | ResourceProps;
 
 export type ManagerProps = {
+  // id: string;
   data: NodeTypes;
   sizeCb: (width: number, height: number) => void;
 };
