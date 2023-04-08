@@ -5,16 +5,44 @@
     "jsxImportSource": "react",
     "baseUrl": ".",
     "paths": {
-      "@components/*": ["src/components/*"],
-      "@assets/*": ["src/assets/*"],
-      "@styles/*": ["src/styles/*"],
-      "@layouts/*": ["src/layouts/*"],
-      "@store/*": ["src/store/*"],
-      "@typescript/*": ["src/typescript/*"],
-      "@type/*": ["src/types/*"],
-      "@mocks/*": ["src/mockupdata/*"]
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@assets/*": [
+        "src/assets/*"
+      ],
+      "@styles/*": [
+        "src/styles/*"
+      ],
+      "@layouts/*": [
+        "src/layouts/*"
+      ],
+      "@store/*": [
+        "src/store/*"
+      ],
+      "@typescript/*": [
+        "src/typescript/*"
+      ],
+      "@type/*": [
+        "src/types/*"
+      ],
+      "@mocks/*": [
+        "src/mockupdata/*"
+      ],
+      "@hooks/*": [
+        "src/hooks/*"
+      ]
     }
   },
-  "include": ["src/**/*", ".eslintrcworka.cjs", "__tests__/unit/**/*"],
-  "exclude": ["node_modules", "build", "dist", "vitest.config.ts"]
+  "include": [
+    "src/**/*",
+    ".eslintrcworka.cjs",
+    "__tests__/unit/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "build",
+    "dist",
+    "vitest.config.ts"
+  ]
 }

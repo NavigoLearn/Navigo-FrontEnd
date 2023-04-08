@@ -94,6 +94,11 @@ const Roadmap = () => {
       .on('end', function (event, d) {
         // saving the new position of the node
         if (!editing) return;
+        if (
+          roadmapEdit.get().nodes[d.id].x === event.x &&
+          roadmapEdit.get().nodes[d.id].y === event.y
+        )
+          return;
         changeAnyNode(d.id, 'x', event.x);
         changeAnyNode(d.id, 'y', event.y);
       });

@@ -43,3 +43,6 @@ export type ManagerProps = {
   data: NodeTypes;
   sizeCb: (width: number, height: number) => void;
 };
+
+export type NodeIdentifierTypes = 'Node' | 'Resource';
+export const NodeIdentifierTypesArray = ['Node', 'Resource'];

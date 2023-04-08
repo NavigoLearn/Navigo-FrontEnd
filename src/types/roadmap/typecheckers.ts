@@ -1,4 +1,4 @@
-import { NodeProps, ResourceProps } from './nodes';
+import { NodeProps, ResourceProps, NodeIdentifierTypes } from './nodes';
 
 export function isNodeProps(props: any): props is NodeProps {
   return (
@@ -10,4 +10,8 @@ export function isNodeProps(props: any): props is NodeProps {
 
 export function isResourceProps(props: any): props is ResourceProps {
   return !!(props as ResourceProps).title && !!(props as ResourceProps).nodes;
+}
+
+export function isValidNodeType(type: string): type is NodeIdentifierTypes {
+  return type === 'Node' || type === 'Resource';
 }

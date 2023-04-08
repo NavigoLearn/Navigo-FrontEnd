@@ -19,6 +19,7 @@ const roadmap: Roadmap = {
   data: {
     // the basic nodes data
     tabid0: generateInfoTab(
+      'tabid0',
       'ESLint',
       false,
       'With eslint you can impose a coding standard using a certain set of rules and good practices',

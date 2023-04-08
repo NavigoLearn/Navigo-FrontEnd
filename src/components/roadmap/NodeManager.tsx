@@ -5,8 +5,8 @@ import roadmapEdit from '@store/roadmap_edit';
 import roadmap from '@store/roadmap';
 import roadmapState from '@store/roadmap_state';
 import { useStore } from '@nanostores/react';
-import Node from './nodes/Node';
-import Resource from './nodes/Resource';
+import Node from './nodes/node-info/Node';
+import Resource from './nodes/node-resource/Resource';
 
 const NodeManager = ({ data, sizeCb }: ManagerProps) => {
   const rootRef = useRef<HTMLDivElement>(null);

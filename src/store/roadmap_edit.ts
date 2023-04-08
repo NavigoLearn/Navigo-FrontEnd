@@ -6,6 +6,8 @@ import {
   generateInfoTab,
   generateResource,
   generateNode,
+  generateEmptyResource,
+  generateEmptyNode,
 } from '@typescript/generators';
 import { Roadmap } from '@type/roadmap/roadmap';
 import { AboutTab, InfoTab, IssuesTab } from '@type/roadmap/tab';
@@ -14,6 +16,7 @@ import {
   ResourceStore,
   ResourceSubNodeStore,
 } from '@type/roadmap/nodes';
+import { isNodeProps } from '@type/roadmap/typecheckers';
 
 const roadmapEdit = atom({
   about: generateAbout('', '', ''),
@@ -108,6 +111,50 @@ export function changeInfoTabRoadmapId(id: string, newId: string) {
   data[id].roadmap.id = newId;
 }
 
+export function addNewTab(newId: string, newTab: InfoTab) {
+  const original = roadmapEdit.get();
+  const { data } = original;
+  data[newId] = newTab;
+  original.data = data;
+  roadmapEdit.set({ ...original });
+}
+
+export function getUnusedTabId() {
+  const original = roadmapEdit.get();
+  const { data } = original;
+  const ids = Object.keys(data);
+  let newId = 'tabid';
+  let appendedNumber = 0;
+  while (ids.includes(newId + appendedNumber)) {
+    appendedNumber += 1;
+  }
+  newId += appendedNumber;
+  return newId;
+}
+
+export function generateNewTab() {
+  const newId = getUnusedTabId();
+  const newTab = generateInfoTab(
+    newId,
+    'New Tab',
+    false,
+    '',
+    [],
+    null,
+    'Add some additional info here'
+  );
+  addNewTab(newId, newTab);
+  return newId;
+}
+
+export function addNewBlankTab(newId: string) {
+  const original = roadmapEdit.get();
+  const { data } = original;
+  data[newId] = generateInfoTab(newId, '', false, '', [], null, '');
+  original.data = data;
+  roadmapEdit.set({ ...original });
+}
+
 export function changeAnyNode(
   id: string,
   property: keyof (NodeStore & ResourceStore),
@@ -128,10 +175,34 @@ export function changeInfoNode(
   const original = roadmapEdit.get();
   const { nodes } = original;
   nodes[id][property] = value;
-  const newNode = { ...nodes[id] };
-  nodes[id] = newNode;
   original.nodes = nodes;
   console.log(original);
+  roadmapEdit.set({ ...original });
+}
+
+export function changeNodeType(
+  id: string,
+  type: 'Resource' | 'Node',
+  title: string
+) {
+  const original = roadmapEdit.get();
+  const { nodes } = original;
+  // generate new Node based on type
+  const nodeMapping = {
+    Resource: generateEmptyResource,
+    Node: generateEmptyNode,
+  };
+  const currentNode = nodes[id];
+  const newNode = nodeMapping[type](id, title, currentNode.x, currentNode.y);
+  if (isNodeProps(newNode) && type === 'Node') {
+    newNode.tabId = generateNewTab();
+  } else if (type === 'Resource') {
+    // whatever else needs to be done
+  } else {
+    throw new Error('Invalid type');
+  }
+  nodes[id] = { ...newNode };
+  original.nodes = nodes;
   roadmapEdit.set({ ...original });
 }
 

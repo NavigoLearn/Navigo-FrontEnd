@@ -23,6 +23,8 @@ const Issues = () => {
             callback={() => {
               // to be done
             }}
+            color='secondary'
+            size='small'
           />
         </div>
       </div>

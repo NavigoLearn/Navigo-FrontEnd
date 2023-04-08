@@ -83,6 +83,51 @@ export function generateResource(
   };
 }
 
+export function generateEmptyResource(
+  id: string,
+  title: string,
+  x: number,
+  y: number
+): ResourceStore {
+  return {
+    id,
+    title,
+    type: 'Resource',
+    nodes: [],
+    x,
+    y,
+  };
+}
+
+export function generateEmptyResourceSubNode(
+  id: string,
+  title: string,
+  tabId: string
+): ResourceSubNodeStore {
+  return {
+    id,
+    title,
+    type: 'ResourceSubNode',
+    tabId,
+  };
+}
+
+export function generateEmptyNode(
+  id: string,
+  title: string,
+  x: number,
+  y: number
+): NodeStore {
+  return {
+    id,
+    title,
+    type: 'Node',
+    tabId: '',
+    x: 0,
+    y: 0,
+  };
+}
+
 export function generateResSubNode(
   id: string,
   title: string,

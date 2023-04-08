@@ -2,23 +2,26 @@ import React from 'react';
 import { ResourceProps } from '@type/roadmap/nodes';
 import roadmap from '@store/roadmap';
 import { useStore } from '@nanostores/react';
-import Node from './Node';
+import Node from '../node-info/Node';
 
-const Resource = ({ title, nodes }: ResourceProps) => {
+const ResourceView = ({ id: idProp, title, nodes }: ResourceProps) => {
   const roadmapData = useStore(roadmap);
+
   function renderNode(id) {
     const data = roadmapData.resourceSubNodes[id];
     return (
       <div key={data.id} className='flex justify-center items-center my-2'>
         <Node
+          id={data.id}
           type='ResourceSubNode'
           title={data.title}
-          key={data.title}
+          key={data.id}
           tabId={data.tabId}
         />
       </div>
     );
   }
+
   return (
     <div
       className={` w-[250px]  pb-6 relative bg-white shadow-standard rounded-md `}
@@ -33,4 +36,4 @@ const Resource = ({ title, nodes }: ResourceProps) => {
   );
 };
 
-export default Resource;
+export default ResourceView;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ResourceEdit = () => {
+const Title = () => {
   return (
     <div>
       <div />
@@ -8,4 +8,4 @@ const ResourceEdit = () => {
   );
 };
 
-export default ResourceEdit;
+export default Title;
