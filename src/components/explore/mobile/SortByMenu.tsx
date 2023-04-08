@@ -8,7 +8,7 @@ const sorts = [
   { sort: 'Comments', id: 4 },
 ];
 
-const SortByMenu = ({ clickSort, handleClick }) => {
+const SortByMenu = ({ handleClick }) => {
   const [filterSelected, setFilterSelected] = useState('');
   console.log(filterSelected);
 
