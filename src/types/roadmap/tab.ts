@@ -9,6 +9,7 @@ type RoadmapPreview = {
 };
 
 export type InfoTab = {
+  id: string;
   title: string;
   done: boolean;
   description: string;
@@ -17,14 +18,16 @@ export type InfoTab = {
   additionalInfo: string;
 };
 
-type AboutTab = {
+export type AboutTab = {
   name: string;
   author: string;
   description: string;
 };
 
-type IssuesTab = {
-  issues: string[]; // issue ids
+export type IssuesTab = {
+  id: string;
+  title: string;
+  author: string;
 };
 
 type TabManager = {

@@ -29,11 +29,11 @@ const tab = atom({
     ],
   },
   info: {
+    id: '',
     title: '',
     done: false,
     description: '',
     links: [],
-    roadmap: {},
     additionalInfo: '',
   },
 } as any);
@@ -56,6 +56,23 @@ export function trueOpen() {
   });
 }
 
+export function changeInfoTabProp(property: string, value: string) {
+  const newTab = tab.get();
+  newTab.info[property] = value;
+  tab.set({
+    ...newTab,
+  });
+}
+
+export function changeAboutTabProp(property: string, value: string) {
+  const newTab = tab.get();
+  newTab.about[property] = value;
+  tab.set({
+    ...newTab,
+  });
+}
+
+// TODO changing the issue tab
 export function falseOpen() {
   const newTab = tab.get();
   newTab.open = false;
@@ -79,7 +96,40 @@ export function setInfo(infoData) {
   tab.set({
     ...newTab,
     type: 'info',
-    info: infoData,
+    info: { ...infoData },
+  });
+}
+
+export function changeInfoTabLink(index: number, field: string, value: string) {
+  const newTab = tab.get();
+  newTab.info.links[index][field] = value;
+  tab.set({
+    ...newTab,
+  });
+}
+
+export function deleteInfoTabLink(index: number) {
+  const newTab = tab.get();
+  newTab.info.links.splice(index, 1);
+  tab.set({
+    ...newTab,
+  });
+}
+
+export function addInfoTabLink({
+  title,
+  link,
+}: {
+  title: string;
+  link: string;
+}) {
+  const newTab = tab.get();
+  newTab.info.links.push({
+    title,
+    link,
+  });
+  tab.set({
+    ...newTab,
   });
 }
 

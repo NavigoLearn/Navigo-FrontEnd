@@ -2,9 +2,14 @@ import edit from '@assets/edit.svg';
 import issues from '@assets/issues.svg';
 import about from '@assets/about.svg';
 import report from '@assets/report.svg';
-
-import { setAbout, setIssues } from '@store/tabinfo';
+import { flipOpen, setAbout, setIssues } from '@store/tabinfo';
 import { setReport } from '@store/popup';
+import roadmapState, {
+  startEditingProtocol,
+  toggleEditing,
+  transferEditToRoadmap,
+  transferRoadmapToEdit,
+} from '@store/roadmap_state';
 
 const buttons = [
   {
@@ -14,7 +19,14 @@ const buttons = [
     cIcon: edit,
     title: 'Edit',
     clickHandler: () => {
-      console.log('edit');
+      // startEditingProtocol();
+      // persist the changes to the original roadmap
+      if (roadmapState.get().editing) {
+        transferEditToRoadmap();
+      } else {
+        transferRoadmapToEdit();
+      }
+      toggleEditing();
     },
   },
 
