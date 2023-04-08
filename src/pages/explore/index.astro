@@ -1,10 +1,14 @@
 ---
 import Base from '@layouts/Base.astro';
-import Explore from '@components/explore/Explore';
+import Search from '@components/explorerefr/mobile/Search';
 ---
 
 <Base title='Welcome to Astro.'>
-  <div class='h-[1280px] h-min-screen bg-background'>
-    <Explore client:load />
+  <div>
+    <div class="flex items-center justify-center mx-8 font-kanit-text text-[21px] flex-col mt-9 sm:text-[31px]">
+      <h1>The journey of 1000 steps</h1>
+      <h1>starts with 1 roadmap</h1>
+    </div>
+    <Search client:load/>
   </div>
 </Base>
