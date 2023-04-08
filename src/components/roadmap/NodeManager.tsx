@@ -24,7 +24,6 @@ const NodeManager = ({ data, sizeCb }: ManagerProps) => {
     }
   }, []);
 
-  // console.log('node manager rerendered');
   const renderNode = () => {
     // we fetch the data from the nanostores here in order to get rerendering on data change
     const { nodes } = roadmap.get();

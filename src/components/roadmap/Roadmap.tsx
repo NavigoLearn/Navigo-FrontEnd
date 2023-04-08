@@ -29,8 +29,6 @@ const Roadmap = () => {
     };
   }, []);
 
-  console.log('Roadmap rerendered');
-
   function renderNode(root, data: NodeTypes, foreignObject) {
     root.render(
       <NodeManager

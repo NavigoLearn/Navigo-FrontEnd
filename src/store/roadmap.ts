@@ -64,15 +64,25 @@ const roadmap = atom({
   nodes: {
     // list of all nodes
     idnode1: generateNode('idnode1', 'Node1', 'tabid0', 100, 100),
-    // idnode2: generateResource('idnode2', 'Resource1', 300, 300, [
-    //   'res1node1',
-    //   'res1node2',
-    // ]),
+    idnode2: generateResource('idnode2', 'Resource1', 300, 300, [
+      'resourceSubNodeId1',
+      'resourceSubNodeId2',
+    ]),
   },
   resourceSubNodes: {
     // list of all resource nodes
-    res1node1: generateResSubNode('res1node1', 'Resource Node 1', 'tabid0'),
-    res1node2: generateResSubNode('res1node2', 'Resource Node 2', 'tabid0'),
+    resourceSubNodeId1: generateResSubNode(
+      'resourceSubNodeId1',
+      'idnode2',
+      'Resource Node 1',
+      'tabid1'
+    ),
+    resourceSubNodeId2: generateResSubNode(
+      'resourceSubNodeId2',
+      'idnode2',
+      'Resource Node 1',
+      'tabid2'
+    ),
   },
 } as Roadmap);
 

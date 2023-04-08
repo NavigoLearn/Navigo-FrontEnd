@@ -19,11 +19,9 @@ const buttons = [
     cIcon: edit,
     title: 'Edit',
     clickHandler: () => {
-      console.log('edit');
       // startEditingProtocol();
       // persist the changes to the original roadmap
       if (roadmapState.get().editing) {
-        console.log('transfered');
         transferEditToRoadmap();
       } else {
         transferRoadmapToEdit();

@@ -1,15 +1,36 @@
-import { NodeProps, ResourceProps, NodeIdentifierTypes } from './nodes';
+import {
+  NodeProps,
+  ResourceProps,
+  NodeIdentifierTypes,
+  ResourceSubNodeStore,
+  ResourceSubNodeProps,
+  ResourceStore,
+} from './nodes';
 
 export function isNodeProps(props: any): props is NodeProps {
-  return (
-    !!(props as NodeProps).title &&
-    !!(props as NodeProps).tabId &&
-    !!(props as NodeProps).type
-  );
+  return 'title' in props && 'tabId' in props && 'type' in props;
+}
+
+export function isResourceSubNodeProps(
+  props: any
+): props is ResourceSubNodeProps {
+  return 'title' in props && 'tabId' in props && 'type' in props;
 }
 
 export function isResourceProps(props: any): props is ResourceProps {
-  return !!(props as ResourceProps).title && !!(props as ResourceProps).nodes;
+  return 'title' in props && 'nodes' in props;
+}
+
+export function isResourceStore(props: any): props is ResourceStore {
+  return (
+    'title' in props &&
+    'type' in props &&
+    props.type === 'Resource' &&
+    'nodes' in props &&
+    'x' in props &&
+    'y' in props &&
+    'id' in props
+  );
 }
 
 export function isValidNodeType(type: string): type is NodeIdentifierTypes {

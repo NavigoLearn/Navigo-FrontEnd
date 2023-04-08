@@ -1,32 +1,13 @@
 import React, { useState } from 'react';
 import { NodeProps, ResourceProps } from '@type/roadmap/nodes';
-import roadmap from '@store/roadmap';
-import { useStore } from '@nanostores/react';
-import Node from '../node-info/Node';
+import { renderNodeEdit } from '@components/roadmap/nodes/node-resource/utils';
+import {
+  generateNewResourceSubNode,
+  addToResourceNewSubNode,
+} from '@store/roadmap_edit';
+import DropdownType from '@components/roadmap/nodes/edit-logic-modules/DropdownType';
 
 const ResourceEdit = ({ id: idProp, title, nodes }: ResourceProps) => {
-  const roadmapData = useStore(roadmap);
-  const [nodeData, setNodeData] = useState<ResourceProps>({
-    id: idProp,
-    title,
-    nodes,
-  });
-
-  function renderNode(id) {
-    const data = roadmapData.resourceSubNodes[id];
-    return (
-      <div key={data.id} className='flex justify-center items-center my-2'>
-        <Node
-          id={data.id}
-          type='ResourceSubNode'
-          title={data.title}
-          key={data.id}
-          tabId={data.tabId}
-        />
-      </div>
-    );
-  }
-
   return (
     <div
       className={` w-[250px]  pb-6 relative bg-white shadow-standard rounded-md `}
@@ -35,8 +16,19 @@ const ResourceEdit = ({ id: idProp, title, nodes }: ResourceProps) => {
         {title}
       </div>
       {nodes.map((id) => {
-        return renderNode(id);
+        return renderNodeEdit(id, idProp);
       })}
+      <button
+        type='button'
+        onClick={() => {
+          // add a new sub node
+          addToResourceNewSubNode(idProp);
+          console.log('clicked');
+        }}
+      >
+        Add a resource
+      </button>
+      <DropdownType id={idProp} title={title} type='Resource' />
     </div>
   );
 };

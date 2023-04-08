@@ -40,7 +40,7 @@ const NodeView = ({ type, title, tabId, id }: NodeProps) => {
       }}
     >
       <div
-        className={` h-full font-roboto-text  w-full flex justify-center items-center ${variants[type].text} `}
+        className={` h-full border-black border-2 font-roboto-text  w-full flex justify-center items-center ${variants[type].text} `}
       >
         {title}
       </div>

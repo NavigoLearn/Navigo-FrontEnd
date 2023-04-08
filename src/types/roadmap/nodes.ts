@@ -29,8 +29,17 @@ export interface ResourceStore {
   nodes: string[];
 }
 
+export interface ResourceSubNodeProps {
+  id: string;
+  parentId: string;
+  type: 'ResourceSubNode';
+  title: string;
+  tabId: string;
+}
+
 export interface ResourceSubNodeStore {
   id: string;
+  parentId: string;
   type: 'ResourceSubNode';
   title: string;
   tabId: string;

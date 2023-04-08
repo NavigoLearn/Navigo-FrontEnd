@@ -12,11 +12,17 @@ import {
 import { Roadmap } from '@type/roadmap/roadmap';
 import { AboutTab, InfoTab, IssuesTab } from '@type/roadmap/tab';
 import {
+  NodeIdentifierTypes,
   NodeStore,
+  NodeTypes,
   ResourceStore,
   ResourceSubNodeStore,
 } from '@type/roadmap/nodes';
-import { isNodeProps } from '@type/roadmap/typecheckers';
+import {
+  isNodeProps,
+  isResourceProps,
+  isResourceStore,
+} from '@type/roadmap/typecheckers';
 
 const roadmapEdit = atom({
   about: generateAbout('', '', ''),
@@ -49,7 +55,12 @@ const roadmapEdit = atom({
   },
   resourceSubNodes: {
     // list of all resource nodes
-    res1node1: generateResSubNode('res1node1', 'Resource Node 1', 'tabid0'),
+    resourceSubNodeId1: generateResSubNode(
+      'resourceSubNodeId1',
+      'idnonexistent',
+      'Resource Node 1',
+      'tabid0'
+    ),
   },
 } as Roadmap);
 
@@ -244,6 +255,151 @@ export function changeResourceSubNode(
   const { resourceSubNodes } = original;
   resourceSubNodes[id][property] = value;
   original.resourceSubNodes = resourceSubNodes;
+  roadmapEdit.set({ ...original });
+}
+
+export function getUnusedResourceSubNodeId() {
+  const original = roadmapEdit.get();
+  const { resourceSubNodes } = original;
+  const ids = Object.keys(resourceSubNodes);
+  let newId = 'resourceSubNodeId';
+  let appendedNumber = 0;
+  while (ids.includes(newId + appendedNumber)) {
+    appendedNumber += 1;
+  }
+  newId += appendedNumber;
+  return newId;
+}
+
+export function generateEmptyResourceSubNode(
+  id,
+  tabId,
+  parentId
+): ResourceSubNodeStore {
+  return {
+    id,
+    parentId,
+    tabId,
+    type: 'ResourceSubNode',
+    title: '',
+  };
+}
+
+export function generateNewResourceSubNode(parentId: string) {
+  const original = roadmapEdit.get();
+  const { resourceSubNodes } = original;
+  const newId = getUnusedResourceSubNodeId();
+  const tabId = generateNewTab();
+  resourceSubNodes[newId] = generateEmptyResourceSubNode(
+    newId,
+    tabId,
+    parentId
+  );
+  original.resourceSubNodes = resourceSubNodes;
+  roadmapEdit.set({ ...original });
+  return newId;
+}
+
+export function addToResourceNewSubNode(id: string) {
+  const original = roadmapEdit.get();
+  const { nodes } = original;
+  if (!nodes[id] || nodes[id].type !== 'Resource') return;
+  const newId = generateNewResourceSubNode(id);
+  const currentNode = nodes[id];
+  if (!isResourceStore(currentNode)) {
+    throw new Error('Invalid node type when adding new resource subnor');
+  }
+  currentNode.nodes.push(newId);
+  original.nodes = nodes;
+  roadmapEdit.set({ ...original });
+}
+
+export function getUnusedNodeId() {
+  const original = roadmapEdit.get();
+  const { nodes } = original;
+  const ids = Object.keys(nodes);
+  let newId = 'nodeId';
+  let appendedNumber = 0;
+  while (ids.includes(newId + appendedNumber)) {
+    appendedNumber += 1;
+  }
+  newId += appendedNumber;
+  return newId;
+}
+
+export function addEmptyResource(
+  id: string,
+  title: string,
+  x: number,
+  y: number
+) {
+  const original = roadmapEdit.get();
+  const { nodes } = original;
+  const newId = getUnusedNodeId();
+  nodes[newId] = generateEmptyResource(newId, title, x, y);
+  original.nodes = nodes;
+  roadmapEdit.set({ ...original });
+  return newId;
+}
+
+export function addEmptyNode(id: string, title: string, x: number, y: number) {
+  const original = roadmapEdit.get();
+  const { nodes } = original;
+  const newId = getUnusedNodeId();
+  const newNode = generateEmptyNode(newId, title, x, y);
+  const tabId = generateNewTab();
+  newNode.tabId = tabId;
+  nodes[newId] = newNode;
+  original.nodes = nodes;
+  roadmapEdit.set({ ...original });
+  return newId;
+}
+
+export function getNodeCoods(id: string) {
+  const original = roadmapEdit.get();
+  const { nodes } = original;
+  if (!nodes[id]) return null;
+  return { x: nodes[id].x, y: nodes[id].y };
+}
+
+export function generationFlow(
+  type: NodeIdentifierTypes,
+  id: string,
+  title: string,
+  x: number,
+  y: number
+) {
+  if (type === 'Resource') {
+    return addEmptyResource(id, title, x, y);
+  }
+  if (type === 'Node') {
+    return addEmptyNode(id, title, x, y);
+  }
+
+  throw new Error('Invalid type');
+}
+
+export function addNewNode(parentId: string, type: NodeIdentifierTypes) {
+  const original = roadmapEdit.get();
+  const { nodes } = original;
+  const newId = getUnusedNodeId();
+  const { x, y } = getNodeCoods(parentId);
+  generationFlow(type, newId, 'newNode', x, y + 200);
+  return newId;
+}
+
+export function removeFromResourceSubNode(id: string, subNodeId: string) {
+  const original = roadmapEdit.get();
+  const { nodes } = original;
+  if (!nodes[id] || nodes[id].type !== 'Resource') {
+    throw new Error('Invalid node type when removing resource subnode');
+  }
+  const currentNode = nodes[id];
+  if (!isResourceStore(currentNode)) {
+    throw new Error('Invalid node type when removing resource subnode');
+  }
+  currentNode.nodes = currentNode.nodes.filter((node) => node !== subNodeId);
+  original.nodes = nodes;
   roadmapEdit.set({ ...original });
 }
 

@@ -101,10 +101,12 @@ export function generateEmptyResource(
 
 export function generateEmptyResourceSubNode(
   id: string,
+  parentId: string,
   title: string,
   tabId: string
 ): ResourceSubNodeStore {
   return {
+    parentId,
     id,
     title,
     type: 'ResourceSubNode',
@@ -123,17 +125,19 @@ export function generateEmptyNode(
     title,
     type: 'Node',
     tabId: '',
-    x: 0,
-    y: 0,
+    x,
+    y,
   };
 }
 
 export function generateResSubNode(
   id: string,
+  parentId: string,
   title: string,
   tabId: string
 ): ResourceSubNodeStore {
   return {
+    parentId,
     id,
     title,
     type: 'ResourceSubNode',

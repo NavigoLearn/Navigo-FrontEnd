@@ -1,17 +1,22 @@
 import React from 'react';
 import { setInfo } from '@store/tabinfo';
 import roadmapEdit from '@store/roadmap_edit';
+import {
+  isNodeProps,
+  isResourceSubNodeProps,
+} from '@type/roadmap/typecheckers';
+import { NonEditingComponentProps } from '@type/roadmap/components';
 
-const Title3 = ({
+const SubNodeTitleNonEdit = ({
   value,
   id,
   setCb: setEditTitle,
-}: {
-  value: string;
-  id: string;
-  setCb: () => void;
-}) => {
-  console.log('title3 rerendered', value, id, setEditTitle);
+}: NonEditingComponentProps) => {
+  const node = roadmapEdit.get().resourceSubNodes[id];
+  if (!isResourceSubNodeProps(node)) {
+    throw new Error('node is not a resource subnode props');
+  }
+  const { tabId } = node;
   return (
     <>
       <button
@@ -19,7 +24,7 @@ const Title3 = ({
         type='button'
         onClick={() => {
           // tab changing logic
-          setInfo(roadmapEdit.get().data[id]);
+          setInfo(roadmapEdit.get().data[tabId]);
         }}
       >
         {value}
@@ -31,7 +36,6 @@ const Title3 = ({
           onClick={
             // change edit status
             () => {
-              console.log('edit title');
               setEditTitle();
             }
           }
@@ -43,4 +47,4 @@ const Title3 = ({
   );
 };
 
-export default Title3;
+export default SubNodeTitleNonEdit;

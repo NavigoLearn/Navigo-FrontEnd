@@ -43,8 +43,18 @@ const roadmap: Roadmap = {
   },
   resourceSubNodes: {
     // list of all resource nodes
-    res1node1: generateResSubNode('res1node1', 'Resource Node 1', 'tabid0'),
-    res1node2: generateResSubNode('res1node2', 'Resource Node 2', 'tabid0'),
+    res1node1: generateResSubNode(
+      'res1node1',
+      'idnode2',
+      'Resource Node 1',
+      'tabid0'
+    ),
+    res1node2: generateResSubNode(
+      'res1node2',
+      'idnode2',
+      'Resource Node 2',
+      'tabid0'
+    ),
   },
 };
 
