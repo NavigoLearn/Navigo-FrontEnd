@@ -1,16 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import DesktopNavbar from './DesktopNavbar';
 import MobileNavbar from './MobileNavbar';
 
 const Navbar = () => {
-  let mediaQuery;
-  useEffect(() => {
-    mediaQuery = window.matchMedia('(max-width: 950px)');
-  }, []);
-
   return (
     <div className='z-100'>
-      {!mediaQuery ? <DesktopNavbar /> : <MobileNavbar />}
+      <div className='hidden md:block'>
+        <DesktopNavbar />
+      </div>
+      <div className=' md:hidden'>
+        <MobileNavbar />
+      </div>
     </div>
   );
 };
