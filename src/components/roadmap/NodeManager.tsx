@@ -1,14 +1,17 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { NodeProps, ResourceProps, ManagerProps } from '@type/roadmap/nodes';
-import { isNodeProps, isResourceProps } from '@type/roadmap/typecheckers';
+import React, { useEffect, useRef } from 'react';
 import roadmapEdit from '@store/roadmap_edit';
 import roadmap from '@store/roadmap';
 import roadmapState from '@store/roadmap_state';
 import { useStore } from '@nanostores/react';
+import { NodeInfoProps, NodeManagerProps } from '@type/roadmap/nodes';
+import {
+  isNodeInfoProps,
+  isNodeResourceProps,
+} from '@type/roadmap/typecheckers';
 import Node from './nodes/node-info/Node';
 import Resource from './nodes/node-resource/Resource';
 
-const NodeManager = ({ data, sizeCb }: ManagerProps) => {
+const NodeManager = ({ data, sizeCb }: NodeManagerProps) => {
   const rootRef = useRef<HTMLDivElement>(null);
   const { editing } = useStore(roadmapState);
   // TODO implement selective rerendering (Only rerenders when the current node changes not any node in roadmap)
@@ -27,13 +30,13 @@ const NodeManager = ({ data, sizeCb }: ManagerProps) => {
   const renderNode = () => {
     // we fetch the data from the nanostores here in order to get rerendering on data change
     const { nodes } = roadmap.get();
-    const { id } = data as NodeProps;
+    const { id } = data as NodeInfoProps;
     const node = nodes[id];
-    if (isNodeProps(node)) {
+    if (isNodeInfoProps(node)) {
       const { title, type, tabId } = node;
-      return <Node id={id} type={type} title={title} tabId={tabId} />;
+      return <Node id={id} title={title} tabId={tabId} />;
     }
-    if (isResourceProps(node)) {
+    if (isNodeResourceProps(node)) {
       const { id: idNode, title, nodes: resNodes } = node;
       return <Resource id={idNode} title={title} nodes={resNodes} />;
     }
@@ -42,13 +45,13 @@ const NodeManager = ({ data, sizeCb }: ManagerProps) => {
   const renderNodeEditing = () => {
     // we fetch the data from the nanostores here in order to get rerendering on data change
     const { nodes } = roadmapEdit.get();
-    const { id } = data as NodeProps;
+    const { id } = data as NodeInfoProps;
     const node = nodes[id];
-    if (isNodeProps(node)) {
+    if (isNodeInfoProps(node)) {
       const { title, type, tabId } = node;
-      return <Node id={id} type={type} title={title} tabId={tabId} />;
+      return <Node id={id} title={title} tabId={tabId} />;
     }
-    if (isResourceProps(node)) {
+    if (isNodeResourceProps(node)) {
       const { id: idNode, title, nodes: resNodes } = node;
       return <Resource id={idNode} title={title} nodes={resNodes} />;
     }

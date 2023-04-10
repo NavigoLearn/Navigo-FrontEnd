@@ -3,37 +3,31 @@ type Link = {
   link: string;
 };
 
-type RoadmapPreview = {
-  title: string;
-  id: string;
-};
-
-export type InfoTab = {
+export type TabInfo = {
   id: string;
   title: string;
   done: boolean;
   description: string;
   links: Link[];
-  roadmap: RoadmapPreview;
   additionalInfo: string;
 };
 
-export type AboutTab = {
+export type TabAbout = {
   name: string;
   author: string;
   description: string;
 };
 
-export type IssuesTab = {
+export type TabIssues = {
   id: string;
   title: string;
   author: string;
 };
 
 type TabManager = {
-  info: InfoTab;
-  about: AboutTab;
-  issues: IssuesTab;
+  info: TabInfo;
+  about: TabAbout;
+  issues: TabIssues;
 };
 
 export type TabKeys = keyof TabManager;

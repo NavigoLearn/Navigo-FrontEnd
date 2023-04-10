@@ -1,13 +1,16 @@
-import { NodeStore, ResourceStore, ResourceSubNodeStore } from './nodes';
-import { InfoTab, IssuesTab, AboutTab } from './tab';
+import { ConnectionStore } from '@type/roadmap/connections';
+import { NodeTypesStore } from '@type/roadmap/nodes';
+import { ResourcesStoreTypes } from '@type/roadmap/resources';
+import { TabAbout, TabInfo, TabIssues } from '@type/roadmap/tab';
 
 interface HashMap<T> {
   [key: string]: T;
 }
 export type Roadmap = {
-  about: AboutTab;
-  issues: HashMap<IssuesTab>;
-  data: HashMap<InfoTab>;
-  nodes: HashMap<NodeStore | ResourceStore>;
-  resourceSubNodes: HashMap<ResourceSubNodeStore>;
+  about: TabAbout;
+  issues: HashMap<TabIssues>;
+  data: HashMap<TabInfo>;
+  nodes: HashMap<NodeTypesStore>;
+  connections: HashMap<ConnectionStore>;
+  resources: HashMap<ResourcesStoreTypes>;
 };

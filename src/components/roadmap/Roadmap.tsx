@@ -5,8 +5,12 @@ import * as d3 from 'd3';
 import roadmap from '@store/roadmap';
 import roadmapEdit, { changeAnyNode } from '@store/roadmap_edit';
 import { useStore } from '@nanostores/react';
-import { NodeTypes } from '@type/roadmap/nodes';
 import roadmapState from '@store/roadmap_state';
+import {
+  NodeIdentifierTypes,
+  NodeTypesProps,
+  NodeTypesStore,
+} from '@type/roadmap/nodes';
 import Report from './tabs/Report';
 import NodeManager from './NodeManager';
 
@@ -29,7 +33,7 @@ const Roadmap = () => {
     };
   }, []);
 
-  function renderNode(root, data: NodeTypes, foreignObject) {
+  function renderNode(root, data: NodeTypesProps, foreignObject) {
     root.render(
       <NodeManager
         data={data}
@@ -41,7 +45,7 @@ const Roadmap = () => {
     );
   }
 
-  function appendToD3(obj, data: NodeTypes) {
+  function appendToD3(obj, data: NodeTypesProps) {
     const current = d3.select(obj);
     let foreignObject = current.select('foreignObject');
     foreignObject = current

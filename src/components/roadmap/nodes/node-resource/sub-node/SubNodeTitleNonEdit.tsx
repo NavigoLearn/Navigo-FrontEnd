@@ -1,10 +1,7 @@
 import React from 'react';
 import { setInfo } from '@store/tabinfo';
 import roadmapEdit from '@store/roadmap_edit';
-import {
-  isNodeProps,
-  isResourceSubNodeProps,
-} from '@type/roadmap/typecheckers';
+import { isResourceSubNodeProps } from '@type/roadmap/typecheckers';
 import { NonEditingComponentProps } from '@type/roadmap/components';
 
 const SubNodeTitleNonEdit = ({
@@ -12,7 +9,7 @@ const SubNodeTitleNonEdit = ({
   id,
   setCb: setEditTitle,
 }: NonEditingComponentProps) => {
-  const node = roadmapEdit.get().resourceSubNodes[id];
+  const node = roadmapEdit.get().resources[id];
   if (!isResourceSubNodeProps(node)) {
     throw new Error('node is not a resource subnode props');
   }

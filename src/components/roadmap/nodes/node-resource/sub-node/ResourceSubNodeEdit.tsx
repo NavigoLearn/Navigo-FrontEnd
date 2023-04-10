@@ -1,16 +1,16 @@
 import React, { useRef } from 'react';
 import stateManager from '@components/roadmap/nodes/edit-logic-modules/StateManager';
-import { NodeProps, ResourceSubNodeProps } from '@type/roadmap/nodes';
 import SubNodeTitleEdit from '@components/roadmap/nodes/node-resource/sub-node/SubNodeTitleEdit';
 import SubNodeTitleNonEdit from '@components/roadmap/nodes/node-resource/sub-node/SubNodeTitleNonEdit';
 import useStateAndRef from '@hooks/useStateAndRef';
 import {
   changeResourceSubNode,
-  removeFromResourceSubNode,
+  removeResourceSubNode,
 } from '@store/roadmap_edit';
+import { ResourceSubNodeProps } from '@type/roadmap/resources';
+import { NodeInfoProps } from '@type/roadmap/nodes';
 
 const ResourceSubNodeEdit = ({
-  type,
   title,
   tabId,
   id,
@@ -18,16 +18,14 @@ const ResourceSubNodeEdit = ({
 }: ResourceSubNodeProps) => {
   const rootRef = useRef<HTMLDivElement>(null);
   const [originalData, setOriginalData, originalDataRef] =
-    useStateAndRef<NodeProps>({
+    useStateAndRef<NodeInfoProps>({
       id,
       title,
-      type,
       tabId,
     });
-  const [nodeData, setNodeData, nodeDataRef] = useStateAndRef<NodeProps>({
+  const [nodeData, setNodeData, nodeDataRef] = useStateAndRef<NodeInfoProps>({
     id,
     title,
-    type,
     tabId,
   });
   // custom hook to keep an instance of the data and have a ref that is updated with the data
@@ -68,7 +66,7 @@ const ResourceSubNodeEdit = ({
         type='button'
         onClick={() => {
           // delete the subresource
-          removeFromResourceSubNode(parentId, id);
+          removeResourceSubNode(parentId, id);
         }}
       >
         Delete

@@ -1,7 +1,7 @@
 import React from 'react';
 import { setInfo } from '@store/tabinfo';
 import roadmapEdit from '@store/roadmap_edit';
-import { isNodeProps } from '@type/roadmap/typecheckers';
+import { isNodeInfoProps } from '@type/roadmap/typecheckers';
 import { NonEditingComponentProps } from '@type/roadmap/components';
 
 const InfoTitleNonEdit = ({
@@ -10,7 +10,7 @@ const InfoTitleNonEdit = ({
   setCb: setEditTitle,
 }: NonEditingComponentProps) => {
   const node = roadmapEdit.get().nodes[id];
-  if (!isNodeProps(node)) {
+  if (!isNodeInfoProps(node)) {
     throw new Error('node is not a node props');
   }
   const { tabId } = node;

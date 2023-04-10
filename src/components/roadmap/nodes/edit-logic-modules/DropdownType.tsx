@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { changeNodeType } from '@store/roadmap_edit';
 import {
   NodeIdentifierTypes,
-  NodeIdentifierTypesArray,
+  nodeIdentifierTypesArray,
 } from '@type/roadmap/nodes';
 import { isValidNodeType } from '@type/roadmap/typecheckers';
 
@@ -32,7 +32,7 @@ const DropdownType = ({
       value={selectedOption}
       onChange={handleChange}
     >
-      {NodeIdentifierTypesArray.map((option) => (
+      {nodeIdentifierTypesArray.map((option) => (
         <option key={option} value={option}>
           {option}
         </option>

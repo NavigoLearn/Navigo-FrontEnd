@@ -1,15 +1,12 @@
-import { AboutTab, IssuesTab, InfoTab } from '@type/roadmap/tab';
-import {
-  NodeStore,
-  ResourceStore,
-  ResourceSubNodeStore,
-} from '@type/roadmap/nodes';
+import { TabInfo, TabAbout, TabIssues } from '@type/roadmap/tab';
+import { NodeResourceStore, NodeInfoStore } from '@type/roadmap/nodes';
+import { ResourceSubNodeStore } from '@type/roadmap/resources';
 
-export function generateAbout(
+export function generateTabAbout(
   name: string,
   author: string,
   description: string
-): AboutTab {
+): TabAbout {
   return {
     name,
     author,
@@ -21,7 +18,7 @@ export function generateIssue(
   id: string,
   title: string,
   author: string
-): IssuesTab {
+): TabIssues {
   return {
     id,
     title,
@@ -29,50 +26,48 @@ export function generateIssue(
   };
 }
 
-export function generateInfoTab(
+export function generateTabInfo(
   id: string,
   title: string,
   done: boolean,
   description: string,
   links: { title: string; link: string }[],
-  roadmap: { id: string; title: string },
   additionalInfo: string
-): InfoTab {
+): TabInfo {
   return {
     id,
     title,
     done,
     description,
     links,
-    roadmap,
     additionalInfo,
   };
 }
 
-export function generateNode(
+export function generateNodeInfo(
   id: string,
   title: string,
   tabId: string,
   x: number,
   y: number
-): NodeStore {
+): NodeInfoStore {
   return {
     id,
     title,
-    type: 'Node',
+    type: 'Info',
     tabId,
     x,
     y,
   };
 }
 
-export function generateResource(
+export function generateNodeResource(
   id: string,
   title: string,
   x: number,
   y: number,
   nodes: string[]
-): ResourceStore {
+): NodeResourceStore {
   return {
     id,
     title,
@@ -83,12 +78,12 @@ export function generateResource(
   };
 }
 
-export function generateEmptyResource(
+export function generateNodeResourceEmpty(
   id: string,
   title: string,
   x: number,
   y: number
-): ResourceStore {
+): NodeResourceStore {
   return {
     id,
     title,
@@ -99,7 +94,7 @@ export function generateEmptyResource(
   };
 }
 
-export function generateEmptyResourceSubNode(
+export function generateResourceSubNodeEmpty(
   id: string,
   parentId: string,
   title: string,
@@ -114,23 +109,23 @@ export function generateEmptyResourceSubNode(
   };
 }
 
-export function generateEmptyNode(
+export function generateNodeInfoEmpty(
   id: string,
   title: string,
   x: number,
   y: number
-): NodeStore {
+): NodeInfoStore {
   return {
     id,
     title,
-    type: 'Node',
+    type: 'Info',
     tabId: '',
     x,
     y,
   };
 }
 
-export function generateResSubNode(
+export function generateResourceSubNode(
   id: string,
   parentId: string,
   title: string,
@@ -142,5 +137,17 @@ export function generateResSubNode(
     title,
     type: 'ResourceSubNode',
     tabId,
+  };
+}
+
+export function generateConnection(
+  id: string,
+  parentId: string,
+  childId: string
+) {
+  return {
+    id,
+    parentId,
+    childId,
   };
 }

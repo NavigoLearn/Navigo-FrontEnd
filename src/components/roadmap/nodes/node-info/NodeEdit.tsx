@@ -1,25 +1,23 @@
 import React, { useRef } from 'react';
 import stateManager from '@components/roadmap/nodes/edit-logic-modules/StateManager';
 import DropdownType from '@components/roadmap/nodes/edit-logic-modules/DropdownType';
-import { NodeProps, NodeStore } from '@type/roadmap/nodes';
+import { NodeInfoProps, NodeInfoStore } from '@type/roadmap/nodes';
 import InfoTitleNonEdit from '@components/roadmap/nodes/node-info/InfoTitleNonEdit';
 import InfoTitleEdit from '@components/roadmap/nodes/node-info/InfoTitleEdit';
 import useStateAndRef from '@hooks/useStateAndRef';
-import { changeInfoNode, addNewNode } from '@store/roadmap_edit';
+import { addNodeNew, changeNodeInfo } from '@store/roadmap_edit';
 
-const NodeEdit = ({ type, title, tabId, id }: NodeProps) => {
+const NodeEdit = ({ title, tabId, id }: NodeInfoProps) => {
   const rootRef = useRef<HTMLDivElement>(null);
   const [originalData, setOriginalData, originalDataRef] =
-    useStateAndRef<NodeProps>({
+    useStateAndRef<NodeInfoProps>({
       id,
       title,
-      type,
       tabId,
     });
-  const [nodeData, setNodeData, nodeDataRef] = useStateAndRef<NodeProps>({
+  const [nodeData, setNodeData, nodeDataRef] = useStateAndRef<NodeInfoProps>({
     id,
     title,
-    type,
     tabId,
   });
   // custom hook to keep an instance of the data and have a ref that is updated with the data
@@ -50,20 +48,19 @@ const NodeEdit = ({ type, title, tabId, id }: NodeProps) => {
         field='title'
         persistDataSave={(
           idVal: string,
-          prop: keyof NodeStore,
+          prop: keyof NodeInfoStore,
           value: string
         ) => {
-          changeInfoNode(idVal, prop, value);
+          changeNodeInfo(idVal, prop, value);
         }}
       />
-      <DropdownType id={nodeData.id} title={nodeData.title} type='Node' />
+      <DropdownType id={nodeData.id} title={nodeData.title} type='Info' />
       <button
         type='button'
         className='h-10 border-2 border-black mt-6'
         onClick={() => {
           // adds a new Node
-          console.log('add new node');
-          addNewNode(nodeData.id, 'Node');
+          addNodeNew(nodeData.id, 'Info');
         }}
       >
         ADd a new Node

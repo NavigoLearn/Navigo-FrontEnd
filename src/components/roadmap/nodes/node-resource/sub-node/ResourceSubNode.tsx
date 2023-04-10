@@ -3,7 +3,7 @@ import roadmapState from '@store/roadmap_state';
 import { useStore } from '@nanostores/react';
 import ResourceSubNodeEdit from '@components/roadmap/nodes/node-resource/sub-node/ResourceSubNodeEdit';
 import ResourceSubNodeView from '@components/roadmap/nodes/node-resource/sub-node/ResourceSubNodeView';
-import { ResourceSubNodeProps } from '@type/roadmap/nodes';
+import { ResourceSubNodeProps } from '@type/roadmap/resources';
 
 const ResourceSubNode = ({
   type,
@@ -22,7 +22,7 @@ const ResourceSubNode = ({
       parentId={parentId}
     />
   ) : (
-    <ResourceSubNodeView title={title} type={type} tabId={tabId} id={id} />
+    <ResourceSubNodeView title={title} tabId={tabId} id={id} />
   );
 };
 
