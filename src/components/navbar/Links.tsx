@@ -102,7 +102,7 @@ const mobileGuest = [
     title: 'Home',
     path: '/home',
     cName:
-      'flex items-center text-center text-2xl p-12 m-auto hover:underline w-10/12 h-12 justify-center',
+      'flex items-center text-center text-2xl p-12 m-auto hover:underline w-10/12 h-12 justify-center -translate-x-1',
     cIcon: home,
     id: 1,
   },
@@ -110,7 +110,7 @@ const mobileGuest = [
     title: 'Explore',
     path: '/explore',
     cName:
-      'flex items-center text-center text-2xl p-12 m-auto hover:underline w-10/12 h-12 justify-center font-medium',
+      'flex items-center text-center text-2xl p-12 m-auto hover:underline w-10/12 h-12 justify-center font-medium -translate-x-1',
     cIcon: explore,
     id: 2,
   },
@@ -126,7 +126,7 @@ const mobileGuest = [
     title: 'Login',
     path: '/login',
     cName:
-      'flex items-center text-center text-2xl p-12 m-auto hover:underline w-10/12 h-12 justify-center',
+      'flex items-center text-center text-2xl p-12 mx-auto hover:underline w-10/12 h-12 justify-center -translate-x-2',
     cIcon: profile,
     id: 4,
   },
