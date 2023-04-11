@@ -1,15 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import { addZoom } from '@typescript/d3utils';
 import * as d3 from 'd3';
 import roadmap from '@store/roadmap';
+import roadmapEdit, { changeAnyNode } from '@store/roadmap_edit';
 import { useStore } from '@nanostores/react';
 import { NodeTypes } from '@type/roadmap/nodes';
+import roadmapState from '@store/roadmap_state';
 import Report from './tabs/Report';
 import NodeManager from './NodeManager';
 
 const Roadmap = () => {
+  const { editing } = useStore(roadmapState);
   const roadmapData = useStore(roadmap);
+  const roadmapDataEditable = useStore(roadmapEdit);
 
   useEffect(() => {
     // sets overflow hidden on body
@@ -26,36 +30,6 @@ const Roadmap = () => {
   }, []);
 
   function renderNode(root, data: NodeTypes, foreignObject) {
-    // if (data.nodeType === 'Node') {
-    //   root.render(
-    //     <NodeManager
-    //       nodeType='Node'
-    //       sizeCb={(width: number, height: number) => {
-    //         // sets foreignObject size to the size of the rendered component
-    //         foreignObject.attr('width', width).attr('height', height);
-    //       }}
-    //       type='Node'
-    //       title={data.title}
-    //       tabId={data.tabId}
-    //     />
-    //   );
-    // }
-
-    // if (data.nodeType === 'Resource') {
-    //   root.render(
-    //     <NodeManager
-    //       nodeType='Resource'
-    //       title={data.title}
-    //       sizeCb={(width: number, height: number) => {
-    //         // sets foreignObject size to the size of the rendered component
-    //         foreignObject.attr('width', width).attr('height', height);
-    //       }}
-    //       nodes={data.nodes}
-    //     />
-    //   );
-    // }
-
-    console.log(data);
     root.render(
       <NodeManager
         data={data}
@@ -69,7 +43,8 @@ const Roadmap = () => {
 
   function appendToD3(obj, data: NodeTypes) {
     const current = d3.select(obj);
-    const foreignObject = current
+    let foreignObject = current.select('foreignObject');
+    foreignObject = current
       .append('foreignObject')
       .attr('x', '0')
       .attr('y', '0')
@@ -85,16 +60,46 @@ const Roadmap = () => {
 
   useEffect(() => {
     // renders some elements in svg based on an array
-    const { nodes } = roadmapData;
+    let nodes;
+    if (!editing) {
+      nodes = roadmapData.nodes;
+    } else {
+      nodes = roadmapDataEditable.nodes;
+    }
+    // creates array from the nodes json object
+    const nodesArray = Object.keys(nodes).map((key) => nodes[key]);
     const g = document.getElementById('rootGroup');
     addZoom('#rootSvg', '#rootGroup');
     // Perform the data join
     const nodeSelection = d3
       .select(g)
       .selectAll('g')
-      .data(nodes, (d) => {
+      .data(nodesArray, (d) => {
         return d.id;
       }); // Use the data value as the key function
+
+    const drag = d3
+      .drag()
+      .on('start', function () {
+        // called when the drag starts
+      })
+      .on('drag', function (event, d) {
+        // called when the element is being dragged
+        // d3.select(this).attr('cx', event.x).attr('cy', event.y);
+        if (!editing) return;
+        d3.select(this).attr('transform', `translate(${event.x}, ${event.y})`);
+      })
+      .on('end', function (event, d) {
+        // saving the new position of the node
+        if (!editing) return;
+        if (
+          roadmapEdit.get().nodes[d.id].x === event.x &&
+          roadmapEdit.get().nodes[d.id].y === event.y
+        )
+          return;
+        changeAnyNode(d.id, 'x', event.x);
+        changeAnyNode(d.id, 'y', event.y);
+      });
 
     nodeSelection
       .enter()
@@ -104,7 +109,9 @@ const Roadmap = () => {
       .each(function (data, idx) {
         appendToD3(this, data);
       });
-  }, []);
+    const sel = d3.select('#rootGroup').selectAll('g');
+    sel.call(drag);
+  }, [editing, roadmapDataEditable, roadmapData]);
 
   return (
     <div className='w-full h-full '>

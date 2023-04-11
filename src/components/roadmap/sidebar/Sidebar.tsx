@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
+import { useStore } from '@nanostores/react';
+import roadmapState from '@store/roadmap_state';
 import buttons from './buttons';
 
 const sideBar = () => {
   const [hover, setHover] = useState(false);
+  const { editing } = useStore(roadmapState);
 
   const handleHover = (e) => {
     // set hover based on weather event is mouseenter or mouseleave
     setHover(e.type === 'mouseenter');
   };
-
+  // TODO add 2 buttons with a green tick and a red x when editing
   return (
     <div
       className={`
@@ -58,6 +61,7 @@ const sideBar = () => {
                 </li>
               );
             })}
+        <li>{editing ? 'editing' : 'not editing'}</li>
       </ul>
     </div>
   );

@@ -1,7 +1,14 @@
 export interface NodeProps {
+  id: string;
   title: string;
   type: 'Node' | 'ResourceSubNode';
   tabId: string;
+}
+
+export interface ResourceProps {
+  id: string;
+  title: string;
+  nodes: NodeProps[];
 }
 
 export interface NodeStore {
@@ -22,33 +29,29 @@ export interface ResourceStore {
   nodes: string[];
 }
 
-export interface ResourceSubNodeStore {
+export interface ResourceSubNodeProps {
   id: string;
+  parentId: string;
   type: 'ResourceSubNode';
   title: string;
   tabId: string;
 }
 
-export interface ResourceProps {
+export interface ResourceSubNodeStore {
+  id: string;
+  parentId: string;
+  type: 'ResourceSubNode';
   title: string;
-  nodes: NodeProps[];
+  tabId: string;
 }
-
-// export type NodeComponents = {
-//   Node: NodeProps;
-//   Resource: ResourceProps;
-// };
-
-// export type NodeKeys = keyof NodeComponents;
-
-// export type NodeManagerProps<T extends NodeTypes> = {
-//   nodeType: T;
-//   sizeCb: (width: number, height: number) => void;
-// } & T;
 
 export type NodeTypes = NodeProps | ResourceProps;
 
 export type ManagerProps = {
+  // id: string;
   data: NodeTypes;
   sizeCb: (width: number, height: number) => void;
 };
+
+export type NodeIdentifierTypes = 'Node' | 'Resource';
+export const NodeIdentifierTypesArray = ['Node', 'Resource'];

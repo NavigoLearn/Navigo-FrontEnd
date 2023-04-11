@@ -1,109 +1,54 @@
-import { Roadmap, About, Issue } from '@type/roadmap/roadmap';
-import {
-  NodeStore,
-  ResourceStore,
-  ResourceSubNodeStore,
-} from '@type/roadmap/nodes';
 import { atom } from 'nanostores';
-import { InfoTab } from '@type/roadmap/tab';
-
-function generateAbout(
-  name: string,
-  author: string,
-  description: string
-): About {
-  return {
-    name,
-    author,
-    description,
-  };
-}
-
-function generateIssue(id: string, title: string, author: string): Issue {
-  return {
-    id,
-    title,
-    author,
-  };
-}
-
-function generateTab(
-  title: string,
-  done: boolean,
-  description: string,
-  links: { title: string; link: string }[],
-  roadmap: { id: string; title: string },
-  additionalInfo: string
-): InfoTab {
-  return {
-    title,
-    done,
-    description,
-    links,
-    roadmap,
-    additionalInfo,
-  };
-}
-
-function generateNode(
-  id: string,
-  title: string,
-  tabId: string,
-  x: number,
-  y: number
-): NodeStore {
-  return {
-    id,
-    title,
-    type: 'Node',
-    tabId,
-    x,
-    y,
-  };
-}
-
-function generateResource(
-  id: string,
-  title: string,
-  x: number,
-  y: number,
-  nodes: string[]
-): ResourceStore {
-  return {
-    id,
-    title,
-    type: 'Resource',
-    nodes,
-    x,
-    y,
-  };
-}
-
-function generateResSubNode(
-  id: string,
-  title: string,
-  tabId: string
-): ResourceSubNodeStore {
-  return {
-    id,
-    title,
-    type: 'ResourceSubNode',
-    tabId,
-  };
-}
+import {
+  generateAbout,
+  generateIssue,
+  generateResSubNode,
+  generateInfoTab,
+  generateResource,
+  generateNode,
+} from '@typescript/generators';
+import { Roadmap } from '@type/roadmap/roadmap';
 
 const roadmap = atom({
   about: generateAbout('', '', ''),
-  issues: [
-    generateIssue('id1Issue', 'Issue 1', 'Author 1'),
-    generateIssue('id2Issue', 'Issue 2', 'Author 2'),
-    generateIssue('id3Issue', 'Issue 3', 'Author 3'),
-  ],
+  issues: {
+    id1Issue: generateIssue('id1Issue', 'Issue 1', 'Author 1'),
+    id2Issue: generateIssue('id2Issue', 'Issue 2', 'Author 2'),
+    id3Issue: generateIssue('id3Issue', 'Issue 3', 'Author 3'),
+  },
 
   data: {
     // the basic nodes data
-    tabid0: generateTab(
+    tabid0: generateInfoTab(
+      'tabid0',
       'ESLint',
+      false,
+      'With eslint you can impose a coding standard using a certain set of rules and good practices',
+      [
+        { title: 'ESLint official Website', link: 'https://eslint.org/' },
+        { title: 'Introduction to ESLint', link: 'https://eslint.org/' },
+        { title: 'Some other useful Link', link: 'https://eslint.org/' },
+      ],
+      { id: '42124', title: 'Eslint roadmap' },
+      'this is some lorem ipsum addition info'
+    ),
+
+    tabid1: generateInfoTab(
+      'tabid1',
+      'Some react roadmp1',
+      false,
+      'With eslint you can impose a coding standard using a certain set of rules and good practices',
+      [
+        { title: 'ESLint official Website', link: 'https://eslint.org/' },
+        { title: 'Introduction to ESLint', link: 'https://eslint.org/' },
+        { title: 'Some other useful Link', link: 'https://eslint.org/' },
+      ],
+      { id: '42124', title: 'Eslint roadmap' },
+      'this is some lorem ipsum addition info'
+    ),
+    tabid2: generateInfoTab(
+      'tabid2',
+      'Prettier node',
       false,
       'With eslint you can impose a coding standard using a certain set of rules and good practices',
       [
@@ -116,15 +61,28 @@ const roadmap = atom({
     ),
   },
 
-  nodes: [
+  nodes: {
     // list of all nodes
-    generateNode('1', 'Node1', 'tabid0', 100, 100),
-    generateResource('2', 'Resource1', 300, 300, ['res1node1', 'res1node2']),
-  ],
+    idnode1: generateNode('idnode1', 'Node1', 'tabid0', 100, 100),
+    idnode2: generateResource('idnode2', 'Resource1', 300, 300, [
+      'resourceSubNodeId1',
+      'resourceSubNodeId2',
+    ]),
+  },
   resourceSubNodes: {
     // list of all resource nodes
-    res1node1: generateResSubNode('res1node1', 'Resource Node 1', 'tabid0'),
-    res1node2: generateResSubNode('res1node2', 'Resource Node 2', 'tabid0'),
+    resourceSubNodeId1: generateResSubNode(
+      'resourceSubNodeId1',
+      'idnode2',
+      'Resource Node 1',
+      'tabid1'
+    ),
+    resourceSubNodeId2: generateResSubNode(
+      'resourceSubNodeId2',
+      'idnode2',
+      'Resource Node 1',
+      'tabid2'
+    ),
   },
 } as Roadmap);
 
