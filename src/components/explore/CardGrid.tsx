@@ -6,7 +6,6 @@ type Roamdmap2 = {
   nolikes: number;
   description: string;
 };
-// todo ceav aici
 
 const CardGrid = ({ name, madeby, nolikes, description }: Roamdmap2) => {
   const [count, setCount] = useState(0);
