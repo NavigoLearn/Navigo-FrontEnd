@@ -1,13 +1,14 @@
 import { atom } from 'nanostores';
 import { renderNodesIds } from '@typescript/roadmap-render';
+import { setNodes, getNodes } from '@store/render';
 import roadmapEdit from '@store/roadmap_edit';
 import roadmap from '@store/roadmap';
 import roadmapState from '@store/roadmap_state';
 
 const chunksStore = atom({
-  chunks: [],
+  chunks: [], // ids of all the chunks currently visible on the screen
 } as {
-  chunks: string[]; // the id of the currently rendered chunks
+  chunks: string[];
 });
 
 export function setChunks(newChunks: string[]) {
@@ -33,7 +34,12 @@ export function renderChunks() {
   // calls the render function on the given ids
   // console.log('rendering nodes', nodesArray);
 
-  renderNodesIds(editing ? roadmapEdit : roadmap, nodesArray);
+  // first way to render nodes
+  // renderNodesIds(editing ? roadmapEdit : roadmap, nodesArray);
+
+  // second way to render nodes
+  // console.log('rendering nodes', nodesArray);
+  setNodes(nodesArray);
 }
 
 export default chunksStore;

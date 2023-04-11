@@ -114,4 +114,9 @@ export function setTrigger(id: string, cb: any) {
   });
 }
 
+export function getNodeById(id: string) {
+  const original = roadmap.get();
+  return original.nodes[id];
+}
+
 export default roadmap;

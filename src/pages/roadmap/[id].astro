@@ -1,6 +1,7 @@
 ---
 import Base from '@layouts/Base.astro';
 import Roadmap from '@components/roadmap/Roadmap';
+import Roadmap2 from '../../components/roadmap/Roadmap2';
 import Sidebar from '@components/roadmap/sidebar/Sidebar';
 import Tab from '@components/roadmap/Tab';
 import Roadmap2 from '../../components/roadmap/Roadmap2';
@@ -15,7 +16,7 @@ const data = { id: '123' };
   <div class='h-[calc(100vh-64px)] relative'>
     <!-- offset from nav reduced from total screen size -->
     <div class='ml-20 w-full h-full'>
-      <Roadmap client:load />
+      <Roadmap2 client:load />
     </div>
     <div class=''>
       <Sidebar client:idle />
