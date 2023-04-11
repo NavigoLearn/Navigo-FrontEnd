@@ -9,11 +9,9 @@ import { isValidNodeType } from '@type/roadmap/typecheckers';
 // handles all the node type change logic for every node
 const DropdownType = ({
   id,
-  title,
   type,
 }: {
   id: string;
-  title: string;
   type: NodeIdentifierTypes;
 }) => {
   const [selectedOption, setSelectedOption] = useState(type);
@@ -22,7 +20,7 @@ const DropdownType = ({
     const { value } = event.target;
     if (isValidNodeType(value)) {
       setSelectedOption(value);
-      changeNodeType(id, value, title);
+      changeNodeType(id, value);
     }
   };
 

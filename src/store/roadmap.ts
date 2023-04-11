@@ -3,6 +3,7 @@ import { Roadmap } from '@type/roadmap/roadmap';
 import {
   generateConnection,
   generateIssue,
+  generateNNodesInfo,
   generateNodeInfo,
   generateNodeResource,
   generateResourceSubNode,
@@ -59,14 +60,16 @@ const roadmap = atom({
     ),
   },
 
-  nodes: {
-    // list of all nodes
-    idnode1: generateNodeInfo('idnode1', 'Node1', 'tabid0', 100, 100),
-    idnode2: generateNodeResource('idnode2', 'Resource1', 300, 300, [
-      'resourceSubNodeId1',
-      'resourceSubNodeId2',
-    ]),
-  },
+  nodes: generateNNodesInfo(
+    'title',
+    'tabid1',
+    300,
+    150,
+    'parent',
+    [''],
+    100,
+    100
+  ).nodes,
   resources: {
     // list of all resource nodes
     resourceSubNodeId1: generateResourceSubNode(
@@ -86,6 +89,29 @@ const roadmap = atom({
     // list of all connections
     idconnection1: generateConnection('idconnection1', 'idnode1', 'idnode2'),
   },
+  triggers: {
+    // list of all triggers
+  },
+  chunks: generateNNodesInfo(
+    'title',
+    'tabid1',
+    300,
+
+    150,
+    'parent',
+    [''],
+    100,
+    100
+  ).chunksNodes,
+  chunkSize: 400,
 } as Roadmap);
+
+export function setTrigger(id: string, cb: any) {
+  const original = roadmap.get();
+  original.triggers[id] = cb;
+  roadmap.set({
+    ...original,
+  });
+}
 
 export default roadmap;

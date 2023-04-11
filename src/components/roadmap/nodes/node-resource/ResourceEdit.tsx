@@ -3,6 +3,7 @@ import { renderNodeEdit } from '@components/roadmap/nodes/node-resource/utils';
 import DropdownType from '@components/roadmap/nodes/edit-logic-modules/DropdownType';
 import { NodeResourceProps } from '@type/roadmap/nodes';
 import { addResourceSubNodeNew } from '@store/roadmap_edit';
+import AddNode from '@components/roadmap/nodes/edit-logic-modules/AddNode';
 
 const ResourceEdit = ({ id: idProp, title, nodes }: NodeResourceProps) => {
   return (
@@ -24,7 +25,8 @@ const ResourceEdit = ({ id: idProp, title, nodes }: NodeResourceProps) => {
       >
         Add a resource
       </button>
-      <DropdownType id={idProp} title={title} type='Resource' />
+      <DropdownType id={idProp} type='Resource' />
+      <AddNode id={idProp} />
     </div>
   );
 };

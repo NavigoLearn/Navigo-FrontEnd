@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import AddNode from '@components/roadmap/nodes/edit-logic-modules/AddNode';
 import stateManager from '@components/roadmap/nodes/edit-logic-modules/StateManager';
 import DropdownType from '@components/roadmap/nodes/edit-logic-modules/DropdownType';
 import { NodeInfoProps, NodeInfoStore } from '@type/roadmap/nodes';
@@ -54,17 +55,8 @@ const NodeEdit = ({ title, tabId, id }: NodeInfoProps) => {
           changeNodeInfo(idVal, prop, value);
         }}
       />
-      <DropdownType id={nodeData.id} title={nodeData.title} type='Info' />
-      <button
-        type='button'
-        className='h-10 border-2 border-black mt-6'
-        onClick={() => {
-          // adds a new Node
-          addNodeNew(nodeData.id, 'Info');
-        }}
-      >
-        ADd a new Node
-      </button>
+      <DropdownType id={nodeData.id} type='Info' />
+      <AddNode id={nodeData.id} />
     </div>
   );
 };

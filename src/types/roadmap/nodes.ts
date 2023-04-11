@@ -8,6 +8,8 @@ export interface NodeStore {
   type: NodeIdentifierTypes;
   x: number;
   y: number;
+  parent: string;
+  children: string[];
 }
 export interface NodeInfoProps {
   id: string;
@@ -35,4 +37,5 @@ export type NodeTypesStore = NodeInfoStore | NodeResourceStore;
 export type NodeManagerProps = {
   data: NodeTypesProps;
   sizeCb: (width: number, height: number) => void;
+  renderTrigger: (callBack: any) => void;
 };

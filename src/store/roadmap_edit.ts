@@ -3,6 +3,7 @@ import { Roadmap } from '@type/roadmap/roadmap';
 import {
   generateConnection,
   generateIssue,
+  generateNNodesInfo,
   generateNodeInfo,
   generateNodeInfoEmpty,
   generateNodeResource,
@@ -39,83 +40,7 @@ add<Object><Type>
 generateNodeResourceEmpty
 */
 
-const roadmapEdit = atom({
-  about: generateTabAbout('', '', ''),
-  issues: {
-    id1Issue: generateIssue('id1Issue', 'Issue 1', 'Author 1'),
-    id2Issue: generateIssue('id2Issue', 'Issue 2', 'Author 2'),
-    id3Issue: generateIssue('id3Issue', 'Issue 3', 'Author 3'),
-  },
-
-  data: {
-    // the basic nodes data
-    tabid0: generateTabInfo(
-      'tabid0',
-      'ESLint',
-      false,
-      'With eslint you can impose a coding standard using a certain set of rules and good practices',
-      [
-        { title: 'ESLint official Website', link: 'https://eslint.org/' },
-        { title: 'Introduction to ESLint', link: 'https://eslint.org/' },
-        { title: 'Some other useful Link', link: 'https://eslint.org/' },
-      ],
-      'this is some lorem ipsum addition info'
-    ),
-
-    tabid1: generateTabInfo(
-      'tabid1',
-      'Some react roadmp1',
-      false,
-      'With eslint you can impose a coding standard using a certain set of rules and good practices',
-      [
-        { title: 'ESLint official Website', link: 'https://eslint.org/' },
-        { title: 'Introduction to ESLint', link: 'https://eslint.org/' },
-        { title: 'Some other useful Link', link: 'https://eslint.org/' },
-      ],
-      'this is some lorem ipsum addition info'
-    ),
-    tabid2: generateTabInfo(
-      'tabid2',
-      'Prettier node',
-      false,
-      'With eslint you can impose a coding standard using a certain set of rules and good practices',
-      [
-        { title: 'ESLint official Website', link: 'https://eslint.org/' },
-        { title: 'Introduction to ESLint', link: 'https://eslint.org/' },
-        { title: 'Some other useful Link', link: 'https://eslint.org/' },
-      ],
-      'this is some lorem ipsum addition info'
-    ),
-  },
-
-  nodes: {
-    // list of all nodes
-    idnode1: generateNodeInfo('idnode1', 'Node1', 'tabid0', 100, 100),
-    idnode2: generateNodeResource('idnode2', 'Resource1', 300, 300, [
-      'resourceSubNodeId1',
-      'resourceSubNodeId2',
-    ]),
-  },
-  resources: {
-    // list of all resource nodes
-    resourceSubNodeId1: generateResourceSubNode(
-      'resourceSubNodeId1',
-      'idnode2',
-      'Resource Node 1',
-      'tabid1'
-    ),
-    resourceSubNodeId2: generateResourceSubNode(
-      'resourceSubNodeId2',
-      'idnode2',
-      'Resource Node 1',
-      'tabid2'
-    ),
-  },
-  connections: {
-    // list of all connections
-    idconnection1: generateConnection('idconnection1', 'idnode1', 'idnode2'),
-  },
-} as Roadmap);
+const roadmapEdit = atom({} as Roadmap);
 
 export function changeTabAboutProp<T extends keyof TabAbout>(
   property: T,
@@ -244,11 +169,7 @@ export function changeNodeInfo<T extends keyof NodeInfoStore>(
   roadmapEdit.set({ ...original });
 }
 
-export function changeNodeType(
-  id: string,
-  type: NodeIdentifierTypes,
-  title: string
-) {
+export function changeNodeType(id: string, type: NodeIdentifierTypes) {
   const original = roadmapEdit.get();
   const { nodes } = original;
   // generate new Node based on type
@@ -257,7 +178,12 @@ export function changeNodeType(
     Info: generateNodeInfoEmpty,
   };
   const currentNode = nodes[id];
-  const newNode = nodeMapping[type](id, title, currentNode.x, currentNode.y);
+  const newNode = nodeMapping[type](id);
+  newNode.parent = currentNode.parent;
+  newNode.title = currentNode.title;
+  newNode.x = currentNode.x;
+  newNode.y = currentNode.y;
+
   if (isNodeInfoProps(newNode) && type === 'Info') {
     newNode.tabId = generateNewTab();
   } else if (type === 'Resource') {
@@ -268,6 +194,8 @@ export function changeNodeType(
   nodes[id] = { ...newNode };
   original.nodes = nodes;
   roadmapEdit.set({ ...original });
+  console.log('called trigger');
+  original.triggers[id]();
 }
 
 export function replaceNodeInfo(id: string, node: NodeInfoStore) {
@@ -380,6 +308,7 @@ export function getUnusedNodeId() {
 }
 
 export function addNodeResourceEmpty(
+  parentId: string,
   id: string,
   title: string,
   x: number,
@@ -388,13 +317,18 @@ export function addNodeResourceEmpty(
   const original = roadmapEdit.get();
   const { nodes } = original;
   const newId = getUnusedNodeId();
-  nodes[newId] = generateNodeResourceEmpty(newId, title, x, y);
+  nodes[newId] = generateNodeResourceEmpty(newId);
+  nodes[newId].title = title;
+  nodes[newId].x = x;
+  nodes[newId].y = y;
+
   original.nodes = nodes;
   roadmapEdit.set({ ...original });
   return newId;
 }
 
 export function addNodeInfoEmpty(
+  parentId: string,
   id: string,
   title: string,
   x: number,
@@ -403,9 +337,14 @@ export function addNodeInfoEmpty(
   const original = roadmapEdit.get();
   const { nodes } = original;
   const newId = getUnusedNodeId();
-  const newNode = generateNodeInfoEmpty(newId, title, x, y);
+  const newNode = generateNodeInfoEmpty(newId);
+  newNode.title = title;
+  newNode.x = x;
+  newNode.y = y;
   const tabId = generateNewTab();
   newNode.tabId = tabId;
+  newNode.parent = parentId;
+  nodes[parentId].children.push(newId);
   nodes[newId] = newNode;
   original.nodes = nodes;
   roadmapEdit.set({ ...original });
@@ -421,19 +360,53 @@ export function getNodeCoords(id: string) {
 
 export function generationFlow(
   type: NodeIdentifierTypes,
+  parentId: string,
   id: string,
   title: string,
   x: number,
   y: number
 ) {
   if (type === 'Resource') {
-    return addNodeResourceEmpty(id, title, x, y);
+    return addNodeResourceEmpty(parentId, id, title, x, y);
   }
   if (type === 'Info') {
-    return addNodeInfoEmpty(id, title, x, y);
+    return addNodeInfoEmpty(parentId, id, title, x, y);
   }
 
   throw new Error('Invalid type');
+}
+
+export function getUnusedConnectionId() {
+  const original = roadmapEdit.get();
+  const { connections } = original;
+  const ids = Object.keys(connections);
+  let newId = 'connectionId';
+  let appendedNumber = 0;
+  while (ids.includes(newId + appendedNumber)) {
+    appendedNumber += 1;
+  }
+  newId += appendedNumber;
+  return newId;
+}
+
+export function generateConnectionEmpty(id: string) {
+  return {
+    id,
+    parentId: '',
+    childId: '',
+  };
+}
+
+export function addConnection(parentId: string, childId: string) {
+  const original = roadmapEdit.get();
+  const { connections } = original;
+  const newId = getUnusedConnectionId();
+  const newConnection = generateConnectionEmpty(newId);
+  newConnection.parentId = parentId;
+  newConnection.childId = childId;
+  connections[newId] = newConnection;
+  original.connections = connections;
+  roadmapEdit.set({ ...original });
 }
 
 export function addNodeNew(parentId: string, type: NodeIdentifierTypes) {
@@ -441,7 +414,9 @@ export function addNodeNew(parentId: string, type: NodeIdentifierTypes) {
   const { nodes } = original;
   const newId = getUnusedNodeId();
   const { x, y } = getNodeCoords(parentId);
-  generationFlow(type, newId, 'newNode', x, y + 200);
+  // sets parent and children properly
+  generationFlow(type, parentId, newId, 'newNode', x, y + 200);
+  addConnection(parentId, newId);
 
   return newId;
 }

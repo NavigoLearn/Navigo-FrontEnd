@@ -60,11 +60,17 @@ const roadmap: Roadmap = {
 
   nodes: {
     // list of all nodes
-    idnode1: generateNodeInfo('idnode1', 'Node1', 'tabid0', 100, 100),
-    idnode2: generateNodeResource('idnode2', 'Resource1', 300, 300, [
-      'resourceSubNodeId1',
-      'resourceSubNodeId2',
+    idnode1: generateNodeInfo('idnode1', 'Node1', 'tabid0', 100, 100, '', [
+      'idnode2',
     ]),
+    idnode2: generateNodeResource(
+      'idnode2',
+      'Resource1',
+      300,
+      300,
+      ['resourceSubNodeId1', 'resourceSubNodeId2'],
+      'idnode1'
+    ),
   },
   resources: {
     // list of all resource nodes

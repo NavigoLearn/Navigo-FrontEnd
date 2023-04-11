@@ -49,7 +49,9 @@ export function generateNodeInfo(
   title: string,
   tabId: string,
   x: number,
-  y: number
+  y: number,
+  parent: string,
+  children: string[]
 ): NodeInfoStore {
   return {
     id,
@@ -58,6 +60,55 @@ export function generateNodeInfo(
     tabId,
     x,
     y,
+    parent,
+    children,
+  };
+}
+
+export function calculateChunkId(x, y) {
+  const chunkSize = 400;
+  return `${Math.floor(x / chunkSize)}_${Math.floor(y / chunkSize)}`;
+}
+export function generateNNodesInfo(
+  title: string,
+  tabId: string,
+  x: number,
+  y: number,
+  parent: string,
+  children: string[],
+  n: number,
+  m: number
+): any {
+  const nodes: any = {};
+  for (let i = 0; i < n; i += 1) {
+    for (let j = 0; j < m; j += 1) {
+      const id = `nodeId${i}_${j}`;
+      nodes[id] = generateNodeInfo(
+        id,
+        id,
+        tabId,
+        x * i,
+        y * j,
+        parent,
+        children
+      );
+    }
+  }
+  const chunksNodes: any = {};
+
+  for (let i = 0; i < n; i += 1) {
+    for (let j = 0; j < m; j += 1) {
+      const id = `nodeId${i}_${j}`;
+      const chunkId = calculateChunkId(nodes[id].x, nodes[id].y);
+      if (!chunksNodes[chunkId]) {
+        chunksNodes[chunkId] = [];
+      }
+      chunksNodes[chunkId].push(id);
+    }
+  }
+  return {
+    nodes,
+    chunksNodes,
   };
 }
 
@@ -66,7 +117,8 @@ export function generateNodeResource(
   title: string,
   x: number,
   y: number,
-  nodes: string[]
+  nodes: string[],
+  parent: string
 ): NodeResourceStore {
   return {
     id,
@@ -75,22 +127,21 @@ export function generateNodeResource(
     nodes,
     x,
     y,
+    parent,
+    children: [],
   };
 }
 
-export function generateNodeResourceEmpty(
-  id: string,
-  title: string,
-  x: number,
-  y: number
-): NodeResourceStore {
+export function generateNodeResourceEmpty(id: string): NodeResourceStore {
   return {
     id,
-    title,
+    title: '',
     type: 'Resource',
     nodes: [],
-    x,
-    y,
+    x: 0,
+    y: 0,
+    parent: '',
+    children: [],
   };
 }
 
@@ -109,19 +160,16 @@ export function generateResourceSubNodeEmpty(
   };
 }
 
-export function generateNodeInfoEmpty(
-  id: string,
-  title: string,
-  x: number,
-  y: number
-): NodeInfoStore {
+export function generateNodeInfoEmpty(id: string): NodeInfoStore {
   return {
     id,
-    title,
+    title: '',
     type: 'Info',
     tabId: '',
-    x,
-    y,
+    x: 0,
+    y: 0,
+    parent: '',
+    children: [],
   };
 }
 

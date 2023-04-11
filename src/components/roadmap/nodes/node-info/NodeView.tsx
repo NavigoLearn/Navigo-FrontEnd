@@ -1,16 +1,12 @@
 import React, { useRef } from 'react';
 import { NodeInfoProps } from '@type/roadmap/nodes';
 import { setInfo } from '@store/tabinfo';
-import roadmap from '@store/roadmap';
-import roadmapEdit from '@store/roadmap_edit';
-import roadmapState from '@store/roadmap_state';
-import { useStore } from '@nanostores/react';
+// import roadmapData from '@store/roadmap';
+// import roadmapDataEdit from '@store/roadmap_edit';
 
 const NodeView = ({ title, tabId, id }: NodeInfoProps) => {
   const rootRef = useRef<HTMLButtonElement>(null);
-  const roadmapData = useStore(roadmap);
-  const roadmapDataEdit = useStore(roadmapEdit);
-  const { editing } = useStore(roadmapState);
+  const editing = false;
 
   return (
     <button
@@ -19,11 +15,7 @@ const NodeView = ({ title, tabId, id }: NodeInfoProps) => {
       className=' text-sm p-2 font-semibold rounded-xl shadow-standard w-64 h-12 bg-white '
       onClick={() => {
         // tab changing logic
-        if (editing) {
-          setInfo(roadmapDataEdit.data[tabId]);
-        } else {
-          setInfo(roadmapData.data[tabId]);
-        }
+        // setInfo();
       }}
     >
       <div
