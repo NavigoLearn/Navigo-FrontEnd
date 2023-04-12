@@ -53,7 +53,7 @@ const Search = () => {
           <input
             type='text'
             className='rounded-full w-[273px] h-10 placeholder: text-[14px] pl-10 font-roboto-text outline-none shadow-standard sm:w-[375px] sm:h-12'
-            placeholder='Search for a roadmap'
+            placeholder='Search for a roadmap_static'
           />
           <img
             src={loupe}

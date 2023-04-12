@@ -1,12 +1,12 @@
 import { getNodes } from '@store/runtime/renderedNodes';
 import { getTriggersAll } from '@store/runtime/rerenderTriggers';
+import { calculateChunkId } from '@typescript/roadmap/generators';
 import {
+  removeChunkNode,
   addChunkNode,
   getNodeCoords,
-  removeChunkNode,
-} from '@store/roadmap_edit';
+} from '@typescript/roadmap/roadmap-edit-logic';
 import { triggerChunkRerender } from '@store/runtime/renderedChunks';
-import { calculateChunkId } from '@typescript/generators';
 
 export function triggerRerenderDecorator(func: (id: string, ...args) => void) {
   return function (id: string, ...args) {
@@ -42,7 +42,7 @@ export function triggerChunkRecalculationDecorator(
     // gets all rendered nodes
     func(id, ...args);
     // gets the current chunk
-    // chunk recalculation trigger only in edit roadmap mode
+    // chunk recalculation trigger only in edit roadmap_static mode
     removeChunkNode(id);
     const { x, y } = getNodeCoords(id);
     const chunkId = calculateChunkId(x, y);

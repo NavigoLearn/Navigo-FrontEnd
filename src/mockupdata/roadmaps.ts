@@ -7,7 +7,7 @@ import {
   generateResourceSubNode,
   generateTabAbout,
   generateTabInfo,
-} from '@typescript/generators';
+} from '@typescript/roadmap/generators';
 
 const roadmap: any = {
   about: generateTabAbout('', '', ''),

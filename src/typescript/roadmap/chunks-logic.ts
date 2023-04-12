@@ -1,26 +1,30 @@
+import roadmapState from '@store/roadmap_state';
+import roadmapEdit from '@store/roadmap_edit';
+import roadmapStatic from '@store/roadmap_static';
+import { setNodes } from '@store/runtime/renderedNodes';
+import chunksStore, { setChunks } from '@store/runtime/renderedChunks';
 import * as d3 from 'd3';
 
-import { renderChunks, setChunks } from '@store/runtime/renderedChunks';
+export function renderChunks() {
+  const { editing } = roadmapState.get();
+  let chunks: any;
+  if (editing) chunks = roadmapEdit.get().chunks;
+  else chunks = roadmapStatic.get().chunks;
 
-function add(a, b) {
-  return a + b;
-}
-export default add;
+  const chunksIds = chunksStore.get().chunks;
 
-function throttle(func, delay) {
-  let lastCall = 0;
-
-  return function (...args) {
-    const now = new Date().getTime();
-
-    if (now - lastCall < delay) {
-      return;
+  const nodesArray: string[] = [];
+  chunksIds.forEach((chunkId) => {
+    // gets the array of nodes for each chunk id
+    const nodes = chunks[chunkId];
+    if (nodes !== undefined) {
+      nodesArray.push(...nodes);
     }
-
-    lastCall = now;
-    return func.apply(this, args);
-  };
+  });
+  // sets the nodes that should be rendered ( calculated from the chunks visible )
+  setNodes(nodesArray);
 }
+
 export function calculateViewportCoordinates(transform: any) {
   // Get the SVG element and its dimensions
   const svg = d3.select('#rootSvg');
@@ -43,10 +47,12 @@ export function calculateViewportCoordinates(transform: any) {
   return viewport;
 }
 
-export function calculateRenderedChunks(transform: any) {
+export function calculateRenderedChunks(
+  transform: { k: number; x: number; y: number },
+  chunkSize: number
+) {
+  // calculate the chunks that should be rendered on the current viewport
   const viewport = calculateViewportCoordinates(transform);
-  // calculate the chunks that should be rendered
-  const chunkSize = 400;
   // expand the viewport to include the chunks that are partially visible
   const expandedViewport = {
     startX: viewport.startX - chunkSize / 2,
@@ -63,21 +69,26 @@ export function calculateRenderedChunks(transform: any) {
   const renderedChunks = [];
   for (let i = firstChunkCoordX; i <= lastChunkCoordX; i += 1) {
     for (let j = firstChunkCoordY; j <= lastChunkCoordY; j += 1) {
-      renderedChunks.push(`${i}_${j}`);
       // enconding the present chunks in the app
       // i and j are the chunk coordinates of the top left corner
+      renderedChunks.push(`${i}_${j}`);
     }
   }
   setChunks(renderedChunks);
   renderChunks();
-
-  // set the rendered chunks in the store
 }
-
-export const renderRoadmapChunks = (obj, func) => {
-  func(d3.zoomTransform(obj));
-};
-
+function throttle(func, delay) {
+  // throttleing function for optimization purposes
+  let lastCall = 0;
+  return (...args) => {
+    const now = new Date().getTime();
+    if (now - lastCall < delay) {
+      return;
+    }
+    lastCall = now;
+    func(...args);
+  };
+}
 export class RoadmapChunkingManager {
   svgRef: any;
 
@@ -85,30 +96,17 @@ export class RoadmapChunkingManager {
 
   throttledRendering: any;
 
+  chunkSize: number;
+
   constructor(svgRefId: string) {
+    // setup for the chunking manager
     this.svgRefId = svgRefId;
     this.svgRef = document.getElementById(svgRefId);
     this.throttledRendering = throttle(calculateRenderedChunks, 50);
-    this.throttledRendering(d3.zoomTransform(this.svgRef));
+    this.chunkSize = roadmapStatic.get().chunkSize;
   }
 
   recalculateChunks() {
-    this.throttledRendering(d3.zoomTransform(this.svgRef));
+    this.throttledRendering(d3.zoomTransform(this.svgRef), this.chunkSize);
   }
 }
-export const addZoom = (rootSvgId, rootGroupId, rerender) => {
-  const svg = d3.select(`#${rootSvgId}`);
-  rerender();
-  function zoomed() {
-    // triggers the chunk rendering flow
-    rerender();
-    d3.select(`#${rootGroupId}`).attr('transform', d3.zoomTransform(this));
-  }
-  svg.call(
-    d3
-      .zoom()
-      .scaleExtent([1 / 2, 2])
-      .on('zoom', zoomed)
-  );
-  svg.on('dblclick.zoom', null);
-};

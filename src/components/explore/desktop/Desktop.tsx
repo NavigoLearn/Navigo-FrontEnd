@@ -32,8 +32,8 @@ const SearchDesktop = () => {
     if (!query) {
       return data;
     }
-    return data.filter((roadmap) =>
-      roadmap.name.toLocaleLowerCase().includes(query.toLocaleLowerCase())
+    return data.filter((roadmapStatic) =>
+      roadmapStatic.name.toLocaleLowerCase().includes(query.toLocaleLowerCase())
     );
   };
 
@@ -60,7 +60,7 @@ const SearchDesktop = () => {
         </div>
         <div className='flex justify-center'>
           <h1 className='text-4xl relative z-10 mb-10 font-kanit-text'>
-            The journey of 1000 miles starts with one roadmap
+            The journey of 1000 miles starts with one roadmap_static
           </h1>
         </div>
         <form className='flex justify-center mt-10' onSubmit={handleSubmit}>
@@ -82,7 +82,7 @@ const SearchDesktop = () => {
               value={query}
               onChange={({ target }) => setQuery(target.value)}
               type='text'
-              placeholder='Search for a roadmap'
+              placeholder='Search for a roadmap_static'
               className='h-[75px] w-96 sm:w-[850px] bg-white z-10 rounded-full shadow-standard pl-20 text-2xl placeholder:font-roboto-text pb-[2px] focus:outline-none'
             />
             <button

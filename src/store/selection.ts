@@ -9,7 +9,7 @@ const selection = atom({
 } as any);
 
 export function setSelection(id: string) {
-  // gets adjacent connections id from the roadmap
+  // gets adjacent connections id from the roadmap_static
   const adjacentConnectionsId: HashMap<ConnectionStore> =
     roadmapEdit.get().connections;
 

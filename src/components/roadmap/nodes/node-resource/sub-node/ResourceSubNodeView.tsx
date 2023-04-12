@@ -1,12 +1,12 @@
 import React, { useRef } from 'react';
 import { setInfo } from '@store/tabinfo';
-import roadmap from '@store/roadmap';
+import roadmap_static from '@store/roadmap_static';
 import { useStore } from '@nanostores/react';
 import { NodeInfoProps } from '@type/roadmap/nodes';
 
 const ResourceSubNodeView = ({ title, tabId, id }: NodeInfoProps) => {
   const rootRef = useRef<HTMLButtonElement>(null);
-  const roadmapData = useStore(roadmap);
+  const roadmapData = useStore(roadmap_static);
 
   return (
     <button

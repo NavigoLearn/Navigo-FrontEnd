@@ -1,13 +1,12 @@
 import { atom } from 'nanostores';
 import roadmapEdit from '@store/roadmap_edit';
-import roadmap from '@store/roadmap';
-import { triggerRerenderAllDecorator } from '@typescript/decorators';
+import roadmapStatic from '@store/roadmap_static';
+import { triggerRerenderAllDecorator } from '@typescript/roadmap/roadmap-edit-decorators';
 
 const state = atom({
-  editing: false,
+  editing: false, // used to determine if the user is editing the roadmap and if the state should be saved or not
   save: true,
 } as any);
-// TODO make types for the state
 
 export default state;
 
@@ -42,15 +41,15 @@ export function toggleSave() {
 }
 
 export function transferRoadmapToEdit() {
-  roadmapEdit.set({ ...roadmap.get() });
+  roadmapEdit.set({ ...roadmapStatic.get() });
 }
 
 export function transferEditToRoadmap() {
-  roadmap.set({ ...roadmapEdit.get() });
+  roadmapStatic.set({ ...roadmapEdit.get() });
 }
 
 export function startEditingProtocol() {
-  // copies roadmap to editing roadmap and sets editing to true
+  // copies roadmap_static to editing roadmap_static and sets editing to true
   transferRoadmapToEdit();
   setEditingTrue();
 }
@@ -60,5 +59,5 @@ export function saveEditingProtocol() {
 }
 
 export function saveEditing() {
-  // TODO save the changes to the normal roadmap and send it to the server
+  // TODO save the changes to the normal roadmap_static and send it to the server
 }

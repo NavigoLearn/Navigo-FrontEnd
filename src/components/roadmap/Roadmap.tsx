@@ -1,18 +1,19 @@
 import React, { useEffect, useState, useRef } from 'react';
 
-import * as d3 from 'd3';
-import NodeManager2 from '@components/roadmap/NodeManager2';
+import NodeManager from '@components/roadmap/NodeManager';
 import { useStore } from '@nanostores/react';
 import roadmapState from '@store/roadmap_state';
-import roadmapStatic from '@store/roadmap';
+import roadmapStatic from '@store/roadmap_static';
 import { setTrigger } from '@store/runtime/rerenderTriggers';
-import { addZoom, RoadmapChunkingManager } from '@typescript/d3utils';
+import { addZoom } from '@typescript/roadmap/d3utils';
+import { RoadmapChunkingManager } from '@typescript/roadmap/chunks-logic';
 import renderNodesStore from '@store/runtime/renderedNodes';
 import { setChunkRerenderTrigger } from '@store/runtime/renderedChunks';
 import Report from './tabs/Report';
 
-const Roadmap2 = () => {
+const Roadmap = () => {
   const { editing } = useStore(roadmapState);
+  // the ids of the nodes that need to be rendered accorind to the current view and the chunks visible
   const { nodes: nodesIds } = useStore(renderNodesStore);
   const { nodes: nodesValues } = roadmapStatic.get();
 
@@ -33,13 +34,17 @@ const Roadmap2 = () => {
   const renderer = useRef(null);
 
   useEffect(() => {
+    // renderer object that handles chunking
     renderer.current = new RoadmapChunkingManager('rootSvg');
+    // sets the trigger for chunk recalculations to a global state
     setChunkRerenderTrigger(
+      // used for decorators
       renderer.current.recalculateChunks.bind(renderer.current)
     );
   }, []);
 
   useEffect(() => {
+    // adding zoom and a callback for chunk recalculations (the cb is throttled to 50ms, see class)
     addZoom(
       'rootSvg',
       'rootGroup',
@@ -60,7 +65,7 @@ const Roadmap2 = () => {
               // gets the data
               const data = nodesValues[id];
               return (
-                <NodeManager2
+                <NodeManager
                   key={id}
                   data={data}
                   editing={editing}
@@ -77,4 +82,4 @@ const Roadmap2 = () => {
   );
 };
 
-export default Roadmap2;
+export default Roadmap;

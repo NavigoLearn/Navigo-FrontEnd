@@ -8,14 +8,14 @@ import {
   changeTabInfoProp,
   changeNodeInfo,
   changeNodeResource,
-} from '@store/roadmap_edit';
+} from '@typescript/roadmap/roadmap-edit-logic';
 import roadmap1 from '@mocks/roadmaps';
 
-describe('test roadmap editing logic', () => {
+describe('test roadmap_static editing logic', () => {
   beforeAll(() => {
     setRoadmap(roadmap1);
   });
-  it('change roadmap about', () => {
+  it('change roadmap_static about', () => {
     const roadmap = getRoadmap();
     changeTabAboutProp('name', 'new name');
     expect(roadmap.about.name).toBe('new name');
@@ -27,16 +27,16 @@ describe('test roadmap editing logic', () => {
     expect(roadmap.about.description).toBe('descriptionus');
   });
 
-  it('change roadmap info Tab', () => {
+  it('change roadmap_static info Tab', () => {
     let roadmap = getRoadmap();
     changeTabInfoProp('tabid0', 'title', 'Docker');
     expect(roadmap.data['tabid0'].title).toBe('Docker');
-    // does the same testing for: done, description, links, roadmap, additionalInfo
+    // does the same testing for: done, description, links, roadmap_static, additionalInfo
     changeTabInfoProp('tabid0', 'done', true);
     expect(roadmap.data['tabid0'].done).toBe(true);
   });
 
-  it('change roadmap info Node', () => {
+  it('change roadmap_static info Node', () => {
     let roadmap = getRoadmap();
     changeNodeInfo('idnode1', 'title', 'Newnodetesthere');
     expect(roadmap.nodes['idnode1'].title).toBe('Newnodetesthere');

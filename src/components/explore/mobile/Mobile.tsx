@@ -69,7 +69,7 @@ const Mobile = () => {
               The journey of 1000 steps
             </h1>
             <h1 className='text-4xl font-kanit-text mt-5'>
-              starts with one roadmap
+              starts with one roadmap_static
             </h1>
           </div>
           <form
@@ -94,7 +94,7 @@ const Mobile = () => {
                 value={query}
                 onChange={({ target }) => setQuery(target.value)}
                 type='text'
-                placeholder='Search for a roadmap'
+                placeholder='Search for a roadmap_static'
                 className='h-[75px] w-[500px] bg-white rounded-full pl-20 text-2xl placeholder:font-roboto-text pb-[2px] focus:outline-none'
               />
             </div>

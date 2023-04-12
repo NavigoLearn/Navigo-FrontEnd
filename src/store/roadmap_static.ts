@@ -7,10 +7,10 @@ import {
   generateResourceSubNode,
   generateTabAbout,
   generateTabInfo,
-} from '@typescript/generators';
+} from '@typescript/roadmap/generators';
 import { setInfo } from '@store/tabinfo';
 
-const roadmap = atom({
+const roadmap_static = atom({
   about: generateTabAbout('', '', ''),
   issues: {
     id1Issue: generateIssue('id1Issue', 'Issue 1', 'Author 1'),
@@ -98,14 +98,14 @@ const roadmap = atom({
 } as Roadmap);
 
 export function getNodeById(id: string) {
-  const original = roadmap.get();
+  const original = roadmap_static.get();
   return original.nodes[id];
 }
 
 export function dispatchTabInfo(id: string) {
-  const original = roadmap.get();
+  const original = roadmap_static.get();
   const tab = original.data[id];
   setInfo(tab);
 }
 
-export default roadmap;
+export default roadmap_static;

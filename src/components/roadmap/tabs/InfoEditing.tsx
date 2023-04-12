@@ -10,7 +10,7 @@ import tabStore, {
   addInfoTabLink,
   flipOpen,
 } from '@store/tabinfo';
-import { changeTabInfo } from '@store/roadmap_edit';
+import { changeTabInfo } from '@typescript/roadmap/roadmap-edit-logic';
 
 type link = {
   title: string;
@@ -34,7 +34,7 @@ const InfoEditing = () => {
       } else {
         // save is canceled
       }
-      // when the component unmounts, if editing is true, set roadmap tab to current
+      // when the component unmounts, if editing is true, set roadmap_static tab to current
     };
   }, []);
 

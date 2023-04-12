@@ -1,5 +1,5 @@
 import React from 'react';
-import { addNodeNew } from '@store/roadmap_edit';
+import { addNodeNew } from '@typescript/roadmap/roadmap-edit-logic-decorated';
 
 const AddNode = ({ id }: { id: string }) => {
   return (

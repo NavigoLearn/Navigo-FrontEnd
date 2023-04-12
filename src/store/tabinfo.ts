@@ -5,7 +5,7 @@ const tab = atom({
   type: 'about',
   open: false,
   about: {
-    name: 'Nice roadmap',
+    name: 'Nice roadmap_static',
     author: 'Nice author',
     description: 'very very nice description',
   },

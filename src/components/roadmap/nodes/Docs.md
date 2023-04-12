@@ -1,10 +1,10 @@
 I will write here some notes about how the node editing works
-The roadmap has its initial edit or view states which suffice for editing tabs
+The roadmap_static has its initial edit or view states which suffice for editing tabs
 But when it comes to nodes we need to have a nested edit or view state
-nested inside the edit state of the roadmap.
+nested inside the edit state of the roadmap_static.
 For example when editing the title you shouldn't be able to click and open a tab
 so that leads to a separation of the edit and view states inside the already editing mode
-of the roadmap. <br/>
+of the roadmap_static. <br/>
 <br/>
 That is why I created the State manager component. The flow is the following<br/>
 You have some root component containing multple properties that can be edited<br/>

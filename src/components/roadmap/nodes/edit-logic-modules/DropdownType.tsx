@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { changeNodeType } from '@store/roadmap_edit';
+import { changeNodeType } from '@typescript/roadmap/roadmap-edit-logic-decorated';
 import {
   NodeIdentifierTypes,
   nodeIdentifierTypesArray,

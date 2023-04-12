@@ -20,7 +20,7 @@ const buttons = [
     title: 'Edit',
     clickHandler: () => {
       // startEditingProtocol();
-      // persist the changes to the original roadmap
+      // persist the changes to the original roadmap_static
       if (roadmapState.get().editing) {
         transferEditToRoadmap();
       } else {

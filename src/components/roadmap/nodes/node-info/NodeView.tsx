@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { NodeInfoProps } from '@type/roadmap/nodes';
-import { dispatchTabInfo } from '@store/roadmap';
+import { dispatchTabInfo } from '@store/roadmap_static';
 
 const NodeView = ({ title, tabId, id }: NodeInfoProps) => {
   const rootRef = useRef<HTMLButtonElement>(null);

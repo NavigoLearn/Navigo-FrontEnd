@@ -1,20 +1,13 @@
 import * as d3 from 'd3';
-import ReactDOM, { Root } from 'react-dom/client';
-import { NodeTypesProps } from '@type/roadmap/nodes';
-import NodeManager from '@components/roadmap/NodeManager';
-import React from 'react';
-import roadmapEdit, {
-  changeAnyNode,
-  changeNodeCoords,
-  getNodeCoords,
-} from '@store/roadmap_edit';
+import { getNodeCoords } from '@typescript/roadmap/roadmap-edit-logic';
 import roadmapState from '@store/roadmap_state';
-import roadmapStatic from '@store/roadmap';
+import roadmapEdit from '@store/roadmap_edit';
+import roadmapStatic from '@store/roadmap_static';
 import { ConnectionStore } from '@type/roadmap/connections';
 import { Roadmap } from '@type/roadmap/roadmap';
 import { WritableAtom } from 'nanostores';
-import selection, { setSelection } from '@store/selection';
-import node from '@components/roadmap/nodes/node-info/Node';
+import { setSelection } from '@store/selection';
+import { changeNodeCoords } from '@typescript/roadmap/roadmap-edit-logic-decorated';
 
 function getNodeMiddleCoords(id: string) {
   const { x, y } = getNodeCoords(id);
@@ -68,8 +61,6 @@ function renderConnectionsRoadmap(roadmap: WritableAtom<Roadmap>) {
 
   nodeSelection
     .join('line')
-    // .transition()
-    // .duration(250)
     .attr('x1', (d: ConnectionStore) => getNodeMiddleCoords(d.parentId).x)
     .attr('y1', (d: ConnectionStore) => getNodeMiddleCoords(d.parentId).y)
     .attr('x2', (d: ConnectionStore) => getNodeMiddleCoords(d.childId).x)
