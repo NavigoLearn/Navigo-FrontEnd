@@ -4,12 +4,11 @@ import {
   generateConnection,
   generateIssue,
   generateNNodesInfo,
-  generateNodeInfo,
-  generateNodeResource,
   generateResourceSubNode,
   generateTabAbout,
   generateTabInfo,
 } from '@typescript/generators';
+import { setInfo } from '@store/tabinfo';
 
 const roadmap = atom({
   about: generateTabAbout('', '', ''),
@@ -60,16 +59,8 @@ const roadmap = atom({
     ),
   },
 
-  nodes: generateNNodesInfo(
-    'title',
-    'tabid1',
-    300,
-    150,
-    'parent',
-    [''],
-    100,
-    100
-  ).nodes,
+  nodes: generateNNodesInfo('title', 'tabid1', 300, 150, 'parent', [''], 2, 2)
+    .nodes,
   resources: {
     // list of all resource nodes
     resourceSubNodeId1: generateResourceSubNode(
@@ -100,23 +91,21 @@ const roadmap = atom({
     150,
     'parent',
     [''],
-    100,
-    100
+    2,
+    2
   ).chunksNodes,
   chunkSize: 400,
 } as Roadmap);
 
-export function setTrigger(id: string, cb: any) {
-  const original = roadmap.get();
-  original.triggers[id] = cb;
-  roadmap.set({
-    ...original,
-  });
-}
-
 export function getNodeById(id: string) {
   const original = roadmap.get();
   return original.nodes[id];
+}
+
+export function dispatchTabInfo(id: string) {
+  const original = roadmap.get();
+  const tab = original.data[id];
+  setInfo(tab);
 }
 
 export default roadmap;

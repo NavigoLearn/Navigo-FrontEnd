@@ -2,6 +2,10 @@ import { TabInfo, TabAbout, TabIssues } from '@type/roadmap/tab';
 import { NodeResourceStore, NodeInfoStore } from '@type/roadmap/nodes';
 import { ResourceSubNodeStore } from '@type/roadmap/resources';
 
+export function calculateChunkId(x, y) {
+  const chunkSize = 400;
+  return `${Math.floor(x / chunkSize)}_${Math.floor(y / chunkSize)}`;
+}
 export function generateTabAbout(
   name: string,
   author: string,
@@ -62,13 +66,10 @@ export function generateNodeInfo(
     y,
     parent,
     children,
+    chunk: calculateChunkId(x, y),
   };
 }
 
-export function calculateChunkId(x, y) {
-  const chunkSize = 400;
-  return `${Math.floor(x / chunkSize)}_${Math.floor(y / chunkSize)}`;
-}
 export function generateNNodesInfo(
   title: string,
   tabId: string,
@@ -79,6 +80,7 @@ export function generateNNodesInfo(
   n: number,
   m: number
 ): any {
+  // used for stress testing roadmap rendering capabilities and optimizations
   const nodes: any = {};
   for (let i = 0; i < n; i += 1) {
     for (let j = 0; j < m; j += 1) {
@@ -129,6 +131,7 @@ export function generateNodeResource(
     y,
     parent,
     children: [],
+    chunk: calculateChunkId(x, y),
   };
 }
 
@@ -142,6 +145,7 @@ export function generateNodeResourceEmpty(id: string): NodeResourceStore {
     y: 0,
     parent: '',
     children: [],
+    chunk: '',
   };
 }
 
@@ -170,6 +174,7 @@ export function generateNodeInfoEmpty(id: string): NodeInfoStore {
     y: 0,
     parent: '',
     children: [],
+    chunk: '',
   };
 }
 

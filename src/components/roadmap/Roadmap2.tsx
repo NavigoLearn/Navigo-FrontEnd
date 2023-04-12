@@ -1,12 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+
 import * as d3 from 'd3';
 import NodeManager2 from '@components/roadmap/NodeManager2';
 import { useStore } from '@nanostores/react';
 import roadmapState from '@store/roadmap_state';
-import roadmapStatic, { setTrigger } from '@store/roadmap';
-import { addZoom } from '@typescript/d3utils';
-import renderNodesStore from '@store/render';
-import { get } from 'astro/dist/assets/image-endpoint';
+import roadmapStatic from '@store/roadmap';
+import { setTrigger } from '@store/runtime/rerenderTriggers';
+import { addZoom, RoadmapChunkingManager } from '@typescript/d3utils';
+import renderNodesStore from '@store/runtime/renderedNodes';
+import { setChunkRerenderTrigger } from '@store/runtime/renderedChunks';
 import Report from './tabs/Report';
 
 const Roadmap2 = () => {
@@ -28,12 +30,23 @@ const Roadmap2 = () => {
     };
   }, []);
 
+  const renderer = useRef(null);
+
   useEffect(() => {
-    addZoom('#rootSvg', '#rootGroup');
-    // renderNodes();
-    // renderConnections();
+    renderer.current = new RoadmapChunkingManager('rootSvg');
+    setChunkRerenderTrigger(
+      renderer.current.recalculateChunks.bind(renderer.current)
+    );
+  }, []);
+
+  useEffect(() => {
+    addZoom(
+      'rootSvg',
+      'rootGroup',
+      renderer.current.recalculateChunks.bind(renderer.current)
+    );
   }, [editing]);
-  console.log('rerendered roadmap2');
+
   return (
     <div className='w-full h-full '>
       <Report />
@@ -50,7 +63,8 @@ const Roadmap2 = () => {
                 <NodeManager2
                   key={id}
                   data={data}
-                  renderTrigger={(cb) => {
+                  editing={editing}
+                  triggerCb={async (cb) => {
                     setTrigger(id, cb);
                   }}
                 />

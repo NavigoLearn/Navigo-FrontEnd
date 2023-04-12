@@ -14,6 +14,6 @@ export type Roadmap = {
   connections: HashMap<ConnectionStore>;
   resources: HashMap<ResourcesStoreTypes>;
   triggers: any;
-  chunks: HashMap<string>; // ids of the nodes in each chunk
+  chunks: HashMap<string[]>; // ids of the nodes in each chunk
   chunkSize: number;
 };

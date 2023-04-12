@@ -1,18 +1,45 @@
 import { atom } from 'nanostores';
-import { renderNodesIds } from '@typescript/roadmap-render';
-import { setNodes, getNodes } from '@store/render';
+import { setNodes } from '@store/runtime/renderedNodes';
 import roadmapEdit from '@store/roadmap_edit';
-import roadmap from '@store/roadmap';
 import roadmapState from '@store/roadmap_state';
+import roadmap from '@store/roadmap';
 
 const chunksStore = atom({
   chunks: [], // ids of all the chunks currently visible on the screen
+  chunkSize: 400,
+  chunkRerenderTrigger: () => {
+    // function for rerendering chunks
+  },
 } as {
   chunks: string[];
+  chunkSize: number;
+  chunkRerenderTrigger: () => void;
 });
 
 export function setChunks(newChunks: string[]) {
-  chunksStore.set({ chunks: newChunks });
+  const original = chunksStore.get();
+  chunksStore.set({
+    ...original,
+    chunks: newChunks,
+  });
+}
+
+export function setChunkRerenderTrigger(newTrigger: () => void) {
+  const original = chunksStore.get();
+  chunksStore.set({
+    ...original,
+    chunkRerenderTrigger: newTrigger,
+  });
+}
+
+export function triggerChunkRerender() {
+  const original = chunksStore.get();
+  original.chunkRerenderTrigger();
+}
+
+export function setChunkSize(newChunkSize: number) {
+  const original = chunksStore.get();
+  chunksStore.set({ ...original, chunkSize: newChunkSize });
 }
 
 export function renderChunks() {

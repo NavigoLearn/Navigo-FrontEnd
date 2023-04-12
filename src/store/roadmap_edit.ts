@@ -1,15 +1,15 @@
 import { atom } from 'nanostores';
+import {
+  triggerRerenderAllDecorator,
+  triggerRerenderDecorator,
+  triggerChunkRecalculationDecorator,
+  triggerChunkRerenderDecorator,
+} from '@typescript/decorators';
 import { Roadmap } from '@type/roadmap/roadmap';
 import {
-  generateConnection,
-  generateIssue,
-  generateNNodesInfo,
-  generateNodeInfo,
+  calculateChunkId,
   generateNodeInfoEmpty,
-  generateNodeResource,
   generateNodeResourceEmpty,
-  generateResourceSubNode,
-  generateTabAbout,
   generateTabInfo,
 } from '@typescript/generators';
 import { TabAbout, TabInfo, TabIssues } from '@type/roadmap/tab';
@@ -135,22 +135,92 @@ export function addTabBlankNew(newId: string) {
   roadmapEdit.set({ ...original });
 }
 
-export function changeAnyNode<T extends keyof NodeTypesStore>(
-  id: string,
-  property: T,
-  value: NodeTypesStore[T]
-) {
+export const changeAnyNode = triggerRerenderDecorator(
+  <T extends keyof NodeTypesStore>(
+    id: string,
+    property: T,
+    value: NodeTypesStore[T]
+  ) => {
+    const original = roadmapEdit.get();
+    const { nodes } = original;
+    const node = nodes[id];
+    if (!isNodeTypesStore(node)) {
+      throw new Error('No node found for given id');
+    }
+    node[property] = value;
+    nodes[id] = node;
+    original.nodes = nodes;
+    roadmapEdit.set({ ...original });
+  }
+);
+
+export function getNodeChunk(id: string) {
+  // gets the chunk of the node with id id
   const original = roadmapEdit.get();
   const { nodes } = original;
   const node = nodes[id];
   if (!isNodeTypesStore(node)) {
     throw new Error('No node found for given id');
   }
-  node[property] = value;
+  return node.chunk;
+}
+
+export function addChunkNode(id: string, chunkId: string) {
+  // adds a node to a chunk
+  const original = roadmapEdit.get();
+  const { nodes } = original;
+  const node = nodes[id];
+  if (!isNodeTypesStore(node)) {
+    throw new Error('No node found for given id');
+  }
+  node.chunk = chunkId;
   nodes[id] = node;
   original.nodes = nodes;
+  // adds node to the correspoing chunk
+  let chunkArr = original.chunks[chunkId];
+  if (!chunkArr) {
+    chunkArr = [id];
+  } else {
+    chunkArr.push(id);
+  }
+  original.chunks[chunkId] = chunkArr;
   roadmapEdit.set({ ...original });
 }
+
+export function removeChunkNode(id: string) {
+  // remove a node from a chunk
+  const original = roadmapEdit.get();
+  const { nodes } = original;
+  const node = nodes[id];
+  if (!isNodeTypesStore(node)) {
+    throw new Error('No node found for given id');
+  }
+  const { chunk: chunkId } = node;
+  console.log(chunkId);
+  // we remove the nodeId from the chunk
+  let chunkArr = original.chunks[chunkId];
+  if (!chunkArr) return; // if the chunk doesn't exist, we don't need to do anything
+  chunkArr = chunkArr.filter((nodeId) => nodeId !== id);
+  original.chunks[chunkId] = chunkArr;
+
+  roadmapEdit.set({ ...original });
+}
+
+export const changeNodeCoords = triggerRerenderDecorator(
+  triggerChunkRecalculationDecorator((id: string, x: number, y: number) => {
+    const original = roadmapEdit.get();
+    const { nodes } = original;
+    const node = nodes[id];
+    if (!isNodeTypesStore(node)) {
+      throw new Error('No node found for given id');
+    }
+    node.x = x;
+    node.y = y;
+    nodes[id] = node;
+    original.nodes = nodes;
+    roadmapEdit.set({ ...original });
+  })
+);
 
 export function changeNodeInfo<T extends keyof NodeInfoStore>(
   id: string,
@@ -169,34 +239,35 @@ export function changeNodeInfo<T extends keyof NodeInfoStore>(
   roadmapEdit.set({ ...original });
 }
 
-export function changeNodeType(id: string, type: NodeIdentifierTypes) {
-  const original = roadmapEdit.get();
-  const { nodes } = original;
-  // generate new Node based on type
-  const nodeMapping = {
-    Resource: generateNodeResourceEmpty,
-    Info: generateNodeInfoEmpty,
-  };
-  const currentNode = nodes[id];
-  const newNode = nodeMapping[type](id);
-  newNode.parent = currentNode.parent;
-  newNode.title = currentNode.title;
-  newNode.x = currentNode.x;
-  newNode.y = currentNode.y;
+export const changeNodeType = triggerRerenderDecorator(
+  (id: string, type: NodeIdentifierTypes) => {
+    const original = roadmapEdit.get();
+    const { nodes } = original;
+    // generate new Node based on type
+    const nodeMapping = {
+      Resource: generateNodeResourceEmpty,
+      Info: generateNodeInfoEmpty,
+    };
+    const currentNode = nodes[id];
+    const newNode = nodeMapping[type](id);
+    newNode.parent = currentNode.parent;
+    newNode.title = currentNode.title;
+    newNode.x = currentNode.x;
+    newNode.y = currentNode.y;
+    newNode.chunk = currentNode.chunk;
 
-  if (isNodeInfoProps(newNode) && type === 'Info') {
-    newNode.tabId = generateNewTab();
-  } else if (type === 'Resource') {
-    // whatever else needs to be done
-  } else {
-    throw new Error('Invalid type');
+    if (isNodeInfoProps(newNode) && type === 'Info') {
+      newNode.tabId = generateNewTab();
+    } else if (type === 'Resource') {
+      // whatever else needs to be done
+    } else {
+      throw new Error('Invalid type');
+    }
+    nodes[id] = { ...newNode };
+    original.nodes = nodes;
+    roadmapEdit.set({ ...original });
   }
-  nodes[id] = { ...newNode };
-  original.nodes = nodes;
-  roadmapEdit.set({ ...original });
-  console.log('called trigger');
-  original.triggers[id]();
-}
+);
 
 export function replaceNodeInfo(id: string, node: NodeInfoStore) {
   const original = roadmapEdit.get();
@@ -280,7 +351,7 @@ export function generateResourceSubNodeNew(parentId: string) {
   return newId;
 }
 
-export function addResourceSubNodeNew(id: string) {
+export const addResourceSubNodeNew = triggerRerenderDecorator((id: string) => {
   const original = roadmapEdit.get();
   const { nodes } = original;
   if (!nodes[id] || nodes[id].type !== 'Resource') return;
@@ -292,7 +363,7 @@ export function addResourceSubNodeNew(id: string) {
   currentNode.nodes.push(newId);
   original.nodes = nodes;
   roadmapEdit.set({ ...original });
-}
+});
 
 export function getUnusedNodeId() {
   const original = roadmapEdit.get();
@@ -321,6 +392,9 @@ export function addNodeResourceEmpty(
   nodes[newId].title = title;
   nodes[newId].x = x;
   nodes[newId].y = y;
+  nodes[newId].parent = parentId;
+  nodes[parentId].children.push(newId);
+  nodes[newId].chunk = calculateChunkId(x, y);
 
   original.nodes = nodes;
   roadmapEdit.set({ ...original });
@@ -346,6 +420,8 @@ export function addNodeInfoEmpty(
   newNode.parent = parentId;
   nodes[parentId].children.push(newId);
   nodes[newId] = newNode;
+  const chunkId = calculateChunkId(x, y);
+  addChunkNode(newId, chunkId);
   original.nodes = nodes;
   roadmapEdit.set({ ...original });
   return newId;
@@ -409,17 +485,18 @@ export function addConnection(parentId: string, childId: string) {
   roadmapEdit.set({ ...original });
 }
 
-export function addNodeNew(parentId: string, type: NodeIdentifierTypes) {
-  const original = roadmapEdit.get();
-  const { nodes } = original;
-  const newId = getUnusedNodeId();
-  const { x, y } = getNodeCoords(parentId);
-  // sets parent and children properly
-  generationFlow(type, parentId, newId, 'newNode', x, y + 200);
-  addConnection(parentId, newId);
-
-  return newId;
-}
+export const addNodeNew = triggerChunkRerenderDecorator(
+  (parentId: string, type: NodeIdentifierTypes) => {
+    const original = roadmapEdit.get();
+    const { nodes } = original;
+    const newId = getUnusedNodeId();
+    const { x, y } = getNodeCoords(parentId);
+    // sets parent and children properly
+    generationFlow(type, parentId, newId, 'newNode', x, y + 200);
+    // addConnection(parentId, newId);
+    return newId;
+  }
+);
 
 export function removeResourceSubNode(id: string, subNodeId: string) {
   const original = roadmapEdit.get();

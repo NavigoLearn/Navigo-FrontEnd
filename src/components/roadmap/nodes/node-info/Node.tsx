@@ -5,9 +5,9 @@ import NodeView from '@components/roadmap/nodes/node-info/NodeView';
 
 const Node = ({ editing, title, tabId, id }: NodeInfoProps) => {
   return editing ? (
-    <NodeEdit title={title} tabId={tabId} id={id} />
+    <NodeEdit editing={editing} title={title} tabId={tabId} id={id} />
   ) : (
-    <NodeView title={title} tabId={tabId} id={id} />
+    <NodeView editing={editing} title={title} tabId={tabId} id={id} />
   );
 };
 

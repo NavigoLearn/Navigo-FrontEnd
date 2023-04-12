@@ -9,7 +9,7 @@ import {
   generateTabInfo,
 } from '@typescript/generators';
 
-const roadmap: Roadmap = {
+const roadmap: any = {
   about: generateTabAbout('', '', ''),
   issues: {
     id1Issue: generateIssue('id1Issue', 'Issue 1', 'Author 1'),

@@ -3,13 +3,18 @@ import ReactDOM, { Root } from 'react-dom/client';
 import { NodeTypesProps } from '@type/roadmap/nodes';
 import NodeManager from '@components/roadmap/NodeManager';
 import React from 'react';
-import roadmapEdit, { changeAnyNode, getNodeCoords } from '@store/roadmap_edit';
+import roadmapEdit, {
+  changeAnyNode,
+  changeNodeCoords,
+  getNodeCoords,
+} from '@store/roadmap_edit';
 import roadmapState from '@store/roadmap_state';
-import roadmapStatic, { setTrigger } from '@store/roadmap';
+import roadmapStatic from '@store/roadmap';
 import { ConnectionStore } from '@type/roadmap/connections';
 import { Roadmap } from '@type/roadmap/roadmap';
 import { WritableAtom } from 'nanostores';
 import selection, { setSelection } from '@store/selection';
+import node from '@components/roadmap/nodes/node-info/Node';
 
 function getNodeMiddleCoords(id: string) {
   const { x, y } = getNodeCoords(id);
@@ -129,171 +134,58 @@ export function renderConnection(id, movingElementId, movingElementCoords) {
   }
 }
 
-export function renderNode(root: Root, data: NodeTypesProps, foreignObject) {
-  root.render(
-    <NodeManager
-      data={data}
-      sizeCb={(width: number, height: number) => {
-        // sets foreignObject size to the size of the rendered component
-        foreignObject.attr('width', width).attr('height', height);
-        // TODO optmize connection rendering not call it for every node
-        // renderConnections();
-      }}
-      renderTrigger={(callBack) => {
-        // sets cb to be called when node should be rerendered
-        setTrigger(data.id, callBack);
-      }}
-    />
-  );
+function getTransformXY(transform: string) {
+  const firstParanthesis = transform.indexOf('(');
+  const lastParanthesis = transform.indexOf(')');
+  const transformValues = transform
+    .slice(firstParanthesis + 1, lastParanthesis)
+    .split(',');
+  return {
+    x: parseInt(transformValues[0], 10),
+    y: parseInt(transformValues[1], 10),
+  };
 }
 
-export function appendToD3(obj, data: NodeTypesProps) {
-  const current = d3.select(obj);
-  let foreignObject = current.select('foreignObject');
-  foreignObject = current
-    .append('foreignObject')
-    .attr('x', '0')
-    .attr('y', '0')
-    .attr('width', '100')
-    .attr('height', '100')
-    .attr('overflow', 'visible');
-  const rootDiv = foreignObject.append('xhtml:div');
-  // added a div to the foreignObject as a workaround for a bug in d3
-  // If I rendered the comp directly beneath the foreignObject it would get a weird click effect with a border showing up
-
-  const root = ReactDOM.createRoot(rootDiv.node());
-  renderNode(root, data, foreignObject);
-}
-
-const renderNodesRoadmap = (roadmap: WritableAtom<Roadmap>) => {
-  // same as connections but for nodes
-  const roadmapData = roadmap.get();
-  const { editing } = roadmapState.get();
-  const { nodes } = roadmapData;
-  const nodesArray = Object.keys(nodes).map((key) => nodes[key]);
-  const g = document.getElementById('rootGroupNodes');
-
-  const nodeSelection = d3
-    .select(g)
-    .selectAll('g')
-    .data(nodesArray, (d) => {
-      return d.id;
-    }); // Use the data value as the key function
-
+export const addDraggability = (id: string, editing: boolean) => {
+  const nodeSelection = d3.select('g').select(`#group${id}`);
+  const offsets = { x: 0, y: 0 };
+  const newPos = { x: 0, y: 0 };
   const drag = d3
     .drag()
-    .on('start', function () {
-      // called when the drag starts
-      // select the connections related to the node and puts their ids in selection state
+    .on('start', function (event) {
+      if (!editing) return;
+      // sets the
       setSelection(d3.select(this).attr('id'));
+      // coordinates of mouse click in the original reference system
+      const { x } = event;
+      const { y } = event;
+      // coordinates of the node in the original reference system
+      const transform = d3.select(this).attr('transform');
+      const { x: nodeX, y: Nodey } = getTransformXY(transform);
+      const offsetX = x - nodeX;
+      const offsetY = y - Nodey;
+      offsets.x = offsetX;
+      offsets.y = offsetY;
+      newPos.x = nodeX;
+      newPos.y = Nodey;
     })
     .on('drag', function (event, d) {
-      // called when the element is being dragged
       if (!editing) return;
-      // update the connections related to the node but not rerender the roadmap again each time!!!
-      const { selectedNodeId: nodeId, adjacentConnectionsId: connections } =
-        selection.get();
+      // event x and event y are measures from the top left corner of the svg
+      newPos.x = event.x - offsets.x;
+      newPos.y = event.y - offsets.y; // offsets used only for dragging purposes not for actual save
 
-      // TODO uncomment this
-      // for (let i = 0; i < connections.length; i += 1) {
-      //   renderConnection(connections[i], nodeId, { x: event.x, y: event.y });
-      // }
-      d3.select(this).attr('transform', `translate(${event.x}, ${event.y})`);
+      d3.select(this).attr('transform', `translate(${newPos.x}, ${newPos.y})`);
     })
     .on('end', function (event, d) {
-      // saving the new position of the node
       if (!editing) return;
       if (
-        roadmapEdit.get().nodes[d.id].x === event.x &&
-        roadmapEdit.get().nodes[d.id].y === event.y
+        roadmapEdit.get().nodes[id].x === newPos.x &&
+        roadmapEdit.get().nodes[id].y === newPos.y
       )
         return;
-      changeAnyNode(d.id, 'x', event.x);
-      changeAnyNode(d.id, 'y', event.y);
+      changeNodeCoords(id, newPos.x, newPos.y);
     });
 
-  nodeSelection
-    .enter()
-    .append('g')
-    .attr('id', (d) => d.id)
-    .attr('transform', (d) => `translate(${d.x}, ${d.y})`)
-    .call(drag)
-    .each(function (d) {
-      appendToD3(this, d);
-    });
-  // calls drag again on the existing elements
   nodeSelection.call(drag);
 };
-
-export const renderNodesIds = (
-  roadmap: WritableAtom<Roadmap>,
-  nodesIds: string[]
-) => {
-  // same as connections but for nodes
-  const roadmapData = roadmap.get();
-  const { editing } = roadmapState.get();
-  const { nodes } = roadmapData;
-
-  const nodesArray = nodesIds.map((key) => nodes[key]);
-  const g = document.getElementById('rootGroupNodes');
-  // console.log('rendered node', nodesArray);
-
-  const nodeSelection = d3
-    .select(g)
-    .selectAll('g')
-    .data(nodesArray, (d) => {
-      return d.id;
-    }); // Use the data value as the key function
-
-  const drag = d3
-    .drag()
-    .on('start', function () {
-      // called when the drag starts
-      // select the connections related to the node and puts their ids in selection state
-      setSelection(d3.select(this).attr('id'));
-    })
-    .on('drag', function (event, d) {
-      // called when the element is being dragged
-      if (!editing) return;
-      // update the connections related to the node but not rerender the roadmap again each time!!!
-      const { selectedNodeId: nodeId, adjacentConnectionsId: connections } =
-        selection.get();
-
-      d3.select(this).attr('transform', `translate(${event.x}, ${event.y})`);
-    })
-    .on('end', function (event, d) {
-      // saving the new position of the node
-      if (!editing) return;
-      if (
-        roadmapEdit.get().nodes[d.id].x === event.x &&
-        roadmapEdit.get().nodes[d.id].y === event.y
-      )
-        return;
-      changeAnyNode(d.id, 'x', event.x);
-      changeAnyNode(d.id, 'y', event.y);
-    });
-
-  nodeSelection
-    .enter()
-    .append('g')
-    .attr('id', (d) => d.id)
-    .attr('transform', (d) => `translate(${d.x}, ${d.y})`)
-    .call(drag)
-    .each(function (d) {
-      appendToD3(this, d);
-    });
-
-  console.log('called rendering');
-  nodeSelection.exit().remove('g');
-  // calls drag again on the existing elements
-  nodeSelection.call(drag);
-};
-export function renderNodes() {
-  // renders some elements in svg based on an array
-  const { editing } = roadmapState.get();
-  if (!editing) {
-    renderNodesRoadmap(roadmapStatic);
-  } else {
-    renderNodesRoadmap(roadmapEdit);
-  }
-}

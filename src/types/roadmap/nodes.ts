@@ -1,6 +1,7 @@
 import { ResourceSubNodeProps } from '@type/roadmap/resources';
 
 export type NodeIdentifierTypes = 'Info' | 'Resource';
+
 export const nodeIdentifierTypesArray = ['Info', 'Resource'];
 export interface NodeStore {
   id: string;
@@ -10,8 +11,10 @@ export interface NodeStore {
   y: number;
   parent: string;
   children: string[];
+  chunk: string;
 }
 export interface NodeInfoProps {
+  editing?: boolean;
   id: string;
   title: string;
   tabId: string;

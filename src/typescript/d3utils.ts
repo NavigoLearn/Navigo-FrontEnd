@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 
-import { renderChunks, setChunks } from '@store/chunks';
+import { renderChunks, setChunks } from '@store/runtime/renderedChunks';
 
 function add(a, b) {
   return a + b;
@@ -30,7 +30,7 @@ export function calculateViewportCoordinates(transform: any) {
   const viewportX = -transform.x / transform.k;
   const viewportY = -transform.y / transform.k;
 
-  // 5. Calculate the current viewport width and height
+  // Calculate the current viewport width and height
   const viewportWidth = width / transform.k;
   const viewportHeight = height / transform.k;
 
@@ -74,21 +74,35 @@ export function calculateRenderedChunks(transform: any) {
   // set the rendered chunks in the store
 }
 
-export const renderRoadmapChunks = (objId, func) => {
-  const obj = d3.select(objId);
+export const renderRoadmapChunks = (obj, func) => {
   func(d3.zoomTransform(obj));
 };
 
-export const addZoom = (rootSvg: string, rootGroup: string) => {
-  const svg = d3.select(rootSvg);
-  const throttleRendering = throttle(calculateRenderedChunks, 50);
-  renderRoadmapChunks(rootSvg, throttleRendering);
-  function zoomed() {
-    // call viewport recalculation
-    // calculateViewportCoordinates();
+export class RoadmapChunkingManager {
+  svgRef: any;
 
-    throttleRendering(d3.zoomTransform(this));
-    d3.select(rootGroup).attr('transform', d3.zoomTransform(this));
+  svgRefId: string;
+
+  throttledRendering: any;
+
+  constructor(svgRefId: string) {
+    this.svgRefId = svgRefId;
+    this.svgRef = document.getElementById(svgRefId);
+    this.throttledRendering = throttle(calculateRenderedChunks, 50);
+    this.throttledRendering(d3.zoomTransform(this.svgRef));
+  }
+
+  recalculateChunks() {
+    this.throttledRendering(d3.zoomTransform(this.svgRef));
+  }
+}
+export const addZoom = (rootSvgId, rootGroupId, rerender) => {
+  const svg = d3.select(`#${rootSvgId}`);
+  rerender();
+  function zoomed() {
+    // triggers the chunk rendering flow
+    rerender();
+    d3.select(`#${rootGroupId}`).attr('transform', d3.zoomTransform(this));
   }
   svg.call(
     d3

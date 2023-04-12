@@ -1,7 +1,7 @@
 import { atom } from 'nanostores';
 
 const renderNodesStore = atom({
-  nodes: [], // ids of all the chunks currently visible on the screen
+  nodes: [], // ids of all the nodes currently rendered on the screen
 } as {
   nodes: string[];
 });
@@ -18,10 +18,7 @@ export function checkDiff(newNodes: string[]) {
 }
 export function setNodes(newNodes: string[]) {
   if (checkDiff(newNodes)) {
-    console.log('replaced nodesiwth new ones');
     renderNodesStore.set({ nodes: newNodes });
-  } else {
-    console.log('didnt replace nodes because they are the same');
   }
 }
 

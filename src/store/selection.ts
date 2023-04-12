@@ -23,7 +23,7 @@ export function setSelection(id: string) {
       selectedConnectionsId.push(key);
     }
   });
-  console.log(selectedConnectionsId);
+
   selection.set({
     selectedNodeId: id,
     adjacentConnectionsId: selectedConnectionsId,

@@ -3,40 +3,40 @@ import React, {
   useRef,
   useState,
   useMemo,
-  useCallback,
   useEffect,
 } from 'react';
-import roadmapState from '@store/roadmap_state';
-import { useStore } from '@nanostores/react';
 import { NodeInfoProps } from '@type/roadmap/nodes';
 import {
   isNodeInfoProps,
   isNodeResourceProps,
 } from '@type/roadmap/typecheckers';
+import { getNodeById } from '@store/roadmap';
+import { addDraggability } from '@typescript/roadmap-render';
 import Node from './nodes/node-info/Node';
 import Resource from './nodes/node-resource/Resource';
 
-const NodeManager2 = ({ data, renderTrigger, sizeCb }: any) => {
-  // console.log('NodeManager rerendered', data);
+const NodeManager2 = ({ data, editing, renderTrigger, triggerCb }: any) => {
   const rootRef = useRef<HTMLDivElement>(null);
   const objRef = useRef<SVGForeignObjectElement>(null);
-  const { editing } = useStore(roadmapState);
-
   const [render, setRender] = useState(true);
 
   function triggerRender() {
-    console.log('triggerRender', data.id);
-    setRender(!render);
+    setRender((val) => !val);
     // used for selective rerendering of the nodes
   }
 
   useLayoutEffect(() => {
-    renderTrigger(triggerRender);
+    triggerCb(triggerRender);
+
+    return () => {
+      // cleanup
+    };
   }, []);
 
   useEffect(() => {
     // things to trigger on rerender
     if (rootRef) {
+      // updates the size of the foreignObject to match the size of the div for draggability and movement purposes
       const width = `${rootRef.current.offsetWidth}`;
       const height = `${rootRef.current.offsetHeight}`;
       objRef.current.setAttribute('width', width);
@@ -44,13 +44,22 @@ const NodeManager2 = ({ data, renderTrigger, sizeCb }: any) => {
     }
   }, [render]);
 
+  useEffect(() => {
+    addDraggability(data.id, editing);
+  }, [editing]);
+
   const renderNode = () => {
     // we fetch the data from the nanostores here in order to get rerendering on data change
     const { id } = data as NodeInfoProps;
-    const node = data;
+    let node;
+    if (editing) {
+      node = getNodeById(id);
+    } else {
+      node = data;
+    }
     if (isNodeInfoProps(node)) {
       const { title, tabId } = node;
-      return <Node id={id} title={title} tabId={tabId} />;
+      return <Node editing={editing} id={id} title={title} tabId={tabId} />;
     }
     if (isNodeResourceProps(node)) {
       const { id: idNode, title, nodes: resNodes } = node;
@@ -58,10 +67,12 @@ const NodeManager2 = ({ data, renderTrigger, sizeCb }: any) => {
     }
     throw new Error('something went wrong');
   };
-  const renderedNode = useMemo(() => renderNode(), [render]);
+  const renderedNode = useMemo(() => {
+    return renderNode();
+  }, [render]);
 
   return (
-    <g transform={`translate(${data.x},${data.y})`}>
+    <g id={`group${data.id}`} transform={`translate(${data.x},${data.y})`}>
       <foreignObject ref={objRef}>
         <div ref={rootRef} className=' inline-block border-0 '>
           {renderedNode}

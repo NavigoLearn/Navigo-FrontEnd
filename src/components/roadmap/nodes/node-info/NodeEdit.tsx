@@ -6,7 +6,7 @@ import { NodeInfoProps, NodeInfoStore } from '@type/roadmap/nodes';
 import InfoTitleNonEdit from '@components/roadmap/nodes/node-info/InfoTitleNonEdit';
 import InfoTitleEdit from '@components/roadmap/nodes/node-info/InfoTitleEdit';
 import useStateAndRef from '@hooks/useStateAndRef';
-import { addNodeNew, changeNodeInfo } from '@store/roadmap_edit';
+import { changeNodeInfo } from '@store/roadmap_edit';
 
 const NodeEdit = ({ title, tabId, id }: NodeInfoProps) => {
   const rootRef = useRef<HTMLDivElement>(null);
