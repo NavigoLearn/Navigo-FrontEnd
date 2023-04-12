@@ -24,7 +24,7 @@ user.set({
   BIO: 'Avid and passionate learner -- insert more linkedin boilerplate --. Average math enjoyer, likes a bit of competitive programming,  likes gym and the pump, likes nietzsche but goes out of his way to not read books despite wanting to.  Loves making startups and bringing ideas and meaningful changes to reality. Also likes speaking in public but is antisocial. If you want to contact me you are welcome to leave me alone',
   completedRoadmaps: 3,
   createdRoadmaps: 12,
-  // inProgressRoadmaps: 7,
+  inProgressRoadmaps: 7,
 });
 
 type Roamdmap = {
@@ -35,7 +35,7 @@ type Roamdmap = {
   description: string;
 };
 
-const DesktopProfile = () => {
+const MobileProfile = () => {
   const userData = useStore(user);
   const [data, setData] = useState<Roamdmap[]>([]);
   // eslint-disable-next-line no-console
@@ -61,45 +61,53 @@ const DesktopProfile = () => {
   };
 
   return (
-    <div className='flex flex-col w-full h-full items-center my-24'>
-      <img src={eugene} alt='avatar' className='rounded-full flex' />
-      <h1 className='flex text-center font-semibold font-roboto-text text-[38px] mt-4'>
+    <div className='flex flex-col w-full h-full items-center my-24 text-center'>
+      <img
+        src={eugene}
+        alt='avatar'
+        className='rounded-full flex w-8/12 sm:w-7/12'
+      />
+      <h1 className='flex text-center font-semibold font-roboto-text text-4xl mt-4'>
         {userData.name}
       </h1>
-      <h2 className='text-[18px] font-light text-center mt-2 font-roboto-text text-secondary'>
+      <h2 className='text-md font-light text-center mt-2 font-roboto-text text-secondary sm:text-lg'>
         {userData.description}
       </h2>
       <button type='button'>
-        <h2 className='text-[18px] hover:underline text-white font-medium py-4 px-20 bg-primary rounded-3xl mt-4 font-robot'>
+        <h2 className='text-lg hover:underline text-white font-medium py-3 px-14 bg-primary rounded-3xl mt-4 font-roboto-text sm:-text-xl sm:py-4 sm:px-20'>
           Edit profile
         </h2>
       </button>
-      <h3 className='text-[16px] text-center mt-4 text-placeholder font-robot'>
+      <h3 className='text-sm text-center mt-4 text-placeholder font-robot sm:text-md'>
         Quote
       </h3>
-      <h2 className='italic text-[20px] font-normal text-center text-secondary font-roboto-text'>
+      <h2 className='italic text-md font-normal text-center text-secondary font-roboto-text sm:text-lg'>
         &quot;{userData.quote}&quot;
       </h2>
-      <div className='flex gap-5 mt-6 w-full text-center items-center justify-center'>
-        <h2 className='text-[20px] font-normal text-center flex font-roboto-text'>
-          <img src={followers} className='flex mx-4' alt='followersicon' />
-          {userData.followers}
-          <h2 className='flex text-[20px] text-placeholder mx-2 font-roboto-text'>
+      <div className='flex flex-row justify-center items-center text-center mt-4'>
+        <div className='flex items-center text-center justify-center'>
+          <img src={followers} alt='followers' className='w-6 mx-2 sm:w-8' />
+          <h2 className='text-md font-normal text-center items-center text-secondary font-roboto-text sm:text-lg'>
+            {userData.followers}
+          </h2>
+          <h3 className='text-md text-center text-main font-roboto-text mx-2 sm:text-lg'>
             followers
+          </h3>
+        </div>
+        <div className='flex items-center justify-center text-center'>
+          <img src={followers} alt='followers' className='w-6 mx-2 sm:w-8' />
+          <h2 className='text-md font-normal text-center items-center text-secondary font-roboto-text sm:text-lg'>
+            {userData.following}
           </h2>
-        </h2>
-        <h2 className='text-[20px] font-normal text-center flex font-roboto-text'>
-          <img src={followers} className='flex mx-4' alt='followingicon' />
-          {userData.following}
-          <h2 className='flex text-[20px] text-placeholder mx-2 font-roboto-text'>
+          <h3 className='text-md text-center text-main font-robot mx-2 sm:text-lg'>
             following
-          </h2>
-        </h2>
+          </h3>
+        </div>
       </div>
-      <div className='mt-4 flex'>
+      <div className='mt-4 flex justify-center'>
         <a
           href={userData.link}
-          className='inline-block text-[20px] font-normal text-center text-primary font-roboto-text'
+          className='inline-block text-md font-normal text-center text-primary font-roboto-text justify-center sm:text-lg'
           aria-label='Link to external website'
           target='_blank'
           rel='noopener noreferrer'
@@ -155,9 +163,9 @@ const DesktopProfile = () => {
                   </div>
                 </div>
               </div>
-              <div className='flex flex-col justify-start text-start text-[20px] text-main font-normal font-roboto-text mt-4 mx-16'>
+              <div className='flex flex-col justify-start text-start text-main font-normal font-roboto-text mt-4 mx-16 sm:text-xl'>
                 BIO
-                <h2 className='text-md flex font-normal text-start text-[16px] mt-4 text-secondary font-roboto-text'>
+                <h2 className='text-sm sm:text-xl flex font-normal text-start mt-4 text-secondary font-roboto-text'>
                   {userData.BIO}
                 </h2>
               </div>
@@ -179,7 +187,7 @@ const DesktopProfile = () => {
           </button>
         )}
       </div>
-      <ul className='flex justify-center mt-12'>
+      <ul className='flex justify-center mt-[228px]'>
         <div className='grid big:grid-cols-3 medium:gap-x-[48px] medium:gap-y-[61px] medium:grid-cols-2 gap-y-[35px]'>
           {data.map((value) => (
             <div key={value.id} className='w-[389px]'>
@@ -197,4 +205,4 @@ const DesktopProfile = () => {
   );
 };
 
-export default DesktopProfile;
+export default MobileProfile;

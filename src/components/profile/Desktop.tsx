@@ -161,7 +161,7 @@ const DesktopProfile = () => {
                 <div className='flex items-center w-fit'>
                   <img src={dizaign} className='flex' alt='line' />
                   <h2 className='text-2xl font-normal text-center mx-4 font-roboto-text'>
-                    {/* {userData.inProgressRoadmaps} */}
+                    {userData.inProgressRoadmaps}
                   </h2>
                   <img src={dizaign} className='flex' alt='line' />
                 </div>

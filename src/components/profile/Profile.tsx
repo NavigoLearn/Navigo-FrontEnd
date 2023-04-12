@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import DesktopProfile from './DesktopProfile';
-import MobileProfile from './MobileProfile';
+import DesktopProfile from './Desktop';
+import MobileProfile from './Mobile';
 
 const Navbar = () => {
-  const [isDesktop, setIsDesktop] = useState(true);
+  const [isDesktop, setIsDesktop] = useState(undefined);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 950);
+      setIsDesktop(window.innerWidth >= 768);
     };
 
     handleResize();
@@ -18,9 +18,11 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className='z-100'>
-      <ul>{isDesktop ? <DesktopProfile /> : <MobileProfile />}</ul>
-    </nav>
+    <div>
+      {typeof isDesktop === 'undefined' ? null : (
+        <div>{isDesktop ? <DesktopProfile /> : <MobileProfile />}</div>
+      )}
+    </div>
   );
 };
 
