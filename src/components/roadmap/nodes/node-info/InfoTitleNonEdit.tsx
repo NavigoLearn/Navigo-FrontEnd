@@ -1,19 +1,15 @@
 import React from 'react';
-import { setInfo } from '@store/tabinfo';
-import roadmapEdit from '@store/roadmap_edit';
-import { isNodeInfoProps } from '@type/roadmap/typecheckers';
+import { setInfo } from '@store/runtime/tab-manager';
 import { NonEditingComponentProps } from '@type/roadmap/components';
+import { getNodeById } from '@store/roadmap_static';
+import { isNodeInfoStore } from '@type/roadmap/typecheckers';
+import { fetchTabInfo } from '../../../../api/roadmap/tab-data';
 
 const InfoTitleNonEdit = ({
   value,
   id,
   setCb: setEditTitle,
 }: NonEditingComponentProps) => {
-  const node = roadmapEdit.get().nodes[id];
-  if (!isNodeInfoProps(node)) {
-    throw new Error('node is not a node props');
-  }
-  const { tabId } = node;
   return (
     <>
       <button
@@ -21,7 +17,12 @@ const InfoTitleNonEdit = ({
         type='button'
         onClick={() => {
           // tab changing logic
-          setInfo(roadmapEdit.get().data[tabId]);
+          const node = getNodeById(id);
+          if (!isNodeInfoStore(node)) return;
+          const { tabId } = node;
+          fetchTabInfo(tabId).then((tabInfo) => {
+            setInfo(tabInfo);
+          });
         }}
       >
         {value}

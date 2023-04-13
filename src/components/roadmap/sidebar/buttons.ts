@@ -2,7 +2,7 @@ import edit from '@assets/edit.svg';
 import issues from '@assets/issues.svg';
 import about from '@assets/about.svg';
 import report from '@assets/report.svg';
-import { flipOpen, setAbout, setIssues } from '@store/tabinfo';
+import { flipOpen, setAbout, setIssues } from '@store/runtime/tab-manager';
 import { setReport } from '@store/popup';
 import roadmapState, {
   startEditingProtocol,

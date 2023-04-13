@@ -5,7 +5,7 @@ import {
   generateNodeResourceEmpty,
   generateTabInfo,
 } from '@typescript/roadmap/generators';
-import { TabAbout, TabInfo, TabIssues } from '@type/roadmap/tab';
+import { TabAbout, TabInfo, TabIssue } from '@type/roadmap/tab-manager';
 import {
   NodeIdentifierTypes,
   NodeInfoStore,
@@ -18,6 +18,8 @@ import {
 } from '@type/roadmap/typecheckers';
 import { ResourceSubNodeStore } from '@type/roadmap/resources';
 import roadmapEdit from '@store/roadmap_edit';
+import { postTabInfoFlow } from '@typescript/roadmap/tab-logic-flows';
+import { getNewTabId } from '../../api/roadmap/tab-data';
 
 /*
 The get function naming convention is:
@@ -31,82 +33,21 @@ add<Object><Type>
 generateNodeResourceEmpty
 */
 
-export function changeTabAboutProp<T extends keyof TabAbout>(
-  property: T,
-  value: TabAbout[T]
-) {
-  const original = roadmapEdit.get();
-  const { about } = original;
-  about[property] = value;
-  roadmapEdit.set({ ...original, about });
-}
-
-export function changeTabInfoProp(
-  id: string,
-  property: keyof TabInfo,
-  value: any
-) {
-  const original = roadmapEdit.get();
-  const { data } = original;
-  if (!data[id]) return;
-  // eslint-disable-next-line
-  // @ts-ignore
-  data[id][property] = value;
-  original.data = data;
-  roadmapEdit.set({ ...original });
-}
-
-export function changeTabInfo(id: string, tab: TabInfo) {
-  const original = roadmapEdit.get();
-  const { data } = original;
-  if (!data[id]) return;
-  data[id] = tab;
-  original.data = data;
-  roadmapEdit.set({ ...original });
-}
-
-export function changeTabInfoLink(
-  id: string,
-  index: number,
-  property: keyof TabInfo['links'][0],
-  value: string
-) {
-  const original = roadmapEdit.get();
-  const { data } = original;
-  if (!data[id]) {
-    throw new Error('No data found for given id');
-  }
-  data[id].links[index][property] = value;
-  original.data = data;
-  roadmapEdit.set({ ...original });
-}
-
 export function addNewTab(newId: string, newTab: TabInfo) {
-  const original = roadmapEdit.get();
-  const { data } = original;
-  data[newId] = newTab;
-  original.data = data;
-  roadmapEdit.set({ ...original });
+  // calls the post tab flow
+  postTabInfoFlow(newId, newTab);
 }
 
-export function getUnusedTabId() {
-  const original = roadmapEdit.get();
-  const { data } = original;
-  const ids = Object.keys(data);
-  let newId = 'tabid';
-  let appendedNumber = 0;
-  while (ids.includes(newId + appendedNumber)) {
-    appendedNumber += 1;
-  }
-  newId += appendedNumber;
-  return newId;
-}
+export const getUnusedTabId = async () => {
+  // gets the new Id from the API
+  return getNewTabId();
+};
 
 export function generateNewTab() {
   const newId = getUnusedTabId();
   const newTab = generateTabInfo(
     newId,
-    'New Tab',
+    'New TabManager',
     false,
     '',
     [],
@@ -114,25 +55,6 @@ export function generateNewTab() {
   );
   addNewTab(newId, newTab);
   return newId;
-}
-
-export function addTabBlankNew(newId: string) {
-  const original = roadmapEdit.get();
-  const { data } = original;
-  data[newId] = generateTabInfo(newId, '', false, '', [], '');
-  original.data = data;
-  roadmapEdit.set({ ...original });
-}
-
-export function getNodeChunk(id: string) {
-  // gets the chunk of the node with id id
-  const original = roadmapEdit.get();
-  const { nodes } = original;
-  const node = nodes[id];
-  if (!isNodeTypesStore(node)) {
-    throw new Error('No node found for given id');
-  }
-  return node.chunk;
 }
 
 export function addChunkNode(id: string, chunkId: string) {
@@ -146,7 +68,7 @@ export function addChunkNode(id: string, chunkId: string) {
   node.chunk = chunkId;
   nodes[id] = node;
   original.nodes = nodes;
-  // adds node to the correspoing chunk
+  // adds node to the corresponding chunk
   let chunkArr = original.chunks[chunkId];
   if (!chunkArr) {
     chunkArr = [id];
@@ -192,14 +114,6 @@ export function changeNodeInfo<T extends keyof NodeInfoStore>(
   roadmapEdit.set({ ...original });
 }
 
-export function replaceNodeInfo(id: string, node: NodeInfoStore) {
-  const original = roadmapEdit.get();
-  const { nodes } = original;
-  nodes[id] = node;
-  original.nodes = nodes;
-  roadmapEdit.set({ ...original });
-}
-
 export function changeNodeResource<T extends keyof NodeResourceStore>(
   id: string,
   property: T,
@@ -216,7 +130,11 @@ export function changeNodeResource<T extends keyof NodeResourceStore>(
   roadmapEdit.set({ ...original });
 }
 
-export function changeIssue(id: string, property: keyof TabIssues, value: any) {
+export function changeIssue<T extends keyof TabIssue>(
+  id: string,
+  property: T,
+  value: TabIssue[T]
+) {
   const original = roadmapEdit.get();
   const { issues } = original;
   issues[id][property] = value;
@@ -324,8 +242,7 @@ export function addNodeInfoEmpty(
   newNode.title = title;
   newNode.x = x;
   newNode.y = y;
-  const tabId = generateNewTab();
-  newNode.tabId = tabId;
+  newNode.tabId = generateNewTab();
   newNode.parent = parentId;
   nodes[parentId].children.push(newId);
   nodes[newId] = newNode;
@@ -398,18 +315,24 @@ export function removeResourceSubNode(id: string, subNodeId: string) {
   const original = roadmapEdit.get();
   const { nodes } = original;
   if (!nodes[id] || nodes[id].type !== 'Resource') {
-    throw new Error('Invalid node type when removing resource subnode');
+    throw new Error('Invalid node type when removing resource subNode');
   }
   const currentNode = nodes[id];
   if (!isNodeResourceStore(currentNode)) {
-    throw new Error('Invalid node type when removing resource subnode');
+    throw new Error('Invalid node type when removing resource subNode');
   }
   currentNode.nodes = currentNode.nodes.filter((node) => node !== subNodeId);
   original.nodes = nodes;
-  // remove resource subnode too!
+  // remove resource subNode too!
   delete original.resources[subNodeId];
   roadmapEdit.set({ ...original });
 }
+
+export const getNodeById = (id: string) => {
+  const original = roadmapEdit.get();
+  const { nodes } = original;
+  return nodes[id];
+};
 
 export function setRoadmap(roadmap: Roadmap) {
   roadmapEdit.set({ ...roadmap });

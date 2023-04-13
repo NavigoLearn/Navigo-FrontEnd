@@ -4,9 +4,12 @@ import roadmapStatic from '@store/roadmap_static';
 import { triggerRerenderAllDecorator } from '@typescript/roadmap/roadmap-edit-decorators';
 
 const state = atom({
-  editing: false, // used to determine if the user is editing the roadmap and if the state should be saved or not
-  save: true,
-} as any);
+  editing: false, // used to determine if the user is editing the roadmap
+  save: true, // and if the editing state should be saved or not
+} as {
+  editing: boolean;
+  save: boolean;
+});
 
 export default state;
 

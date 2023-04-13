@@ -8,26 +8,34 @@ import {
 } from '@typescript/roadmap/roadmap-edit-logic';
 import { triggerChunkRerender } from '@store/runtime/renderedChunks';
 
-export function triggerRerenderDecorator(func: (id: string, ...args) => void) {
-  return function (id: string, ...args) {
+type TriggerFunction<T extends any[]> = (id: string, ...args: T) => void;
+type TriggerFunctionNoId<T extends any[]> = (...args: T) => void;
+
+export function triggerRerenderDecorator<T extends any[]>(
+  func: TriggerFunction<T>
+): TriggerFunction<T> {
+  return (id: string, ...args: T) => {
     // gets all rendered nodes
     func(id, ...args);
-    // args should have an id
+    // the args should have id
     const triggers = getTriggersAll();
-    // rerenders only a specific node
+    // reRenders only a specific node
     const trigger = triggers[id];
     if (trigger) trigger();
     else throw new Error('no trigger found');
   };
 }
-export function triggerRerenderAllDecorator(func: (...args) => void) {
-  return function (...args) {
+
+export function triggerRerenderAllDecorator<T extends any[]>(
+  func: TriggerFunctionNoId<T>
+): TriggerFunctionNoId<T> {
+  return (...args: T) => {
     // gets all rendered nodes
     func(...args);
-    const nodesIds = getNodes();
+    const nodesId = getNodes();
     const triggers = getTriggersAll();
-    // rerenders all nodes
-    nodesIds.forEach((nodeId) => {
+    // reRenders all nodes
+    nodesId.forEach((nodeId) => {
       const trigger = triggers[nodeId];
       if (trigger) trigger();
       else throw new Error('no trigger found');
@@ -35,25 +43,23 @@ export function triggerRerenderAllDecorator(func: (...args) => void) {
   };
 }
 
-export function triggerChunkRecalculationDecorator(
-  func: (id: string, ...args) => void
-) {
-  return function (id: string, ...args) {
-    // gets all rendered nodes
+export function triggerChunkRecalculationDecorator<T extends any[]>(
+  func: TriggerFunction<T>
+): TriggerFunction<T> {
+  return (id: string, ...args: T) => {
     func(id, ...args);
-    // gets the current chunk
-    // chunk recalculation trigger only in edit roadmap_static mode
+    // recalculates the chunks for a specific node
     removeChunkNode(id);
     const { x, y } = getNodeCoords(id);
     const chunkId = calculateChunkId(x, y);
-    addChunkNode(id, chunkId); // adds  node to chunks and sets the corresponding chunk to the node
+    addChunkNode(id, chunkId); // adds node to chunks and sets the corresponding chunk to the node
   };
 }
 
-export function triggerChunkRerenderDecorator(
-  func: (id: string, ...args) => void
-) {
-  return function (id: string, ...args) {
+export function triggerChunkRerenderDecorator<T extends any[]>(
+  func: TriggerFunction<T>
+): TriggerFunction<T> {
+  return (id: string, ...args: T) => {
     func(id, ...args);
     // triggers a recalculation of chunks
     triggerChunkRerender();

@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
+import { setInfo } from '@store/runtime/tab-manager';
 import { NodeInfoProps } from '@type/roadmap/nodes';
-import { dispatchTabInfo } from '@store/roadmap_static';
+import { fetchTabInfo } from '../../../../api/roadmap/tab-data';
 
 const NodeView = ({ title, tabId, id }: NodeInfoProps) => {
   const rootRef = useRef<HTMLButtonElement>(null);
@@ -12,7 +13,9 @@ const NodeView = ({ title, tabId, id }: NodeInfoProps) => {
       className=' text-sm p-2 font-semibold rounded-xl shadow-standard w-64 h-12 bg-white '
       onClick={() => {
         // tab changing logic
-        dispatchTabInfo(tabId);
+        fetchTabInfo(tabId).then((tabInfo) => {
+          setInfo(tabInfo);
+        });
       }}
     >
       <div

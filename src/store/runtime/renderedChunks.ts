@@ -4,7 +4,8 @@ const chunksStore = atom({
   chunks: [], // ids of all the chunks currently visible on the screen
   chunkSize: 400,
   chunkRerenderTrigger: () => {
-    // function for rerendering chunks
+    // function for reRendering chunks if something like adding a new Node happens
+    // is set from the Roadmap
   },
 } as {
   chunks: string[];

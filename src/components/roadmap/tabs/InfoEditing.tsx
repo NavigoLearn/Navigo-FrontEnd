@@ -9,8 +9,12 @@ import tabStore, {
   deleteInfoTabLink,
   addInfoTabLink,
   flipOpen,
-} from '@store/tabinfo';
+} from '@store/runtime/tab-manager';
 import { changeTabInfo } from '@typescript/roadmap/roadmap-edit-logic';
+import {
+  changeTabInfoFlow,
+  changeTabInfoPropFlow,
+} from '@typescript/roadmap/tab-logic-flows';
 
 type link = {
   title: string;

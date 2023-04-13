@@ -3,7 +3,7 @@ import {
   triggerChunkRecalculationDecorator,
   triggerChunkRerenderDecorator,
 } from '@typescript/roadmap/roadmap-edit-decorators';
-import { NodeIdentifierTypes, NodeTypesStore } from '@type/roadmap/nodes';
+import { NodeIdentifierTypes } from '@type/roadmap/nodes';
 import roadmapEdit from '@store/roadmap_edit';
 import {
   isNodeInfoProps,
@@ -21,25 +21,6 @@ import {
   getNodeCoords,
   getUnusedNodeId,
 } from '@typescript/roadmap/roadmap-edit-logic';
-
-export const changeAnyNode = triggerRerenderDecorator(
-  <T extends keyof NodeTypesStore>(
-    id: string,
-    property: T,
-    value: NodeTypesStore[T]
-  ) => {
-    const original = roadmapEdit.get();
-    const { nodes } = original;
-    const node = nodes[id];
-    if (!isNodeTypesStore(node)) {
-      throw new Error('No node found for given id');
-    }
-    node[property] = value;
-    nodes[id] = node;
-    original.nodes = nodes;
-    roadmapEdit.set({ ...original });
-  }
-);
 
 export const changeNodeCoords = triggerRerenderDecorator(
   triggerChunkRecalculationDecorator((id: string, x: number, y: number) => {
@@ -61,7 +42,7 @@ export const changeNodeType = triggerRerenderDecorator(
   (id: string, type: NodeIdentifierTypes) => {
     const original = roadmapEdit.get();
     const { nodes } = original;
-    // generate new Node based on type
+    // generate new Node based on the type
     const nodeMapping = {
       Resource: generateNodeResourceEmpty,
       Info: generateNodeInfoEmpty,
@@ -94,7 +75,7 @@ export const addResourceSubNodeNew = triggerRerenderDecorator((id: string) => {
   const newId = generateResourceSubNodeNew(id);
   const currentNode = nodes[id];
   if (!isNodeResourceStore(currentNode)) {
-    throw new Error('Invalid node type when adding new resource subnor');
+    throw new Error('Invalid node type when adding new resource subNode');
   }
   currentNode.nodes.push(newId);
   original.nodes = nodes;
@@ -103,8 +84,6 @@ export const addResourceSubNodeNew = triggerRerenderDecorator((id: string) => {
 
 export const addNodeNew = triggerChunkRerenderDecorator(
   (parentId: string, type: NodeIdentifierTypes) => {
-    const original = roadmapEdit.get();
-    const { nodes } = original;
     const newId = getUnusedNodeId();
     const { x, y } = getNodeCoords(parentId);
     // sets parent and children properly

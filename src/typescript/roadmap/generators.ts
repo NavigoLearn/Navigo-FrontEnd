@@ -1,4 +1,4 @@
-import { TabInfo, TabAbout, TabIssues } from '@type/roadmap/tab';
+import { TabInfo, TabAbout, TabIssue } from '@type/roadmap/tab-manager';
 import { NodeResourceStore, NodeInfoStore } from '@type/roadmap/nodes';
 import { ResourceSubNodeStore } from '@type/roadmap/resources';
 import roadmapEdit from '@store/roadmap_edit';
@@ -23,7 +23,7 @@ export function generateIssue(
   id: string,
   title: string,
   author: string
-): TabIssues {
+): TabIssue {
   return {
     id,
     title,

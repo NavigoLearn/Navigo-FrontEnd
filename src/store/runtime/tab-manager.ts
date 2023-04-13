@@ -1,15 +1,19 @@
 import { atom } from 'nanostores';
-import { TabProps } from '@type/roadmap/tab';
+import { TabAbout } from '@type/roadmap/tab-manager';
 
-const tab = atom({
+const tabManagerStore = atom({
+  // holds the currently displayed tabs and is also used for editing tabs and issues
+  // that are then sent to the backend
   type: 'about',
   open: false,
   about: {
+    // the data for the about tab
     name: 'Nice roadmap_static',
     author: 'Nice author',
     description: 'very very nice description',
   },
   issues: {
+    // the data for the issues tab
     issues: [
       {
         id: 1,
@@ -29,6 +33,7 @@ const tab = atom({
     ],
   },
   info: {
+    // the data for the currently displayed info node
     id: '',
     title: '',
     done: false,
@@ -39,51 +44,54 @@ const tab = atom({
 } as any);
 
 export function flipOpen() {
-  const newTab = tab.get();
+  const newTab = tabManagerStore.get();
   newTab.open = !newTab.open;
-  tab.set({
+  tabManagerStore.set({
     ...newTab,
     open: newTab.open,
   });
 }
 
 export function trueOpen() {
-  const newTab = tab.get();
+  const newTab = tabManagerStore.get();
   newTab.open = true;
-  tab.set({
+  tabManagerStore.set({
     ...newTab,
     open: newTab.open,
   });
 }
 
 export function changeInfoTabProp(property: string, value: string) {
-  const newTab = tab.get();
+  const newTab = tabManagerStore.get();
   newTab.info[property] = value;
-  tab.set({
+  tabManagerStore.set({
     ...newTab,
   });
 }
 
 export function changeAboutTabProp(property: string, value: string) {
-  const newTab = tab.get();
+  const newTab = tabManagerStore.get();
   newTab.about[property] = value;
-  tab.set({
+  tabManagerStore.set({
     ...newTab,
   });
 }
 
-// TODO changing the issue tab
+export function getAboutTab() {
+  return tabManagerStore.get().about;
+}
+
 export function falseOpen() {
-  const newTab = tab.get();
+  const newTab = tabManagerStore.get();
   newTab.open = false;
-  tab.set({
+  tabManagerStore.set({
     ...newTab,
     open: newTab.open,
   });
 }
 
 export function setInfo(infoData) {
-  const newTab = tab.get();
+  const newTab = tabManagerStore.get();
   if (
     newTab.type === 'info' &&
     newTab.open &&
@@ -93,7 +101,7 @@ export function setInfo(infoData) {
     return;
   }
   trueOpen();
-  tab.set({
+  tabManagerStore.set({
     ...newTab,
     type: 'info',
     info: { ...infoData },
@@ -101,17 +109,17 @@ export function setInfo(infoData) {
 }
 
 export function changeInfoTabLink(index: number, field: string, value: string) {
-  const newTab = tab.get();
+  const newTab = tabManagerStore.get();
   newTab.info.links[index][field] = value;
-  tab.set({
+  tabManagerStore.set({
     ...newTab,
   });
 }
 
 export function deleteInfoTabLink(index: number) {
-  const newTab = tab.get();
+  const newTab = tabManagerStore.get();
   newTab.info.links.splice(index, 1);
-  tab.set({
+  tabManagerStore.set({
     ...newTab,
   });
 }
@@ -123,41 +131,41 @@ export function addInfoTabLink({
   title: string;
   link: string;
 }) {
-  const newTab = tab.get();
+  const newTab = tabManagerStore.get();
   newTab.info.links.push({
     title,
     link,
   });
-  tab.set({
+  tabManagerStore.set({
     ...newTab,
   });
 }
 
 export function setAbout() {
-  const newTab = tab.get();
+  const newTab = tabManagerStore.get();
   if (newTab.type === 'about' && newTab.open) {
     falseOpen();
     return;
   }
   trueOpen();
-  tab.set({
+  tabManagerStore.set({
     ...newTab,
     type: 'about',
   });
 }
 
 export function setIssues() {
-  const newTab = tab.get();
+  const newTab = tabManagerStore.get();
 
   if (newTab.type === 'issues' && newTab.open) {
     falseOpen();
     return;
   }
   trueOpen();
-  tab.set({
+  tabManagerStore.set({
     ...newTab,
     type: 'issues',
   });
 }
 
-export default tab;
+export default tabManagerStore;

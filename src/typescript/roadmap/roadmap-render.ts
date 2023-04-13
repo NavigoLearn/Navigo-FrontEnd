@@ -36,15 +36,15 @@ function getNodeOffsetCoords(id: string) {
 function renderConnectionsRoadmap(roadmap: WritableAtom<Roadmap>) {
   const roadmapData = roadmap.get();
   const { connections } = roadmapData;
-  // creates array from the nodes json object
-  const connectionsArray: ConnectionStore[] = Object.keys(connections).map(
+  // creates an array from the nodes json object
+  const connectionArray: ConnectionStore[] = Object.keys(connections).map(
     (key) => connections[key]
   );
   const g = document.getElementById('rootGroupConnections');
   const nodeSelection = d3
     .select(g)
     .selectAll('line')
-    .data(connectionsArray, (d) => {
+    .data(connectionArray, (d) => {
       return d.id;
     }); // Use the data value as the key function
   // we append line objects
@@ -78,14 +78,13 @@ export function renderConnections() {
 
 export function renderConnection(id, movingElementId, movingElementCoords) {
   const g = document.getElementById('rootGroupConnections');
-  let nodeSelection = d3
-    .select(g)
+  d3.select(g)
     .selectAll('line')
     .data([id], (d) => {
       return d;
     });
 
-  nodeSelection = d3.select(`#${id}`);
+  const nodeSelection = d3.select(`#${id}`);
 
   // get connection
   const connection = roadmapEdit.get().connections[id];
@@ -126,10 +125,10 @@ export function renderConnection(id, movingElementId, movingElementCoords) {
 }
 
 function getTransformXY(transform: string) {
-  const firstParanthesis = transform.indexOf('(');
-  const lastParanthesis = transform.indexOf(')');
+  const firstParentheses = transform.indexOf('(');
+  const lastParentheses = transform.indexOf(')');
   const transformValues = transform
-    .slice(firstParanthesis + 1, lastParanthesis)
+    .slice(firstParentheses + 1, lastParentheses)
     .split(',');
   return {
     x: parseInt(transformValues[0], 10),
@@ -143,6 +142,7 @@ export const addDraggability = (id: string, editing: boolean) => {
   const newPos = { x: 0, y: 0 };
   const drag = d3
     .drag()
+    // eslint-disable-next-line func-names
     .on('start', function (event) {
       if (!editing) return;
       // sets the
@@ -152,15 +152,16 @@ export const addDraggability = (id: string, editing: boolean) => {
       const { y } = event;
       // coordinates of the node in the original reference system
       const transform = d3.select(this).attr('transform');
-      const { x: nodeX, y: Nodey } = getTransformXY(transform);
+      const { x: nodeX, y: NodeY } = getTransformXY(transform);
       const offsetX = x - nodeX;
-      const offsetY = y - Nodey;
+      const offsetY = y - NodeY;
       offsets.x = offsetX;
       offsets.y = offsetY;
       newPos.x = nodeX;
-      newPos.y = Nodey;
+      newPos.y = NodeY;
     })
-    .on('drag', function (event, d) {
+    // eslint-disable-next-line func-names
+    .on('drag', function (event) {
       if (!editing) return;
       // event x and event y are measures from the top left corner of the svg
       newPos.x = event.x - offsets.x;
@@ -168,7 +169,8 @@ export const addDraggability = (id: string, editing: boolean) => {
 
       d3.select(this).attr('transform', `translate(${newPos.x}, ${newPos.y})`);
     })
-    .on('end', function (event, d) {
+    // eslint-disable-next-line func-names
+    .on('end', function () {
       if (!editing) return;
       if (
         roadmapEdit.get().nodes[id].x === newPos.x &&

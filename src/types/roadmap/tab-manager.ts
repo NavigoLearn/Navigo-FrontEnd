@@ -18,7 +18,7 @@ export type TabAbout = {
   description: string;
 };
 
-export type TabIssues = {
+export type TabIssue = {
   id: string;
   title: string;
   author: string;
@@ -27,19 +27,15 @@ export type TabIssues = {
 type TabManager = {
   info: TabInfo;
   about: TabAbout;
-  issues: TabIssues;
+  issues: TabIssue;
 };
 
 export type TabKeys = keyof TabManager;
 
-export type Tab<T extends TabKeys> = {
-  type: T;
-} & TabManager[T];
-
-export type TabProps = {
+export type TabManagerStore = {
   type: string;
   open: boolean;
-  about: Tab<'about'>;
-  info: Tab<'info'>;
-  issues: Tab<'issues'>;
+  about: TabAbout;
+  info: TabInfo;
+  issues: TabIssue;
 };
