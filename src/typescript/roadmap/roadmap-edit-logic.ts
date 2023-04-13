@@ -103,23 +103,6 @@ export function removeChunkNode(id: string) {
   roadmapEdit.set({ ...original });
 }
 
-export function changeNodeInfo<T extends keyof NodeInfoStore>(
-  id: string,
-  property: T,
-  value: NodeInfoStore[T]
-) {
-  const original = roadmapEdit.get();
-  const { nodes } = original;
-  const node = nodes[id];
-  if (!isNodeInfoStore(node)) {
-    throw new Error('No node found for given id');
-  }
-  node[property] = value;
-  nodes[id] = node;
-  original.nodes = nodes;
-  roadmapEdit.set({ ...original });
-}
-
 export function changeNodeResource<T extends keyof NodeResourceStore>(
   id: string,
   property: T,
@@ -142,18 +125,6 @@ export function changeIssue<T extends keyof TabIssue>(
   value: TabIssue[T]
 ) {
   changeTabIssuePropFlow(id, property, value);
-}
-
-export function changeResourceSubNode<T extends keyof ResourceSubNodeStore>(
-  id: string,
-  property: T,
-  value: ResourceSubNodeStore[T]
-) {
-  const original = roadmapEdit.get();
-  const { resources } = original;
-  resources[id][property] = value;
-  original.resources = resources;
-  roadmapEdit.set({ ...original });
 }
 
 export function getUnusedResourceSubNodeId() {
@@ -343,3 +314,10 @@ export function setRoadmap(roadmap: Roadmap) {
 export function getRoadmap(): Roadmap {
   return roadmapEdit.get();
 }
+
+export function getResourceSubNodeById(id: string) {
+  const original = roadmapEdit.get();
+  const { resources } = original;
+  return resources[id];
+}
+

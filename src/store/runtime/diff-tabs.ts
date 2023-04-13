@@ -74,6 +74,8 @@ export const diffSaveTabInfo = (id: string, tab: TabInfo) => {
 export const emptyAllDiffs = () => {
   diffTabsStore.set({
     info: {},
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     about: {},
     issues: {},
   });

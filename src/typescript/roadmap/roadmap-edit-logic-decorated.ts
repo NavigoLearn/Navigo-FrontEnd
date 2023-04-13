@@ -2,11 +2,13 @@ import {
   triggerRerenderDecorator,
   triggerChunkRecalculationDecorator,
   triggerChunkRerenderDecorator,
+  manualTrigger,
 } from '@typescript/roadmap/roadmap-edit-decorators';
-import { NodeIdentifierTypes } from '@type/roadmap/nodes';
+import { NodeIdentifierTypes, NodeInfoStore } from '@type/roadmap/nodes';
 import roadmapEdit from '@store/roadmap_edit';
 import {
   isNodeInfoProps,
+  isNodeInfoStore,
   isNodeResourceStore,
   isNodeTypesStore,
 } from '@type/roadmap/typecheckers';
@@ -21,6 +23,7 @@ import {
   getNodeCoords,
   getUnusedNodeId,
 } from '@typescript/roadmap/roadmap-edit-logic';
+import { ResourceSubNodeStore } from '@type/roadmap/resources';
 
 export const changeNodeCoords = triggerRerenderDecorator(
   triggerChunkRecalculationDecorator((id: string, x: number, y: number) => {
@@ -92,3 +95,34 @@ export const addNodeNew = triggerChunkRerenderDecorator(
     return newId;
   }
 );
+export const changeNodeInfo = triggerRerenderDecorator(
+  <T extends keyof NodeInfoStore>(
+    id: string,
+    property: T,
+    value: NodeInfoStore[T]
+  ) => {
+    const original = roadmapEdit.get();
+    const { nodes } = original;
+    const node = nodes[id];
+    if (!isNodeInfoStore(node)) {
+      throw new Error('No node found for given id');
+    }
+    node[property] = value;
+    nodes[id] = node;
+    original.nodes = nodes;
+    roadmapEdit.set({ ...original });
+  }
+);
+
+export const changeResourceSubNode = <T extends keyof ResourceSubNodeStore>(
+  id: string,
+  property: T,
+  value: ResourceSubNodeStore[T]
+) => {
+  const original = roadmapEdit.get();
+  const { resources } = original;
+  resources[id][property] = value;
+  original.resources = resources;
+  manualTrigger(resources[id].parentId);
+  roadmapEdit.set({ ...original });
+};

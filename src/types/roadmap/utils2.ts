@@ -17,6 +17,7 @@ export function startEditingProtocol() {
 }
 
 export function saveEditingProtocol() {
-  transferEditToRoadmap();
-  applyAllDiffs();
+  transferEditToRoadmap(); //  transfers the changes to the static roadmap
+  applyAllDiffs(); // apply all difs to the modified tab
+  // here there should be a request to the server with the new saved roadmap
 }

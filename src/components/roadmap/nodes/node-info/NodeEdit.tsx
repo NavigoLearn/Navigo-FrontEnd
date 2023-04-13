@@ -6,7 +6,7 @@ import { NodeInfoProps, NodeInfoStore } from '@type/roadmap/nodes';
 import InfoTitleNonEdit from '@components/roadmap/nodes/node-info/InfoTitleNonEdit';
 import InfoTitleEdit from '@components/roadmap/nodes/node-info/InfoTitleEdit';
 import useStateAndRef from '@hooks/useStateAndRef';
-import { changeNodeInfo } from '@typescript/roadmap/roadmap-edit-logic';
+import { changeNodeInfo } from '@typescript/roadmap/roadmap-edit-logic-decorated';
 
 const NodeEdit = ({ title, tabId, id }: NodeInfoProps) => {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -16,26 +16,10 @@ const NodeEdit = ({ title, tabId, id }: NodeInfoProps) => {
       title,
       tabId,
     });
-  const [nodeData, setNodeData, nodeDataRef] = useStateAndRef<NodeInfoProps>({
-    id,
-    title,
-    tabId,
-  });
   // custom hook to keep an instance of the data and have a ref that is updated with the data
   // that we can only pass once to the stateManager and will always be updated
 
-  const PropertyHOC = useRef(
-    stateManager(
-      nodeDataRef,
-      originalDataRef,
-      (data) => {
-        setNodeData(data);
-      },
-      (data) => {
-        setOriginalData(data);
-      }
-    )
-  );
+  const PropertyHOC = useRef(stateManager(originalDataRef));
   const Property = PropertyHOC.current;
 
   return (
@@ -55,8 +39,8 @@ const NodeEdit = ({ title, tabId, id }: NodeInfoProps) => {
           changeNodeInfo(idVal, prop, value);
         }}
       />
-      <DropdownType id={nodeData.id} type='Info' />
-      <AddNode id={nodeData.id} />
+      <DropdownType id={originalData.id} type='Info' />
+      <AddNode id={originalData.id} />
     </div>
   );
 };

@@ -33,7 +33,6 @@ const InfoEditing = () => {
   const save = useRef(true);
   useEffect(() => {
     return () => {
-      console.log(save.current);
       if (save.current) {
         // saves the diffs to the store (compared to the cached version)
         changeTabInfo();
@@ -58,7 +57,6 @@ const InfoEditing = () => {
           <Button
             text='Cancel'
             callback={() => {
-              console.log('save is false');
               save.current = false;
               flipOpen();
             }}

@@ -3,10 +3,8 @@ import stateManager from '@components/roadmap/nodes/edit-logic-modules/StateMana
 import SubNodeTitleEdit from '@components/roadmap/nodes/node-resource/sub-node/SubNodeTitleEdit';
 import SubNodeTitleNonEdit from '@components/roadmap/nodes/node-resource/sub-node/SubNodeTitleNonEdit';
 import useStateAndRef from '@hooks/useStateAndRef';
-import {
-  changeResourceSubNode,
-  removeResourceSubNode,
-} from '@typescript/roadmap/roadmap-edit-logic';
+import { removeResourceSubNode } from '@typescript/roadmap/roadmap-edit-logic';
+import { changeResourceSubNode } from '@typescript/roadmap/roadmap-edit-logic-decorated';
 
 import { ResourceSubNodeProps } from '@type/roadmap/resources';
 import { NodeInfoProps } from '@type/roadmap/nodes';
@@ -24,26 +22,10 @@ const ResourceSubNodeEdit = ({
       title,
       tabId,
     });
-  const [nodeData, setNodeData, nodeDataRef] = useStateAndRef<NodeInfoProps>({
-    id,
-    title,
-    tabId,
-  });
   // custom hook to keep an instance of the data and have a ref that is updated with the data
   // that we can only pass once to the stateManager and will always be updated
 
-  const PropertyHOC = useRef(
-    stateManager(
-      nodeDataRef,
-      originalDataRef,
-      (data) => {
-        setNodeData(data);
-      },
-      (data) => {
-        setOriginalData(data);
-      }
-    )
-  );
+  const PropertyHOC = useRef(stateManager(originalDataRef));
   const Property = PropertyHOC.current;
 
   return (

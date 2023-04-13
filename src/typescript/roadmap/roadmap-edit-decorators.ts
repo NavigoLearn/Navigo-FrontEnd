@@ -11,6 +11,13 @@ import { triggerChunkRerender } from '@store/runtime/renderedChunks';
 type TriggerFunction<T extends any[]> = (id: string, ...args: T) => void;
 type TriggerFunctionNoId<T extends any[]> = (...args: T) => void;
 
+export function manualTrigger(id: string) {
+  const triggers = getTriggersAll();
+  const trigger = triggers[id];
+  if (trigger) trigger();
+  else throw new Error('no trigger found');
+}
+
 export function triggerRerenderDecorator<T extends any[]>(
   func: TriggerFunction<T>
 ): TriggerFunction<T> {

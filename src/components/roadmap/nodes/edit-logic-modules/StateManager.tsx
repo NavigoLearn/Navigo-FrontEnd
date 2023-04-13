@@ -5,12 +5,7 @@ import {
 } from '@type/roadmap/components';
 
 // this is the component that manages the state of a specific part of a node
-function StateAugmentedComponent(
-  dataRef: any,
-  originalDataRef: any,
-  setData: any,
-  setOriginalData: any
-) {
+function StateAugmentedComponent(originalDataRef: any) {
   const StateManger = ({
     field,
     EditingComponent,
@@ -23,31 +18,30 @@ function StateAugmentedComponent(
     persistDataSave(id: string, prop: string, value: string): void;
   }) => {
     // does the state management for a specific part of a node
-    const data = dataRef.current;
     const originalData = originalDataRef.current;
+    const [localState, setLocalState] = useState<any>(originalData[field]);
     const [editing, setEditing] = useState(true);
     // some properties need to have a dual state of edit and non edit like title
     return editing ? (
       <EditingComponent
-        value={data[field]}
+        value={localState}
         onChange={(value: string) => {
           // saves value to local storage in component
-          setData({ ...data, [field]: value });
+          setLocalState(value);
         }}
         onSave={() => {
           setEditing(false);
-          setOriginalData({ ...originalData, [field]: data[field] });
-          persistDataSave(data.id, field, data[field]); // saves the changes to the global store
+          persistDataSave(originalData.id, field, localState); // saves the changes to the global store
         }}
         onCancel={() => {
           setEditing(false);
-          setData({ ...data, [field]: originalData[field] }); // cancels the changes
+          setLocalState(originalData[field]);
         }}
       />
     ) : (
       <NonEditingComponent
-        value={data[field]}
-        id={data.id}
+        value={localState}
+        id={originalData.id}
         setCb={() => {
           setEditing(true);
         }}

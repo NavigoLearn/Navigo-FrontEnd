@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useStore } from '@nanostores/react';
 import tabStore from '@store/runtime/tab-manager';
+import StateManager from '@components/roadmap/nodes/edit-logic-modules/StateManager';
+import { TabAbout } from '@type/roadmap/tab-manager';
+import useStateAndRef from '@hooks/useStateAndRef';
 import { divWrapper } from './utils/logic';
 
 const About = () => {
   const fields = ['name', 'author', 'description'];
-  const { about } = useStore(tabStore);
+  const { about: aboutOriginal } = useStore(tabStore);
+  const [aboutEdit] = useStateAndRef<TabAbout>({
+    name: aboutOriginal.name,
+    author: aboutOriginal.author,
+    description: aboutOriginal.description,
+  });
   return (
     <div className='h-full w-full relative'>
       <div className='w-5/6 flex justify-between items-center mx-8 mt-6 '>
