@@ -1,15 +1,16 @@
-import {
-  generateAbout,
-  generateIssue,
-  generateResSubNode,
-  generateInfoTab,
-  generateResource,
-  generateNode,
-} from '@typescript/generators';
 import { Roadmap } from '@type/roadmap/roadmap';
+import {
+  generateConnection,
+  generateIssue,
+  generateNodeInfo,
+  generateNodeResource,
+  generateResourceSubNode,
+  generateTabAbout,
+  generateTabInfo,
+} from '@typescript/generators';
 
-const roadmap: Roadmap = {
-  about: generateAbout('', '', ''),
+const roadmap: any = {
+  about: generateTabAbout('', '', ''),
   issues: {
     id1Issue: generateIssue('id1Issue', 'Issue 1', 'Author 1'),
     id2Issue: generateIssue('id2Issue', 'Issue 2', 'Author 2'),
@@ -18,7 +19,7 @@ const roadmap: Roadmap = {
 
   data: {
     // the basic nodes data
-    tabid0: generateInfoTab(
+    tabid0: generateTabInfo(
       'tabid0',
       'ESLint',
       false,
@@ -28,33 +29,67 @@ const roadmap: Roadmap = {
         { title: 'Introduction to ESLint', link: 'https://eslint.org/' },
         { title: 'Some other useful Link', link: 'https://eslint.org/' },
       ],
-      { id: '42124', title: 'Eslint roadmap' },
+      'this is some lorem ipsum addition info'
+    ),
+
+    tabid1: generateTabInfo(
+      'tabid1',
+      'Some react roadmp1',
+      false,
+      'With eslint you can impose a coding standard using a certain set of rules and good practices',
+      [
+        { title: 'ESLint official Website', link: 'https://eslint.org/' },
+        { title: 'Introduction to ESLint', link: 'https://eslint.org/' },
+        { title: 'Some other useful Link', link: 'https://eslint.org/' },
+      ],
+      'this is some lorem ipsum addition info'
+    ),
+    tabid2: generateTabInfo(
+      'tabid2',
+      'Prettier node',
+      false,
+      'With eslint you can impose a coding standard using a certain set of rules and good practices',
+      [
+        { title: 'ESLint official Website', link: 'https://eslint.org/' },
+        { title: 'Introduction to ESLint', link: 'https://eslint.org/' },
+        { title: 'Some other useful Link', link: 'https://eslint.org/' },
+      ],
       'this is some lorem ipsum addition info'
     ),
   },
 
   nodes: {
     // list of all nodes
-    idnode1: generateNode('idnode1', 'Node1', 'tabid0', 100, 100),
-    idnode2: generateResource('idnode2', 'Resource1', 300, 300, [
-      'res1node1',
-      'res1node2',
+    idnode1: generateNodeInfo('idnode1', 'Node1', 'tabid0', 100, 100, '', [
+      'idnode2',
     ]),
+    idnode2: generateNodeResource(
+      'idnode2',
+      'Resource1',
+      300,
+      300,
+      ['resourceSubNodeId1', 'resourceSubNodeId2'],
+      'idnode1'
+    ),
   },
-  resourceSubNodes: {
+  resources: {
     // list of all resource nodes
-    res1node1: generateResSubNode(
-      'res1node1',
+    resourceSubNodeId1: generateResourceSubNode(
+      'resourceSubNodeId1',
       'idnode2',
       'Resource Node 1',
-      'tabid0'
+      'tabid1'
     ),
-    res1node2: generateResSubNode(
-      'res1node2',
+    resourceSubNodeId2: generateResourceSubNode(
+      'resourceSubNodeId2',
       'idnode2',
-      'Resource Node 2',
-      'tabid0'
+      'Resource Node 1',
+      'tabid2'
     ),
+  },
+  connections: {
+    // list of all connections
+    idconnection1: generateConnection('idconnection1', 'idnode1', 'idnode2'),
   },
 };
 

@@ -1,8 +1,8 @@
 import React from 'react';
-import { ResourceProps } from '@type/roadmap/nodes';
 import { renderNodeNormal } from '@components/roadmap/nodes/node-resource/utils';
+import { NodeResourceProps } from '@type/roadmap/nodes';
 
-const ResourceView = ({ id: idProp, title, nodes }: ResourceProps) => {
+const ResourceView = ({ id: idProp, title, nodes }: NodeResourceProps) => {
   return (
     <div
       className={` w-[250px]  pb-6 relative bg-white shadow-standard rounded-md `}

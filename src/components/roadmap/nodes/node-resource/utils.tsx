@@ -4,7 +4,7 @@ import ResourceSubNode from '@components/roadmap/nodes/node-resource/sub-node/Re
 import React from 'react';
 
 export function renderNodeEdit(id, parentId) {
-  const data = roadmapEdit.get().resourceSubNodes[id];
+  const data = roadmapEdit.get().resources[id];
   return (
     <div key={data.id} className='flex justify-center items-center my-2'>
       <ResourceSubNode
@@ -20,7 +20,7 @@ export function renderNodeEdit(id, parentId) {
 }
 
 export function renderNodeNormal(id, parentID) {
-  const data = roadmap.get().resourceSubNodes[id];
+  const data = roadmap.get().resources[id];
   return (
     <div key={data.id} className='flex justify-center items-center my-2'>
       <ResourceSubNode

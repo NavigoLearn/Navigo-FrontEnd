@@ -1,79 +1,60 @@
 import { atom } from 'nanostores';
 import {
-  generateAbout,
-  generateIssue,
-  generateResSubNode,
-  generateInfoTab,
-  generateResource,
-  generateNode,
-  generateEmptyResource,
-  generateEmptyNode,
-} from '@typescript/generators';
+  triggerRerenderAllDecorator,
+  triggerRerenderDecorator,
+  triggerChunkRecalculationDecorator,
+  triggerChunkRerenderDecorator,
+} from '@typescript/decorators';
 import { Roadmap } from '@type/roadmap/roadmap';
-import { AboutTab, InfoTab, IssuesTab } from '@type/roadmap/tab';
+import {
+  calculateChunkId,
+  generateNodeInfoEmpty,
+  generateNodeResourceEmpty,
+  generateTabInfo,
+} from '@typescript/generators';
+import { TabAbout, TabInfo, TabIssues } from '@type/roadmap/tab';
 import {
   NodeIdentifierTypes,
+  NodeInfoStore,
+  NodeResourceStore,
   NodeStore,
-  NodeTypes,
-  ResourceStore,
-  ResourceSubNodeStore,
+  NodeTypesStore,
 } from '@type/roadmap/nodes';
 import {
-  isNodeProps,
-  isResourceProps,
-  isResourceStore,
+  isNodeInfoProps,
+  isNodeInfoStore,
+  isNodeResourceStore,
+  isNodeTypesStore,
 } from '@type/roadmap/typecheckers';
+import { ResourceSubNodeStore } from '@type/roadmap/resources';
 
-const roadmapEdit = atom({
-  about: generateAbout('', '', ''),
-  issues: {
-    id1Issue: generateIssue('id1Issue', 'Issue 1', 'Author 1'),
-    id2Issue: generateIssue('id2Issue', 'Issue 2', 'Author 2'),
-    id3Issue: generateIssue('id3Issue', 'Issue 3', 'Author 3'),
-  },
+/*
+The get function naming convention is:
+get<type><Object>
+eg: getUnusedId
+The change function naming convention is:
+<action><Object>
+eg: changeNodeResourceProp
+The add/generate function naming convention is:
+add<Object><Type>
+generateNodeResourceEmpty
+*/
 
-  data: {
-    // the basic nodes data
-    tabid0: generateInfoTab(
-      'tabid0',
-      'ESLint',
-      false,
-      'With eslint you can impose a coding standard using a certain set of rules and good practices',
-      [
-        { title: 'ESLint official Website', link: 'https://eslint.org/' },
-        { title: 'Introduction to ESLint', link: 'https://eslint.org/' },
-        { title: 'Some other useful Link', link: 'https://eslint.org/' },
-      ],
-      { id: '42124', title: 'Eslint roadmap' },
-      'this is some lorem ipsum addition info'
-    ),
-  },
+const roadmapEdit = atom({} as Roadmap);
 
-  nodes: {
-    // list of all nodes
-    idnode1: generateNode('idnode1', 'Node1', 'tabid0', 100, 100),
-  },
-  resourceSubNodes: {
-    // list of all resource nodes
-    resourceSubNodeId1: generateResSubNode(
-      'resourceSubNodeId1',
-      'idnonexistent',
-      'Resource Node 1',
-      'tabid0'
-    ),
-  },
-} as Roadmap);
-
-export function changeAbout(property: keyof AboutTab, value: string) {
+export function changeTabAboutProp<T extends keyof TabAbout>(
+  property: T,
+  value: TabAbout[T]
+) {
   const original = roadmapEdit.get();
   const { about } = original;
   about[property] = value;
   roadmapEdit.set({ ...original, about });
 }
 
-export function changeInfoTabProp(
+export function changeTabInfoProp(
   id: string,
-  property: keyof InfoTab,
+  property: keyof TabInfo,
   value: any
 ) {
   const original = roadmapEdit.get();
@@ -86,7 +67,7 @@ export function changeInfoTabProp(
   roadmapEdit.set({ ...original });
 }
 
-export function changeInfoTab(id: string, tab: InfoTab) {
+export function changeTabInfo(id: string, tab: TabInfo) {
   const original = roadmapEdit.get();
   const { data } = original;
   if (!data[id]) return;
@@ -95,34 +76,23 @@ export function changeInfoTab(id: string, tab: InfoTab) {
   roadmapEdit.set({ ...original });
 }
 
-export function changeInfoTabLink(
+export function changeTabInfoLink(
   id: string,
   index: number,
-  property: keyof InfoTab['links'][0],
+  property: keyof TabInfo['links'][0],
   value: string
 ) {
   const original = roadmapEdit.get();
   const { data } = original;
   if (!data[id]) {
     throw new Error('No data found for given id');
-    return;
   }
   data[id].links[index][property] = value;
   original.data = data;
   roadmapEdit.set({ ...original });
 }
 
-export function changeInfoTabRoadmapId(id: string, newId: string) {
-  const original = roadmapEdit.get();
-  const { data } = original;
-  if (!data[id]) {
-    throw new Error('No data found for given id');
-    return;
-  }
-  data[id].roadmap.id = newId;
-}
-
-export function addNewTab(newId: string, newTab: InfoTab) {
+export function addNewTab(newId: string, newTab: TabInfo) {
   const original = roadmapEdit.get();
   const { data } = original;
   data[newId] = newTab;
@@ -145,79 +115,161 @@ export function getUnusedTabId() {
 
 export function generateNewTab() {
   const newId = getUnusedTabId();
-  const newTab = generateInfoTab(
+  const newTab = generateTabInfo(
     newId,
     'New Tab',
     false,
     '',
     [],
-    null,
     'Add some additional info here'
   );
   addNewTab(newId, newTab);
   return newId;
 }
 
-export function addNewBlankTab(newId: string) {
+export function addTabBlankNew(newId: string) {
   const original = roadmapEdit.get();
   const { data } = original;
-  data[newId] = generateInfoTab(newId, '', false, '', [], null, '');
+  data[newId] = generateTabInfo(newId, '', false, '', [], '');
   original.data = data;
   roadmapEdit.set({ ...original });
 }
 
-export function changeAnyNode(
-  id: string,
-  property: keyof (NodeStore & ResourceStore),
-  value: any
-) {
-  const original = roadmapEdit.get();
-  const { nodes } = original;
-  nodes[id][property] = value;
-  original.nodes = nodes;
-  roadmapEdit.set({ ...original });
-}
-
-export function changeInfoNode(
-  id: string,
-  property: keyof NodeStore,
-  value: any
-) {
-  const original = roadmapEdit.get();
-  const { nodes } = original;
-  nodes[id][property] = value;
-  original.nodes = nodes;
-  console.log(original);
-  roadmapEdit.set({ ...original });
-}
-
-export function changeNodeType(
-  id: string,
-  type: 'Resource' | 'Node',
-  title: string
-) {
-  const original = roadmapEdit.get();
-  const { nodes } = original;
-  // generate new Node based on type
-  const nodeMapping = {
-    Resource: generateEmptyResource,
-    Node: generateEmptyNode,
-  };
-  const currentNode = nodes[id];
-  const newNode = nodeMapping[type](id, title, currentNode.x, currentNode.y);
-  if (isNodeProps(newNode) && type === 'Node') {
-    newNode.tabId = generateNewTab();
-  } else if (type === 'Resource') {
-    // whatever else needs to be done
-  } else {
-    throw new Error('Invalid type');
+export const changeAnyNode = triggerRerenderDecorator(
+  <T extends keyof NodeTypesStore>(
+    id: string,
+    property: T,
+    value: NodeTypesStore[T]
+  ) => {
+    const original = roadmapEdit.get();
+    const { nodes } = original;
+    const node = nodes[id];
+    if (!isNodeTypesStore(node)) {
+      throw new Error('No node found for given id');
+    }
+    node[property] = value;
+    nodes[id] = node;
+    original.nodes = nodes;
+    roadmapEdit.set({ ...original });
   }
-  nodes[id] = { ...newNode };
+);
+
+export function getNodeChunk(id: string) {
+  // gets the chunk of the node with id id
+  const original = roadmapEdit.get();
+  const { nodes } = original;
+  const node = nodes[id];
+  if (!isNodeTypesStore(node)) {
+    throw new Error('No node found for given id');
+  }
+  return node.chunk;
+}
+
+export function addChunkNode(id: string, chunkId: string) {
+  // adds a node to a chunk
+  const original = roadmapEdit.get();
+  const { nodes } = original;
+  const node = nodes[id];
+  if (!isNodeTypesStore(node)) {
+    throw new Error('No node found for given id');
+  }
+  node.chunk = chunkId;
+  nodes[id] = node;
+  original.nodes = nodes;
+  // adds node to the correspoing chunk
+  let chunkArr = original.chunks[chunkId];
+  if (!chunkArr) {
+    chunkArr = [id];
+  } else {
+    chunkArr.push(id);
+  }
+  original.chunks[chunkId] = chunkArr;
+  roadmapEdit.set({ ...original });
+}
+
+export function removeChunkNode(id: string) {
+  // remove a node from a chunk
+  const original = roadmapEdit.get();
+  const { nodes } = original;
+  const node = nodes[id];
+  if (!isNodeTypesStore(node)) {
+    throw new Error('No node found for given id');
+  }
+  const { chunk: chunkId } = node;
+  console.log(chunkId);
+  // we remove the nodeId from the chunk
+  let chunkArr = original.chunks[chunkId];
+  if (!chunkArr) return; // if the chunk doesn't exist, we don't need to do anything
+  chunkArr = chunkArr.filter((nodeId) => nodeId !== id);
+  original.chunks[chunkId] = chunkArr;
+
+  roadmapEdit.set({ ...original });
+}
+
+export const changeNodeCoords = triggerRerenderDecorator(
+  triggerChunkRecalculationDecorator((id: string, x: number, y: number) => {
+    const original = roadmapEdit.get();
+    const { nodes } = original;
+    const node = nodes[id];
+    if (!isNodeTypesStore(node)) {
+      throw new Error('No node found for given id');
+    }
+    node.x = x;
+    node.y = y;
+    nodes[id] = node;
+    original.nodes = nodes;
+    roadmapEdit.set({ ...original });
+  })
+);
+
+export function changeNodeInfo<T extends keyof NodeInfoStore>(
+  id: string,
+  property: T,
+  value: NodeInfoStore[T]
+) {
+  const original = roadmapEdit.get();
+  const { nodes } = original;
+  const node = nodes[id];
+  if (!isNodeInfoStore(node)) {
+    throw new Error('No node found for given id');
+  }
+  node[property] = value;
+  nodes[id] = node;
   original.nodes = nodes;
   roadmapEdit.set({ ...original });
 }
 
-export function replaceInfoNode(id: string, node: NodeStore) {
+export const changeNodeType = triggerRerenderDecorator(
+  (id: string, type: NodeIdentifierTypes) => {
+    const original = roadmapEdit.get();
+    const { nodes } = original;
+    // generate new Node based on type
+    const nodeMapping = {
+      Resource: generateNodeResourceEmpty,
+      Info: generateNodeInfoEmpty,
+    };
+    const currentNode = nodes[id];
+    const newNode = nodeMapping[type](id);
+    newNode.parent = currentNode.parent;
+    newNode.title = currentNode.title;
+    newNode.x = currentNode.x;
+    newNode.y = currentNode.y;
+    newNode.chunk = currentNode.chunk;
+
+    if (isNodeInfoProps(newNode) && type === 'Info') {
+      newNode.tabId = generateNewTab();
+    } else if (type === 'Resource') {
+      // whatever else needs to be done
+    } else {
+      throw new Error('Invalid type');
+    }
+    nodes[id] = { ...newNode };
+    original.nodes = nodes;
+    roadmapEdit.set({ ...original });
+  }
+);
+
+export function replaceNodeInfo(id: string, node: NodeInfoStore) {
   const original = roadmapEdit.get();
   const { nodes } = original;
   nodes[id] = node;
@@ -225,20 +277,23 @@ export function replaceInfoNode(id: string, node: NodeStore) {
   roadmapEdit.set({ ...original });
 }
 
-export function changeResourceNode(
+export function changeNodeResource<T extends keyof NodeResourceStore>(
   id: string,
-  property: keyof ResourceStore,
-  value: any
+  property: T,
+  value: NodeResourceStore[T]
 ) {
   const original = roadmapEdit.get();
   const { nodes } = original;
-  if (!nodes[id] || nodes[id].type !== 'Resource') return;
-  nodes[id][property] = value;
+  const node = nodes[id];
+  if (!isNodeResourceStore(node)) {
+    throw new Error('No node found for given id');
+  }
+  node[property] = value;
   original.nodes = nodes;
   roadmapEdit.set({ ...original });
 }
 
-export function changeIssue(id: string, property: keyof IssuesTab, value: any) {
+export function changeIssue(id: string, property: keyof TabIssues, value: any) {
   const original = roadmapEdit.get();
   const { issues } = original;
   issues[id][property] = value;
@@ -246,22 +301,22 @@ export function changeIssue(id: string, property: keyof IssuesTab, value: any) {
   roadmapEdit.set({ ...original });
 }
 
-export function changeResourceSubNode(
+export function changeResourceSubNode<T extends keyof ResourceSubNodeStore>(
   id: string,
-  property: keyof ResourceSubNodeStore,
-  value: any
+  property: T,
+  value: ResourceSubNodeStore[T]
 ) {
   const original = roadmapEdit.get();
-  const { resourceSubNodes } = original;
-  resourceSubNodes[id][property] = value;
-  original.resourceSubNodes = resourceSubNodes;
+  const { resources } = original;
+  resources[id][property] = value;
+  original.resources = resources;
   roadmapEdit.set({ ...original });
 }
 
 export function getUnusedResourceSubNodeId() {
   const original = roadmapEdit.get();
-  const { resourceSubNodes } = original;
-  const ids = Object.keys(resourceSubNodes);
+  const { resources } = original;
+  const ids = Object.keys(resources);
   let newId = 'resourceSubNodeId';
   let appendedNumber = 0;
   while (ids.includes(newId + appendedNumber)) {
@@ -271,7 +326,7 @@ export function getUnusedResourceSubNodeId() {
   return newId;
 }
 
-export function generateEmptyResourceSubNode(
+export function generateResourceSubNodeEmpty(
   id,
   tabId,
   parentId
@@ -285,34 +340,30 @@ export function generateEmptyResourceSubNode(
   };
 }
 
-export function generateNewResourceSubNode(parentId: string) {
+export function generateResourceSubNodeNew(parentId: string) {
   const original = roadmapEdit.get();
-  const { resourceSubNodes } = original;
+  const { resources } = original;
   const newId = getUnusedResourceSubNodeId();
   const tabId = generateNewTab();
-  resourceSubNodes[newId] = generateEmptyResourceSubNode(
-    newId,
-    tabId,
-    parentId
-  );
-  original.resourceSubNodes = resourceSubNodes;
+  resources[newId] = generateResourceSubNodeEmpty(newId, tabId, parentId);
+  original.resources = resources;
   roadmapEdit.set({ ...original });
   return newId;
 }
 
-export function addToResourceNewSubNode(id: string) {
+export const addResourceSubNodeNew = triggerRerenderDecorator((id: string) => {
   const original = roadmapEdit.get();
   const { nodes } = original;
   if (!nodes[id] || nodes[id].type !== 'Resource') return;
-  const newId = generateNewResourceSubNode(id);
+  const newId = generateResourceSubNodeNew(id);
   const currentNode = nodes[id];
-  if (!isResourceStore(currentNode)) {
+  if (!isNodeResourceStore(currentNode)) {
     throw new Error('Invalid node type when adding new resource subnor');
   }
   currentNode.nodes.push(newId);
   original.nodes = nodes;
   roadmapEdit.set({ ...original });
-}
+});
 
 export function getUnusedNodeId() {
   const original = roadmapEdit.get();
@@ -327,7 +378,8 @@ export function getUnusedNodeId() {
   return newId;
 }
 
-export function addEmptyResource(
+export function addNodeResourceEmpty(
+  parentId: string,
   id: string,
   title: string,
   x: number,
@@ -336,26 +388,46 @@ export function addEmptyResource(
   const original = roadmapEdit.get();
   const { nodes } = original;
   const newId = getUnusedNodeId();
-  nodes[newId] = generateEmptyResource(newId, title, x, y);
+  nodes[newId] = generateNodeResourceEmpty(newId);
+  nodes[newId].title = title;
+  nodes[newId].x = x;
+  nodes[newId].y = y;
+  nodes[newId].parent = parentId;
+  nodes[parentId].children.push(newId);
+  nodes[newId].chunk = calculateChunkId(x, y);
+
   original.nodes = nodes;
   roadmapEdit.set({ ...original });
   return newId;
 }
 
-export function addEmptyNode(id: string, title: string, x: number, y: number) {
+export function addNodeInfoEmpty(
+  parentId: string,
+  id: string,
+  title: string,
+  x: number,
+  y: number
+) {
   const original = roadmapEdit.get();
   const { nodes } = original;
   const newId = getUnusedNodeId();
-  const newNode = generateEmptyNode(newId, title, x, y);
+  const newNode = generateNodeInfoEmpty(newId);
+  newNode.title = title;
+  newNode.x = x;
+  newNode.y = y;
   const tabId = generateNewTab();
   newNode.tabId = tabId;
+  newNode.parent = parentId;
+  nodes[parentId].children.push(newId);
   nodes[newId] = newNode;
+  const chunkId = calculateChunkId(x, y);
+  addChunkNode(newId, chunkId);
   original.nodes = nodes;
   roadmapEdit.set({ ...original });
   return newId;
 }
 
-export function getNodeCoods(id: string) {
+export function getNodeCoords(id: string) {
   const original = roadmapEdit.get();
   const { nodes } = original;
   if (!nodes[id]) return null;
@@ -364,42 +436,82 @@ export function getNodeCoods(id: string) {
 
 export function generationFlow(
   type: NodeIdentifierTypes,
+  parentId: string,
   id: string,
   title: string,
   x: number,
   y: number
 ) {
   if (type === 'Resource') {
-    return addEmptyResource(id, title, x, y);
+    return addNodeResourceEmpty(parentId, id, title, x, y);
   }
-  if (type === 'Node') {
-    return addEmptyNode(id, title, x, y);
+  if (type === 'Info') {
+    return addNodeInfoEmpty(parentId, id, title, x, y);
   }
 
   throw new Error('Invalid type');
 }
 
-export function addNewNode(parentId: string, type: NodeIdentifierTypes) {
+export function getUnusedConnectionId() {
   const original = roadmapEdit.get();
-  const { nodes } = original;
-  const newId = getUnusedNodeId();
-  const { x, y } = getNodeCoods(parentId);
-  generationFlow(type, newId, 'newNode', x, y + 200);
+  const { connections } = original;
+  const ids = Object.keys(connections);
+  let newId = 'connectionId';
+  let appendedNumber = 0;
+  while (ids.includes(newId + appendedNumber)) {
+    appendedNumber += 1;
+  }
+  newId += appendedNumber;
   return newId;
 }
 
-export function removeFromResourceSubNode(id: string, subNodeId: string) {
+export function generateConnectionEmpty(id: string) {
+  return {
+    id,
+    parentId: '',
+    childId: '',
+  };
+}
+
+export function addConnection(parentId: string, childId: string) {
+  const original = roadmapEdit.get();
+  const { connections } = original;
+  const newId = getUnusedConnectionId();
+  const newConnection = generateConnectionEmpty(newId);
+  newConnection.parentId = parentId;
+  newConnection.childId = childId;
+  connections[newId] = newConnection;
+  original.connections = connections;
+  roadmapEdit.set({ ...original });
+}
+
+export const addNodeNew = triggerChunkRerenderDecorator(
+  (parentId: string, type: NodeIdentifierTypes) => {
+    const original = roadmapEdit.get();
+    const { nodes } = original;
+    const newId = getUnusedNodeId();
+    const { x, y } = getNodeCoords(parentId);
+    // sets parent and children properly
+    generationFlow(type, parentId, newId, 'newNode', x, y + 200);
+    // addConnection(parentId, newId);
+    return newId;
+  }
+);
+
+export function removeResourceSubNode(id: string, subNodeId: string) {
   const original = roadmapEdit.get();
   const { nodes } = original;
   if (!nodes[id] || nodes[id].type !== 'Resource') {
     throw new Error('Invalid node type when removing resource subnode');
   }
   const currentNode = nodes[id];
-  if (!isResourceStore(currentNode)) {
+  if (!isNodeResourceStore(currentNode)) {
     throw new Error('Invalid node type when removing resource subnode');
   }
   currentNode.nodes = currentNode.nodes.filter((node) => node !== subNodeId);
   original.nodes = nodes;
+  // remove resource subnode too!
+  delete original.resources[subNodeId];
   roadmapEdit.set({ ...original });
 }
 

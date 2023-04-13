@@ -1,11 +1,11 @@
 import React from 'react';
-import { ResourceProps } from '@type/roadmap/nodes';
 import { useStore } from '@nanostores/react';
 import roadmapState from '@store/roadmap_state';
 import ResourceView from '@components/roadmap/nodes/node-resource/ResourceView';
 import ResourceEdit from '@components/roadmap/nodes/node-resource/ResourceEdit';
+import { NodeResourceProps } from '@type/roadmap/nodes';
 
-const Resource = ({ id, title, nodes }: ResourceProps) => {
+const Resource = ({ id, title, nodes }: NodeResourceProps) => {
   const { editing } = useStore(roadmapState);
   return editing ? (
     <ResourceEdit id={id} title={title} nodes={nodes} />

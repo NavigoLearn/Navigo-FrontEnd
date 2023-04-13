@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
-import roadmapState, { setSaveFalse, setSaveTrue } from '@store/roadmap_state';
+import roadmapState from '@store/roadmap_state';
 import Button from '@components/roadmap/tabs/utils/Button';
-import { changeInfoTab } from '@store/roadmap_edit';
 import { divWrapper } from '@components/roadmap/tabs/utils/logic';
 import { useStore } from '@nanostores/react';
 import tabStore, {
@@ -11,7 +10,7 @@ import tabStore, {
   addInfoTabLink,
   flipOpen,
 } from '@store/tabinfo';
-import roadmap from '@store/roadmap';
+import { changeTabInfo } from '@store/roadmap_edit';
 
 type link = {
   title: string;
@@ -31,10 +30,9 @@ const InfoEditing = () => {
   useEffect(() => {
     return () => {
       if (save.current) {
-        changeInfoTab(info.id, info);
-        console.log('changes persistent');
+        changeTabInfo(info.id, info);
       } else {
-        console.log('save canceled');
+        // save is canceled
       }
       // when the component unmounts, if editing is true, set roadmap tab to current
     };
@@ -66,7 +64,7 @@ const InfoEditing = () => {
             callback={() => {
               if (editing) {
                 save.current = true;
-                changeInfoTab(info.id, info);
+                changeTabInfo(info.id, info);
                 flipOpen();
               }
               // to be done

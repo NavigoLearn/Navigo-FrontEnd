@@ -1,6 +1,7 @@
 import { atom } from 'nanostores';
 import roadmapEdit from '@store/roadmap_edit';
 import roadmap from '@store/roadmap';
+import { triggerRerenderAllDecorator } from '@typescript/decorators';
 
 const state = atom({
   editing: false,
@@ -10,20 +11,20 @@ const state = atom({
 
 export default state;
 
-export function toggleEditing() {
+export const toggleEditing = triggerRerenderAllDecorator(() => {
   const original = state.get();
   state.set({ ...original, editing: !original.editing });
-}
+});
 
-export function setEditingTrue() {
+export const setEditingTrue = triggerRerenderAllDecorator(() => {
   const original = state.get();
   state.set({ ...original, editing: true });
-}
+});
 
-export function setEditingFalse() {
+export const setEditingFalse = triggerRerenderAllDecorator(() => {
   const original = state.get();
   state.set({ ...original, editing: false });
-}
+});
 
 export function setSaveTrue() {
   const original = state.get();

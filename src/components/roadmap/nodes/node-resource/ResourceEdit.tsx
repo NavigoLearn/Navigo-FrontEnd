@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
-import { NodeProps, ResourceProps } from '@type/roadmap/nodes';
+import React from 'react';
 import { renderNodeEdit } from '@components/roadmap/nodes/node-resource/utils';
-import {
-  generateNewResourceSubNode,
-  addToResourceNewSubNode,
-} from '@store/roadmap_edit';
 import DropdownType from '@components/roadmap/nodes/edit-logic-modules/DropdownType';
+import { NodeResourceProps } from '@type/roadmap/nodes';
+import { addResourceSubNodeNew } from '@store/roadmap_edit';
+import AddNode from '@components/roadmap/nodes/edit-logic-modules/AddNode';
 
-const ResourceEdit = ({ id: idProp, title, nodes }: ResourceProps) => {
+const ResourceEdit = ({ id: idProp, title, nodes }: NodeResourceProps) => {
   return (
     <div
       className={` w-[250px]  pb-6 relative bg-white shadow-standard rounded-md `}
@@ -22,13 +20,13 @@ const ResourceEdit = ({ id: idProp, title, nodes }: ResourceProps) => {
         type='button'
         onClick={() => {
           // add a new sub node
-          addToResourceNewSubNode(idProp);
-          console.log('clicked');
+          addResourceSubNodeNew(idProp);
         }}
       >
         Add a resource
       </button>
-      <DropdownType id={idProp} title={title} type='Resource' />
+      <DropdownType id={idProp} type='Resource' />
+      <AddNode id={idProp} />
     </div>
   );
 };

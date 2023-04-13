@@ -1,16 +1,17 @@
 import { atom } from 'nanostores';
-import {
-  generateAbout,
-  generateIssue,
-  generateResSubNode,
-  generateInfoTab,
-  generateResource,
-  generateNode,
-} from '@typescript/generators';
 import { Roadmap } from '@type/roadmap/roadmap';
+import {
+  generateConnection,
+  generateIssue,
+  generateNNodesInfo,
+  generateResourceSubNode,
+  generateTabAbout,
+  generateTabInfo,
+} from '@typescript/generators';
+import { setInfo } from '@store/tabinfo';
 
 const roadmap = atom({
-  about: generateAbout('', '', ''),
+  about: generateTabAbout('', '', ''),
   issues: {
     id1Issue: generateIssue('id1Issue', 'Issue 1', 'Author 1'),
     id2Issue: generateIssue('id2Issue', 'Issue 2', 'Author 2'),
@@ -19,7 +20,7 @@ const roadmap = atom({
 
   data: {
     // the basic nodes data
-    tabid0: generateInfoTab(
+    tabid0: generateTabInfo(
       'tabid0',
       'ESLint',
       false,
@@ -29,11 +30,10 @@ const roadmap = atom({
         { title: 'Introduction to ESLint', link: 'https://eslint.org/' },
         { title: 'Some other useful Link', link: 'https://eslint.org/' },
       ],
-      { id: '42124', title: 'Eslint roadmap' },
       'this is some lorem ipsum addition info'
     ),
 
-    tabid1: generateInfoTab(
+    tabid1: generateTabInfo(
       'tabid1',
       'Some react roadmp1',
       false,
@@ -43,10 +43,9 @@ const roadmap = atom({
         { title: 'Introduction to ESLint', link: 'https://eslint.org/' },
         { title: 'Some other useful Link', link: 'https://eslint.org/' },
       ],
-      { id: '42124', title: 'Eslint roadmap' },
       'this is some lorem ipsum addition info'
     ),
-    tabid2: generateInfoTab(
+    tabid2: generateTabInfo(
       'tabid2',
       'Prettier node',
       false,
@@ -56,34 +55,57 @@ const roadmap = atom({
         { title: 'Introduction to ESLint', link: 'https://eslint.org/' },
         { title: 'Some other useful Link', link: 'https://eslint.org/' },
       ],
-      { id: '42124', title: 'Eslint roadmap' },
       'this is some lorem ipsum addition info'
     ),
   },
 
-  nodes: {
-    // list of all nodes
-    idnode1: generateNode('idnode1', 'Node1', 'tabid0', 100, 100),
-    idnode2: generateResource('idnode2', 'Resource1', 300, 300, [
-      'resourceSubNodeId1',
-      'resourceSubNodeId2',
-    ]),
-  },
-  resourceSubNodes: {
+  nodes: generateNNodesInfo('title', 'tabid1', 300, 150, 'parent', [''], 2, 2)
+    .nodes,
+  resources: {
     // list of all resource nodes
-    resourceSubNodeId1: generateResSubNode(
+    resourceSubNodeId1: generateResourceSubNode(
       'resourceSubNodeId1',
       'idnode2',
       'Resource Node 1',
       'tabid1'
     ),
-    resourceSubNodeId2: generateResSubNode(
+    resourceSubNodeId2: generateResourceSubNode(
       'resourceSubNodeId2',
       'idnode2',
       'Resource Node 1',
       'tabid2'
     ),
   },
+  connections: {
+    // list of all connections
+    idconnection1: generateConnection('idconnection1', 'idnode1', 'idnode2'),
+  },
+  triggers: {
+    // list of all triggers
+  },
+  chunks: generateNNodesInfo(
+    'title',
+    'tabid1',
+    300,
+
+    150,
+    'parent',
+    [''],
+    2,
+    2
+  ).chunksNodes,
+  chunkSize: 400,
 } as Roadmap);
+
+export function getNodeById(id: string) {
+  const original = roadmap.get();
+  return original.nodes[id];
+}
+
+export function dispatchTabInfo(id: string) {
+  const original = roadmap.get();
+  const tab = original.data[id];
+  setInfo(tab);
+}
 
 export default roadmap;

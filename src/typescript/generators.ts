@@ -1,15 +1,16 @@
-import { AboutTab, IssuesTab, InfoTab } from '@type/roadmap/tab';
-import {
-  NodeStore,
-  ResourceStore,
-  ResourceSubNodeStore,
-} from '@type/roadmap/nodes';
+import { TabInfo, TabAbout, TabIssues } from '@type/roadmap/tab';
+import { NodeResourceStore, NodeInfoStore } from '@type/roadmap/nodes';
+import { ResourceSubNodeStore } from '@type/roadmap/resources';
 
-export function generateAbout(
+export function calculateChunkId(x, y) {
+  const chunkSize = 400;
+  return `${Math.floor(x / chunkSize)}_${Math.floor(y / chunkSize)}`;
+}
+export function generateTabAbout(
   name: string,
   author: string,
   description: string
-): AboutTab {
+): TabAbout {
   return {
     name,
     author,
@@ -21,7 +22,7 @@ export function generateIssue(
   id: string,
   title: string,
   author: string
-): IssuesTab {
+): TabIssues {
   return {
     id,
     title,
@@ -29,50 +30,98 @@ export function generateIssue(
   };
 }
 
-export function generateInfoTab(
+export function generateTabInfo(
   id: string,
   title: string,
   done: boolean,
   description: string,
   links: { title: string; link: string }[],
-  roadmap: { id: string; title: string },
   additionalInfo: string
-): InfoTab {
+): TabInfo {
   return {
     id,
     title,
     done,
     description,
     links,
-    roadmap,
     additionalInfo,
   };
 }
 
-export function generateNode(
+export function generateNodeInfo(
   id: string,
   title: string,
   tabId: string,
   x: number,
-  y: number
-): NodeStore {
+  y: number,
+  parent: string,
+  children: string[]
+): NodeInfoStore {
   return {
     id,
     title,
-    type: 'Node',
+    type: 'Info',
     tabId,
     x,
     y,
+    parent,
+    children,
+    chunk: calculateChunkId(x, y),
   };
 }
 
-export function generateResource(
+export function generateNNodesInfo(
+  title: string,
+  tabId: string,
+  x: number,
+  y: number,
+  parent: string,
+  children: string[],
+  n: number,
+  m: number
+): any {
+  // used for stress testing roadmap rendering capabilities and optimizations
+  const nodes: any = {};
+  for (let i = 0; i < n; i += 1) {
+    for (let j = 0; j < m; j += 1) {
+      const id = `nodeId${i}_${j}`;
+      nodes[id] = generateNodeInfo(
+        id,
+        id,
+        tabId,
+        x * i,
+        y * j,
+        parent,
+        children
+      );
+    }
+  }
+  const chunksNodes: any = {};
+
+  for (let i = 0; i < n; i += 1) {
+    for (let j = 0; j < m; j += 1) {
+      const id = `nodeId${i}_${j}`;
+      const chunkId = calculateChunkId(nodes[id].x, nodes[id].y);
+      if (!chunksNodes[chunkId]) {
+        chunksNodes[chunkId] = [];
+      }
+      chunksNodes[chunkId].push(id);
+    }
+  }
+  return {
+    nodes,
+    chunksNodes,
+  };
+}
+
+export function generateNodeResource(
   id: string,
   title: string,
   x: number,
   y: number,
-  nodes: string[]
-): ResourceStore {
+  nodes: string[],
+  parent: string
+): NodeResourceStore {
   return {
     id,
     title,
@@ -80,26 +129,27 @@ export function generateResource(
     nodes,
     x,
     y,
+    parent,
+    children: [],
+    chunk: calculateChunkId(x, y),
   };
 }
 
-export function generateEmptyResource(
-  id: string,
-  title: string,
-  x: number,
-  y: number
-): ResourceStore {
+export function generateNodeResourceEmpty(id: string): NodeResourceStore {
   return {
     id,
-    title,
+    title: '',
     type: 'Resource',
     nodes: [],
-    x,
-    y,
+    x: 0,
+    y: 0,
+    parent: '',
+    children: [],
+    chunk: '',
   };
 }
 
-export function generateEmptyResourceSubNode(
+export function generateResourceSubNodeEmpty(
   id: string,
   parentId: string,
   title: string,
@@ -114,23 +164,21 @@ export function generateEmptyResourceSubNode(
   };
 }
 
-export function generateEmptyNode(
-  id: string,
-  title: string,
-  x: number,
-  y: number
-): NodeStore {
+export function generateNodeInfoEmpty(id: string): NodeInfoStore {
   return {
     id,
-    title,
-    type: 'Node',
+    title: '',
+    type: 'Info',
     tabId: '',
-    x,
-    y,
+    x: 0,
+    y: 0,
+    parent: '',
+    children: [],
+    chunk: '',
   };
 }
 
-export function generateResSubNode(
+export function generateResourceSubNode(
   id: string,
   parentId: string,
   title: string,
@@ -142,5 +190,17 @@ export function generateResSubNode(
     title,
     type: 'ResourceSubNode',
     tabId,
+  };
+}
+
+export function generateConnection(
+  id: string,
+  parentId: string,
+  childId: string
+) {
+  return {
+    id,
+    parentId,
+    childId,
   };
 }

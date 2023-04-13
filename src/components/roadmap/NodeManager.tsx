@@ -1,62 +1,60 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { NodeProps, ResourceProps, ManagerProps } from '@type/roadmap/nodes';
-import { isNodeProps, isResourceProps } from '@type/roadmap/typecheckers';
-import roadmapEdit from '@store/roadmap_edit';
-import roadmap from '@store/roadmap';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import roadmapState from '@store/roadmap_state';
 import { useStore } from '@nanostores/react';
+import { NodeInfoProps, NodeManagerProps } from '@type/roadmap/nodes';
+import {
+  isNodeInfoProps,
+  isNodeResourceProps,
+} from '@type/roadmap/typecheckers';
 import Node from './nodes/node-info/Node';
 import Resource from './nodes/node-resource/Resource';
 
-const NodeManager = ({ data, sizeCb }: ManagerProps) => {
+const NodeManager = ({ data, sizeCb, renderTrigger }: NodeManagerProps) => {
+  // console.log('NodeManager rerendered', data);
   const rootRef = useRef<HTMLDivElement>(null);
   const { editing } = useStore(roadmapState);
-  // TODO implement selective rerendering (Only rerenders when the current node changes not any node in roadmap)
-  // it is currently rerendering all the nodes again on any change not directly related to that node
-  // something like keeping a reference to the nodeobject characterized by id and rendering when something changes
-  useStore(roadmap);
-  useStore(roadmapEdit);
 
-  useEffect(() => {
-    if (rootRef) {
-      const { width, height } = rootRef.current.getBoundingClientRect();
-      sizeCb(width, height);
-    }
+  const [render, setRender] = useState(true);
+
+  function triggerRender() {
+    console.log('triggerRender', data.id);
+    setRender(!render);
+    // used for selective rerendering of the nodes
+  }
+
+  useLayoutEffect(() => {
+    renderTrigger(triggerRender);
   }, []);
 
   const renderNode = () => {
     // we fetch the data from the nanostores here in order to get rerendering on data change
-    const { nodes } = roadmap.get();
-    const { id } = data as NodeProps;
-    const node = nodes[id];
-    if (isNodeProps(node)) {
-      const { title, type, tabId } = node;
-      return <Node id={id} type={type} title={title} tabId={tabId} />;
+    const { id } = data as NodeInfoProps;
+    const node = data;
+    if (isNodeInfoProps(node)) {
+      const { title, tabId } = node;
+      return <Node id={id} title={title} tabId={tabId} />;
     }
-    if (isResourceProps(node)) {
+    if (isNodeResourceProps(node)) {
       const { id: idNode, title, nodes: resNodes } = node;
       return <Resource id={idNode} title={title} nodes={resNodes} />;
     }
     throw new Error('something went wrong');
   };
-  const renderNodeEditing = () => {
-    // we fetch the data from the nanostores here in order to get rerendering on data change
-    const { nodes } = roadmapEdit.get();
-    const { id } = data as NodeProps;
-    const node = nodes[id];
-    if (isNodeProps(node)) {
-      const { title, type, tabId } = node;
-      return <Node id={id} type={type} title={title} tabId={tabId} />;
+
+  const renderedNode = useRef(renderNode());
+
+  useLayoutEffect(() => {
+    if (rootRef) {
+      const { width, height } = rootRef.current.getBoundingClientRect();
+      sizeCb(width, height);
     }
-    if (isResourceProps(node)) {
-      const { id: idNode, title, nodes: resNodes } = node;
-      return <Resource id={idNode} title={title} nodes={resNodes} />;
-    }
-    throw new Error('something went wrong');
-  };
+  }, [render]);
+
   return (
     <div ref={rootRef} className=' inline-block border-0 '>
-      {editing ? renderNodeEditing() : renderNode()}
+      {/* hello there simple node */}
+      {/* {renderNode()} */}
+      {renderedNode.current}
     </div>
   );
 };

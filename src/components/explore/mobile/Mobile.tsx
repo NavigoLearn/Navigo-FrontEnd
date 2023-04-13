@@ -56,11 +56,7 @@ const Mobile = () => {
 
   return (
     <div>
-      <div>
-        {clickSort && (
-          <SortByMenu clickSort={clickSort} handleClick={handleClick} />
-        )}
-      </div>
+      <div>{clickSort && <SortByMenu handleClick={handleClick} />}</div>
       <div>
         {clickFilter && (
           <SortFilter clickFilter={clickFilter} handleClick={handleClick} />
