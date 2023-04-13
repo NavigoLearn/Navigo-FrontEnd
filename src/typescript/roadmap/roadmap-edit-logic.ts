@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import { Roadmap } from '@type/roadmap/roadmap';
 import {
   calculateChunkId,
@@ -5,7 +6,7 @@ import {
   generateNodeResourceEmpty,
   generateTabInfo,
 } from '@typescript/roadmap/generators';
-import { TabAbout, TabInfo, TabIssue } from '@type/roadmap/tab-manager';
+import { TabInfo, TabIssue } from '@type/roadmap/tab-manager';
 import {
   NodeIdentifierTypes,
   NodeInfoStore,
@@ -18,8 +19,12 @@ import {
 } from '@type/roadmap/typecheckers';
 import { ResourceSubNodeStore } from '@type/roadmap/resources';
 import roadmapEdit from '@store/roadmap_edit';
-import { postTabInfoFlow } from '@typescript/roadmap/tab-logic-flows';
-import { getNewTabId } from '../../api/roadmap/tab-data';
+import { diffTabInfo } from '@store/runtime/diff-tabs';
+import { cacheTabInfo } from '@store/runtime/cached-tabs';
+import {
+  changeTabIssueFlow,
+  changeTabIssuePropFlow,
+} from '@typescript/roadmap/tab-logic-flows';
 
 /*
 The get function naming convention is:
@@ -34,16 +39,17 @@ generateNodeResourceEmpty
 */
 
 export function addNewTab(newId: string, newTab: TabInfo) {
-  // calls the post tab flow
-  postTabInfoFlow(newId, newTab);
+  // adds the new Tab to the diff and to the cache
+  diffTabInfo(newId, newTab);
+  cacheTabInfo(newId, newTab);
 }
 
-export const getUnusedTabId = async () => {
-  // gets the new Id from the API
-  return getNewTabId();
+export const getUnusedTabId = () => {
+  // generates a new unused tab id
+  return uuidv4();
 };
 
-export function generateNewTab() {
+export const generateNewTab = () => {
   const newId = getUnusedTabId();
   const newTab = generateTabInfo(
     newId,
@@ -55,7 +61,7 @@ export function generateNewTab() {
   );
   addNewTab(newId, newTab);
   return newId;
-}
+};
 
 export function addChunkNode(id: string, chunkId: string) {
   // adds a node to a chunk
@@ -135,11 +141,7 @@ export function changeIssue<T extends keyof TabIssue>(
   property: T,
   value: TabIssue[T]
 ) {
-  const original = roadmapEdit.get();
-  const { issues } = original;
-  issues[id][property] = value;
-  original.issues = issues;
-  roadmapEdit.set({ ...original });
+  changeTabIssuePropFlow(id, property, value);
 }
 
 export function changeResourceSubNode<T extends keyof ResourceSubNodeStore>(

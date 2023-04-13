@@ -6,7 +6,8 @@ import chunksStore, { setChunks } from '@store/runtime/renderedChunks';
 import * as d3 from 'd3';
 
 export function renderChunks() {
-  const { editing } = roadmapState.get();
+  const { editing, loaded } = roadmapState.get();
+  if (!loaded) return;
   let chunks: any;
   if (editing) chunks = roadmapEdit.get().chunks;
   else chunks = roadmapStatic.get().chunks;

@@ -1,5 +1,6 @@
 import { atom } from 'nanostores';
 import { TabAbout } from '@type/roadmap/tab-manager';
+import { deepCopy } from '@type/roadmap/utils';
 
 const tabManagerStore = atom({
   // holds the currently displayed tabs and is also used for editing tabs and issues
@@ -101,10 +102,11 @@ export function setInfo(infoData) {
     return;
   }
   trueOpen();
+  const newInfoData = deepCopy(infoData);
   tabManagerStore.set({
     ...newTab,
     type: 'info',
-    info: { ...infoData },
+    info: { ...newInfoData },
   });
 }
 

@@ -5,6 +5,7 @@ import {
   generateTabAbout,
   generateTabInfo,
 } from '@typescript/roadmap/generators';
+import { networkLatency } from './params';
 
 const aboutTab: HashMap<TabAbout> = {
   roadmap1: generateTabAbout(
@@ -64,8 +65,6 @@ const data: HashMap<TabInfo> = {
   ),
 };
 
-const networkLatency = 100;
-
 export const fetchAboutTab = async (id: string) => {
   return new Promise<TabAbout>((resolve) => {
     setTimeout(() => {
@@ -86,6 +85,14 @@ export const fetchTabInfo = async (id: string) => {
   return new Promise<TabInfo>((resolve) => {
     setTimeout(() => {
       resolve(data[id]);
+    }, networkLatency);
+  });
+};
+
+export const fetchTabIssue = async (id: string) => {
+  return new Promise<TabIssue>((resolve) => {
+    setTimeout(() => {
+      resolve(issues[id]);
     }, networkLatency);
   });
 };
@@ -140,6 +147,16 @@ export const postTabInfo = async (id: string, newData: TabInfo) => {
   });
 };
 
+export const postTabIssue = async (id: string, newData: TabIssue) => {
+  return new Promise<TabIssue>((resolve) => {
+    setTimeout(() => {
+      // change data at id with data
+      issues[id] = newData;
+      resolve(issues[id]);
+    }, networkLatency);
+  });
+};
+
 export function postTabInfoProp<T extends keyof TabInfo>(
   id: string,
   prop: T,
@@ -148,8 +165,39 @@ export function postTabInfoProp<T extends keyof TabInfo>(
   return new Promise<TabInfo>((resolve) => {
     setTimeout(() => {
       // change data at id with data
-      data[id][prop] = value;
-      resolve(data[id]);
+      if (data[id] === undefined) {
+        postTabInfo(
+          id,
+          generateTabInfo(
+            id,
+            'tabinfo',
+            false,
+            'descrip',
+            [],
+            'additional info'
+          )
+        ).then(() => {
+          data[id][prop] = value;
+          resolve(data[id]);
+        });
+      } else {
+        data[id][prop] = value;
+        resolve(data[id]);
+      }
+    }, networkLatency);
+  });
+}
+
+export function postTabIssueProp<T extends keyof TabIssue>(
+  id: string,
+  prop: T,
+  value: TabIssue[T]
+) {
+  return new Promise<TabIssue>((resolve) => {
+    setTimeout(() => {
+      // change data at id with data
+      issues[id][prop] = value;
+      resolve(issues[id]);
     }, networkLatency);
   });
 }

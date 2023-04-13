@@ -10,11 +10,7 @@ import tabStore, {
   addInfoTabLink,
   flipOpen,
 } from '@store/runtime/tab-manager';
-import { changeTabInfo } from '@typescript/roadmap/roadmap-edit-logic';
-import {
-  changeTabInfoFlow,
-  changeTabInfoPropFlow,
-} from '@typescript/roadmap/tab-logic-flows';
+import { diffSaveTabInfo } from '@store/runtime/diff-tabs';
 
 type link = {
   title: string;
@@ -30,11 +26,17 @@ const InfoEditing = () => {
     link: '',
   });
 
+  function changeTabInfo() {
+    diffSaveTabInfo(info.id, info);
+  }
+
   const save = useRef(true);
   useEffect(() => {
     return () => {
+      console.log(save.current);
       if (save.current) {
-        changeTabInfo(info.id, info);
+        // saves the diffs to the store (compared to the cached version)
+        changeTabInfo();
       } else {
         // save is canceled
       }
@@ -68,7 +70,7 @@ const InfoEditing = () => {
             callback={() => {
               if (editing) {
                 save.current = true;
-                changeTabInfo(info.id, info);
+                changeTabInfo();
                 flipOpen();
               }
               // to be done

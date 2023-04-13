@@ -1,9 +1,8 @@
 import React from 'react';
-import { setInfo } from '@store/runtime/tab-manager';
 import { NonEditingComponentProps } from '@type/roadmap/components';
 import { getNodeById } from '@store/roadmap_static';
 import { isNodeInfoStore } from '@type/roadmap/typecheckers';
-import { fetchTabInfo } from '../../../../api/roadmap/tab-data';
+import { setInfoFlow } from '@typescript/roadmap/tab-logic-flows';
 
 const InfoTitleNonEdit = ({
   value,
@@ -20,9 +19,7 @@ const InfoTitleNonEdit = ({
           const node = getNodeById(id);
           if (!isNodeInfoStore(node)) return;
           const { tabId } = node;
-          fetchTabInfo(tabId).then((tabInfo) => {
-            setInfo(tabInfo);
-          });
+          setInfoFlow(tabId);
         }}
       >
         {value}

@@ -27,6 +27,12 @@ export const getCachedTabInfo = (id: string) => {
   const original = cachedTabs.get();
   return original.info[id];
 };
+
+export const getCachedTabIssue = (id: string) => {
+  const original = cachedTabs.get();
+  return original.issues[id];
+};
+
 export const checkCachedTabInfo = (id: string) => {
   const original = cachedTabs.get();
   return original.info[id];
@@ -47,7 +53,27 @@ export const changeCachedTab = (id: string, tab: TabInfo) => {
   cachedTabs.set({ ...original, [id]: tab });
 };
 
-export const changeChachedTabInfoProp = <T extends keyof TabInfo>(
+export const changeCachedTabIssueProp = <T extends keyof TabIssue>(
+  id: string,
+  prop: T,
+  value: TabIssue[T]
+) => {
+  const original = cachedTabs.get();
+  cachedTabs.set({
+    ...original,
+    issues: {
+      ...original.issues,
+      [id]: { ...original.issues[id], [prop]: value },
+    },
+  });
+};
+
+export const changeCachedTabIssue = (id: string, tab: TabIssue) => {
+  const original = cachedTabs.get();
+  cachedTabs.set({ ...original, issues: { ...original.issues, [id]: tab } });
+};
+
+export const changeCachedTabInfoProp = <T extends keyof TabInfo>(
   id: string,
   prop: T,
   value: TabInfo[T]

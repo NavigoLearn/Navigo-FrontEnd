@@ -3,7 +3,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import NodeManager from '@components/roadmap/NodeManager';
 import { useStore } from '@nanostores/react';
 import roadmapState from '@store/roadmap_state';
-import roadmapStatic from '@store/roadmap_static';
+import roadmapStatic, { setRoadmapFromAPI } from '@store/roadmap_static';
 import { setTrigger } from '@store/runtime/rerenderTriggers';
 import { addZoom } from '@typescript/roadmap/d3utils';
 import { RoadmapChunkingManager } from '@typescript/roadmap/chunks-logic';
@@ -11,7 +11,7 @@ import renderNodesStore from '@store/runtime/renderedNodes';
 import { setChunkRerenderTrigger } from '@store/runtime/renderedChunks';
 import Report from './tabs/Report';
 
-const Roadmap = () => {
+const Roadmap = ({ pageId }: { pageId: string }) => {
   const { editing } = useStore(roadmapState);
   // the ids of the nodes that need to be rendered accorind to the current view and the chunks visible
   const { nodes: nodesIds } = useStore(renderNodesStore);
@@ -41,6 +41,8 @@ const Roadmap = () => {
       // used for decorators
       renderer.current.recalculateChunks.bind(renderer.current)
     );
+    // fetches the data from the api
+    setRoadmapFromAPI(pageId);
   }, []);
 
   useEffect(() => {
