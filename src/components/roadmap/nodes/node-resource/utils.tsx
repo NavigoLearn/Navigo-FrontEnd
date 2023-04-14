@@ -1,5 +1,5 @@
 import roadmapEdit from '@store/roadmap_edit';
-import roadmap from '@store/roadmap';
+import roadmapStatic from '@store/roadmap_static';
 import ResourceSubNode from '@components/roadmap/nodes/node-resource/sub-node/ResourceSubNode';
 import React from 'react';
 
@@ -20,7 +20,7 @@ export function renderNodeEdit(id, parentId) {
 }
 
 export function renderNodeNormal(id, parentID) {
-  const data = roadmap.get().resources[id];
+  const data = roadmapStatic.get().resources[id];
   return (
     <div key={data.id} className='flex justify-center items-center my-2'>
       <ResourceSubNode

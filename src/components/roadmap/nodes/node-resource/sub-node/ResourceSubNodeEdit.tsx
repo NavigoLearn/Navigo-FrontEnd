@@ -6,7 +6,8 @@ import useStateAndRef from '@hooks/useStateAndRef';
 import {
   changeResourceSubNode,
   removeResourceSubNode,
-} from '@store/roadmap_edit';
+} from '@typescript/roadmap/roadmap-edit-logic';
+
 import { ResourceSubNodeProps } from '@type/roadmap/resources';
 import { NodeInfoProps } from '@type/roadmap/nodes';
 

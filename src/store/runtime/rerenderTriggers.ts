@@ -1,7 +1,7 @@
 import { atom } from 'nanostores';
 
 const nodeTriggers = atom({
-  triggers: {}, // ids of all the nodes currently rendered on the screen
+  triggers: {}, // all the rerender triggers for the nodes
 } as {
   triggers: any;
 });

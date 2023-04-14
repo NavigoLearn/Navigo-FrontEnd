@@ -1,6 +1,6 @@
 import React from 'react';
 import { useStore } from '@nanostores/react';
-import tabStore from '@store/tabinfo';
+import tabStore from '@store/runtime/tab-manager';
 import { divWrapper } from './utils/logic';
 
 const About = () => {

@@ -9,8 +9,8 @@ import tabStore, {
   deleteInfoTabLink,
   addInfoTabLink,
   flipOpen,
-} from '@store/tabinfo';
-import { changeTabInfo } from '@store/roadmap_edit';
+} from '@store/runtime/tab-manager';
+import { diffSaveTabInfo } from '@store/runtime/diff-tabs';
 
 type link = {
   title: string;
@@ -26,15 +26,21 @@ const InfoEditing = () => {
     link: '',
   });
 
+  function changeTabInfo() {
+    diffSaveTabInfo(info.id, info);
+  }
+
   const save = useRef(true);
   useEffect(() => {
     return () => {
+      console.log(save.current);
       if (save.current) {
-        changeTabInfo(info.id, info);
+        // saves the diffs to the store (compared to the cached version)
+        changeTabInfo();
       } else {
         // save is canceled
       }
-      // when the component unmounts, if editing is true, set roadmap tab to current
+      // when the component unmounts, if editing is true, set roadmap_static tab to current
     };
   }, []);
 
@@ -64,7 +70,7 @@ const InfoEditing = () => {
             callback={() => {
               if (editing) {
                 save.current = true;
-                changeTabInfo(info.id, info);
+                changeTabInfo();
                 flipOpen();
               }
               // to be done

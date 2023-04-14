@@ -6,10 +6,13 @@ import { HashMap } from '@type/roadmap/roadmap';
 const selection = atom({
   selectedNodeId: '',
   adjacentConnectionsId: [],
-} as any);
+} as {
+  selectedNodeId: string;
+  adjacentConnectionsId: string[];
+});
 
 export function setSelection(id: string) {
-  // gets adjacent connections id from the roadmap
+  // gets adjacent connections id from the roadmap_static
   const adjacentConnectionsId: HashMap<ConnectionStore> =
     roadmapEdit.get().connections;
 

@@ -1,9 +1,10 @@
-import { TabInfo, TabAbout, TabIssues } from '@type/roadmap/tab';
+import { TabInfo, TabAbout, TabIssue } from '@type/roadmap/tab-manager';
 import { NodeResourceStore, NodeInfoStore } from '@type/roadmap/nodes';
 import { ResourceSubNodeStore } from '@type/roadmap/resources';
+import roadmapEdit from '@store/roadmap_edit';
 
 export function calculateChunkId(x, y) {
-  const chunkSize = 400;
+  const { chunkSize } = roadmapEdit.get();
   return `${Math.floor(x / chunkSize)}_${Math.floor(y / chunkSize)}`;
 }
 export function generateTabAbout(
@@ -22,7 +23,7 @@ export function generateIssue(
   id: string,
   title: string,
   author: string
-): TabIssues {
+): TabIssue {
   return {
     id,
     title,
@@ -80,7 +81,7 @@ export function generateNNodesInfo(
   n: number,
   m: number
 ): any {
-  // used for stress testing roadmap rendering capabilities and optimizations
+  // used for stress testing roadmap_static rendering capabilities and optimizations
   const nodes: any = {};
   for (let i = 0; i < n; i += 1) {
     for (let j = 0; j < m; j += 1) {

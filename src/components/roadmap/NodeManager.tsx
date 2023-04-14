@@ -1,38 +1,61 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import roadmapState from '@store/roadmap_state';
-import { useStore } from '@nanostores/react';
-import { NodeInfoProps, NodeManagerProps } from '@type/roadmap/nodes';
+import React, {
+  useLayoutEffect,
+  useRef,
+  useState,
+  useMemo,
+  useEffect,
+} from 'react';
+import { NodeInfoProps } from '@type/roadmap/nodes';
 import {
   isNodeInfoProps,
   isNodeResourceProps,
 } from '@type/roadmap/typecheckers';
+import { getNodeById } from '@store/roadmap_static';
+import { addDraggability } from '@typescript/roadmap/roadmap-render';
 import Node from './nodes/node-info/Node';
 import Resource from './nodes/node-resource/Resource';
 
-const NodeManager = ({ data, sizeCb, renderTrigger }: NodeManagerProps) => {
-  // console.log('NodeManager rerendered', data);
+const NodeManager = ({ data, editing, triggerCb }: any) => {
   const rootRef = useRef<HTMLDivElement>(null);
-  const { editing } = useStore(roadmapState);
-
+  const objRef = useRef<SVGForeignObjectElement>(null);
   const [render, setRender] = useState(true);
 
   function triggerRender() {
-    console.log('triggerRender', data.id);
-    setRender(!render);
+    setRender((val) => !val);
     // used for selective rerendering of the nodes
   }
 
   useLayoutEffect(() => {
-    renderTrigger(triggerRender);
+    triggerCb(triggerRender);
   }, []);
+
+  useEffect(() => {
+    // things to trigger on rerender
+    if (rootRef) {
+      // updates the size of the foreignObject to match the size of the div for draggability and movement purposes
+      const width = `${rootRef.current.offsetWidth}`;
+      const height = `${rootRef.current.offsetHeight}`;
+      objRef.current.setAttribute('width', width);
+      objRef.current.setAttribute('height', height);
+    }
+  }, [render]);
+
+  useEffect(() => {
+    addDraggability(data.id, editing);
+  }, [editing]);
 
   const renderNode = () => {
     // we fetch the data from the nanostores here in order to get rerendering on data change
     const { id } = data as NodeInfoProps;
-    const node = data;
+    let node;
+    if (editing) {
+      node = getNodeById(id);
+    } else {
+      node = data;
+    }
     if (isNodeInfoProps(node)) {
       const { title, tabId } = node;
-      return <Node id={id} title={title} tabId={tabId} />;
+      return <Node editing={editing} id={id} title={title} tabId={tabId} />;
     }
     if (isNodeResourceProps(node)) {
       const { id: idNode, title, nodes: resNodes } = node;
@@ -40,22 +63,18 @@ const NodeManager = ({ data, sizeCb, renderTrigger }: NodeManagerProps) => {
     }
     throw new Error('something went wrong');
   };
-
-  const renderedNode = useRef(renderNode());
-
-  useLayoutEffect(() => {
-    if (rootRef) {
-      const { width, height } = rootRef.current.getBoundingClientRect();
-      sizeCb(width, height);
-    }
+  const renderedNode = useMemo(() => {
+    return renderNode();
   }, [render]);
 
   return (
-    <div ref={rootRef} className=' inline-block border-0 '>
-      {/* hello there simple node */}
-      {/* {renderNode()} */}
-      {renderedNode.current}
-    </div>
+    <g id={`group${data.id}`} transform={`translate(${data.x},${data.y})`}>
+      <foreignObject ref={objRef}>
+        <div ref={rootRef} className=' inline-block border-0 '>
+          {renderedNode}
+        </div>
+      </foreignObject>
+    </g>
   );
 };
 

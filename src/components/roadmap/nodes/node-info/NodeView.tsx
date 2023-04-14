@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { NodeInfoProps } from '@type/roadmap/nodes';
-import { dispatchTabInfo } from '@store/roadmap';
+import { setInfoFlow } from '@typescript/roadmap/tab-logic-flows';
 
 const NodeView = ({ title, tabId, id }: NodeInfoProps) => {
   const rootRef = useRef<HTMLButtonElement>(null);
@@ -12,7 +12,7 @@ const NodeView = ({ title, tabId, id }: NodeInfoProps) => {
       className=' text-sm p-2 font-semibold rounded-xl shadow-standard w-64 h-12 bg-white '
       onClick={() => {
         // tab changing logic
-        dispatchTabInfo(tabId);
+        setInfoFlow(tabId);
       }}
     >
       <div

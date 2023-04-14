@@ -2,7 +2,7 @@ import React from 'react';
 import Button from '@components/roadmap/tabs/utils/Button';
 import { divWrapper } from '@components/roadmap/tabs/utils/logic';
 import { useStore } from '@nanostores/react';
-import tabStore from '@store/tabinfo';
+import tabStore from '@store/runtime/tab-manager';
 
 const InfoView = () => {
   const { info } = useStore(tabStore);

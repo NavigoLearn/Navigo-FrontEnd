@@ -2,7 +2,9 @@ import { atom } from 'nanostores';
 
 const popup = atom({
   type: 'none',
-} as any);
+} as {
+  type: string;
+});
 
 export function setReport() {
   const newPop = popup.get();

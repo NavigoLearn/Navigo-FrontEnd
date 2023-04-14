@@ -2,7 +2,7 @@ import React from 'react';
 import { renderNodeEdit } from '@components/roadmap/nodes/node-resource/utils';
 import DropdownType from '@components/roadmap/nodes/edit-logic-modules/DropdownType';
 import { NodeResourceProps } from '@type/roadmap/nodes';
-import { addResourceSubNodeNew } from '@store/roadmap_edit';
+import { addResourceSubNodeNew } from '@typescript/roadmap/roadmap-edit-logic-decorated';
 import AddNode from '@components/roadmap/nodes/edit-logic-modules/AddNode';
 
 const ResourceEdit = ({ id: idProp, title, nodes }: NodeResourceProps) => {
