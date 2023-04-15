@@ -9,7 +9,7 @@ import {
 } from '@components/auth/socialAuth';
 
 // Aici trebuie rescrise testele pentru ca name field a fost sters din register
-const SignUp = () => {
+const DesktopSignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [reapeatPassword, setRepeatPassword] = useState('');
@@ -34,7 +34,7 @@ const SignUp = () => {
       <div className='text-[15px] mt-[2px] font-light flex items-center justify-center font-roboto-text'>
         <span className='pr-1 text-secondary'>Already have an account?</span>
         {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-        <a href='#' className='text-primary'>
+        <a href='/login' className='text-primary'>
           Log in here.
         </a>
       </div>
@@ -117,4 +117,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default DesktopSignUp;

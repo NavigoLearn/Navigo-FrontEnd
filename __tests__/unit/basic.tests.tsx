@@ -1,7 +1,7 @@
 import { render, fireEvent, screen, getByText } from '@testing-library/react';
 import { describe, it, expect, afterEach } from 'vitest';
-import Login from '@components/auth/Login';
-import SignUp from '@components/auth/SignUp';
+import Login from '@components/auth/login/Login';
+import SignUp from '@components/auth/signup/SignUp';
 
 describe('Login component', () => {
   afterEach(() => {

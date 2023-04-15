@@ -10,8 +10,6 @@ module.exports = {
         highlight: '#007aff',
         background: '#ECEFF2',
         resourceSubNode: '#DEE2E7',
-        textgradient: 'linear-gradient(90deg, #561BB6 0%, #253FC8 100%)',
-        buttongradient: 'linear-gradient(90deg, #3361D8 0%, #262EE7 100%)',
         white: '#FFFFFF',
       },
       borderColor: {
@@ -33,6 +31,10 @@ module.exports = {
       screens: {
         'big': '1277px',
         'medium': '841px',
+      },
+      backgroundImage: {
+        buttongradient: 'linear-gradient(90deg, #3361D8 0%, #262EE7 100%)',
+        textgradient: 'linear-gradient(90deg, #561BB6 0%, #253FC8 100%)',
       }
     },
   },
