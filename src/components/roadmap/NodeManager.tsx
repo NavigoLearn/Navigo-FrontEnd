@@ -5,7 +5,7 @@ import React, {
   useMemo,
   useEffect,
 } from 'react';
-import { NodeInfoProps } from '@type/roadmap/nodes';
+import { NodeInfoProps, NodeManagerProps } from '@type/roadmap/nodes';
 import {
   isNodeInfoProps,
   isNodeResourceProps,
@@ -13,10 +13,11 @@ import {
 import { getNodeById } from '@store/roadmap_static';
 import { addDraggability } from '@typescript/roadmap/roadmap-render';
 import levels from '@styles/levelStyles';
+import { getNodeByIdEdit } from '@typescript/roadmap/roadmap-edit-logic';
 import Node from './nodes/node-info/Node';
 import Resource from './nodes/node-resource/Resource';
 
-const NodeManager = ({ data, editing, triggerCb }: any) => {
+const NodeManager = ({ data, editing, triggerCb }: NodeManagerProps) => {
   const rootRef = useRef<HTMLDivElement>(null);
   const objRef = useRef<SVGForeignObjectElement>(null);
   const [render, setRender] = useState(true);
@@ -51,7 +52,7 @@ const NodeManager = ({ data, editing, triggerCb }: any) => {
     const { id } = data as NodeInfoProps;
     let node;
     if (editing) {
-      node = getNodeById(id);
+      node = editing ? getNodeByIdEdit(id) : getNodeById(id);
     } else {
       node = data;
     }

@@ -8,6 +8,7 @@ import InfoTitleNonEdit from '@components/roadmap/nodes/node-info/InfoTitleNonEd
 import InfoTitleEdit from '@components/roadmap/nodes/node-info/InfoTitleEdit';
 import { changeNodeInfo } from '@typescript/roadmap/roadmap-edit-logic-decorated';
 import LevelConvertor from '@components/roadmap/nodes/edit-logic-modules/LevelConvertor';
+import RemoveNode from '@components/roadmap/nodes/edit-logic-modules/RemoveNode';
 
 const NodeEdit = ({ title, tabId, id, level }: NodeInfoProps) => {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -32,6 +33,7 @@ const NodeEdit = ({ title, tabId, id, level }: NodeInfoProps) => {
       <DropdownType id={id} type='Info' />
       <LevelConvertor id={id} level={level} />
       <AddNode id={id} />
+      <RemoveNode id={id} />
     </div>
   );
 };

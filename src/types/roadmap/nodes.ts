@@ -42,9 +42,9 @@ export type NodeTypesProps = NodeInfoProps | NodeResourceProps;
 export type NodeTypesStore = NodeInfoStore | NodeResourceStore;
 
 export type NodeManagerProps = {
-  data: NodeTypesProps;
-  sizeCb: (width: number, height: number) => void;
-  renderTrigger: (callBack: any) => void;
+  data: NodeTypesStore;
+  editing: boolean;
+  triggerCb: (cb: any) => void;
 };
 
 export type Coord = {

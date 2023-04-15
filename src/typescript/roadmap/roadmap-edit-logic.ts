@@ -218,25 +218,6 @@ export function addNodeInfoEmpty(
   roadmapEdit.set({ ...original });
   return newId;
 }
-
-export function generationFlow(
-  type: NodeIdentifierTypes,
-  parentId: string,
-  id: string,
-  title: string,
-  x: number,
-  y: number
-) {
-  if (type === 'Resource') {
-    return addNodeResourceEmpty(parentId, id, title, x, y);
-  }
-  if (type === 'Info') {
-    return addNodeInfoEmpty(parentId, id, title, x, y);
-  }
-
-  throw new Error('Invalid type');
-}
-
 export function getUnusedConnectionId() {
   const original = roadmapEdit.get();
   const { connections } = original;
@@ -260,21 +241,26 @@ export function generateConnectionEmpty(id: string) {
 
 export function addConnection(parentId: string, childId: string) {
   const original = roadmapEdit.get();
-  const { connections } = original;
+  const { connections, nodes } = original;
   const newId = getUnusedConnectionId();
   const newConnection = generateConnectionEmpty(newId);
   newConnection.parentId = parentId;
   newConnection.childId = childId;
   connections[newId] = newConnection;
   original.connections = connections;
+  // adds connection to the parent and the child
+  nodes[parentId].connections.push(newId);
+  nodes[childId].connections.push(newId);
+  original.nodes = nodes;
+
   roadmapEdit.set({ ...original });
 }
 
-export const getNodeById = (id: string) => {
+export function getNodeByIdEdit(id: string) {
   const original = roadmapEdit.get();
   const { nodes } = original;
   return nodes[id];
-};
+}
 
 export function setRoadmap(roadmap: Roadmap) {
   roadmapEdit.set({ ...roadmap });

@@ -94,7 +94,7 @@ import { networkLatency } from './params';
 // addConn('nodeId0_0', 'nodeId0_2');
 //
 const roadmap4: Roadmap = {
-  nodes: generateNNodesInfo('title', 'tabid1', 300, 150, 'parent', [''], 1, 1)
+  nodes: generateNNodesInfo('title', 'tabid1', 300, 150, 'root', [''], 1, 1)
     .nodes,
   connections: {
     // list of all connections
@@ -122,11 +122,9 @@ const roadmapData = {
 
 export const a = 1;
 export const fetchRoadmap = async (id: string) => {
-  console.log('called');
   return new Promise((resolve) => {
     setTimeout(() => {
-      console.log('resolved');
-      resolve(roadmapData[id]);
+      resolve(roadmapData.roadmap4);
     }, networkLatency);
   });
 };

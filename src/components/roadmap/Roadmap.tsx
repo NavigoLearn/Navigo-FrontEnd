@@ -11,13 +11,16 @@ import renderNodesStore from '@store/runtime/renderedNodes';
 import { setChunkRerenderTrigger } from '@store/runtime/renderedChunks';
 import renderConnectionsStore from '@store/runtime/renderedConnections';
 import { renderConnections } from '@typescript/roadmap/roadmap-render';
+import roadmapEdit from '@store/roadmap_edit';
 import Report from './tabs/Report';
 
 const Roadmap = ({ pageId }: { pageId: string }) => {
   const { editing } = useStore(roadmapState);
   // the ids of the nodes that need to be rendered accorind to the current view and the chunks visible
   const { nodes: nodesIds } = useStore(renderNodesStore); // used to trigger a rerender when the nodes change
-  const { nodes: nodesValues } = roadmapStatic.get();
+  const { nodes: nodesValues } = editing
+    ? roadmapEdit.get()
+    : roadmapStatic.get();
 
   useEffect(() => {
     // sets overflow hidden on body
@@ -51,7 +54,7 @@ const Roadmap = ({ pageId }: { pageId: string }) => {
     renderConnectionsStore.subscribe(() => {
       // calling the connection rendering function
       setTimeout(() => {
-        // wait for event loop to finish eendering the nodes and then render the connections
+        // wait for event loop to finish rendering the nodes and then render the connections
         renderConnections();
       }, 0);
     });

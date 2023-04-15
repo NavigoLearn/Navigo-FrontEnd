@@ -1,10 +1,14 @@
 import { getNodes } from '@store/runtime/renderedNodes';
-import { getNodeCoords } from '@typescript/roadmap/roadmap-render';
+import {
+  getNodeCoords,
+  renderConnections,
+} from '@typescript/roadmap/roadmap-render';
 import { getTriggersAll } from '@store/runtime/rerenderTriggers';
 import { calculateChunkId } from '@typescript/roadmap/generators';
 import {
   removeChunkNode,
   addChunkNode,
+  addConnection,
 } from '@typescript/roadmap/roadmap-edit-logic';
 import { triggerChunkRerender } from '@store/runtime/renderedChunks';
 import {
@@ -14,6 +18,30 @@ import {
 
 type TriggerFunction<T extends any[]> = (id: string, ...args: T) => void;
 type TriggerFunctionNoId<T extends any[]> = (...args: T) => void;
+type TriggerFunctionWithParent<T extends any[]> = (
+  parentId: string,
+  id: string,
+  ...args: T
+) => void;
+
+export function triggerAddConnectionDecorator<T extends any[]>(
+  func: TriggerFunctionWithParent<T>
+): TriggerFunctionWithParent<T> {
+  return (parentId: string, id: string, ...args: T) => {
+    func(parentId, id, ...args);
+    console.log(parentId, id, 'conn');
+    addConnection(parentId, id);
+  };
+}
+
+export function triggerPositionCacheClearDecorator<T extends any[]>(
+  func: TriggerFunction<T>
+): TriggerFunction<T> {
+  return (id: string, ...args: T) => {
+    func(id, ...args);
+    emptyCachedNodeCoord(id);
+  };
+}
 
 export function manualTrigger(id: string) {
   const triggers = getTriggersAll();
@@ -69,6 +97,16 @@ export function triggerChunkRecalculationDecorator<T extends any[]>(
   };
 }
 
+export function triggerChunkRemovalOfNodeDecorator<T extends any[]>(
+  func: TriggerFunction<T>
+): TriggerFunction<T> {
+  return (id: string, ...args: T) => {
+    removeChunkNode(id);
+    func(id, ...args);
+    // recalculates the chunks for a specific node
+  };
+}
+
 export function triggerChunkRerenderDecorator<T extends any[]>(
   func: TriggerFunction<T>
 ): TriggerFunction<T> {
@@ -76,5 +114,14 @@ export function triggerChunkRerenderDecorator<T extends any[]>(
     func(id, ...args);
     // triggers a recalculation of chunks
     triggerChunkRerender();
+  };
+}
+
+export function triggerConnectionsForcedRerenderDecorator<T extends any[]>(
+  func: TriggerFunction<T>
+): TriggerFunction<T> {
+  return (id: string, ...args: T) => {
+    func(id, ...args);
+    renderConnections(); // forcefully rerenders connections even if the store hasn't changed
   };
 }

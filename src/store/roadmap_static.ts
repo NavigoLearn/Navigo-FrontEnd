@@ -2,8 +2,6 @@ import { atom } from 'nanostores';
 import { Roadmap } from '@type/roadmap/roadmap';
 import { triggerChunkRerender } from '@store/runtime/renderedChunks';
 import { setLoadedTrue } from '@type/roadmap/utils';
-import renderConnectionsStore from '@store/runtime/renderedConnections';
-import { renderConnections } from '@typescript/roadmap/roadmap-render';
 import { fetchRoadmap } from '../api/roadmap/roadmaps';
 
 const roadmapStatic = atom({

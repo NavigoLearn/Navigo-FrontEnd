@@ -1,9 +1,6 @@
 import React from 'react';
 import { NonEditingComponentProps } from '@type/roadmap/components';
-import {
-  getNodeById,
-  getResourceSubNodeById,
-} from '@typescript/roadmap/roadmap-edit-logic';
+import { getResourceSubNodeById } from '@typescript/roadmap/roadmap-edit-logic';
 import { isResourceSubNodeProps } from '@type/roadmap/typecheckers';
 import { setInfoFlow } from '@typescript/roadmap/tab-logic-flows';
 

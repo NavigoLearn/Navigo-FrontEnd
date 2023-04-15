@@ -14,6 +14,7 @@ import {
 import cachedNodeCoords, {
   cacheNodeCoord,
 } from '@store/runtime/cached-node-coords';
+import cachedCoords from '@store/runtime/cached-node-coords';
 
 function getTransformXY(transform: string) {
   const firstParentheses = transform.indexOf('(');
@@ -131,7 +132,7 @@ function getNodeMiddleCoords(id: string) {
   };
 }
 function getNodeMiddleCoordsFlow(id: string) {
-  const cache = cachedNodeCoords.get();
+  const cache = cachedCoords.get();
   // checks if its already in cache
   // if yes takes from cache
   if (cache[id]) return cache[id];
