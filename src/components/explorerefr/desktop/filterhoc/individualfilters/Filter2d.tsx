@@ -2,26 +2,26 @@ import React, { useState } from 'react';
 import chevronup from '@assets/chevron-up.svg';
 import chevrondown from '@assets/chevron-down.svg';
 
-const Filter2 = (props) => {
-  const { onChange, options, value, isOpen, setIsOpen } = props;
-
+const Filter2d = (props) => {
+  const { onChange, options, value } = props;
+  const [isOpen, setIsOpen] = useState(false);
   return (
     // normal este space-x-7 dar la fold trbuie space-x-1
-    <div className='flex justify-center mt-14 space-x-1 items-center'>
+    <div className='flex justify-center items-center flex-col gap-3'>
       <span className='text-[18px] font-roboto-text sm:text-[23px]'>
         SomeField2
       </span>
       <div className='relative'>
         <button
-          onClick={() =>
-            setIsOpen(isOpen === 'SomeField2' ? false : 'SomeField2')
-          }
+          onClick={() => setIsOpen((prev) => !prev)}
           type='button'
-          className='bg-white rounded-lg shadow-standard w-40 text-[15x] h-7 sm:w-44 sm:h-8'
+          className='bg-white rounded-lg shadow-standard w-40 text-[15x] h-7 sm:w-56 sm:h-10'
         >
           <div className='relative rounded-md'>
-            <span className='font-roboto sm:text-[18px]'>{value}</span>
-            {isOpen === 'SomeField2' ? (
+            <span className='font-roboto sm:text-[20px] font-light'>
+              {value}
+            </span>
+            {isOpen ? (
               <img
                 src={chevronup}
                 alt='openList'
@@ -36,7 +36,7 @@ const Filter2 = (props) => {
             )}
           </div>
         </button>
-        {isOpen === 'SomeField2' && (
+        {isOpen && (
           <ul className='flex justify-center items-center flex-col mt-1 absolute bg-white rounded-md font-roboto z-10'>
             {options.map((option) => (
               <button
@@ -47,7 +47,7 @@ const Filter2 = (props) => {
                   onChange(option.name);
                   setIsOpen(false);
                 }}
-                className='w-40 h-6 sm:w-44 sm:h-7 text-[14px]'
+                className='w-40 h-6 sm:w-56 sm:h-10 text-[18px] font-light'
               >
                 {option.name}
               </button>
@@ -59,4 +59,4 @@ const Filter2 = (props) => {
   );
 };
 
-export default Filter2;
+export default Filter2d;

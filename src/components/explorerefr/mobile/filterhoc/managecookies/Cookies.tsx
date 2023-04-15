@@ -6,7 +6,6 @@ const Cookies = () => {
   useEffect(() => {
     filterObject.subscribe((data) => {
       document.cookie = `myStoreData=${JSON.stringify(data)}`;
-      console.log(data);
     });
 
     const cookieData = document.cookie
@@ -14,7 +13,6 @@ const Cookies = () => {
       .find((cookie) => cookie.startsWith('myStoreData='))
       ?.split('=')[1];
 
-    console.log(JSON.parse(cookieData));
     if (cookieData) {
       setData(JSON.parse(cookieData));
     }

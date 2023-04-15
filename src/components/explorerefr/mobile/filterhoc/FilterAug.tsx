@@ -6,21 +6,21 @@ import Filter2 from './individualfilters/Filter2';
 import Filter3 from './individualfilters/Filter3';
 import Cookies from './managecookies/Cookies';
 
-const opitonsFilter1 = [
+export const opitonsFilter1 = [
   { name: 'a', id: 1 },
   { name: 'b', id: 2 },
   { name: 'c', id: 3 },
   { name: 'd', id: 4 },
 ];
 
-const opitonsFilter2 = [
+export const opitonsFilter2 = [
   { name: 'e', id: 1 },
   { name: 'f', id: 2 },
   { name: 'g', id: 3 },
   { name: 'h', id: 4 },
 ];
 
-const opitonsFilter3 = [
+export const opitonsFilter3 = [
   { name: 'i', id: 1 },
   { name: 'j', id: 2 },
   { name: 'k', id: 3 },

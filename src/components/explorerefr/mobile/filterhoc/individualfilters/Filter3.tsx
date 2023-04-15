@@ -8,12 +8,14 @@ const Filter3 = (props) => {
   return (
     // normal este space-x-7 dar la fold trbuie space-x-1
     <div className='flex justify-center mt-14 space-x-1 items-center'>
-      <span className='text-[18px] font-kanit-text sm:text-[23px]'>
-        SomeField1
+      <span className='text-[18px] font-roboto-text sm:text-[23px]'>
+        SomeField3
       </span>
       <div className='relative'>
         <button
-          onClick={() => setIsOpen('SomeField3')}
+          onClick={() =>
+            setIsOpen(isOpen === 'SomeField3' ? false : 'SomeField3')
+          }
           type='button'
           className='bg-white rounded-lg shadow-standard w-40 text-[15x] h-7 sm:w-44 sm:h-8'
         >

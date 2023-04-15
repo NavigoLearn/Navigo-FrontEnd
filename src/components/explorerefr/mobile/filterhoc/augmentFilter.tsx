@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { useStore } from '@nanostores/react';
 import { dataSave } from '@store/explorefilter';
 
-const AugmentFilter = (OriginalComponent, field) => {
+const AugmentFilter = (OriginalComponent) => {
   const newFilter = (props) => {
     const [listItem, setListItem] = useState({
       SomeField1: 'none',
@@ -16,13 +15,13 @@ const AugmentFilter = (OriginalComponent, field) => {
           setListItem((prev) => ({ ...prev, [fieldDropDown]: option }))
         }
         onSave={() => {
-          dataSave(field, listItem);
+          dataSave(listItem);
         }}
         // onCancel={}
         value={listItem}
-        {...props}
         isOpen={isOpen}
         setIsOpen={setIsOpen}
+        {...props}
       />
     );
   };

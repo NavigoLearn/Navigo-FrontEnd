@@ -2,10 +2,8 @@ import { atom } from 'nanostores';
 
 const filterObject = atom({});
 
-export const dataSave = (field: 'mobileFilter', value: object) => {
-  const newFilter = filterObject.get();
-  newFilter[field] = value;
-  filterObject.set({ ...newFilter });
+export const dataSave = (value: object) => {
+  filterObject.set({ ...value });
 };
 
 export const setData = (cookieData) => {
