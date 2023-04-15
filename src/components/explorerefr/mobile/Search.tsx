@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import loupe from '@assets/loupe.svg';
 import filter from '@assets/filter.svg';
 import sort from '@assets/sortby.svg';
 import SortBy from './SortBy';
-import Filter from './Filter';
+// import Filter from './Filter';
+import FilterAug from './filterhoc/FilterAug';
+import Cookies from './filterhoc/managecookies/Cookies';
 
-const Search = () => {
+const SearchMobile = () => {
   const [clickFilter, setClickFilter] = useState(false);
   const [clickSort, setClickSort] = useState(false);
 
@@ -30,20 +32,11 @@ const Search = () => {
     }
   };
 
-  console.log(clickSort);
   return (
     <div>
+      <Cookies />
+      <div>{clickFilter && <FilterAug handleClick={handleClick} />}</div>
       <div>{clickSort && <SortBy handleClick={handleClick} />}</div>
-      <div>
-        {clickFilter && (
-          <Filter
-            handleClick={handleClick}
-            options1={['Item1', 'Item2', 'Item3']}
-            options2={['2Item1', '2Item2', '2Item3']}
-            options3={['3Item1', '3Item2', '3Item3']}
-          />
-        )}
-      </div>
       <form
         className='flex justify-center items-center mt-9 sm:mt-12'
         action='submit'
@@ -92,4 +85,4 @@ const Search = () => {
   );
 };
 
-export default Search;
+export default SearchMobile;
