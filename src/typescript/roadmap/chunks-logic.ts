@@ -1,20 +1,81 @@
 import roadmapState from '@store/roadmap_state';
 import roadmapEdit from '@store/roadmap_edit';
 import roadmapStatic from '@store/roadmap_static';
-import { setNodes } from '@store/runtime/renderedNodes';
+import { getNodes, setNodes } from '@store/runtime/renderedNodes';
 import chunksStore, { setChunks } from '@store/runtime/renderedChunks';
 import * as d3 from 'd3';
+import { setConnections } from '@store/runtime/renderedConnections';
+import { Roadmap } from '@type/roadmap/roadmap';
 
-export function renderChunks() {
+export function getConnectionsToRender(currentNodes: string[]): string[] {
+  const { editing, loaded } = roadmapState.get();
+  const roadmap = editing ? roadmapEdit.get() : roadmapStatic.get();
+  if (!loaded) return;
+  const connectionsIds = []; // array of all the connections that should be rendered
+  const nodes = currentNodes;
+  // gets the connections for each node
+  nodes.forEach((nodeId) => {
+    const node = roadmap.nodes[nodeId];
+    if (node.connections !== undefined) {
+      connectionsIds.push(...node.connections);
+    } else {
+      throw new Error('node.connections is undefined');
+    }
+  });
+  // eslint-disable-next-line consistent-return
+  return connectionsIds;
+}
+export function setConnectionsToRender() {
+  const { editing, loaded } = roadmapState.get();
+  const roadmap = editing ? roadmapEdit.get() : roadmapStatic.get();
+  if (!loaded) return;
+  const connectionsIds = []; // array of all the connections that should be rendered
+  const nodes = getNodes();
+  // gets the connections for each node
+  nodes.forEach((nodeId) => {
+    const node = roadmap.nodes[nodeId];
+    if (node.connections !== undefined) {
+      connectionsIds.push(...node.connections);
+    } else {
+      throw new Error('node.connections is undefined');
+    }
+  });
+  setConnections(connectionsIds);
+}
+
+export function extendNodeIdsForConnection(nodeIds, roadmap: Roadmap) {
+  // extends the node ids array to include the nodes that are connected to the nodes in the array
+  const extendedNodeIds = [...nodeIds];
+  nodeIds.forEach((nodeId) => {
+    const node = roadmap.nodes[nodeId];
+    if (node.connections !== undefined) {
+      node.connections.forEach((connectionId) => {
+        const connection = roadmap.connections[connectionId];
+        const { parentId, childId } = connection;
+        if (!extendedNodeIds.includes(parentId)) extendedNodeIds.push(parentId);
+        if (!extendedNodeIds.includes(childId)) extendedNodeIds.push(childId);
+      });
+    }
+  });
+  return extendedNodeIds;
+}
+
+export function setNodesToRender() {
   const { editing, loaded } = roadmapState.get();
   if (!loaded) return;
-  let chunks: any;
-  if (editing) chunks = roadmapEdit.get().chunks;
-  else chunks = roadmapStatic.get().chunks;
+
+  let roadmapData: Roadmap;
+  if (editing) {
+    roadmapData = roadmapEdit.get();
+  } else {
+    roadmapData = roadmapStatic.get();
+  }
+
+  const { chunks } = roadmapData;
 
   const chunksIds = chunksStore.get().chunks;
 
-  const nodesArray: string[] = [];
+  let nodesArray: string[] = [];
   chunksIds.forEach((chunkId) => {
     // gets the array of nodes for each chunk id
     const nodes = chunks[chunkId];
@@ -22,6 +83,7 @@ export function renderChunks() {
       nodesArray.push(...nodes);
     }
   });
+  nodesArray = extendNodeIdsForConnection(nodesArray, roadmapData);
   // sets the nodes that should be rendered ( calculated from the chunks visible )
   setNodes(nodesArray);
 }
@@ -75,8 +137,7 @@ export function calculateRenderedChunks(
       renderedChunks.push(`${i}_${j}`);
     }
   }
-  setChunks(renderedChunks);
-  renderChunks();
+  setChunks(renderedChunks); // sets the chunks currently visible
 }
 function throttle(func, delay) {
   // throttleing function for optimization purposes
@@ -89,6 +150,15 @@ function throttle(func, delay) {
     lastCall = now;
     func(...args);
   };
+}
+
+export function renderChunksFlow(
+  transform: { k: number; x: number; y: number },
+  chunkSize: number
+) {
+  calculateRenderedChunks(transform, chunkSize); // calculates chunks from viewport and sets them in the store
+  setNodesToRender(); // checks for nodes in the chunks and sets them into a store to be rendered
+  setConnectionsToRender(); // checks for connections in the chunks and sets them into a store to be rendered
 }
 export class RoadmapChunkingManager {
   svgRef: any;
@@ -103,7 +173,7 @@ export class RoadmapChunkingManager {
     // setup for the chunking manager
     this.svgRefId = svgRefId;
     this.svgRef = document.getElementById(svgRefId);
-    this.throttledRendering = throttle(calculateRenderedChunks, 50);
+    this.throttledRendering = throttle(renderChunksFlow, 50);
     this.chunkSize = roadmapStatic.get().chunkSize;
   }
 

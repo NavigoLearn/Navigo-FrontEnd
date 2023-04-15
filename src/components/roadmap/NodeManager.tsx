@@ -12,6 +12,7 @@ import {
 } from '@type/roadmap/typecheckers';
 import { getNodeById } from '@store/roadmap_static';
 import { addDraggability } from '@typescript/roadmap/roadmap-render';
+import levels from '@styles/levelStyles';
 import Node from './nodes/node-info/Node';
 import Resource from './nodes/node-resource/Resource';
 
@@ -19,6 +20,7 @@ const NodeManager = ({ data, editing, triggerCb }: any) => {
   const rootRef = useRef<HTMLDivElement>(null);
   const objRef = useRef<SVGForeignObjectElement>(null);
   const [render, setRender] = useState(true);
+  const dataRef = useRef(data);
 
   function triggerRender() {
     setRender((val) => !val);
@@ -53,13 +55,24 @@ const NodeManager = ({ data, editing, triggerCb }: any) => {
     } else {
       node = data;
     }
+    dataRef.current = node;
     if (isNodeInfoProps(node)) {
-      const { title, tabId } = node;
-      return <Node editing={editing} id={id} title={title} tabId={tabId} />;
+      const { title, tabId, level } = node;
+      return (
+        <Node
+          level={level}
+          editing={editing}
+          id={id}
+          title={title}
+          tabId={tabId}
+        />
+      );
     }
     if (isNodeResourceProps(node)) {
-      const { id: idNode, title, nodes: resNodes } = node;
-      return <Resource id={idNode} title={title} nodes={resNodes} />;
+      const { id: idNode, title, nodes: resNodes, level } = node;
+      return (
+        <Resource level={level} id={idNode} title={title} nodes={resNodes} />
+      );
     }
     throw new Error('something went wrong');
   };
@@ -67,10 +80,15 @@ const NodeManager = ({ data, editing, triggerCb }: any) => {
     return renderNode();
   }, [render]);
 
+  const compOpacity = levels[dataRef.current.level].comp;
+
   return (
     <g id={`group${data.id}`} transform={`translate(${data.x},${data.y})`}>
-      <foreignObject ref={objRef}>
-        <div ref={rootRef} className=' inline-block border-0 '>
+      <foreignObject ref={objRef} className='bg-transparent '>
+        <div
+          ref={rootRef}
+          className={`  inline-block  bg-transparent  ${compOpacity} `}
+        >
           {renderedNode}
         </div>
       </foreignObject>

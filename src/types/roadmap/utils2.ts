@@ -1,6 +1,6 @@
 import roadmapEdit from '@store/roadmap_edit';
 import roadmapStatic from '@store/roadmap_static';
-import { setEditingTrue } from '@store/roadmap_state';
+import { setEditingTrue } from '@typescript/roadmap/roadmap-edit-logic-decorated';
 import { applyAllDiffs } from '@store/runtime/diff-tabs';
 
 export function transferRoadmapToEdit() {

@@ -3,8 +3,10 @@ import {
   triggerChunkRecalculationDecorator,
   triggerChunkRerenderDecorator,
   manualTrigger,
+  triggerRerenderAllDecorator,
 } from '@typescript/roadmap/roadmap-edit-decorators';
 import { NodeIdentifierTypes, NodeInfoStore } from '@type/roadmap/nodes';
+import { LevelTypes } from '@type/roadmap/level-types';
 import roadmapEdit from '@store/roadmap_edit';
 import {
   isNodeInfoProps,
@@ -20,10 +22,11 @@ import {
   generateNewTab,
   generateResourceSubNodeNew,
   generationFlow,
-  getNodeCoords,
   getUnusedNodeId,
 } from '@typescript/roadmap/roadmap-edit-logic';
 import { ResourceSubNodeStore } from '@type/roadmap/resources';
+import state from '@store/roadmap_state';
+import { getNodeCoords } from '@typescript/roadmap/roadmap-render';
 
 export const changeNodeCoords = triggerRerenderDecorator(
   triggerChunkRecalculationDecorator((id: string, x: number, y: number) => {
@@ -39,6 +42,39 @@ export const changeNodeCoords = triggerRerenderDecorator(
     original.nodes = nodes;
     roadmapEdit.set({ ...original });
   })
+);
+
+export const removeResourceSubNode = triggerRerenderDecorator(
+  (id: string, subNodeId: string) => {
+    const original = roadmapEdit.get();
+    const { nodes } = original;
+    if (!nodes[id] || nodes[id].type !== 'Resource') {
+      throw new Error('Invalid node type when removing resource subNode');
+    }
+    const currentNode = nodes[id];
+    if (!isNodeResourceStore(currentNode)) {
+      throw new Error('Invalid node type when removing resource subNode');
+    }
+    currentNode.nodes = currentNode.nodes.filter((node) => node !== subNodeId);
+    original.nodes = nodes;
+    // remove resource subNode too!
+    delete original.resources[subNodeId];
+    roadmapEdit.set({ ...original });
+  }
+);
+export const changeNodeLevel = triggerRerenderDecorator(
+  (id: string, level: LevelTypes) => {
+    const original = roadmapEdit.get();
+    const { nodes } = original;
+    const node = nodes[id];
+    if (!isNodeTypesStore(node)) {
+      throw new Error('No node found for given id');
+    }
+    node.level = level;
+    nodes[id] = node;
+    original.nodes = nodes;
+    roadmapEdit.set({ ...original });
+  }
 );
 
 export const changeNodeType = triggerRerenderDecorator(
@@ -57,6 +93,8 @@ export const changeNodeType = triggerRerenderDecorator(
     newNode.x = currentNode.x;
     newNode.y = currentNode.y;
     newNode.chunk = currentNode.chunk;
+    newNode.level = currentNode.level;
+    newNode.children = currentNode.children;
 
     if (isNodeInfoProps(newNode) && type === 'Info') {
       newNode.tabId = generateNewTab();
@@ -126,3 +164,18 @@ export const changeResourceSubNode = <T extends keyof ResourceSubNodeStore>(
   manualTrigger(resources[id].parentId);
   roadmapEdit.set({ ...original });
 };
+
+export const toggleEditing = triggerRerenderAllDecorator(() => {
+  const original = state.get();
+  state.set({ ...original, editing: !original.editing });
+});
+
+export const setEditingTrue = triggerRerenderAllDecorator(() => {
+  const original = state.get();
+  state.set({ ...original, editing: true });
+});
+
+export const setEditingFalse = triggerRerenderAllDecorator(() => {
+  const original = state.get();
+  state.set({ ...original, editing: false });
+});

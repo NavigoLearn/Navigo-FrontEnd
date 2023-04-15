@@ -65,7 +65,7 @@ const data: HashMap<TabInfo> = {
   ),
 };
 
-export const fetchAboutTab = async (id: string) => {
+export const fetchTabAbout = async (id: string) => {
   return new Promise<TabAbout>((resolve) => {
     setTimeout(() => {
       resolve(aboutTab[id]);
@@ -156,6 +156,20 @@ export const postTabIssue = async (id: string, newData: TabIssue) => {
     }, networkLatency);
   });
 };
+
+export function postTabAboutProp<T extends keyof TabAbout>(
+  roadmapId: string,
+  prop: T,
+  value: TabAbout[T]
+) {
+  return new Promise<TabAbout>((resolve) => {
+    setTimeout(() => {
+      // change data at id with data
+      aboutTab[roadmapId][prop] = value;
+      resolve(aboutTab[roadmapId]);
+    }, networkLatency);
+  });
+}
 
 export function postTabInfoProp<T extends keyof TabInfo>(
   id: string,

@@ -1,25 +1,145 @@
 import * as d3 from 'd3';
-import { getNodeCoords } from '@typescript/roadmap/roadmap-edit-logic';
-import roadmapState from '@store/roadmap_state';
 import roadmapEdit from '@store/roadmap_edit';
 import roadmapStatic from '@store/roadmap_static';
+import roadmapState from '@store/roadmap_state';
 import { ConnectionStore } from '@type/roadmap/connections';
-import { Roadmap } from '@type/roadmap/roadmap';
-import { WritableAtom } from 'nanostores';
-import { setSelection } from '@store/selection';
+import selection, { setSelection } from '@store/selection';
 import { changeNodeCoords } from '@typescript/roadmap/roadmap-edit-logic-decorated';
+import renderConnectionsStore from '@store/runtime/renderedConnections';
+import { NodeTypesStore } from '@type/roadmap/nodes';
+import {
+  isNodeInfoStore,
+  isNodeResourceStore,
+} from '@type/roadmap/typecheckers';
+import cachedNodeCoords, {
+  cacheNodeCoord,
+} from '@store/runtime/cached-node-coords';
+
+function getTransformXY(transform: string) {
+  const firstParentheses = transform.indexOf('(');
+  const lastParentheses = transform.indexOf(')');
+  const transformValues = transform
+    .slice(firstParentheses + 1, lastParentheses)
+    .split(',');
+  return {
+    x: parseInt(transformValues[0], 10),
+    y: parseInt(transformValues[1], 10),
+  };
+}
+function calculateMiddleOfNodeOffsetStatic(node: NodeTypesStore) {
+  const offset = {
+    x: 0,
+    y: 0,
+  };
+  if (isNodeInfoStore(node)) {
+    offset.x = 256; // calculates the default values for each node type based on their properties
+    offset.y = 30; // this way we dont need to actually render the nodes to get their sizes which would be an expensive opration
+    // although switching to actually rendering all needed nodes for connections might be necessary if the nodes grow in complexity
+  }
+
+  if (isNodeResourceStore(node)) {
+    offset.x = 256;
+    offset.y = 60;
+  }
+
+  return offset;
+}
+
+function calculateMiddleOfNodeOffsetDynamic(id) {
+  const offset = {
+    x: 0,
+    y: 0,
+  };
+  const groupId = `group${id}`;
+  const nodeGroup = document.getElementById(groupId);
+  // gets node group bounding box
+  const { width, height } = nodeGroup.getBoundingClientRect();
+  // calculates offset
+  offset.x = width / 2;
+  offset.y = height / 2;
+  return offset;
+}
+function calculateCoordOfNodeDynamic(id) {
+  // used for updating the connections while dragging a node
+  const coord = {
+    x: 0,
+    y: 0,
+  };
+  const groupId = `group${id}`;
+  const nodeGroup = document.getElementById(groupId);
+  // gets the translate value of the node group
+  const transform = nodeGroup.getAttribute('transform');
+  const translate = transform.split('(')[1].split(')')[0].split(',');
+  coord.x = Number(translate[0]);
+  coord.y = Number(translate[1]);
+  const offset = calculateMiddleOfNodeOffsetDynamic(id);
+  coord.x += offset.x;
+  coord.y += offset.y;
+  return coord;
+}
+
+function calculateCoordOfNodeStatic(id) {
+  // used for updating the connections while dragging a node
+  const coord = {
+    x: 0,
+    y: 0,
+  };
+  const node = roadmapEdit.get().nodes[id];
+  const groupId = `group${id}`;
+  const nodeGroup = document.getElementById(groupId);
+  // gets the translate value of the node group
+  const transform = nodeGroup.getAttribute('transform');
+  const translate = transform.split('(')[1].split(')')[0].split(',');
+  coord.x = Number(translate[0]);
+  coord.y = Number(translate[1]);
+
+  const { x: width, y: height } = calculateMiddleOfNodeOffsetStatic(node);
+  coord.x += width / 2;
+  coord.y += height / 2;
+  return coord;
+}
+
+export function getNodeCoords(id: string) {
+  const offset = {
+    x: 0,
+    y: 0,
+  };
+  const groupId = `group${id}`;
+  const nodeGroup = document.getElementById(groupId);
+  // gets node group bounding box
+  const transform = nodeGroup.getAttribute('transform');
+  const { x, y } = getTransformXY(transform);
+  // calculates offset
+  offset.x = x;
+  offset.y = y;
+
+  return offset;
+}
 
 function getNodeMiddleCoords(id: string) {
-  const { x, y } = getNodeCoords(id);
-
-  const { width, height } = document
-    .querySelector(`#${id}`)
-    .getBoundingClientRect();
-
+  const { editing } = roadmapState.get();
+  const original = editing ? roadmapEdit.get() : roadmapStatic.get();
+  const { nodes } = original;
+  if (!nodes[id]) throw new Error('node not found');
+  const node = nodes[id];
+  const { x, y } = node;
+  // const { x: width, y: height } = calculateMiddleOfNodeOffsetDynamic(id);
+  const { x: width, y: height } = calculateMiddleOfNodeOffsetStatic(node);
   return {
     x: x + width / 2,
     y: y + height / 2,
   };
+}
+function getNodeMiddleCoordsFlow(id: string) {
+  const cache = cachedNodeCoords.get();
+  // checks if its already in cache
+  // if yes takes from cache
+  if (cache[id]) return cache[id];
+  // if no calls the normal calculations
+  const coords = getNodeMiddleCoords(id);
+  // adds to cache
+  cacheNodeCoord(id, coords);
+  return coords;
 }
 
 function getNodeOffsetCoords(id: string) {
@@ -33,13 +153,18 @@ function getNodeOffsetCoords(id: string) {
   };
 }
 
-function renderConnectionsRoadmap(roadmap: WritableAtom<Roadmap>) {
-  const roadmapData = roadmap.get();
-  const { connections } = roadmapData;
+export function renderConnections() {
+  const renderConns = renderConnectionsStore.get();
+  const { connections: connIds } = renderConns;
+  const { editing } = roadmapState.get();
+  const original = editing ? roadmapEdit.get() : roadmapStatic.get();
+  const { connections } = original;
+
   // creates an array from the nodes json object
-  const connectionArray: ConnectionStore[] = Object.keys(connections).map(
+  const connectionArray: ConnectionStore[] = connIds.map(
     (key) => connections[key]
   );
+
   const g = document.getElementById('rootGroupConnections');
   const nodeSelection = d3
     .select(g)
@@ -47,93 +172,66 @@ function renderConnectionsRoadmap(roadmap: WritableAtom<Roadmap>) {
     .data(connectionArray, (d) => {
       return d.id;
     }); // Use the data value as the key function
+  // calculates the middle of the node for each node
   // we append line objects
   nodeSelection
     .enter()
     .append('line')
     .attr('id', (d: ConnectionStore) => d.id)
-    .attr('x1', (d: ConnectionStore) => getNodeMiddleCoords(d.parentId).x)
-    .attr('y1', (d: ConnectionStore) => getNodeMiddleCoords(d.parentId).y)
-    .attr('x2', (d: ConnectionStore) => getNodeMiddleCoords(d.childId).x)
-    .attr('y2', (d: ConnectionStore) => getNodeMiddleCoords(d.childId).y)
+    .attr('x1', (d: ConnectionStore) => getNodeMiddleCoordsFlow(d.parentId).x)
+    .attr('y1', (d: ConnectionStore) => getNodeMiddleCoordsFlow(d.parentId).y)
+    .attr('x2', (d: ConnectionStore) => getNodeMiddleCoordsFlow(d.childId).x)
+    .attr('y2', (d: ConnectionStore) => getNodeMiddleCoordsFlow(d.childId).y)
     .attr('stroke', 'black')
     .attr('stroke-width', 2);
 
+  // this should happen only in editing mode when a node is moving
   nodeSelection
-    .join('line')
-    .attr('x1', (d: ConnectionStore) => getNodeMiddleCoords(d.parentId).x)
-    .attr('y1', (d: ConnectionStore) => getNodeMiddleCoords(d.parentId).y)
-    .attr('x2', (d: ConnectionStore) => getNodeMiddleCoords(d.childId).x)
-    .attr('y2', (d: ConnectionStore) => getNodeMiddleCoords(d.childId).y);
+    .attr('id', (d: ConnectionStore) => d.id)
+    .attr('x1', (d: ConnectionStore) => getNodeMiddleCoordsFlow(d.parentId).x)
+    .attr('y1', (d: ConnectionStore) => getNodeMiddleCoordsFlow(d.parentId).y)
+    .attr('x2', (d: ConnectionStore) => getNodeMiddleCoordsFlow(d.childId).x)
+    .attr('y2', (d: ConnectionStore) => getNodeMiddleCoordsFlow(d.childId).y)
+    .attr('stroke', 'black')
+    .attr('stroke-width', 2);
+
+  nodeSelection.exit().remove();
 }
 
-export function renderConnections() {
-  const { editing } = roadmapState.get();
-  if (!editing) {
-    renderConnectionsRoadmap(roadmapStatic);
-  } else {
-    renderConnectionsRoadmap(roadmapEdit);
-  }
-}
+export function updateConnections() {
+  // called when a node is moved via dragging
+  const { adjacentConnectionsId: connIds } = selection.get();
+  const { connections } = roadmapEdit.get();
+  // creates an array from the nodes json object
+  const connectionArray: ConnectionStore[] = connIds.map(
+    (key) => connections[key]
+  );
 
-export function renderConnection(id, movingElementId, movingElementCoords) {
   const g = document.getElementById('rootGroupConnections');
-  d3.select(g)
+  const nodeSelection = d3
+    .select(g)
     .selectAll('line')
-    .data([id], (d) => {
-      return d;
-    });
+    .data(connectionArray, (d) => {
+      return d.id;
+    }); // Use the data value as the key function
 
-  const nodeSelection = d3.select(`#${id}`);
+  // calculates the new positions based on the new node positions
+  nodeSelection
 
-  // get connection
-  const connection = roadmapEdit.get().connections[id];
-  const { parentId, childId } = connection;
-  if (connection.parentId === movingElementId) {
-    nodeSelection
-      // .join('line')
-      .attr(
-        'x1',
-        movingElementCoords.x + getNodeOffsetCoords(movingElementId).x
-      )
-      .attr(
-        'y1',
-        movingElementCoords.y + getNodeOffsetCoords(movingElementId).y
-      )
-      .attr('x2', getNodeMiddleCoords(childId).x)
-      .attr('y2', getNodeMiddleCoords(childId).y)
-      .attr('stroke', 'black')
-      .attr('stroke-width', 2);
-  } else if (connection.childId === movingElementId) {
-    nodeSelection
-      // .join('line')
-      .attr('x1', getNodeMiddleCoords(parentId).x)
-      .attr('y1', getNodeMiddleCoords(parentId).y)
-      .attr(
-        'x2',
-        movingElementCoords.x + getNodeOffsetCoords(movingElementId).x
-      )
-      .attr(
-        'y2',
-        movingElementCoords.y + getNodeOffsetCoords(movingElementId).y
-      )
-      .attr('stroke', 'black')
-      .attr('stroke-width', 2);
-  } else {
-    throw new Error('moving element is not a part of the connection');
-  }
-}
+    .attr(
+      'x1',
+      (d: ConnectionStore) => calculateCoordOfNodeStatic(d.parentId).x
+    )
 
-function getTransformXY(transform: string) {
-  const firstParentheses = transform.indexOf('(');
-  const lastParentheses = transform.indexOf(')');
-  const transformValues = transform
-    .slice(firstParentheses + 1, lastParentheses)
-    .split(',');
-  return {
-    x: parseInt(transformValues[0], 10),
-    y: parseInt(transformValues[1], 10),
-  };
+    .attr(
+      'y1',
+      (d: ConnectionStore) => calculateCoordOfNodeStatic(d.parentId).y
+    )
+    .attr('x2', (d: ConnectionStore) => calculateCoordOfNodeStatic(d.childId).x)
+    .attr(
+      'y2',
+      (d: ConnectionStore) => calculateCoordOfNodeStatic(d.childId).y
+    );
 }
 
 export const addDraggability = (id: string, editing: boolean) => {
@@ -146,7 +244,7 @@ export const addDraggability = (id: string, editing: boolean) => {
     .on('start', function (event) {
       if (!editing) return;
       // sets the
-      setSelection(d3.select(this).attr('id'));
+      setSelection(id);
       // coordinates of mouse click in the original reference system
       const { x } = event;
       const { y } = event;
@@ -168,6 +266,8 @@ export const addDraggability = (id: string, editing: boolean) => {
       newPos.y = event.y - offsets.y; // offsets used only for dragging purposes not for actual save
 
       d3.select(this).attr('transform', `translate(${newPos.x}, ${newPos.y})`);
+      // triggers the update of the connections
+      updateConnections();
     })
     // eslint-disable-next-line func-names
     .on('end', function () {

@@ -143,7 +143,7 @@ export function addInfoTabLink({
   });
 }
 
-export function setAbout() {
+export function setAbout(tab: TabAbout) {
   const newTab = tabManagerStore.get();
   if (newTab.type === 'about' && newTab.open) {
     falseOpen();
@@ -152,7 +152,16 @@ export function setAbout() {
   trueOpen();
   tabManagerStore.set({
     ...newTab,
+    about: { ...tab },
     type: 'about',
+  });
+}
+
+export function setAboutTabProp(property: string, value: string) {
+  const newTab = tabManagerStore.get();
+  newTab.about[property] = value;
+  tabManagerStore.set({
+    ...newTab,
   });
 }
 

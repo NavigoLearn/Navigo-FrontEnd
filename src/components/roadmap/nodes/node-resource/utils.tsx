@@ -8,6 +8,7 @@ export function renderNodeEdit(id, parentId) {
   return (
     <div key={data.id} className='flex justify-center items-center my-2'>
       <ResourceSubNode
+        level={data.level}
         id={data.id}
         parentId={parentId}
         type='ResourceSubNode'
@@ -24,6 +25,7 @@ export function renderNodeNormal(id, parentID) {
   return (
     <div key={data.id} className='flex justify-center items-center my-2'>
       <ResourceSubNode
+        level={data.level}
         id={data.id}
         parentId={parentID}
         type='ResourceSubNode'

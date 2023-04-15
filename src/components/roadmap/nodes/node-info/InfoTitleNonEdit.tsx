@@ -8,7 +8,7 @@ const InfoTitleNonEdit = ({
   value,
   id,
   setCb: setEditTitle,
-}: NonEditingComponentProps) => {
+}: NonEditingComponentProps<string>) => {
   return (
     <>
       <button

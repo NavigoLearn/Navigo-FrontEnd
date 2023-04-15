@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
+import roadmapEdit, { getNodeLevel } from '@store/roadmap_edit';
 import { Roadmap } from '@type/roadmap/roadmap';
 import {
   calculateChunkId,
@@ -7,24 +8,15 @@ import {
   generateTabInfo,
 } from '@typescript/roadmap/generators';
 import { TabInfo, TabIssue } from '@type/roadmap/tab-manager';
+import { NodeIdentifierTypes, NodeResourceStore } from '@type/roadmap/nodes';
 import {
-  NodeIdentifierTypes,
-  NodeInfoStore,
-  NodeResourceStore,
-} from '@type/roadmap/nodes';
-import {
-  isNodeInfoStore,
   isNodeResourceStore,
   isNodeTypesStore,
 } from '@type/roadmap/typecheckers';
 import { ResourceSubNodeStore } from '@type/roadmap/resources';
-import roadmapEdit from '@store/roadmap_edit';
 import { diffTabInfo } from '@store/runtime/diff-tabs';
 import { cacheTabInfo } from '@store/runtime/cached-tabs';
-import {
-  changeTabIssueFlow,
-  changeTabIssuePropFlow,
-} from '@typescript/roadmap/tab-logic-flows';
+import { changeTabIssuePropFlow } from '@typescript/roadmap/tab-logic-flows';
 
 /*
 The get function naming convention is:
@@ -151,6 +143,7 @@ export function generateResourceSubNodeEmpty(
     tabId,
     type: 'ResourceSubNode',
     title: '',
+    level: getNodeLevel(parentId),
   };
 }
 
@@ -226,13 +219,6 @@ export function addNodeInfoEmpty(
   return newId;
 }
 
-export function getNodeCoords(id: string) {
-  const original = roadmapEdit.get();
-  const { nodes } = original;
-  if (!nodes[id]) return null;
-  return { x: nodes[id].x, y: nodes[id].y };
-}
-
 export function generationFlow(
   type: NodeIdentifierTypes,
   parentId: string,
@@ -284,23 +270,6 @@ export function addConnection(parentId: string, childId: string) {
   roadmapEdit.set({ ...original });
 }
 
-export function removeResourceSubNode(id: string, subNodeId: string) {
-  const original = roadmapEdit.get();
-  const { nodes } = original;
-  if (!nodes[id] || nodes[id].type !== 'Resource') {
-    throw new Error('Invalid node type when removing resource subNode');
-  }
-  const currentNode = nodes[id];
-  if (!isNodeResourceStore(currentNode)) {
-    throw new Error('Invalid node type when removing resource subNode');
-  }
-  currentNode.nodes = currentNode.nodes.filter((node) => node !== subNodeId);
-  original.nodes = nodes;
-  // remove resource subNode too!
-  delete original.resources[subNodeId];
-  roadmapEdit.set({ ...original });
-}
-
 export const getNodeById = (id: string) => {
   const original = roadmapEdit.get();
   const { nodes } = original;
@@ -320,4 +289,3 @@ export function getResourceSubNodeById(id: string) {
   const { resources } = original;
   return resources[id];
 }
-

@@ -1,12 +1,21 @@
-export type EditingComponentProps = {
-  value: string;
-  onChange: (value: string) => void;
+import React from 'react';
+
+export type EditingComponentProps<T> = {
+  value: T;
+  onChange: (value: T) => void;
   onSave: () => void;
   onCancel: () => void;
 };
 
-export type NonEditingComponentProps = {
-  value: string;
+export type NonEditingComponentProps<T> = {
+  value: T;
   id: string;
   setCb: () => void;
+};
+
+export type StateManagerProps<T> = {
+  value: T;
+  EditingComponent: React.FC<EditingComponentProps<T>>;
+  NonEditingComponent: React.FC<NonEditingComponentProps<T>>;
+  persistDataSave: (value: T) => void;
 };

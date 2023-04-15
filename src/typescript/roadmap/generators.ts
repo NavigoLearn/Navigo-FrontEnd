@@ -1,7 +1,7 @@
 import { TabInfo, TabAbout, TabIssue } from '@type/roadmap/tab-manager';
 import { NodeResourceStore, NodeInfoStore } from '@type/roadmap/nodes';
 import { ResourceSubNodeStore } from '@type/roadmap/resources';
-import roadmapEdit from '@store/roadmap_edit';
+import roadmapEdit, { getNodeLevel } from '@store/roadmap_edit';
 
 export function calculateChunkId(x, y) {
   const { chunkSize } = roadmapEdit.get();
@@ -56,7 +56,8 @@ export function generateNodeInfo(
   x: number,
   y: number,
   parent: string,
-  children: string[]
+  children: string[],
+  connections: string[]
 ): NodeInfoStore {
   return {
     id,
@@ -68,6 +69,8 @@ export function generateNodeInfo(
     parent,
     children,
     chunk: calculateChunkId(x, y),
+    level: 'secondary',
+    connections,
   };
 }
 
@@ -93,7 +96,8 @@ export function generateNNodesInfo(
         x * i,
         y * j,
         parent,
-        children
+        children,
+        []
       );
     }
   }
@@ -121,7 +125,8 @@ export function generateNodeResource(
   x: number,
   y: number,
   nodes: string[],
-  parent: string
+  parent: string,
+  connections: string[]
 ): NodeResourceStore {
   return {
     id,
@@ -133,6 +138,8 @@ export function generateNodeResource(
     parent,
     children: [],
     chunk: calculateChunkId(x, y),
+    level: 'secondary',
+    connections,
   };
 }
 
@@ -147,6 +154,8 @@ export function generateNodeResourceEmpty(id: string): NodeResourceStore {
     parent: '',
     children: [],
     chunk: '',
+    level: 'secondary',
+    connections: [],
   };
 }
 
@@ -162,6 +171,7 @@ export function generateResourceSubNodeEmpty(
     title,
     type: 'ResourceSubNode',
     tabId,
+    level: 'secondary',
   };
 }
 
@@ -176,6 +186,8 @@ export function generateNodeInfoEmpty(id: string): NodeInfoStore {
     parent: '',
     children: [],
     chunk: '',
+    level: 'secondary',
+    connections: [],
   };
 }
 
@@ -191,6 +203,7 @@ export function generateResourceSubNode(
     title,
     type: 'ResourceSubNode',
     tabId,
+    level: getNodeLevel(parentId),
   };
 }
 

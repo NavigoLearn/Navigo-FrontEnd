@@ -1,12 +1,16 @@
 import { getNodes } from '@store/runtime/renderedNodes';
+import { getNodeCoords } from '@typescript/roadmap/roadmap-render';
 import { getTriggersAll } from '@store/runtime/rerenderTriggers';
 import { calculateChunkId } from '@typescript/roadmap/generators';
 import {
   removeChunkNode,
   addChunkNode,
-  getNodeCoords,
 } from '@typescript/roadmap/roadmap-edit-logic';
 import { triggerChunkRerender } from '@store/runtime/renderedChunks';
+import {
+  emptyCachedNodeCoord,
+  emptyCachedNodeCoordAll,
+} from '@store/runtime/cached-node-coords';
 
 type TriggerFunction<T extends any[]> = (id: string, ...args: T) => void;
 type TriggerFunctionNoId<T extends any[]> = (...args: T) => void;
@@ -41,6 +45,8 @@ export function triggerRerenderAllDecorator<T extends any[]>(
     func(...args);
     const nodesId = getNodes();
     const triggers = getTriggersAll();
+    // empties the node cache for all nodes since editing switched
+    emptyCachedNodeCoordAll();
     // reRenders all nodes
     nodesId.forEach((nodeId) => {
       const trigger = triggers[nodeId];

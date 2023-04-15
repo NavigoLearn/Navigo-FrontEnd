@@ -11,10 +11,12 @@ const ResourceSubNode = ({
   tabId,
   id,
   parentId,
+  level,
 }: ResourceSubNodeProps) => {
   const { editing } = useStore(roadmapState);
   return editing ? (
     <ResourceSubNodeEdit
+      level={level}
       title={title}
       type={type}
       tabId={tabId}
@@ -22,7 +24,7 @@ const ResourceSubNode = ({
       parentId={parentId}
     />
   ) : (
-    <ResourceSubNodeView title={title} tabId={tabId} id={id} />
+    <ResourceSubNodeView level={level} title={title} tabId={tabId} id={id} />
   );
 };
 

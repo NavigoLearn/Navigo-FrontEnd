@@ -7,7 +7,7 @@ const SubNodeTitleEdit = ({
   onChange,
   onSave,
   onCancel,
-}: EditingComponentProps) => {
+}: EditingComponentProps<string>) => {
   // title component when editing
   return (
     <>

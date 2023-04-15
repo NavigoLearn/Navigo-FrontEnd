@@ -2,12 +2,12 @@ import React, { useRef } from 'react';
 import stateManager from '@components/roadmap/nodes/edit-logic-modules/StateManager';
 import SubNodeTitleEdit from '@components/roadmap/nodes/node-resource/sub-node/SubNodeTitleEdit';
 import SubNodeTitleNonEdit from '@components/roadmap/nodes/node-resource/sub-node/SubNodeTitleNonEdit';
-import useStateAndRef from '@hooks/useStateAndRef';
-import { removeResourceSubNode } from '@typescript/roadmap/roadmap-edit-logic';
-import { changeResourceSubNode } from '@typescript/roadmap/roadmap-edit-logic-decorated';
+import {
+  removeResourceSubNode,
+  changeResourceSubNode,
+} from '@typescript/roadmap/roadmap-edit-logic-decorated';
 
 import { ResourceSubNodeProps } from '@type/roadmap/resources';
-import { NodeInfoProps } from '@type/roadmap/nodes';
 
 const ResourceSubNodeEdit = ({
   title,
@@ -16,16 +16,8 @@ const ResourceSubNodeEdit = ({
   parentId,
 }: ResourceSubNodeProps) => {
   const rootRef = useRef<HTMLDivElement>(null);
-  const [originalData, setOriginalData, originalDataRef] =
-    useStateAndRef<NodeInfoProps>({
-      id,
-      title,
-      tabId,
-    });
-  // custom hook to keep an instance of the data and have a ref that is updated with the data
-  // that we can only pass once to the stateManager and will always be updated
 
-  const PropertyHOC = useRef(stateManager(originalDataRef));
+  const PropertyHOC = useRef(stateManager(id));
   const Property = PropertyHOC.current;
 
   return (
@@ -36,14 +28,10 @@ const ResourceSubNodeEdit = ({
       <Property
         EditingComponent={SubNodeTitleEdit}
         NonEditingComponent={SubNodeTitleNonEdit}
-        field='title'
-        persistDataSave={(
-          idVal: string,
-          prop: keyof ResourceSubNodeProps,
-          value: string
-        ) => {
-          changeResourceSubNode(idVal, prop, value);
+        persistDataSave={(value: string) => {
+          changeResourceSubNode(id, 'title', value);
         }}
+        value={title}
       />
       <button
         type='button'

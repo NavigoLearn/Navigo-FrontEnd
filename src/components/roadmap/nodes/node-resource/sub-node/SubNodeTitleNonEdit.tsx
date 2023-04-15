@@ -11,7 +11,7 @@ const SubNodeTitleNonEdit = ({
   value,
   id,
   setCb: setEditTitle,
-}: NonEditingComponentProps) => {
+}: NonEditingComponentProps<string>) => {
   return (
     <>
       <button
