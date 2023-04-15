@@ -17,6 +17,7 @@ export interface NodeStore {
 }
 export interface NodeInfoProps {
   editing?: boolean;
+  editingNode?: boolean;
   level: LevelTypes;
   id: string;
   title: string;
@@ -44,7 +45,7 @@ export type NodeTypesStore = NodeInfoStore | NodeResourceStore;
 export type NodeManagerProps = {
   data: NodeTypesStore;
   editing: boolean;
-  triggerCb: (cb: any) => void;
+  triggerCb: (cbRender: any, cbEnable: any, cbDisable: any) => void;
 };
 
 export type Coord = {

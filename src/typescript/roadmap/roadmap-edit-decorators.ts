@@ -3,7 +3,7 @@ import {
   getNodeCoords,
   renderConnections,
 } from '@typescript/roadmap/roadmap-render';
-import { getTriggersAll } from '@store/runtime/rerenderTriggers';
+import { getTriggersRenderAll } from '@store/runtime/rerenderTriggers';
 import { calculateChunkId } from '@typescript/roadmap/generators';
 import {
   removeChunkNode,
@@ -29,7 +29,6 @@ export function triggerAddConnectionDecorator<T extends any[]>(
 ): TriggerFunctionWithParent<T> {
   return (parentId: string, id: string, ...args: T) => {
     func(parentId, id, ...args);
-    console.log(parentId, id, 'conn');
     addConnection(parentId, id);
   };
 }
@@ -44,7 +43,7 @@ export function triggerPositionCacheClearDecorator<T extends any[]>(
 }
 
 export function manualTrigger(id: string) {
-  const triggers = getTriggersAll();
+  const triggers = getTriggersRenderAll();
   const trigger = triggers[id];
   if (trigger) trigger();
   else throw new Error('no trigger found');
@@ -57,7 +56,7 @@ export function triggerRerenderDecorator<T extends any[]>(
     // gets all rendered nodes
     func(id, ...args);
     // the args should have id
-    const triggers = getTriggersAll();
+    const triggers = getTriggersRenderAll();
     // reRenders only a specific node
     const trigger = triggers[id];
     if (trigger) trigger();
@@ -72,7 +71,7 @@ export function triggerRerenderAllDecorator<T extends any[]>(
     // gets all rendered nodes
     func(...args);
     const nodesId = getNodes();
-    const triggers = getTriggersAll();
+    const triggers = getTriggersRenderAll();
     // empties the node cache for all nodes since editing switched
     emptyCachedNodeCoordAll();
     // reRenders all nodes

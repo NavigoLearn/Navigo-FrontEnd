@@ -235,7 +235,17 @@ export function updateConnections() {
     );
 }
 
-export const addDraggability = (id: string, editing: boolean) => {
+function moveOnDrag(id: string, newPos: { x: number; y: number }) {
+  const sel = document.getElementById(`group${id}`);
+  const obj = d3.select(sel);
+  obj.attr('transform', `translate(${newPos.x}, ${newPos.y})`);
+  // syncs the tooltip movement with the node movement
+  const tooltip = document.getElementById(`tooltip${id}`);
+  const tooltipObj = d3.select(tooltip);
+  tooltipObj.attr('transform', `translate(${newPos.x}, ${newPos.y - 128})`);
+}
+
+export const addDraggability = (id: string, allowed: boolean) => {
   const nodeSelection = d3.select('g').select(`#group${id}`);
   const offsets = { x: 0, y: 0 };
   const newPos = { x: 0, y: 0 };
@@ -243,7 +253,6 @@ export const addDraggability = (id: string, editing: boolean) => {
     .drag()
     // eslint-disable-next-line func-names
     .on('start', function (event) {
-      if (!editing) return;
       // sets the
       setSelection(id);
       // coordinates of mouse click in the original reference system
@@ -261,18 +270,16 @@ export const addDraggability = (id: string, editing: boolean) => {
     })
     // eslint-disable-next-line func-names
     .on('drag', function (event) {
-      if (!editing) return;
       // event x and event y are measures from the top left corner of the svg
       newPos.x = event.x - offsets.x;
       newPos.y = event.y - offsets.y; // offsets used only for dragging purposes not for actual save
 
-      d3.select(this).attr('transform', `translate(${newPos.x}, ${newPos.y})`);
       // triggers the update of the connections
+      moveOnDrag(id, newPos);
       updateConnections();
     })
     // eslint-disable-next-line func-names
     .on('end', function () {
-      if (!editing) return;
       if (
         roadmapEdit.get().nodes[id].x === newPos.x &&
         roadmapEdit.get().nodes[id].y === newPos.y
@@ -281,5 +288,9 @@ export const addDraggability = (id: string, editing: boolean) => {
       changeNodeCoords(id, newPos.x, newPos.y);
     });
 
-  nodeSelection.call(drag);
+  if (allowed) {
+    nodeSelection.call(drag);
+  } else {
+    nodeSelection.on('.drag', null);
+  }
 };

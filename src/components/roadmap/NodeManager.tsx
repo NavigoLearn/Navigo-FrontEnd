@@ -14,6 +14,7 @@ import { getNodeById } from '@store/roadmap_static';
 import { addDraggability } from '@typescript/roadmap/roadmap-render';
 import levels from '@styles/levelStyles';
 import { getNodeByIdEdit } from '@typescript/roadmap/roadmap-edit-logic';
+import Tooltip from '@components/roadmap/nodes/misc/Tooltip';
 import Node from './nodes/node-info/Node';
 import Resource from './nodes/node-resource/Resource';
 
@@ -28,8 +29,15 @@ const NodeManager = ({ data, editing, triggerCb }: NodeManagerProps) => {
     // used for selective rerendering of the nodes
   }
 
+  function disableDraggability() {
+    addDraggability(data.id, false);
+  }
+  function enableDraggability() {
+    addDraggability(data.id, true);
+  }
+
   useLayoutEffect(() => {
-    triggerCb(triggerRender);
+    triggerCb(triggerRender, disableDraggability, enableDraggability);
   }, []);
 
   useEffect(() => {
@@ -44,6 +52,7 @@ const NodeManager = ({ data, editing, triggerCb }: NodeManagerProps) => {
   }, [render]);
 
   useEffect(() => {
+    // locks the nodes that are currently in text editing or view mode
     addDraggability(data.id, editing);
   }, [editing]);
 
@@ -84,16 +93,27 @@ const NodeManager = ({ data, editing, triggerCb }: NodeManagerProps) => {
   const compOpacity = levels[dataRef.current.level].comp;
 
   return (
-    <g id={`group${data.id}`} transform={`translate(${data.x},${data.y})`}>
-      <foreignObject ref={objRef} className='bg-transparent '>
-        <div
-          ref={rootRef}
-          className={`  inline-block  bg-transparent  ${compOpacity} `}
-        >
-          {renderedNode}
-        </div>
+    <>
+      <foreignObject
+        className='pointer-events-none'
+        id={`tooltip${data.id}`}
+        transform={`translate(${data.x},${data.y - 128})`}
+        width='256'
+        height='128'
+      >
+        <Tooltip id={data.id} />
       </foreignObject>
-    </g>
+      <g id={`group${data.id}`} transform={`translate(${data.x},${data.y})`}>
+        <foreignObject ref={objRef} className='bg-transparent '>
+          <div
+            ref={rootRef}
+            className={`  inline-block  bg-transparent  ${compOpacity} `}
+          >
+            {renderedNode}
+          </div>
+        </foreignObject>
+      </g>
+    </>
   );
 };
 

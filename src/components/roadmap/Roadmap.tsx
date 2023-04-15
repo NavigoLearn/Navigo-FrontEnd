@@ -4,14 +4,22 @@ import NodeManager from '@components/roadmap/NodeManager';
 import { useStore } from '@nanostores/react';
 import roadmapState, { setRoadmapId } from '@store/roadmap_state';
 import roadmapStatic, { setRoadmapFromAPI } from '@store/roadmap_static';
-import { setTrigger } from '@store/runtime/rerenderTriggers';
-import { addZoom } from '@typescript/roadmap/d3utils';
+import {
+  setTriggerDisable,
+  setTriggerEnable,
+  setTriggerRender,
+} from '@store/runtime/rerenderTriggers';
+import { addZoom, disableZoom } from '@typescript/roadmap/d3utils';
 import { RoadmapChunkingManager } from '@typescript/roadmap/chunks-logic';
 import renderNodesStore from '@store/runtime/renderedNodes';
 import { setChunkRerenderTrigger } from '@store/runtime/renderedChunks';
 import renderConnectionsStore from '@store/runtime/renderedConnections';
 import { renderConnections } from '@typescript/roadmap/roadmap-render';
 import roadmapEdit from '@store/roadmap_edit';
+import {
+  setDisableZoomTrigger,
+  setEnableZoomTrigger,
+} from '@store/runtime/miscParams';
 import Report from './tabs/Report';
 
 const Roadmap = ({ pageId }: { pageId: string }) => {
@@ -38,6 +46,18 @@ const Roadmap = ({ pageId }: { pageId: string }) => {
 
   const renderer = useRef(null);
 
+  const enableZoomFn = () => {
+    addZoom(
+      'rootSvg',
+      'rootGroup',
+      renderer.current.recalculateChunks.bind(renderer.current)
+    );
+  };
+
+  const disableZoomFn = () => {
+    disableZoom('rootSvg');
+  };
+
   useEffect(() => {
     // renderer object that handles chunking
     renderer.current = new RoadmapChunkingManager('rootSvg');
@@ -58,6 +78,13 @@ const Roadmap = ({ pageId }: { pageId: string }) => {
         renderConnections();
       }, 0);
     });
+    setEnableZoomTrigger(() => {
+      enableZoomFn();
+    });
+
+    setDisableZoomTrigger(() => {
+      disableZoomFn();
+    });
 
     return () => {
       console.log('cleanup');
@@ -72,12 +99,8 @@ const Roadmap = ({ pageId }: { pageId: string }) => {
   }, []);
 
   useEffect(() => {
+    enableZoomFn();
     // adding zoom and a callback for chunk recalculations (the cb is throttled to 50ms, see class)
-    addZoom(
-      'rootSvg',
-      'rootGroup',
-      renderer.current.recalculateChunks.bind(renderer.current)
-    );
   }, [editing]);
 
   return (
@@ -97,8 +120,10 @@ const Roadmap = ({ pageId }: { pageId: string }) => {
                   key={id}
                   data={data}
                   editing={editing}
-                  triggerCb={async (cb) => {
-                    setTrigger(id, cb);
+                  triggerCb={async (cbTrigger, cbDisableDrag, cbEnableDrag) => {
+                    setTriggerRender(id, cbTrigger);
+                    setTriggerDisable(id, cbDisableDrag);
+                    setTriggerEnable(id, cbEnableDrag);
                   }}
                 />
               );

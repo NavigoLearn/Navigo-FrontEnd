@@ -1,11 +1,9 @@
 import React, { useRef } from 'react';
 import { NodeInfoProps } from '@type/roadmap/nodes';
 import { setInfoFlow } from '@typescript/roadmap/tab-logic-flows';
-import levels from '@styles/levelStyles';
 
 const NodeView = ({ title, tabId, id, level }: NodeInfoProps) => {
   const rootRef = useRef<HTMLButtonElement>(null);
-  const compOpacity = levels[level].comp;
 
   return (
     <button

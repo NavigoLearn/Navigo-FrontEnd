@@ -1,6 +1,7 @@
 import React from 'react';
 
 export type EditingComponentProps<T> = {
+  id: string;
   value: T;
   onChange: (value: T) => void;
   onSave: () => void;

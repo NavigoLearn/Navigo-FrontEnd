@@ -159,6 +159,22 @@ export const addNodeNew = triggerChunkRerenderDecorator(
   }
 );
 
+export const changeNodeGeneral = triggerRerenderDecorator(
+  triggerPositionCacheClearDecorator((id: string, value: any) => {
+    // used for changing arbitrary fields in nodes when editing (not x and y)
+    const original = roadmapEdit.get();
+    const { nodes } = original;
+    const node = nodes[id];
+
+    if (!isNodeTypesStore(node)) {
+      throw new Error('No node found for given id');
+    }
+    nodes[id] = { ...node, ...value };
+    original.nodes = nodes;
+    roadmapEdit.set({ ...original });
+  })
+);
+
 export const changeNodeInfo = triggerRerenderDecorator(
   <T extends keyof NodeInfoStore>(
     id: string,
