@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import dropclose from '@assets/cross.svg';
-import AugmentFilter from './augmentFilter';
-import Filter1 from './individualfilters/Filter1';
-import Filter2 from './individualfilters/Filter2';
-import Filter3 from './individualfilters/Filter3';
-import Cookies from './managecookies/Cookies';
+import Filter1 from '@components/explorerefr/mobile/filter-components/Filter1';
+import Filter2 from '@components/explorerefr/mobile/filter-components/Filter2';
+import Filter3 from '@components/explorerefr/mobile/filter-components/Filter3';
+import AugmentFilter from '@components/explorerefr/mobile/filter-hoc/AugmentFilter';
 
 export const opitonsFilter1 = [
   { name: 'a', id: 1 },
@@ -27,8 +26,14 @@ export const opitonsFilter3 = [
   { name: 'l', id: 4 },
 ];
 
-const FilterAug = (props) => {
-  const { onChange, value, handleClick, onSave, isOpen, setIsOpen } = props;
+const FilterManager = ({
+  onChange,
+  value,
+  handleClick,
+  onSave,
+  isOpen,
+  setIsOpen,
+}) => {
   return (
     <div className='h-screen w-screen bg-background absolute z-10 top-0'>
       <div className='text-[18px] flex justify-center space-x-24 items-center mt-6 sm:space-x-72 sm:text-[28px]'>
@@ -43,10 +48,9 @@ const FilterAug = (props) => {
       </div>
       <div className='mt-20 flex justify-center flex-col'>
         <div className='flex flex-col sm:mr-44'>
-          {/* Aici intra toate filtrele */}
           <Filter1
-            onChange={(NameField) => {
-              onChange('SomeField1', NameField);
+            onChange={(nameField) => {
+              onChange('SomeField1', nameField);
             }}
             options={opitonsFilter1}
             value={value.SomeField1}
@@ -54,8 +58,8 @@ const FilterAug = (props) => {
             setIsOpen={setIsOpen}
           />
           <Filter2
-            onChange={(NameField) => {
-              onChange('SomeField2', NameField);
+            onChange={(nameField) => {
+              onChange('SomeField2', nameField);
             }}
             options={opitonsFilter2}
             value={value.SomeField2}
@@ -63,8 +67,8 @@ const FilterAug = (props) => {
             setIsOpen={setIsOpen}
           />
           <Filter3
-            onChange={(NameField) => {
-              onChange('SomeField3', NameField);
+            onChange={(nameField) => {
+              onChange('SomeField3', nameField);
             }}
             options={opitonsFilter3}
             value={value.SomeField3}
@@ -72,11 +76,14 @@ const FilterAug = (props) => {
             setIsOpen={setIsOpen}
           />
         </div>
-        <div className='flex justify-center items-center mt-48'>
+        <div className='flex justify-center items-center absolute bottom-10 w-full '>
           <button
             type='button'
             className='bg-secondary w-28 h-8 rounded-lg text-white font-roboto-text'
-            onClick={() => onSave()}
+            onClick={() => {
+              onSave();
+              handleClick('filter');
+            }}
           >
             Apply
           </button>
@@ -86,4 +93,4 @@ const FilterAug = (props) => {
   );
 };
 
-export default AugmentFilter(FilterAug, 'mobileFilter');
+export default AugmentFilter(FilterManager);

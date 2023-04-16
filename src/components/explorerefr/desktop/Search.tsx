@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import loupe from '@assets/loupe.svg';
 import FilterAugD from './filterhoc/FilterAugD';
 
@@ -23,7 +23,7 @@ const SearchDesktop = () => {
             onChange={({ target }) => setQuery(target.value)}
             type='text'
             placeholder='Search for a roadmap'
-            className='h-[75px] sm:w-[830px] bg-white z-10 rounded-full shadow-standard pl-20 text-2xl placeholder:font-roboto-text pb-[2px] focus:outline-none'
+            className='h-[75px] sm:w-[750px] bg-white z-10 rounded-full shadow-standard pl-20 text-2xl placeholder:font-roboto-text pb-[2px] focus:outline-none'
           />
           <img
             src={loupe}

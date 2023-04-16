@@ -2,10 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import loupe from '@assets/loupe.svg';
 import filter from '@assets/filter.svg';
 import sort from '@assets/sortby.svg';
+import Cookies from '@components/explorerefr/mobile/cookies/Cookies';
 import SortBy from './SortBy';
 // import Filter from './Filter';
-import FilterAug from './filterhoc/FilterAug';
-import Cookies from './filterhoc/managecookies/Cookies';
+import FilterAug from './FilterManager';
 
 const SearchMobile = () => {
   const [clickFilter, setClickFilter] = useState(false);

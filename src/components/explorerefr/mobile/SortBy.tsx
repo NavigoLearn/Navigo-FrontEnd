@@ -44,6 +44,17 @@ const SortBy = ({ handleClick }) => {
           ))}
         </ul>
       </div>
+      <div className='flex justify-center items-center absolute bottom-10 w-full '>
+        <button
+          type='button'
+          className='bg-secondary w-28 h-8 rounded-lg text-white font-roboto-text'
+          onClick={() => {
+            handleClick('sort');
+          }}
+        >
+          Apply
+        </button>
+      </div>
     </div>
   );
 };

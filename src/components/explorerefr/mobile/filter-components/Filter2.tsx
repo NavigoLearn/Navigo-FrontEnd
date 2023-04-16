@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import chevronup from '@assets/chevron-up.svg';
 import chevrondown from '@assets/chevron-down.svg';
 
@@ -6,7 +6,6 @@ const Filter2 = (props) => {
   const { onChange, options, value, isOpen, setIsOpen } = props;
 
   return (
-    // normal este space-x-7 dar la fold trbuie space-x-1
     <div className='flex justify-center mt-14 space-x-1 items-center'>
       <span className='text-[18px] font-roboto-text sm:text-[23px]'>
         SomeField2
