@@ -5,28 +5,39 @@ import React, {
   useMemo,
   useEffect,
 } from 'react';
-import { NodeInfoProps } from '@type/roadmap/nodes';
+import { NodeInfoProps, NodeManagerProps } from '@type/roadmap/nodes';
 import {
   isNodeInfoProps,
   isNodeResourceProps,
 } from '@type/roadmap/typecheckers';
 import { getNodeById } from '@store/roadmap_static';
 import { addDraggability } from '@typescript/roadmap/roadmap-render';
+import levels from '@styles/levelStyles';
+import { getNodeByIdEdit } from '@typescript/roadmap/roadmap-edit-logic';
+import Tooltip from '@components/roadmap/nodes/misc/Tooltip';
 import Node from './nodes/node-info/Node';
 import Resource from './nodes/node-resource/Resource';
 
-const NodeManager = ({ data, editing, triggerCb }: any) => {
+const NodeManager = ({ data, editing, triggerCb }: NodeManagerProps) => {
   const rootRef = useRef<HTMLDivElement>(null);
   const objRef = useRef<SVGForeignObjectElement>(null);
   const [render, setRender] = useState(true);
+  const dataRef = useRef(data);
 
   function triggerRender() {
     setRender((val) => !val);
     // used for selective rerendering of the nodes
   }
 
+  function disableDraggability() {
+    addDraggability(data.id, false);
+  }
+  function enableDraggability() {
+    addDraggability(data.id, true);
+  }
+
   useLayoutEffect(() => {
-    triggerCb(triggerRender);
+    triggerCb(triggerRender, disableDraggability, enableDraggability);
   }, []);
 
   useEffect(() => {
@@ -41,6 +52,7 @@ const NodeManager = ({ data, editing, triggerCb }: any) => {
   }, [render]);
 
   useEffect(() => {
+    // locks the nodes that are currently in text editing or view mode
     addDraggability(data.id, editing);
   }, [editing]);
 
@@ -49,17 +61,28 @@ const NodeManager = ({ data, editing, triggerCb }: any) => {
     const { id } = data as NodeInfoProps;
     let node;
     if (editing) {
-      node = getNodeById(id);
+      node = editing ? getNodeByIdEdit(id) : getNodeById(id);
     } else {
       node = data;
     }
+    dataRef.current = node;
     if (isNodeInfoProps(node)) {
-      const { title, tabId } = node;
-      return <Node editing={editing} id={id} title={title} tabId={tabId} />;
+      const { title, tabId, level } = node;
+      return (
+        <Node
+          level={level}
+          editing={editing}
+          id={id}
+          title={title}
+          tabId={tabId}
+        />
+      );
     }
     if (isNodeResourceProps(node)) {
-      const { id: idNode, title, nodes: resNodes } = node;
-      return <Resource id={idNode} title={title} nodes={resNodes} />;
+      const { id: idNode, title, nodes: resNodes, level } = node;
+      return (
+        <Resource level={level} id={idNode} title={title} nodes={resNodes} />
+      );
     }
     throw new Error('something went wrong');
   };
@@ -67,14 +90,30 @@ const NodeManager = ({ data, editing, triggerCb }: any) => {
     return renderNode();
   }, [render]);
 
+  const compOpacity = levels[dataRef.current.level].comp;
+
   return (
-    <g id={`group${data.id}`} transform={`translate(${data.x},${data.y})`}>
-      <foreignObject ref={objRef}>
-        <div ref={rootRef} className=' inline-block border-0 '>
-          {renderedNode}
-        </div>
+    <>
+      <foreignObject
+        className='pointer-events-none'
+        id={`tooltip${data.id}`}
+        transform={`translate(${data.x},${data.y - 128})`}
+        width='256'
+        height='128'
+      >
+        <Tooltip id={data.id} />
       </foreignObject>
-    </g>
+      <g id={`group${data.id}`} transform={`translate(${data.x},${data.y})`}>
+        <foreignObject ref={objRef} className='bg-transparent '>
+          <div
+            ref={rootRef}
+            className={`  inline-block  bg-transparent  ${compOpacity} `}
+          >
+            {renderedNode}
+          </div>
+        </foreignObject>
+      </g>
+    </>
   );
 };
 

@@ -1,5 +1,6 @@
 import { ConnectionProps, ConnectionStore } from '@type/roadmap/connections';
 import { ResourceSubNodeProps } from '@type/roadmap/resources';
+import { LevelTypes, levelTypesArray } from '@type/roadmap/level-types';
 import {
   NodeInfoStore,
   NodeStore,
@@ -12,7 +13,9 @@ import {
 } from './nodes';
 
 export function isNodeInfoProps(props: any): props is NodeInfoProps {
-  return 'title' in props && 'tabId' in props && 'type' in props;
+  return (
+    'title' in props && 'tabId' in props && 'type' in props && 'level' in props
+  );
 }
 
 export function isResourceSubNodeProps(
@@ -22,7 +25,11 @@ export function isResourceSubNodeProps(
 }
 
 export function isNodeResourceProps(props: any): props is NodeResourceProps {
-  return 'title' in props && 'nodes' in props;
+  return 'title' in props && 'nodes' in props && 'level' in props;
+}
+
+export function isLevelType(props: any): props is LevelTypes {
+  return levelTypesArray.includes(props);
 }
 
 export function isNodeStore(props: any): props is NodeStore {

@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
+import roadmapEdit, { getNodeLevel } from '@store/roadmap_edit';
 import { Roadmap } from '@type/roadmap/roadmap';
 import {
   calculateChunkId,
@@ -7,24 +8,15 @@ import {
   generateTabInfo,
 } from '@typescript/roadmap/generators';
 import { TabInfo, TabIssue } from '@type/roadmap/tab-manager';
+import { NodeIdentifierTypes, NodeResourceStore } from '@type/roadmap/nodes';
 import {
-  NodeIdentifierTypes,
-  NodeInfoStore,
-  NodeResourceStore,
-} from '@type/roadmap/nodes';
-import {
-  isNodeInfoStore,
   isNodeResourceStore,
   isNodeTypesStore,
 } from '@type/roadmap/typecheckers';
 import { ResourceSubNodeStore } from '@type/roadmap/resources';
-import roadmapEdit from '@store/roadmap_edit';
 import { diffTabInfo } from '@store/runtime/diff-tabs';
 import { cacheTabInfo } from '@store/runtime/cached-tabs';
-import {
-  changeTabIssueFlow,
-  changeTabIssuePropFlow,
-} from '@typescript/roadmap/tab-logic-flows';
+import { changeTabIssuePropFlow } from '@typescript/roadmap/tab-logic-flows';
 
 /*
 The get function naming convention is:
@@ -103,23 +95,6 @@ export function removeChunkNode(id: string) {
   roadmapEdit.set({ ...original });
 }
 
-export function changeNodeInfo<T extends keyof NodeInfoStore>(
-  id: string,
-  property: T,
-  value: NodeInfoStore[T]
-) {
-  const original = roadmapEdit.get();
-  const { nodes } = original;
-  const node = nodes[id];
-  if (!isNodeInfoStore(node)) {
-    throw new Error('No node found for given id');
-  }
-  node[property] = value;
-  nodes[id] = node;
-  original.nodes = nodes;
-  roadmapEdit.set({ ...original });
-}
-
 export function changeNodeResource<T extends keyof NodeResourceStore>(
   id: string,
   property: T,
@@ -142,18 +117,6 @@ export function changeIssue<T extends keyof TabIssue>(
   value: TabIssue[T]
 ) {
   changeTabIssuePropFlow(id, property, value);
-}
-
-export function changeResourceSubNode<T extends keyof ResourceSubNodeStore>(
-  id: string,
-  property: T,
-  value: ResourceSubNodeStore[T]
-) {
-  const original = roadmapEdit.get();
-  const { resources } = original;
-  resources[id][property] = value;
-  original.resources = resources;
-  roadmapEdit.set({ ...original });
 }
 
 export function getUnusedResourceSubNodeId() {
@@ -180,6 +143,7 @@ export function generateResourceSubNodeEmpty(
     tabId,
     type: 'ResourceSubNode',
     title: '',
+    level: getNodeLevel(parentId),
   };
 }
 
@@ -254,32 +218,6 @@ export function addNodeInfoEmpty(
   roadmapEdit.set({ ...original });
   return newId;
 }
-
-export function getNodeCoords(id: string) {
-  const original = roadmapEdit.get();
-  const { nodes } = original;
-  if (!nodes[id]) return null;
-  return { x: nodes[id].x, y: nodes[id].y };
-}
-
-export function generationFlow(
-  type: NodeIdentifierTypes,
-  parentId: string,
-  id: string,
-  title: string,
-  x: number,
-  y: number
-) {
-  if (type === 'Resource') {
-    return addNodeResourceEmpty(parentId, id, title, x, y);
-  }
-  if (type === 'Info') {
-    return addNodeInfoEmpty(parentId, id, title, x, y);
-  }
-
-  throw new Error('Invalid type');
-}
-
 export function getUnusedConnectionId() {
   const original = roadmapEdit.get();
   const { connections } = original;
@@ -303,38 +241,26 @@ export function generateConnectionEmpty(id: string) {
 
 export function addConnection(parentId: string, childId: string) {
   const original = roadmapEdit.get();
-  const { connections } = original;
+  const { connections, nodes } = original;
   const newId = getUnusedConnectionId();
   const newConnection = generateConnectionEmpty(newId);
   newConnection.parentId = parentId;
   newConnection.childId = childId;
   connections[newId] = newConnection;
   original.connections = connections;
-  roadmapEdit.set({ ...original });
-}
-
-export function removeResourceSubNode(id: string, subNodeId: string) {
-  const original = roadmapEdit.get();
-  const { nodes } = original;
-  if (!nodes[id] || nodes[id].type !== 'Resource') {
-    throw new Error('Invalid node type when removing resource subNode');
-  }
-  const currentNode = nodes[id];
-  if (!isNodeResourceStore(currentNode)) {
-    throw new Error('Invalid node type when removing resource subNode');
-  }
-  currentNode.nodes = currentNode.nodes.filter((node) => node !== subNodeId);
+  // adds connection to the parent and the child
+  nodes[parentId].connections.push(newId);
+  nodes[childId].connections.push(newId);
   original.nodes = nodes;
-  // remove resource subNode too!
-  delete original.resources[subNodeId];
+
   roadmapEdit.set({ ...original });
 }
 
-export const getNodeById = (id: string) => {
+export function getNodeByIdEdit(id: string) {
   const original = roadmapEdit.get();
   const { nodes } = original;
   return nodes[id];
-};
+}
 
 export function setRoadmap(roadmap: Roadmap) {
   roadmapEdit.set({ ...roadmap });
@@ -342,4 +268,10 @@ export function setRoadmap(roadmap: Roadmap) {
 
 export function getRoadmap(): Roadmap {
   return roadmapEdit.get();
+}
+
+export function getResourceSubNodeById(id: string) {
+  const original = roadmapEdit.get();
+  const { resources } = original;
+  return resources[id];
 }

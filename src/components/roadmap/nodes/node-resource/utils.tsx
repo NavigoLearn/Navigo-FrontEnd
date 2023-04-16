@@ -1,35 +1,21 @@
 import roadmapEdit from '@store/roadmap_edit';
 import roadmapStatic from '@store/roadmap_static';
-import ResourceSubNode from '@components/roadmap/nodes/node-resource/sub-node/ResourceSubNode';
+import ResourceSubNodeView from '@components/roadmap/nodes/node-resource/sub-node/ResourceSubNodeView';
 import React from 'react';
-
-export function renderNodeEdit(id, parentId) {
-  const data = roadmapEdit.get().resources[id];
-  return (
-    <div key={data.id} className='flex justify-center items-center my-2'>
-      <ResourceSubNode
-        id={data.id}
-        parentId={parentId}
-        type='ResourceSubNode'
-        title={data.title}
-        key={data.id}
-        tabId={data.tabId}
-      />
-    </div>
-  );
-}
+import roadmapState from '@store/roadmap_state';
 
 export function renderNodeNormal(id, parentID) {
-  const data = roadmapStatic.get().resources[id];
+  const { editing } = roadmapState.get();
+  const data = editing
+    ? roadmapEdit.get().resources[id]
+    : roadmapStatic.get().resources[id];
   return (
     <div key={data.id} className='flex justify-center items-center my-2'>
-      <ResourceSubNode
-        id={data.id}
-        parentId={parentID}
-        type='ResourceSubNode'
+      <ResourceSubNodeView
+        level={data.level}
         title={data.title}
-        key={data.id}
         tabId={data.tabId}
+        id={id}
       />
     </div>
   );

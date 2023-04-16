@@ -4,12 +4,13 @@ import about from '@assets/about.svg';
 import report from '@assets/report.svg';
 import { flipOpen, setAbout, setIssues } from '@store/runtime/tab-manager';
 import { setReport } from '@store/popup';
-import roadmapState, { toggleEditing } from '@store/roadmap_state';
+import roadmapState, { getRoadmapId } from '@store/roadmap_state';
 import {
   saveEditingProtocol,
-  transferEditToRoadmap,
   transferRoadmapToEdit,
 } from '@type/roadmap/utils2';
+import { toggleEditing } from '@typescript/roadmap/roadmap-edit-logic-decorated';
+import { setTabAboutFlow } from '@typescript/roadmap/tab-logic-flows';
 
 const buttons = [
   {
@@ -48,7 +49,7 @@ const buttons = [
     cIcon: about,
     title: 'About',
     clickHandler: () => {
-      setAbout();
+      setTabAboutFlow(getRoadmapId());
     },
   },
 

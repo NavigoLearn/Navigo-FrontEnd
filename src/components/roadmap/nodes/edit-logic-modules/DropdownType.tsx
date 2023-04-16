@@ -26,7 +26,7 @@ const DropdownType = ({
 
   return (
     <select
-      className='absolute w-20'
+      className=' w-20 block'
       value={selectedOption}
       onChange={handleChange}
     >

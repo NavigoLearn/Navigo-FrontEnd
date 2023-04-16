@@ -2,7 +2,7 @@ import * as d3 from 'd3';
 
 export const addZoom = (rootSvgId, rootGroupId, rerender) => {
   const svg = d3.select(`#${rootSvgId}`);
-  rerender();
+  // rerender();
   function zoomed() {
     // triggers the chunk rendering flow
     rerender();
@@ -15,6 +15,11 @@ export const addZoom = (rootSvgId, rootGroupId, rerender) => {
       .on('zoom', zoomed)
   );
   svg.on('dblclick.zoom', null);
+};
+
+export const disableZoom = (rootSvgId) => {
+  const svg = d3.select(`#${rootSvgId}`);
+  svg.on('.zoom', null);
 };
 
 export const a = 0;

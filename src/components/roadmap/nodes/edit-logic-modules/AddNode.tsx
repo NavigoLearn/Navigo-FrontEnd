@@ -3,7 +3,7 @@ import { addNodeNew } from '@typescript/roadmap/roadmap-edit-logic-decorated';
 
 const AddNode = ({ id }: { id: string }) => {
   return (
-    <div>
+    <div className='h-20 block'>
       <button
         type='button'
         className='h-10 border-2 border-black mt-6'

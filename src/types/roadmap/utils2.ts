@@ -1,14 +1,18 @@
 import roadmapEdit from '@store/roadmap_edit';
 import roadmapStatic from '@store/roadmap_static';
-import { setEditingTrue } from '@store/roadmap_state';
+import { setEditingTrue } from '@typescript/roadmap/roadmap-edit-logic-decorated';
 import { applyAllDiffs } from '@store/runtime/diff-tabs';
+import { deepCopy } from '@type/roadmap/utils';
+import { resetAllTooltips } from '@store/runtime/miscParams';
 
 export function transferRoadmapToEdit() {
-  roadmapEdit.set({ ...roadmapStatic.get() });
+  const deepCopyRoadmap = deepCopy(roadmapStatic.get());
+  roadmapEdit.set({ ...deepCopyRoadmap });
 }
 
 export function transferEditToRoadmap() {
-  roadmapStatic.set({ ...roadmapEdit.get() });
+  const deepCopyRoadmap = deepCopy(roadmapEdit.get());
+  roadmapStatic.set({ ...deepCopyRoadmap });
 }
 export function startEditingProtocol() {
   // copies roadmap_static to editing roadmap_static and sets editing to true
@@ -17,6 +21,8 @@ export function startEditingProtocol() {
 }
 
 export function saveEditingProtocol() {
-  transferEditToRoadmap();
-  applyAllDiffs();
+  transferEditToRoadmap(); //  transfers the changes to the static roadmap
+  applyAllDiffs(); // apply all difs to the modified tab
+  resetAllTooltips();
+  // here there should be a request to the server with the new saved roadmap
 }
