@@ -33,13 +33,13 @@ function calculateMiddleOfNodeOffsetStatic(node: NodeTypesStore) {
     y: 0,
   };
   if (isNodeInfoStore(node)) {
-    offset.x = 256; // calculates the default values for each node type based on their properties
+    offset.x = 220; // calculates the default values for each node type based on their properties
     offset.y = 30; // this way we dont need to actually render the nodes to get their sizes which would be an expensive opration
     // although switching to actually rendering all needed nodes for connections might be necessary if the nodes grow in complexity
   }
 
   if (isNodeResourceStore(node)) {
-    offset.x = 256;
+    offset.x = 220;
     offset.y = 60;
   }
 

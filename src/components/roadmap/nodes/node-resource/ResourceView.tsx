@@ -5,7 +5,7 @@ import { NodeResourceProps } from '@type/roadmap/nodes';
 const ResourceView = ({ id: idProp, title, nodes }: NodeResourceProps) => {
   return (
     <div
-      className={` w-[250px]  pb-6 relative bg-white shadow-standard rounded-md `}
+      className={` w-56  pb-6 relative bg-white shadow-standard rounded-md `}
     >
       <div className='text-lg py-4 flex justify-center items-center text-placeholder  '>
         {title}

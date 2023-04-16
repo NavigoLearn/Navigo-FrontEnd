@@ -6,9 +6,15 @@ import {
 } from '@typescript/roadmap/roadmap-edit-logic-decorated';
 import { NonEditingComponentProps } from '@type/roadmap/components';
 import { getNodeByIdEdit } from '@typescript/roadmap/roadmap-edit-logic';
-import { isNodeResourceStore } from '@type/roadmap/typecheckers';
+import {
+  isNodeInfoProps,
+  isNodeResourceStore,
+} from '@type/roadmap/typecheckers';
 import { setToolTip } from '@store/runtime/miscParams';
 import ButtonsView from '@components/roadmap/nodes/misc/ButtonsView';
+import plus from '@assets/plus.svg';
+import { setInfoFlow } from '@typescript/roadmap/tab-logic-flows';
+import edit from '@assets/edit.svg';
 
 const ResourceNonEditProps = ({
   id: idProp,
@@ -32,20 +38,22 @@ const ResourceNonEditProps = ({
       <div className=' py-4 flex items-center justify-between  '>
         <button
           type='button'
+          className='w-10 h-10 flex justify-center items-center'
           onClick={() => {
             addNodeNew(idProp, 'Info');
           }}
         >
-          Add node
+          <img src={plus} width='16px' alt='add' />
         </button>
         <div className='text-lg  text-placeholder'>{node.title}</div>
         <button
           type='button'
+          className='w-10 h-10 flex justify-center items-center'
           onClick={() => {
             setCb();
           }}
         >
-          Edit Node
+          <img src={edit} width='20px' alt='edit' />
         </button>
       </div>
       {node.nodes.map((id) => {

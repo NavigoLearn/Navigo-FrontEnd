@@ -6,12 +6,14 @@ import { setInfoFlow } from '@typescript/roadmap/tab-logic-flows';
 import { getNodeByIdEdit } from '@typescript/roadmap/roadmap-edit-logic';
 import { isNodeInfoProps } from '@type/roadmap/typecheckers';
 import ButtonsView from '@components/roadmap/nodes/misc/ButtonsView';
+import plus from '@assets/plus.svg';
+import edit from '@assets/edit.svg';
 
 const InfoNonEditProps = <T,>({
+  data,
   id,
   setCb: setEdit,
 }: NonEditingComponentProps) => {
-  const value = getNodeByIdEdit(id); // gets the data locally
   const renderButtons = () => {
     return <ButtonsView id={id} type='Info' />;
   };
@@ -23,41 +25,38 @@ const InfoNonEditProps = <T,>({
   }, []);
 
   return (
-    <div className=' flex justify-between '>
+    <div className=' flex justify-between w-56 '>
       <button
         type='button'
-        className='w-10 h-10 border-black border-2'
+        className='w-10 h-10 flex justify-center items-center'
         onClick={() => {
           addNodeNew(id, 'Info');
         }}
       >
-        add
+        <img src={plus} width='16px' alt='add' />
       </button>
       <button
         type='button'
-        className={` text-sm p-2 font-semibold   w-20    `}
+        className={` text-sm font-semibold flex-grow py-1  bg-white `}
         onClick={() => {
           // tab changing logic
-
-          if (isNodeInfoProps(value)) {
-            setInfoFlow(value.tabId);
-          }
+          setInfoFlow(data.tabId);
         }}
       >
         <div
-          className={` h-full font-roboto-text  w-full flex justify-center items-center text-lg`}
+          className={` h-full font-roboto-text  w-full flex justify-center items-center text-md`}
         >
-          {value.title}
+          {data.title}
         </div>
       </button>
       <button
         type='button'
-        className='w-10 h-10 border-black border-2'
+        className='w-10 h-10 flex justify-center items-center'
         onClick={() => {
           setEdit();
         }}
       >
-        edit
+        <img src={edit} width='20px' alt='edit' />
       </button>
     </div>
   );

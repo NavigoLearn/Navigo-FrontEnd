@@ -20,7 +20,7 @@ const ResourceEdit = ({ id, title, nodes }: NodeResourceProps) => {
 
   return (
     <div
-      className={` w-[256px]  pb-6 relative bg-white shadow-standard rounded-md `}
+      className={` w-56  pb-6 relative bg-white shadow-standard rounded-md `}
     >
       {editing ? (
         <ResourceEditProps

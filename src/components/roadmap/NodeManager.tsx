@@ -98,17 +98,17 @@ const NodeManager = ({ data, editing, triggerCb }: NodeManagerProps) => {
         className='pointer-events-none'
         id={`tooltip${data.id}`}
         transform={`translate(${data.x},${data.y - 128})`}
-        width='256'
+        width='220'
         height='128'
       >
         <Tooltip id={data.id} />
       </foreignObject>
       <g id={`group${data.id}`} transform={`translate(${data.x},${data.y})`}>
-        <foreignObject ref={objRef} className='bg-transparent '>
-          <div
-            ref={rootRef}
-            className={`  inline-block  bg-transparent  ${compOpacity} `}
-          >
+        <foreignObject
+          ref={objRef}
+          className='bg-transparent overflow-visible '
+        >
+          <div ref={rootRef} className={`  inline-block  bg-transparent  `}>
             {renderedNode}
           </div>
         </foreignObject>

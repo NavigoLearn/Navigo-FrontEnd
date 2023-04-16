@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useStore } from '@nanostores/react';
 import user from '@store/user';
-import eugene from '@assets/eugensex.png';
+import eugene from '@assets/eugen.png';
 import followers from '@assets/followers.svg';
 import link from '@assets/link.svg';
 import dizaign from '@assets/dizaign.svg';

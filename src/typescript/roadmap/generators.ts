@@ -99,6 +99,7 @@ export function generateNNodesInfo(
         children,
         []
       );
+      nodes[id].level = 'main';
     }
   }
   const chunksNodes: any = {};
