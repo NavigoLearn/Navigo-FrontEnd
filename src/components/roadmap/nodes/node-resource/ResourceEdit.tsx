@@ -1,32 +1,58 @@
-import React from 'react';
-import { renderNodeEdit } from '@components/roadmap/nodes/node-resource/utils';
-import DropdownType from '@components/roadmap/nodes/edit-logic-modules/DropdownType';
+import React, { useState } from 'react';
+import ResourceEditProps from '@components/roadmap/nodes/node-resource/ResourceEditProps';
+import ResourceNonEditProps from '@components/roadmap/nodes/node-resource/ResourceNonEditProps';
 import { NodeResourceProps } from '@type/roadmap/nodes';
-import { addResourceSubNodeNew } from '@typescript/roadmap/roadmap-edit-logic-decorated';
-import AddNode from '@components/roadmap/nodes/edit-logic-modules/AddNode';
+import {
+  getTriggerDisable,
+  getTriggerEnable,
+} from '@store/runtime/rerenderTriggers';
+import { setToolTip } from '@store/runtime/miscParams';
+import { manualTrigger } from '@typescript/roadmap/roadmap-edit-decorators';
+import {
+  removeNodeInfoFromPlaceholder,
+  removeNodeResourceFromPlaceholder,
+  transferNodeResourceFromEditToPlaceholder,
+  transferNodeResourceFromPlaceholderToEdit,
+} from '@store/runtime/roadmap-placeholder';
 
-const ResourceEdit = ({ id: idProp, title, nodes }: NodeResourceProps) => {
+const ResourceEdit = ({ id, title, nodes }: NodeResourceProps) => {
+  const [editing, setEditing] = useState(false);
+
   return (
     <div
-      className={` w-[250px]  pb-6 relative bg-white shadow-standard rounded-md `}
+      className={` w-[256px]  pb-6 relative bg-white shadow-standard rounded-md `}
     >
-      <div className='text-lg py-4 flex justify-center items-center text-placeholder  '>
-        {title}
-      </div>
-      {nodes.map((id) => {
-        return renderNodeEdit(id, idProp);
-      })}
-      <button
-        type='button'
-        onClick={() => {
-          // add a new sub node
-          addResourceSubNodeNew(idProp);
-        }}
-      >
-        Add a resource
-      </button>
-      <DropdownType id={idProp} type='Resource' />
-      <AddNode id={idProp} />
+      {editing ? (
+        <ResourceEditProps
+          id={id}
+          onSave={() => {
+            // transfers the data from the placeholder to the node
+            transferNodeResourceFromPlaceholderToEdit(id);
+            removeNodeResourceFromPlaceholder(id);
+            getTriggerEnable(id)();
+            setToolTip(id, () => null);
+            setEditing(false);
+          }}
+          onCancel={() => {
+            // does not run callbacks
+            removeNodeInfoFromPlaceholder(id);
+            getTriggerEnable(id)();
+            setToolTip(id, () => null);
+            setEditing(false);
+          }}
+        />
+      ) : (
+        <ResourceNonEditProps
+          id={id}
+          setCb={() => {
+            transferNodeResourceFromEditToPlaceholder(id);
+            // blocking the drag and drop of the node
+            getTriggerDisable(id)();
+            manualTrigger(id);
+            setEditing(true);
+          }}
+        />
+      )}
     </div>
   );
 };

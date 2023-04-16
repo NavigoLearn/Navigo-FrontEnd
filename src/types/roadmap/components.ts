@@ -1,22 +1,30 @@
 import React from 'react';
 
-export type EditingComponentProps<T> = {
+export type EditingComponentProps = {
   id: string;
-  value: T;
-  onChange: (value: T) => void;
-  onSave: () => void;
-  onCancel: () => void;
+  onSave?: () => void;
+  onCancel?: () => void;
+  parentId?: string;
 };
 
-export type NonEditingComponentProps<T> = {
-  value: T;
+export type NonEditingComponentProps = {
   id: string;
   setCb: () => void;
 };
 
-export type StateManagerProps<T> = {
+export type PossibleTypes = string | number;
+export type WrappedComponentProps<T> = {
+  onChange: (value: T) => void;
   value: T;
-  EditingComponent: React.FC<EditingComponentProps<T>>;
-  NonEditingComponent: React.FC<NonEditingComponentProps<T>>;
-  persistDataSave: (value: T) => void;
 };
+
+export function checkPossibleTypes(value: any): value is PossibleTypes {
+  return typeof value === 'string' || typeof value === 'number';
+}
+
+export type HOCProps<T> = {
+  originalValue: T;
+  onChange: (value: T) => void;
+};
+
+export type StateManagerProps<T> = React.FC<WrappedComponentProps<T>>;

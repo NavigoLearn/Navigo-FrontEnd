@@ -22,6 +22,22 @@ const miscParamsStore = atom({
   toolTip: { [key: string]: any };
 });
 
+export function getEnableZoomTrigger() {
+  return miscParamsStore.get().enableZoomTrigger;
+}
+
+export function getDisableZoomTrigger() {
+  return miscParamsStore.get().disableZoomTrigger;
+}
+
+export function evaluateZoomAllowed() {
+  const { zoomAllowed } = miscParamsStore.get();
+  if (zoomAllowed) {
+    getEnableZoomTrigger()();
+  } else {
+    getDisableZoomTrigger()();
+  }
+}
 export function setEnableZoomTrigger(value: () => void) {
   const newStore = miscParamsStore.get();
   newStore.enableZoomTrigger = value;
@@ -38,25 +54,9 @@ export function setZoomAllowed(value: boolean) {
   const newStore = miscParamsStore.get();
   newStore.zoomAllowed = value;
   miscParamsStore.set({ ...newStore });
+  evaluateZoomAllowed();
 }
 
-export function getEnableZoomTrigger() {
-  return miscParamsStore.get().enableZoomTrigger;
-}
-
-export function getDisableZoomTrigger() {
-  return miscParamsStore.get().disableZoomTrigger;
-}
-
-export function evaluateZoomAllowed() {
-  const { editingCount } = miscParamsStore.get();
-  const zoomAllowed = editingCount === 0;
-  if (zoomAllowed) {
-    getEnableZoomTrigger()();
-  } else {
-    getDisableZoomTrigger()();
-  }
-}
 export function increaseEditingCount() {
   const newStore = miscParamsStore.get();
   newStore.editingCount += 1;
@@ -82,6 +82,12 @@ export function setToolTip(nodeId: string, value: any) {
   // setting a new tooltip should also trigger a render
   miscParamsStore.set({ ...newStore });
   getTriggerTooltip(nodeId)();
+}
+
+export function resetAllTooltips() {
+  const newStore = miscParamsStore.get();
+  newStore.toolTip = {};
+  miscParamsStore.set({ ...newStore });
 }
 
 export default miscParamsStore;

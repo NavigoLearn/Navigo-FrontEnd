@@ -2,25 +2,18 @@ import React, { useEffect } from 'react';
 import { NonEditingComponentProps } from '@type/roadmap/components';
 import { addNodeNew } from '@typescript/roadmap/roadmap-edit-logic-decorated';
 import { setToolTip } from '@store/runtime/miscParams';
-import DropdownType from '@components/roadmap/nodes/edit-logic-modules/DropdownType';
-
-const Buttons = ({ id }: { id: string }) => {
-  return (
-    <div className='flex justify-between pointer-events-auto'>
-      <div>add Node</div>
-      <DropdownType id={id} type='Info' />
-      <div>Edit Node</div>
-    </div>
-  );
-};
+import { setInfoFlow } from '@typescript/roadmap/tab-logic-flows';
+import { getNodeByIdEdit } from '@typescript/roadmap/roadmap-edit-logic';
+import { isNodeInfoProps } from '@type/roadmap/typecheckers';
+import ButtonsView from '@components/roadmap/nodes/misc/ButtonsView';
 
 const InfoNonEditProps = <T,>({
-  value,
   id,
   setCb: setEdit,
-}: NonEditingComponentProps<{ title: string }>) => {
+}: NonEditingComponentProps) => {
+  const value = getNodeByIdEdit(id); // gets the data locally
   const renderButtons = () => {
-    return <Buttons id={id} />;
+    return <ButtonsView id={id} type='Info' />;
   };
 
   useEffect(() => {
@@ -45,6 +38,10 @@ const InfoNonEditProps = <T,>({
         className={` text-sm p-2 font-semibold   w-20    `}
         onClick={() => {
           // tab changing logic
+
+          if (isNodeInfoProps(value)) {
+            setInfoFlow(value.tabId);
+          }
         }}
       >
         <div
