@@ -6,13 +6,17 @@ import roadmapPlaceholder, {
   changeNodeResource,
   addResourceSubNodeNew,
 } from '@store/runtime/roadmap-placeholder';
-import { EditingComponentProps } from '@type/roadmap/components';
+import { EditingComponentNodesProps } from '@type/roadmap/components';
 import TitleEdit from '@components/roadmap/nodes/node-info/editable-fields/InfoTitleEdit';
 import { isNodeResourceStore } from '@type/roadmap/typecheckers';
 import SaveCancelButtons from '@components/roadmap/nodes/misc/SaveButtons';
 import { setToolTip, setZoomAllowed } from '@store/runtime/miscParams';
 
-const ResourceEditProps = ({ id, onSave, onCancel }: EditingComponentProps) => {
+const ResourceEditProps = ({
+  id,
+  onSave,
+  onCancel,
+}: EditingComponentNodesProps) => {
   const node = getNodeByIdPlaceholder(id);
   if (!isNodeResourceStore(node))
     throw new Error('node is not of type NodeResourceStore');

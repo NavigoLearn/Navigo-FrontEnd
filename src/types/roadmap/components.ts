@@ -1,10 +1,22 @@
 import React from 'react';
 
-export type EditingComponentProps = {
+export type EditingComponentNodesProps = {
   id: string;
   onSave?: () => void;
   onCancel?: () => void;
   parentId?: string;
+};
+
+export type EditingComponentBasicProps = {
+  data: string;
+  onChange: (value: string) => void;
+  onSave?: () => void;
+  onCancel?: () => void;
+};
+
+export type NonEditingComponentBasicProps = {
+  data: string;
+  setCb: () => void;
 };
 
 export type NonEditingComponentProps = {

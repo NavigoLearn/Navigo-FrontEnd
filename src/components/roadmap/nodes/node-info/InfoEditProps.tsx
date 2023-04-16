@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { getNodeByIdEdit } from '@typescript/roadmap/roadmap-edit-logic';
-import { EditingComponentProps } from '@type/roadmap/components';
+import { EditingComponentNodesProps } from '@type/roadmap/components';
 import {
   decreaseEditingCount,
   increaseEditingCount,
@@ -11,7 +11,11 @@ import TitleEdit from '@components/roadmap/nodes/node-resource/editable-fields/R
 import SaveCancelButtons from '@components/roadmap/nodes/misc/SaveButtons';
 import { changeNodeInfo } from '@store/runtime/roadmap-placeholder';
 
-const InfoEditProps = ({ id, onSave, onCancel }: EditingComponentProps) => {
+const InfoEditProps = ({
+  id,
+  onSave,
+  onCancel,
+}: EditingComponentNodesProps) => {
   const renderButtons = () => {
     return <SaveCancelButtons onSave={onSave} onCancel={onCancel} />;
   };

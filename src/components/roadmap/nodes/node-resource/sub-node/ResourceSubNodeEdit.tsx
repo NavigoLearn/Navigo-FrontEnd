@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { EditingComponentProps } from '@type/roadmap/components';
+import { EditingComponentNodesProps } from '@type/roadmap/components';
 import ResourceTitleEdit from '@components/roadmap/nodes/node-resource/editable-fields/ResourceTitleEdit';
 import { getResourceSubNodeById } from '@typescript/roadmap/roadmap-edit-logic';
 import {
@@ -12,7 +12,7 @@ import { setZoomAllowed } from '@store/runtime/miscParams';
 const ResourceSubNodeEdit = ({
   id: resId,
   parentId,
-}: EditingComponentProps) => {
+}: EditingComponentNodesProps) => {
   const rootRef = useRef<HTMLDivElement>(null);
   const resource = getResourceSubNodeByIdPlaceholder(resId);
 

@@ -3,7 +3,7 @@ import {
   decreaseEditingCount,
   increaseEditingCount,
 } from '@store/runtime/miscParams';
-import StateMangerCallbacks from '@components/roadmap/nodes/HOCs/StateMangerCallbacks';
+import StateMangerCallbacks from '@components/roadmap/nodes/HOCs/StateMangerLocal';
 import {
   checkPossibleTypes,
   WrappedComponentProps,

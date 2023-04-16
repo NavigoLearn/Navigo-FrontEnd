@@ -1,36 +1,41 @@
 import React from 'react';
-import { EditingComponentProps } from '@type/roadmap/components';
+import {
+  EditingComponentBasicProps,
+  EditingComponentNodesProps,
+} from '@type/roadmap/components';
 
 const AboutEditingField = ({
-  value,
+  data,
   onChange,
   onSave,
   onCancel,
-}: EditingComponentProps<string>) => {
+}: EditingComponentBasicProps) => {
   return (
     <>
       <input
-        value={value}
+        value={data}
         onChange={(e) => {
           onChange(e.target.value);
         }}
       />
-      <button
-        type='button'
-        onClick={() => {
-          onSave();
-        }}
-      >
-        save
-      </button>
-      <button
-        type='button'
-        onClick={() => {
-          onCancel();
-        }}
-      >
-        cancel
-      </button>
+      <div className='flex grow justify-end gap-4'>
+        <button
+          type='button'
+          onClick={() => {
+            onSave();
+          }}
+        >
+          save
+        </button>
+        <button
+          type='button'
+          onClick={() => {
+            onCancel();
+          }}
+        >
+          cancel
+        </button>
+      </div>
     </>
   );
 };

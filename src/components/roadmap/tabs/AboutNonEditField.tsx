@@ -1,22 +1,20 @@
 import React from 'react';
-import { NonEditingComponentProps } from '@type/roadmap/components';
+import { NonEditingComponentBasicProps } from '@type/roadmap/components';
 
-const AboutNonEditField = ({
-  value,
-  setCb,
-  id,
-}: NonEditingComponentProps<string>) => {
+const AboutNonEditField = ({ data, setCb }: NonEditingComponentBasicProps) => {
   return (
     <>
-      <div>{value}</div>
-      <button
-        type='button'
-        onClick={() => {
-          setCb();
-        }}
-      >
-        Edit
-      </button>
+      <div>{data}</div>
+      <div className='flex flex-grow justify-end'>
+        <button
+          type='button'
+          onClick={() => {
+            setCb();
+          }}
+        >
+          Edit
+        </button>
+      </div>
     </>
   );
 };
