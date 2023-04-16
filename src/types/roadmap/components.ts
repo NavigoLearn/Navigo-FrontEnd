@@ -20,6 +20,7 @@ export type NonEditingComponentBasicProps = {
 };
 
 export type NonEditingComponentProps = {
+  data?: any;
   id: string;
   setCb: () => void;
 };

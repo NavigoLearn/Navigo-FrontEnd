@@ -17,7 +17,9 @@ const NodeEdit = ({ title, tabId, id, level, editingNode }: NodeInfoProps) => {
   const [editing, setEditing] = useState(false);
   return (
     <div
-      className={`  text-sm p-2 font-semibold rounded-xl shadow-standard w-64 py-4 bg-white `}
+      className={`rounded-lg shadow-standard w-56 bg-white ${
+        level === 'main' ? ' border-2 border-primary' : ''
+      } `}
     >
       {editing ? (
         <InfoEditProps
@@ -39,6 +41,10 @@ const NodeEdit = ({ title, tabId, id, level, editingNode }: NodeInfoProps) => {
         />
       ) : (
         <InfoNonEditProps
+          data={{
+            title,
+            tabId,
+          }}
           id={id}
           setCb={() => {
             // blocking the drag and drop of the node

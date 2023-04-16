@@ -4,19 +4,20 @@ import { setInfoFlow } from '@typescript/roadmap/tab-logic-flows';
 
 const NodeView = ({ title, tabId, id, level }: NodeInfoProps) => {
   const rootRef = useRef<HTMLButtonElement>(null);
-
   return (
     <button
       type='button'
       ref={rootRef}
-      className={` text-sm p-2 font-semibold rounded-xl shadow-standard w-64 h-12  bg-white `}
+      className={` font-semibold rounded-lg shadow-standard w-56 py-1  bg-white ${
+        level === 'main' ? 'border-2 border-primary ' : ''
+      } `}
       onClick={() => {
         // tab changing logic
         setInfoFlow(tabId);
       }}
     >
       <div
-        className={` h-full border-black border-2 font-roboto-text  w-full flex justify-center items-center text-lg`}
+        className={` h-full  font-roboto-text  w-full flex justify-center items-center text-md`}
       >
         {title}
       </div>
