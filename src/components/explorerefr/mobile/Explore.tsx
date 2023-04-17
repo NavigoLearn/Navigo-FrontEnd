@@ -2,10 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import loupe from '@assets/loupe.svg';
 import filter from '@assets/filter.svg';
 import sort from '@assets/sortby.svg';
-import Cookies from '@components/explorerefr/mobile/cookies/Cookies';
+// import Cookies from '@components/explorerefr/mobile/cookies/Cookies';
 import SortBy from './SortBy';
 // import Filter from './Filter';
 import FilterAug from './FilterManager';
+import Card from '../Card';
 
 const SearchMobile = () => {
   const [clickFilter, setClickFilter] = useState(false);
@@ -34,7 +35,7 @@ const SearchMobile = () => {
 
   return (
     <div>
-      <Cookies />
+      {/* <Cookies /> */}
       <div>{clickFilter && <FilterAug handleClick={handleClick} />}</div>
       <div>{clickSort && <SortBy handleClick={handleClick} />}</div>
       <form
@@ -80,6 +81,9 @@ const SearchMobile = () => {
             </span>
           </div>
         </button>
+      </div>
+      <div className='flex justify-center'>
+        <Card />
       </div>
     </div>
   );

@@ -12,7 +12,6 @@ import Filter3d from './individualfilters/Filter3d';
 const FilterAugD = (props) => {
   const { onChange, onSave, value, filterChoose, setFilterChoose } = props;
 
-  console.log(filterChoose);
   useEffect(() => {
     if (
       value.SomeField1 !== 'none' ||
@@ -57,7 +56,10 @@ const FilterAugD = (props) => {
             <button
               type='button'
               className='bg-secondary w-32 h-9 rounded-lg text-white font-roboto-text'
-              onClick={() => onSave()}
+              onClick={() => {
+                onSave();
+                setFilterChoose(false);
+              }}
             >
               Apply
             </button>
