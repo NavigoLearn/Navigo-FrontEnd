@@ -13,7 +13,7 @@ const SearchDesktop = () => {
     <div>
       <form
         action='submit'
-        className='flex justify-center mt-20'
+        className='flex justify-center mt-24'
         onSubmit={handleSubmit}
       >
         <div className='relative'>
@@ -23,7 +23,7 @@ const SearchDesktop = () => {
             onChange={({ target }) => setQuery(target.value)}
             type='text'
             placeholder='Search for a roadmap'
-            className='h-[75px] sm:w-[750px] bg-white z-10 rounded-full shadow-standard pl-20 text-2xl placeholder:font-roboto-text pb-[2px] focus:outline-none'
+            className='h-[75px] w-[765px] bg-white z-10 rounded-full shadow-standard pl-20 text-2xl placeholder:font-roboto-text pb-[2px] focus:outline-none'
           />
           <img
             src={loupe}
