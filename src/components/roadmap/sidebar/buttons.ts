@@ -15,8 +15,6 @@ import { setTabAboutFlow } from '@typescript/roadmap/tab-logic-flows';
 const buttons = [
   {
     id: 1,
-    cName:
-      'w-10 flex justify-self-center items-center text-center text-2xl hover:underline',
     cIcon: edit,
     title: 'Edit',
     clickHandler: () => {
@@ -33,8 +31,6 @@ const buttons = [
 
   {
     id: 2,
-    cName:
-      'w-10 flex justify-self-center items-center text-center text-2xl hover:underline',
     cIcon: issues,
     title: 'Issues',
     clickHandler: () => {
@@ -44,8 +40,6 @@ const buttons = [
 
   {
     id: 3,
-    cName:
-      'w-10 flex justify-self-center items-center text-center text-2xl hover:underline',
     cIcon: about,
     title: 'About',
     clickHandler: () => {
@@ -55,8 +49,6 @@ const buttons = [
 
   {
     id: 4,
-    cName:
-      'w-10 flex justify-self-center items-center text-center text-2xl hover:underline',
     cIcon: report,
     title: 'Report',
     clickHandler: () => {
