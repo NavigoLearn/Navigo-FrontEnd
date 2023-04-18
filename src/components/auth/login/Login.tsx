@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import DesktopProfile from './Desktop';
-import MobileProfile from './Mobile';
+import DesktopLogin from './Desktop';
+import MobileLogin from './Mobile';
 
 const Profile = () => {
   const [isDesktop, setIsDesktop] = useState(undefined);
@@ -20,7 +20,7 @@ const Profile = () => {
   return (
     <div>
       {typeof isDesktop === 'undefined' ? null : (
-        <div>{isDesktop ? <DesktopProfile /> : <MobileProfile />}</div>
+        <div>{isDesktop ? <DesktopLogin /> : <MobileLogin />}</div>
       )}
     </div>
   );
