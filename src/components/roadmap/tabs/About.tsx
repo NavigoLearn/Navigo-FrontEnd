@@ -23,9 +23,11 @@ const About = () => {
   }, []);
 
   return (
-    <div className='h-full w-full relative'>
+    <div className='h-full w-full relative border-t-2 border-t-black md:border-t-0'>
       <div className='w-5/6 flex justify-between items-center mx-8 mt-6 '>
-        <div className=' font-kanit-text font-semibold text-4xl  '>About</div>
+        <div className=' font-kanit-text font-semibold text-2xl md:text-4xl  '>
+          About
+        </div>
       </div>
 
       <div className='mt-4'>

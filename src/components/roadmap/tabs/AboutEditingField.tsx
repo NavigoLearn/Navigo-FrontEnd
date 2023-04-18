@@ -17,24 +17,27 @@ const AboutEditingField = ({
         onChange={(e) => {
           onChange(e.target.value);
         }}
+        className=' w-20'
       />
-      <div className='flex grow justify-end gap-4'>
-        <button
-          type='button'
-          onClick={() => {
-            onSave();
-          }}
-        >
-          save
-        </button>
-        <button
-          type='button'
-          onClick={() => {
-            onCancel();
-          }}
-        >
-          cancel
-        </button>
+      <div className='flex justify-end w-20'>
+        <div className='flex gap-4'>
+          <button
+            type='button'
+            onClick={() => {
+              onSave();
+            }}
+          >
+            save
+          </button>
+          <button
+            type='button'
+            onClick={() => {
+              onCancel();
+            }}
+          >
+            cancel
+          </button>
+        </div>
       </div>
     </>
   );

@@ -3,7 +3,7 @@ import Base from '@layouts/Base.astro';
 import Roadmap from '@components/roadmap/Roadmap';
 import SideBar from '../../components/roadmap/sidebar/SideBar';
 import SideBarMobile from '../../components/roadmap/sidebar/SideBarMobile';
-import Tab from '@components/roadmap/Tab';
+import TabManager from '../../components/roadmap/TabManager';
 const { id } = Astro.params;
 // here we should get the data for the actual roadmap_static
 const data = { id: '123' };
@@ -24,7 +24,7 @@ const data = { id: '123' };
       <SideBarMobile client:idle />
     </div>
     <div class=''>
-      <Tab client:idle />
+      <TabManager client:idle />
     </div>
   </div>
 </Base>

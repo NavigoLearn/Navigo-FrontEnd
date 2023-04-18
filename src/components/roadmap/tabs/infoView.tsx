@@ -1,30 +1,50 @@
 import React from 'react';
+
 import Button from '@components/roadmap/tabs/utils/Button';
 import { divWrapper } from '@components/roadmap/tabs/utils/logic';
 import { useStore } from '@nanostores/react';
-import tabStore from '@store/runtime/tab-manager';
+import tabStore, { flipOpen } from '@store/runtime/tab-manager';
+import cross from '@assets/cross.svg';
 
 const InfoView = () => {
   const { info } = useStore(tabStore);
   return (
-    <div className=' w-full h-full relative'>
+    <div className=' w-full h-full relative border-t-2 border-t-black md:border-t-0'>
+      {divWrapper(
+        <div className='flex justify-between'>
+          <button
+            className=' h-8 w-8'
+            onClick={() => {
+              flipOpen();
+            }}
+          >
+            <img src={cross} className='w-6 h-6' />
+          </button>
+          <div className='mt-2'>
+            <Button
+              text='Mark as done'
+              callback={() => {
+                // to be done
+              }}
+              color='secondary'
+              size='small'
+            />
+          </div>
+        </div>
+      )}
       <div className='w-5/6 flex justify-between items-center mx-8 mt-6 '>
-        <div className=' font-kanit-text font-semibold text-4xl  '>
+        <div className=' font-kanit-text font-semibold text-2xl md:text-4xl  '>
           {info.title}
         </div>
-        <div className='mt-2'>
-          <Button
-            text='Mark as done'
-            callback={() => {
-              // to be done
-            }}
-            color='secondary'
-            size='small'
-          />
-        </div>
       </div>
-      {divWrapper(info.description)}
-      {divWrapper(<div>Visit the following resources to learn more</div>)}
+      {divWrapper(
+        <div className=' text-sm  md:text-xl'>{info.description}</div>
+      )}
+      {divWrapper(
+        <div className='text-xs md:text-lg'>
+          Visit the following resources to learn more
+        </div>
+      )}
       {divWrapper(
         <div>
           {info.links.map((resource) => {
@@ -34,7 +54,7 @@ const InfoView = () => {
                   href={resource.link}
                   target='_blank'
                   rel='noreferrer'
-                  className='text-main font-semibold font-roboto-text text-lg'
+                  className='text-main font-semibold font-roboto-text text-sm md:text-lg'
                 >
                   {resource.title}
                 </a>
@@ -49,7 +69,7 @@ const InfoView = () => {
       <div className='absolute bottom-20 w-full'>
         {divWrapper(
           <div>
-            <div className='text-secondary font-normal font-roboto-text'>
+            <div className='text-secondary font-normal font-roboto-text text-sm md:text-base  '>
               {info.additionalInfo}
             </div>
           </div>

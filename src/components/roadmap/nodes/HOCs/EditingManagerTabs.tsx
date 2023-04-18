@@ -18,7 +18,7 @@ function StateAugmentedComponent() {
     persistDataSave(newVal: string): void;
   }) => {
     // does the editing state management
-    const [editing, setEditing] = useState(true);
+    const [editing, setEditing] = useState(false);
     const [state, setState] = useState(data || '');
 
     return editing ? (

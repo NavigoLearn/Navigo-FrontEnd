@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useStore } from '@nanostores/react';
 import roadmapState from '@store/roadmap_state';
-import buttons from './buttons';
+import buttonsEdit from '@components/roadmap/sidebar/buttons-edit';
+import buttonsView from './buttons-view';
 
 const SideBar = () => {
   const [hover, setHover] = useState(false);
@@ -11,7 +12,6 @@ const SideBar = () => {
     // set hover based on weather event is mouseenter or mouseleave
     setHover(e.type === 'mouseenter');
   };
-  // TODO add 2 buttons with a green tick and a red x when editing
   return (
     <div
       className='w-48 h-full  top-0 absolute left-0'
@@ -25,48 +25,50 @@ const SideBar = () => {
         `}
       >
         <ul className='flex-col-4 min-h-full w-full gap-10 justify-self-center items-center '>
-          {hover
-            ? buttons.map((button) => {
-                return (
-                  <li
-                    key={button.id}
-                    className='flex items-center text-center ml-5'
+          {!editing &&
+            buttonsView.map((button) => {
+              return (
+                <li
+                  key={button.id}
+                  className='flex items-center text-center ml-5'
+                >
+                  <button
+                    type='button'
+                    className='w-10 flex justify-self-center items-center text-center text-2xl hover:underline'
+                    onClick={button.clickHandler}
                   >
-                    <button
-                      type='button'
-                      className='w-10 flex justify-self-center items-center text-center text-2xl hover:underline'
-                      onClick={button.clickHandler}
-                    >
-                      <img
-                        src={button.cIcon}
-                        alt='icons sidebar'
-                        className='mr-4 my-6'
-                      />
-                      {button.title}
-                    </button>
-                  </li>
-                );
-              })
-            : buttons.map((button) => {
-                return (
-                  <li
-                    key={button.id}
-                    className='flex items-center text-center ml-5'
+                    <img
+                      src={button.cIcon}
+                      alt='icons sidebar'
+                      className='mr-4 my-6 w-8 h-8 '
+                    />
+                    {hover ? button.title : null}
+                  </button>
+                </li>
+              );
+            })}
+          {editing &&
+            buttonsEdit.map((button) => {
+              return (
+                <li
+                  key={button.id}
+                  className='flex items-center text-center ml-5'
+                >
+                  <button
+                    type='button'
+                    className='w-10 flex justify-self-center items-center text-center text-2xl hover:underline'
+                    onClick={button.clickHandler}
                   >
-                    <button
-                      type='button'
-                      className='w-10 flex justify-self-center items-center text-center text-2xl hover:underline'
-                    >
-                      <img
-                        src={button.cIcon}
-                        alt='icons sidebar'
-                        className='mr-4 my-6'
-                      />
-                    </button>
-                  </li>
-                );
-              })}
-          <li>{editing ? 'editing' : 'not editing'}</li>
+                    <img
+                      src={button.cIcon}
+                      alt='icons sidebar'
+                      className='mr-4 my-6 w-8 h-8 '
+                    />
+                    {hover ? button.title : null}
+                  </button>
+                </li>
+              );
+            })}
         </ul>
       </div>
     </div>

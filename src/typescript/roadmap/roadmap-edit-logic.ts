@@ -31,7 +31,7 @@ generateNodeResourceEmpty
 */
 
 export function addNewTab(newId: string, newTab: TabInfo) {
-  // adds the new Tab to the diff and to the cache
+  // adds the new TabManager to the diff and to the cache
   diffTabInfo(newId, newTab);
   cacheTabInfo(newId, newTab);
 }
