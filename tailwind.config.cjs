@@ -9,6 +9,7 @@ module.exports = {
         secondary: '#3C42CE',
         highlight: '#007aff',
         background: '#ECEFF2',
+        textgradient: 'linear-gradient(90deg, #561BB6 0%, #253FC8 100%)',
         resourceSubNode: '#DEE2E7',
         white: '#FFFFFF',
       },
@@ -34,7 +35,6 @@ module.exports = {
       },
       backgroundImage: {
         buttongradient: 'linear-gradient(90deg, #3361D8 0%, #262EE7 100%)',
-        textgradient: 'linear-gradient(90deg, #561BB6 0%, #253FC8 100%)',
       }
     },
   },
