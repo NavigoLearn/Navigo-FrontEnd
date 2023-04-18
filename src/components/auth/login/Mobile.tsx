@@ -27,46 +27,49 @@ const MobileLogin = () => {
   };
 
   return (
-    <div className='mt-12 w-screen justify-center items-center'>
-      <h1 className='text-4xl sm:text-6xl justify-center text-center font-kanit-text'>
+    <div className='mt-12 min-h-full'>
+      <h1 className='text-5xl font-kanit-text text-center sm:text-6xl'>
         Welcome back!
       </h1>
-      <form
-        className='mt-12 items-center justify-center mx-auto flex flex-col w-10/12 max-w-xs sm:max-w-lg'
-        onSubmit={handleSubmit}
-      >
-        <input
-          required
-          type='email'
-          placeholder='Email'
-          value={email}
-          data-testid='email'
-          onChange={({ target }) => setEmail(target.value)}
-          className='flex py-3 mt-3 justify-center rounded-2xl border-2 shadow-sm w-full pl-3 placeholder:font-kanit-text placeholder:text-placeholder h-14 sm:h-16'
-        />
-        <input
-          required
-          type='password'
-          placeholder='Password'
-          value={password}
-          data-testid='password'
-          onChange={({ target }) => setPassword(target.value)}
-          className='flex py-3 mt-3 justify-center rounded-2xl border-2 shadow-sm w-full pl-3 placeholder:font-kanit-text placeholder:text-placeholder h-14 sm:h-16 sm:mt-6'
-        />
-        <button
-          type='submit'
-          className='flex justify-center items-center mt-6 w-56 h-12 sm:w-72 sm:h-16 sm:text-2xl rounded-full bg-buttongradient text-white font-kanit-text text-lg'
-        >
-          Login
-        </button>
-        <div className='mt-6 grid grid-cols-3 items-center text-gray-500 w-56 sm:w-72'>
-          <hr className='border-gray-500' />
-          <p className='text-center text-xs font-roboto-text text-placeholder sm:text-lg'>
+      <form className='mt-12' onSubmit={handleSubmit}>
+        <div className='flex flex-col'>
+          <div className='flex justify-center items-center'>
+            <input
+              required
+              type='text'
+              placeholder='Email'
+              value={email}
+              onChange={({ target }) => setEmail(target.value)}
+              className='rounded-xl w-11/12 sm:w-10/12 pl-3 placeholder:font-kanit-text placeholder:text-placeholder h-11 border-1 shadow-sm'
+            />
+          </div>
+          <div className='flex justify-center items-center'>
+            <input
+              required
+              type='password'
+              placeholder='Password'
+              value={password}
+              onChange={({ target }) => setPassword(target.value)}
+              className='rounded-xl w-11/12 sm:w-10/12 pl-3 placeholder:font-kanit-text placeholder:text-placeholder h-11 border-1 shadow-sm mt-3'
+            />
+          </div>
+        </div>
+        <div className='flex justify-center items-center mt-5'>
+          <button
+            type='submit'
+            className='rounded-full w-6/12 py-2.5 bg-buttongradient text-white font-kanit-text text-lg'
+          >
+            Login
+          </button>
+        </div>
+        <div className='mt-6 grid grid-cols-3 items-center text-placeholder mx-8'>
+          <hr className='border-gray-300' />
+          <p className='text-center text-xs sm:text-base font-roboto-text'>
             OR
           </p>
-          <hr className='border-gray-500' />
+          <hr className='border-gray-300' />
         </div>
-        <div className='grid gap-2.5 mt-6 w-full justify-center items-center'>
+        <div className='grid gap-2.5 mt-6 items-center justify-center'>
           <GoogleLoginButton onClick={handleGoogleLogin} />
           <GithubLoginButton onClick={handleGitHubLogin} />
         </div>
@@ -74,5 +77,4 @@ const MobileLogin = () => {
     </div>
   );
 };
-
 export default MobileLogin;
