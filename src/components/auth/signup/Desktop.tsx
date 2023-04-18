@@ -97,7 +97,7 @@ const DesktopSignUp = () => {
         </div>
         <div className='flex justify-center items-center text-lg'>
           <button
-            className='bg-primary mt-11 py-2.5 text-white w-60 rounded-full font-kanit-text'
+            className='bg-buttongradient mt-11 py-2.5 text-white w-60 rounded-full font-kanit-text'
             type='submit'
           >
             Sign Up
