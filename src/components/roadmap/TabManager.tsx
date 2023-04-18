@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useStore } from '@nanostores/react';
 import tabStore from '@store/runtime/tab-manager';
 import Issues from './tabs/Issues';
 import Info from './tabs/Info';
 import About from './tabs/About';
 
-const Tab = () => {
+const TabManager = () => {
   const { open, type } = useStore(tabStore);
 
   function renderTab() {
@@ -18,7 +18,7 @@ const Tab = () => {
   return (
     <>
       {open && (
-        <div className='absolute top-2 mt-0 shadow-standard right-2 w-[500px] h-[97%] bg-white'>
+        <div className='absolute shadow-standard top-0  md:top-2 md:mt-0  md:right-2 w-full h-full md:w-[500px] md:h-[97%] bg-white'>
           <div className='h-full w-full'>{renderTab()}</div>
         </div>
       )}
@@ -27,4 +27,4 @@ const Tab = () => {
   );
 };
 
-export default Tab;
+export default TabManager;

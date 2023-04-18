@@ -32,14 +32,12 @@ const MobileNavbar = () => {
 
   return (
     <nav
-      className={
-        click
-          ? 'bg-background h-12 flex w-full justify-center items-center'
-          : 'bg-background h-12 flex w-full justify-center'
-      }
+      className={`  h-12 flex w-full justify-center ${
+        click ? ' items-center' : ''
+      }`}
     >
       <div
-        className='block absolute top-0 right-0 mr-5 w-8 cursor-pointer'
+        className='block absolute top-2 right-1 mr-5 w-8 cursor-pointer z-50 '
         onClick={handleClick}
         onKeyDown={handleClick}
         role='presentation'
@@ -54,8 +52,8 @@ const MobileNavbar = () => {
         <ul
           className={
             click
-              ? 'bg-background left-0 flex-col absolute opacity-100 transition-all min-h-screen ease-linear duration-150 w-screen top-12 items-center z-50'
-              : 'flex-col bg-background w-screen absolute top-12 -left-full opacity-0 transition-all duration-150 ease-linear items-center'
+              ? 'bg-background left-0 flex-col absolute opacity-100 transition-all min-h-screen ease-linear duration-150 w-screen pt-12 items-center z-30'
+              : 'flex-col bg-background w-screen absolute pt-12 -left-full opacity-0 transition-all duration-150 ease-linear items-center'
           }
         >
           <a href='/home' className='justify-start cursor-pointer flex'>

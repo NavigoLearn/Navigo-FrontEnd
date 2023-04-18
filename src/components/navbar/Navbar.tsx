@@ -4,7 +4,7 @@ import MobileNavbar from './MobileNavbar';
 
 const Navbar = () => {
   return (
-    <div className='z-100'>
+    <div className=''>
       <div className='hidden md:block'>
         <DesktopNavbar />
       </div>

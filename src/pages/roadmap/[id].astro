@@ -1,10 +1,9 @@
 ---
 import Base from '@layouts/Base.astro';
 import Roadmap from '@components/roadmap/Roadmap';
-import Roadmap from '../../components/roadmap/Roadmap';
-import Sidebar from '@components/roadmap/sidebar/Sidebar';
-import Tab from '@components/roadmap/Tab';
-import Roadmap from '../../components/roadmap/Roadmap';
+import SideBar from '../../components/roadmap/sidebar/SideBar';
+import SideBarMobile from '../../components/roadmap/sidebar/SideBarMobile';
+import TabManager from '../../components/roadmap/TabManager';
 const { id } = Astro.params;
 // here we should get the data for the actual roadmap_static
 const data = { id: '123' };
@@ -13,16 +12,19 @@ const data = { id: '123' };
 <Base title='Welcome to Astro.'>
   <div class='absolute w-full top-0 h-16 bg-white z-[-10]'></div>
 
-  <div class='h-[calc(100vh-64px)] relative'>
+  <div class='h-[calc(100vh-64px)] mt-4 md:mt-0 relative'>
     <!-- offset from nav reduced from total screen size -->
-    <div class='ml-20 w-full h-full'>
+    <div class='md:ml-20 h-full'>
       <Roadmap pageId={id} client:load />
     </div>
-    <div class=''>
-      <Sidebar client:idle />
+    <div class='hidden md:block'>
+      <SideBar client:idle />
+    </div>
+    <div class='block md:hidden'>
+      <SideBarMobile client:idle />
     </div>
     <div class=''>
-      <Tab client:idle />
+      <TabManager client:idle />
     </div>
   </div>
 </Base>
