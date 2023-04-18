@@ -1,14 +1,21 @@
+import { ConnectionProps, ConnectionStore } from '@type/roadmap/connections';
+import { ResourceSubNodeProps } from '@type/roadmap/resources';
+import { LevelTypes, levelTypesArray } from '@type/roadmap/level-types';
 import {
-  NodeProps,
-  ResourceProps,
+  NodeInfoStore,
+  NodeStore,
+  nodeIdentifierTypesArray,
   NodeIdentifierTypes,
-  ResourceSubNodeStore,
-  ResourceSubNodeProps,
-  ResourceStore,
+  NodeInfoProps,
+  NodeResourceProps,
+  NodeResourceStore,
+  NodeTypesStore,
 } from './nodes';
 
-export function isNodeProps(props: any): props is NodeProps {
-  return 'title' in props && 'tabId' in props && 'type' in props;
+export function isNodeInfoProps(props: any): props is NodeInfoProps {
+  return (
+    'title' in props && 'tabId' in props && 'type' in props && 'level' in props
+  );
 }
 
 export function isResourceSubNodeProps(
@@ -17,11 +24,30 @@ export function isResourceSubNodeProps(
   return 'title' in props && 'tabId' in props && 'type' in props;
 }
 
-export function isResourceProps(props: any): props is ResourceProps {
-  return 'title' in props && 'nodes' in props;
+export function isNodeResourceProps(props: any): props is NodeResourceProps {
+  return 'title' in props && 'nodes' in props && 'level' in props;
 }
 
-export function isResourceStore(props: any): props is ResourceStore {
+export function isLevelType(props: any): props is LevelTypes {
+  return levelTypesArray.includes(props);
+}
+
+export function isNodeStore(props: any): props is NodeStore {
+  return 'id' in props && 'title' in props && 'type' in props;
+}
+export function isNodeInfoStore(props: any): props is NodeInfoStore {
+  return (
+    'title' in props &&
+    'type' in props &&
+    props.type === 'Info' &&
+    'tabId' in props &&
+    'x' in props &&
+    'y' in props &&
+    'id' in props
+  );
+}
+
+export function isNodeResourceStore(props: any): props is NodeResourceStore {
   return (
     'title' in props &&
     'type' in props &&
@@ -33,6 +59,18 @@ export function isResourceStore(props: any): props is ResourceStore {
   );
 }
 
+export function isConnectionStore(props: any): props is ConnectionStore {
+  return 'id' in props && 'parentId' in props && 'childId' in props;
+}
+
+export function isConnectionProps(props: any): props is ConnectionProps {
+  return 'id' in props && 'parentId' in props && 'childId' in props;
+}
+
+export function isNodeTypesStore(props: any): props is NodeTypesStore {
+  return isNodeInfoStore(props) || isNodeResourceStore(props);
+}
+
 export function isValidNodeType(type: string): type is NodeIdentifierTypes {
-  return type === 'Node' || type === 'Resource';
+  return nodeIdentifierTypesArray.includes(type);
 }

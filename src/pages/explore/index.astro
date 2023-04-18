@@ -1,14 +1,31 @@
 ---
 import Base from '@layouts/Base.astro';
-import Search from '@components/explorerefr/mobile/Search';
+import SearchMobile from '../../components/explorerefr/mobile/Explore';
+import SearchDesktop from '@components/explorerefr/desktop/Search';
+import wave from '@assets/wavesNegative.svg';
 ---
 
 <Base title='Welcome to Astro.'>
-  <div>
-    <div class="flex items-center justify-center mx-8 font-kanit-text text-[21px] flex-col mt-9 sm:text-[31px]">
+  <div class='hidden md:block'>
+    <div class='mt-40 relative'>
+      <div class='bg-[#cfeefc] absolute w-full h-[300px] top-[-160px] -z-20'></div>
+      </div>
+      <img src={wave} alt='WaveBackground' class='absolute -z-10 bg-[#cfeefc] h-36 w-full'/>
+      <div class='flex justify-center items-center'>
+        <h1 class='font-semibold font-kanit-text mt-2 lg:text-4xl text-[35px] absolute'>
+          The journey of 1000 miles starts with 1 roadmap
+        </h1>
+      </div>
+      <SearchDesktop client:idle />
+    </div>
+  </div>
+  <div class='md:hidden'>
+    <div
+      class='flex items-center justify-center font-kanit-text text-[21px] flex-col mt-9 sm:text-[31px]'
+    >
       <h1>The journey of 1000 steps</h1>
       <h1>starts with 1 roadmap</h1>
     </div>
-    <Search client:load/>
+    <SearchMobile client:idle />
   </div>
 </Base>

@@ -20,8 +20,8 @@ import '@fontsource/oxygen';
     <meta name='generator' content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body class='bg-background w-full h-full'>
-    <Navbar client:load />
+  <body class='bg-background relative w-screen h-screen'>
+    <Navbar client:idle />
     <slot />
   </body>
 </html>

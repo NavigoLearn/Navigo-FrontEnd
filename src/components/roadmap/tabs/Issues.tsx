@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useStore } from '@nanostores/react';
-import tabStore from '@store/tabinfo';
+import tabStore from '@store/runtime/tab-manager';
 import Button from '@components/roadmap/tabs/utils/Button';
 import arrowleft from '@assets/arrowleft.svg';
 import arrowright from '@assets/arrowright.svg';
@@ -14,9 +14,11 @@ const Issues = () => {
   const [page, setPage] = useState(1);
   const { issues } = useStore(tabStore);
   return (
-    <div className='w-full h-full relative'>
+    <div className='w-full h-full relative border-t-black border-t-2 md:border-t-0'>
       <div className='w-5/6 flex justify-between items-center mx-8 mt-6 '>
-        <div className=' font-kanit-text font-semibold text-4xl  '>Issues</div>
+        <div className=' font-kanit-text font-semibold text-2xl md:text-4xl  '>
+          Issues
+        </div>
         <div className='mt-2'>
           <Button
             text='Add issue'

@@ -12,7 +12,7 @@ const SortBy = ({ handleClick }) => {
   const [filterSelected, setFilterSelected] = useState('');
 
   return (
-    <div className='h-screen w-screen bg-background absolute z-10 top-0'>
+    <div className='h-screen w-screen bg-background absolute z-[60] top-0'>
       <div className='text-[18px] flex justify-center space-x-24 items-center mt-6 sm:space-x-72 sm:text-[28px]'>
         <h1 className='inline-block'>Sort roadmaps by</h1>
         <button type='button' onClick={() => handleClick('sort')}>
@@ -43,6 +43,17 @@ const SortBy = ({ handleClick }) => {
             </div>
           ))}
         </ul>
+      </div>
+      <div className='flex justify-center items-center absolute bottom-10 w-full '>
+        <button
+          type='button'
+          className='bg-secondary w-28 h-8 rounded-lg text-white font-roboto-text'
+          onClick={() => {
+            handleClick('sort');
+          }}
+        >
+          Apply
+        </button>
       </div>
     </div>
   );

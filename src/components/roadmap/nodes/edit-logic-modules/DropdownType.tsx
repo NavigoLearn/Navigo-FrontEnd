@@ -1,43 +1,73 @@
 import React, { useState } from 'react';
-import { changeNodeType } from '@store/roadmap_edit';
+import arrow from '@assets/arrow-up.svg';
+import { changeNodeType } from '@typescript/roadmap/roadmap-edit-logic-decorated';
 import {
   NodeIdentifierTypes,
-  NodeIdentifierTypesArray,
+  nodeIdentifierTypesArray,
 } from '@type/roadmap/nodes';
 import { isValidNodeType } from '@type/roadmap/typecheckers';
 
 // handles all the node type change logic for every node
 const DropdownType = ({
   id,
-  title,
   type,
 }: {
   id: string;
-  title: string;
   type: NodeIdentifierTypes;
 }) => {
   const [selectedOption, setSelectedOption] = useState(type);
+  const [open, setOpen] = useState(false);
 
-  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const { value } = event.target;
+  const handleChange = (value) => {
     if (isValidNodeType(value)) {
       setSelectedOption(value);
-      changeNodeType(id, value, title);
+      changeNodeType(id, value);
+      setOpen(false);
     }
   };
 
   return (
-    <select
-      className='absolute w-20'
-      value={selectedOption}
-      onChange={handleChange}
-    >
-      {NodeIdentifierTypesArray.map((option) => (
-        <option key={option} value={option}>
-          {option}
-        </option>
-      ))}
-    </select>
+    <div className='w-full bg-transparent outline-none flex justify-center '>
+      <div className=' text-center w-24 '>
+        <div className='flex flex-col pb-4'>
+          {open && (
+            <>
+              {nodeIdentifierTypesArray.map((option) => (
+                <button
+                  type='button'
+                  key={option}
+                  className={` py-1 text-placeholder hover:text-main transition-colors`}
+                  onClick={() => {
+                    handleChange(option);
+                  }}
+                >
+                  {option}
+                </button>
+              ))}
+            </>
+          )}
+        </div>
+        <button
+          type='button'
+          className='flex relative text-center justify-center w-full bg-transparent outline-none '
+          onClick={() => {
+            setOpen((prev) => !prev);
+          }}
+        >
+          <div className=' text-secondary text-md mb-1  relative'>
+            {selectedOption}
+
+            <img
+              src={arrow}
+              alt='chose element'
+              className={` w-3 opacity-50 transition-transform absolute -right-5 bottom-1   ${
+                open ? ' rotate-180' : ' rotate-0'
+              }  `}
+            />
+          </div>
+        </button>
+      </div>
+    </div>
   );
 };
 

@@ -1,63 +1,118 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { NodeProps, ResourceProps, ManagerProps } from '@type/roadmap/nodes';
-import { isNodeProps, isResourceProps } from '@type/roadmap/typecheckers';
-import roadmapEdit from '@store/roadmap_edit';
-import roadmap from '@store/roadmap';
-import roadmapState from '@store/roadmap_state';
-import { useStore } from '@nanostores/react';
+import React, {
+  useLayoutEffect,
+  useRef,
+  useState,
+  useMemo,
+  useEffect,
+} from 'react';
+import { NodeInfoProps, NodeManagerProps } from '@type/roadmap/nodes';
+import {
+  isNodeInfoProps,
+  isNodeResourceProps,
+} from '@type/roadmap/typecheckers';
+import { getNodeById } from '@store/roadmap_static';
+import { addDraggability } from '@typescript/roadmap/roadmap-render';
+import levels from '@styles/levelStyles';
+import { getNodeByIdEdit } from '@typescript/roadmap/roadmap-edit-logic';
+import Tooltip from '@components/roadmap/nodes/misc/Tooltip';
 import Node from './nodes/node-info/Node';
 import Resource from './nodes/node-resource/Resource';
 
-const NodeManager = ({ data, sizeCb }: ManagerProps) => {
+const NodeManager = ({ data, editing, triggerCb }: NodeManagerProps) => {
   const rootRef = useRef<HTMLDivElement>(null);
-  const { editing } = useStore(roadmapState);
-  // TODO implement selective rerendering (Only rerenders when the current node changes not any node in roadmap)
-  // it is currently rerendering all the nodes again on any change not directly related to that node
-  // something like keeping a reference to the nodeobject characterized by id and rendering when something changes
-  useStore(roadmap);
-  useStore(roadmapEdit);
+  const objRef = useRef<SVGForeignObjectElement>(null);
+  const [render, setRender] = useState(true);
+  const dataRef = useRef(data);
+
+  function triggerRender() {
+    setRender((val) => !val);
+    // used for selective rerendering of the nodes
+  }
+
+  function disableDraggability() {
+    addDraggability(data.id, false);
+  }
+  function enableDraggability() {
+    addDraggability(data.id, true);
+  }
+
+  useLayoutEffect(() => {
+    triggerCb(triggerRender, disableDraggability, enableDraggability);
+  }, []);
 
   useEffect(() => {
+    // things to trigger on rerender
     if (rootRef) {
-      const { width, height } = rootRef.current.getBoundingClientRect();
-      sizeCb(width, height);
+      // updates the size of the foreignObject to match the size of the div for draggability and movement purposes
+      const width = `${rootRef.current.offsetWidth}`;
+      const height = `${rootRef.current.offsetHeight}`;
+      objRef.current.setAttribute('width', width);
+      objRef.current.setAttribute('height', height);
     }
-  }, []);
+  }, [render]);
+
+  useEffect(() => {
+    // locks the nodes that are currently in text editing or view mode
+    addDraggability(data.id, editing);
+  }, [editing]);
 
   const renderNode = () => {
     // we fetch the data from the nanostores here in order to get rerendering on data change
-    const { nodes } = roadmap.get();
-    const { id } = data as NodeProps;
-    const node = nodes[id];
-    if (isNodeProps(node)) {
-      const { title, type, tabId } = node;
-      return <Node id={id} type={type} title={title} tabId={tabId} />;
+    const { id } = data as NodeInfoProps;
+    let node;
+    if (editing) {
+      node = editing ? getNodeByIdEdit(id) : getNodeById(id);
+    } else {
+      node = data;
     }
-    if (isResourceProps(node)) {
-      const { id: idNode, title, nodes: resNodes } = node;
-      return <Resource id={idNode} title={title} nodes={resNodes} />;
+    dataRef.current = node;
+    if (isNodeInfoProps(node)) {
+      const { title, tabId, level } = node;
+      return (
+        <Node
+          level={level}
+          editing={editing}
+          id={id}
+          title={title}
+          tabId={tabId}
+        />
+      );
+    }
+    if (isNodeResourceProps(node)) {
+      const { id: idNode, title, nodes: resNodes, level } = node;
+      return (
+        <Resource level={level} id={idNode} title={title} nodes={resNodes} />
+      );
     }
     throw new Error('something went wrong');
   };
-  const renderNodeEditing = () => {
-    // we fetch the data from the nanostores here in order to get rerendering on data change
-    const { nodes } = roadmapEdit.get();
-    const { id } = data as NodeProps;
-    const node = nodes[id];
-    if (isNodeProps(node)) {
-      const { title, type, tabId } = node;
-      return <Node id={id} type={type} title={title} tabId={tabId} />;
-    }
-    if (isResourceProps(node)) {
-      const { id: idNode, title, nodes: resNodes } = node;
-      return <Resource id={idNode} title={title} nodes={resNodes} />;
-    }
-    throw new Error('something went wrong');
-  };
+  const renderedNode = useMemo(() => {
+    return renderNode();
+  }, [render]);
+
+  const compOpacity = levels[dataRef.current.level].comp;
+
   return (
-    <div ref={rootRef} className=' inline-block border-0 '>
-      {editing ? renderNodeEditing() : renderNode()}
-    </div>
+    <>
+      <g
+        id={`tooltip${data.id}`}
+        transform={`translate(${data.x},${data.y - 128})`}
+      >
+        <foreignObject className='pointer-events-none' width='220' height='128'>
+          <Tooltip id={data.id} />
+        </foreignObject>
+      </g>
+      <g id={`group${data.id}`} transform={`translate(${data.x},${data.y})`}>
+        <foreignObject
+          ref={objRef}
+          className='bg-transparent overflow-visible '
+        >
+          <div ref={rootRef} className={`  inline-block  bg-transparent  `}>
+            {renderedNode}
+          </div>
+        </foreignObject>
+      </g>
+    </>
   );
 };
 

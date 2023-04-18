@@ -1,57 +1,54 @@
-export interface NodeProps {
-  id: string;
-  title: string;
-  type: 'Node' | 'ResourceSubNode';
-  tabId: string;
-}
+import { ResourceSubNodeProps } from '@type/roadmap/resources';
+import { LevelTypes } from '@type/roadmap/level-types';
 
-export interface ResourceProps {
-  id: string;
-  title: string;
-  nodes: NodeProps[];
-}
-
+export type NodeIdentifierTypes = 'Info' | 'Resource';
+export const nodeIdentifierTypesArray = ['Info', 'Resource'];
 export interface NodeStore {
   id: string;
   title: string;
-  type: 'Node';
-  tabId: string;
+  type: NodeIdentifierTypes;
   x: number;
   y: number;
+  parent: string;
+  children: string[];
+  chunk: string;
+  level: LevelTypes;
+  connections: string[];
 }
-
-export interface ResourceStore {
+export interface NodeInfoProps {
+  editing?: boolean;
+  editingNode?: boolean;
+  level: LevelTypes;
   id: string;
   title: string;
-  type: 'Resource';
-  x: number;
-  y: number;
+  tabId: string;
+}
+
+export interface NodeResourceProps {
+  id: string;
+  level: LevelTypes;
+  title: string;
+  nodes: ResourceSubNodeProps[];
+}
+
+export interface NodeInfoStore extends NodeStore {
+  tabId: string;
+}
+
+export interface NodeResourceStore extends NodeStore {
   nodes: string[];
 }
 
-export interface ResourceSubNodeProps {
-  id: string;
-  parentId: string;
-  type: 'ResourceSubNode';
-  title: string;
-  tabId: string;
-}
+export type NodeTypesProps = NodeInfoProps | NodeResourceProps;
+export type NodeTypesStore = NodeInfoStore | NodeResourceStore;
 
-export interface ResourceSubNodeStore {
-  id: string;
-  parentId: string;
-  type: 'ResourceSubNode';
-  title: string;
-  tabId: string;
-}
-
-export type NodeTypes = NodeProps | ResourceProps;
-
-export type ManagerProps = {
-  // id: string;
-  data: NodeTypes;
-  sizeCb: (width: number, height: number) => void;
+export type NodeManagerProps = {
+  data: NodeTypesStore;
+  editing: boolean;
+  triggerCb: (cbRender: any, cbEnable: any, cbDisable: any) => void;
 };
 
-export type NodeIdentifierTypes = 'Node' | 'Resource';
-export const NodeIdentifierTypesArray = ['Node', 'Resource'];
+export type Coord = {
+  x: number;
+  y: number;
+};
