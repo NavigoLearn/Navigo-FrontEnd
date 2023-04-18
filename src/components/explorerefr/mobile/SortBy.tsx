@@ -12,7 +12,7 @@ const SortBy = ({ handleClick }) => {
   const [filterSelected, setFilterSelected] = useState('');
 
   return (
-    <div className='h-screen w-screen bg-background absolute z-10 top-0'>
+    <div className='h-screen w-screen bg-background absolute z-[60] top-0'>
       <div className='text-[18px] flex justify-center space-x-24 items-center mt-6 sm:space-x-72 sm:text-[28px]'>
         <h1 className='inline-block'>Sort roadmaps by</h1>
         <button type='button' onClick={() => handleClick('sort')}>
