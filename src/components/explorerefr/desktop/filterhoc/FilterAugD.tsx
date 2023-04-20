@@ -25,7 +25,7 @@ const FilterAugD = (props) => {
   return (
     <div>
       <div className='flex justify-center items-center'>
-        <div className='grid grid-cols-3 mt-10 w-[830px] gap-16'>
+        <div className='grid grid-cols-3 mt-10 w-[830px] gap-16 2xl:w-[1100px]'>
           <div>
             <Filter1d
               onChange={(NameField) => onChange('SomeField1', NameField)}
@@ -55,7 +55,7 @@ const FilterAugD = (props) => {
           <div className='flex justify-center items-center mt-10'>
             <button
               type='button'
-              className='bg-secondary w-32 h-9 rounded-lg text-white font-roboto-text'
+              className='bg-secondary w-32 h-9 rounded-lg text-white font-roboto-text 2xl:w-40 2xl:h-10 2xl:text-lg'
               onClick={() => {
                 onSave();
                 setFilterChoose(false);

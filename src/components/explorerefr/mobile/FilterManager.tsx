@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import dropclose from '@assets/cross.svg';
 import Filter1 from '@components/explorerefr/mobile/filter-components/Filter1';
 import Filter2 from '@components/explorerefr/mobile/filter-components/Filter2';
@@ -34,8 +34,25 @@ const FilterManager = ({
   isOpen,
   setIsOpen,
 }) => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const calculateScroll = () => {
+      const scrollPosition = window.scrollY;
+      ref.current.style.top = `${scrollPosition}px`; // Convert to pixels
+      ref.current.style.display = 'block';
+    };
+
+    calculateScroll();
+
+    window.addEventListener('scroll', calculateScroll);
+    return () => {
+      window.removeEventListener('scroll', calculateScroll);
+    };
+  }, []);
+
   return (
-    <div className='h-screen w-screen bg-background absolute z-10 top-0'>
+    <div ref={ref} className='h-screen w-screen bg-background absolute z-10'>
       <div className='text-[18px] flex justify-center space-x-24 items-center mt-6 sm:space-x-72 sm:text-[28px]'>
         <h1 className='inline-block'>Filter roadmaps by</h1>
         <button type='button' onClick={() => handleClick('filter')}>

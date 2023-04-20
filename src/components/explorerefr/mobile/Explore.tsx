@@ -2,7 +2,16 @@ import React, { useEffect, useRef, useState } from 'react';
 import loupe from '@assets/loupe.svg';
 import filter from '@assets/filter.svg';
 import sort from '@assets/sortby.svg';
+import chevroleftduo from '@assets/chevron-left-duo.svg';
+import chevronrightduo from '@assets/chevron-right-duo.svg';
+import chevronleft from '@assets/chevron-left.svg';
+import chevronright from '@assets/chevron-right.svg';
 // import Cookies from '@components/explorerefr/mobile/cookies/Cookies';
+import cardsFromApi, {
+  setCardsFromApi,
+  setCardsFromApiDefault,
+} from '@store/card_store';
+import { CardType } from '@type/explore/card';
 import SortBy from './SortBy';
 // import Filter from './Filter';
 import FilterAug from './FilterManager';
@@ -11,6 +20,17 @@ import Card from '../Card';
 const SearchMobile = () => {
   const [clickFilter, setClickFilter] = useState(false);
   const [clickSort, setClickSort] = useState(false);
+  const [render, setRender] = useState(false);
+  const [pageNr, setPageNr] = useState(1);
+  const isDisabled = pageNr <= 1;
+  const cardStore = cardsFromApi.get();
+
+  useEffect(() => {
+    setCardsFromApiDefault().then(() => {
+      setRender((prev) => !prev);
+      console.log(cardsFromApi.get());
+    });
+  }, []);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -56,6 +76,7 @@ const SearchMobile = () => {
           />
         </div>
       </form>
+
       <div className='flex justify-center items-center space-x-12 mt-7 sm:mt-9'>
         <button type='button' onClick={() => handleClick('filter')}>
           <div className='bg-primary flex justify-center items-center shadow-standard rounded-lg w-[90px] text-white h-[30px] sm:w-[122px] sm:h-[42px]'>
@@ -82,8 +103,51 @@ const SearchMobile = () => {
           </div>
         </button>
       </div>
-      <div className='flex justify-center'>
-        <Card />
+
+      <div className='mt-10 sm:mt-12'>
+        <ul className='flex flex-col gap-7 sm:gap-9'>
+          {Object.keys(cardStore).map((card: string) => (
+            <div key={card} className='flex items-center justify-center'>
+              <Card cardStore={cardStore[card]} />
+            </div>
+          ))}
+        </ul>
+      </div>
+
+      <div className='flex justify-center items-center my-8'>
+        <button type='button'>
+          <img
+            src={chevroleftduo}
+            alt='doubleArrowLeft'
+            className='w-5 h-5 sm:w-7 sm:h-7'
+          />
+        </button>
+        <button
+          type='button'
+          onClick={() => setPageNr((prev) => prev - 1)}
+          disabled={isDisabled}
+        >
+          <img
+            src={chevronleft}
+            alt='ArrowLeft'
+            className='w-6 h-6 sm:w-8 sm:h-8'
+          />
+        </button>
+        <span>{pageNr}</span>
+        <button type='button' onClick={() => setPageNr((prev) => prev + 1)}>
+          <img
+            src={chevronright}
+            alt='ArrowRight'
+            className='w-6 h-6 sm:w-8 sm:h-8'
+          />
+        </button>
+        <button type='button'>
+          <img
+            src={chevronrightduo}
+            alt='doubleArrowRight'
+            className='w-5 h-5 sm:w-8 sm:h-8'
+          />
+        </button>
       </div>
     </div>
   );
