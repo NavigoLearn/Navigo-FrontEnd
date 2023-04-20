@@ -9,9 +9,8 @@ module.exports = {
         secondary: '#3C42CE',
         highlight: '#007aff',
         background: '#ECEFF2',
-        resourceSubNode: '#DEE2E7',
         textgradient: 'linear-gradient(90deg, #561BB6 0%, #253FC8 100%)',
-        buttongradient: 'linear-gradient(90deg, #3361D8 0%, #262EE7 100%)',
+        resourceSubNode: '#DEE2E7',
         white: '#FFFFFF',
       },
       borderColor: {
@@ -33,7 +32,14 @@ module.exports = {
       screens: {
         'big': '1277px',
         'medium': '841px',
+      },
+<<<<<<< HEAD
+
+=======
+      backgroundImage: {
+        buttongradient: 'linear-gradient(90deg, #3361D8 0%, #262EE7 100%)',
       }
+>>>>>>> cbd41e966a78bd92b54c9c4efd4610a8d1dafeac
     },
   },
   plugins: [

@@ -15,7 +15,7 @@ const TitleEdit = <T,>({
 
   return (
     <input
-      className={` pointer-events-auto text-lg  text-placeholder w-full flex justify-center items-center border-2 border-gray-200 outline-none `}
+      className={` pointer-events-auto text-lg text-center text-main font-semibold w-full flex justify-center items-center border-2 border-gray-200 outline-none `}
       value={localVal}
       onChange={(e) => {
         const newLocalVal = e.target.value;

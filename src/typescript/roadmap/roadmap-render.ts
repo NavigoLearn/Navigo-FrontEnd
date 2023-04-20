@@ -11,10 +11,9 @@ import {
   isNodeInfoStore,
   isNodeResourceStore,
 } from '@type/roadmap/typecheckers';
-import cachedNodeCoords, {
+import cachedCoords, {
   cacheNodeCoord,
 } from '@store/runtime/cached-node-coords';
-import cachedCoords from '@store/runtime/cached-node-coords';
 
 function getTransformXY(transform: string) {
   const firstParentheses = transform.indexOf('(');
@@ -27,7 +26,7 @@ function getTransformXY(transform: string) {
     y: parseInt(transformValues[1], 10),
   };
 }
-function calculateMiddleOfNodeOffsetStatic(node: NodeTypesStore) {
+export function calculateMiddleOfNodeOffsetStatic(node?: NodeTypesStore) {
   const offset = {
     x: 0,
     y: 0,
@@ -154,12 +153,29 @@ function getNodeOffsetCoords(id: string) {
   };
 }
 
-export function renderConnections() {
-  const renderConns = renderConnectionsStore.get();
-  const { connections: connIds } = renderConns;
+export function renderConnectionsSelected(connIds: string[]) {
   const { editing } = roadmapState.get();
   const original = editing ? roadmapEdit.get() : roadmapStatic.get();
   const { connections } = original;
+
+  function getConnWidth(conn: ConnectionStore) {
+    const { parentId, childId } = conn;
+    if (
+      original.nodes[parentId].level === 'main' &&
+      original.nodes[childId].level === 'main'
+    )
+      return 4;
+    return 2;
+  }
+  function getConnColor(conn: ConnectionStore) {
+    const { parentId, childId } = conn;
+    if (
+      original.nodes[parentId].level === 'main' &&
+      original.nodes[childId].level === 'main'
+    )
+      return '#0092ff';
+    return '#000000';
+  }
 
   // creates an array from the nodes json object
   const connectionArray: ConnectionStore[] = connIds.map(
@@ -184,7 +200,7 @@ export function renderConnections() {
     .attr('x2', (d: ConnectionStore) => getNodeMiddleCoordsFlow(d.childId).x)
     .attr('y2', (d: ConnectionStore) => getNodeMiddleCoordsFlow(d.childId).y)
     .attr('stroke', 'black')
-    .attr('stroke-width', 2);
+    .attr('stroke-width', (d: ConnectionStore) => getConnWidth(d));
 
   // this should happen only in editing mode when a node is moving
   nodeSelection
@@ -194,11 +210,77 @@ export function renderConnections() {
     .attr('x2', (d: ConnectionStore) => getNodeMiddleCoordsFlow(d.childId).x)
     .attr('y2', (d: ConnectionStore) => getNodeMiddleCoordsFlow(d.childId).y)
     .attr('stroke', 'black')
-    .attr('stroke-width', 2);
+    .attr('stroke-width', (d: ConnectionStore) => getConnWidth(d));
 
   nodeSelection.exit().remove();
 }
 
+export function renderConnections() {
+  const renderConns = renderConnectionsStore.get();
+  const { connections: connIds } = renderConns;
+  const { editing } = roadmapState.get();
+  const original = editing ? roadmapEdit.get() : roadmapStatic.get();
+  const { connections } = original;
+
+  function getConnWidth(conn: ConnectionStore) {
+    const { parentId, childId } = conn;
+    if (
+      original.nodes[parentId].level === 'main' &&
+      original.nodes[childId].level === 'main'
+    )
+      return 4;
+    return 2;
+  }
+  function getConnColor(conn: ConnectionStore) {
+    const { parentId, childId } = conn;
+    if (
+      original.nodes[parentId].level === 'main' &&
+      original.nodes[childId].level === 'main'
+    )
+      return '#0092ff';
+    return '#000000';
+  }
+
+  // creates an array from the nodes json object
+  const connectionArray: ConnectionStore[] = connIds.map(
+    (key) => connections[key]
+  );
+
+  const g = document.getElementById('rootGroupConnections');
+  const nodeSelection = d3
+    .select(g)
+    .selectAll('line')
+    .data(connectionArray, (d) => {
+      return d.id;
+    }); // Use the data value as the key function
+  // calculates the middle of the node for each node
+  // we append line objects
+  nodeSelection
+    .enter()
+    .append('line')
+    .attr('id', (d: ConnectionStore) => d.id)
+    .attr('x1', (d: ConnectionStore) => getNodeMiddleCoordsFlow(d.parentId).x)
+    .attr('y1', (d: ConnectionStore) => getNodeMiddleCoordsFlow(d.parentId).y)
+    .attr('x2', (d: ConnectionStore) => getNodeMiddleCoordsFlow(d.childId).x)
+    .attr('y2', (d: ConnectionStore) => getNodeMiddleCoordsFlow(d.childId).y)
+    .attr('stroke', (d: ConnectionStore) => getConnColor(d))
+    .attr('stroke-width', (d: ConnectionStore) => getConnWidth(d));
+
+  // this should happen only in editing mode when a node is moving
+  nodeSelection
+    .attr('id', (d: ConnectionStore) => d.id)
+    .attr('x1', (d: ConnectionStore) => getNodeMiddleCoordsFlow(d.parentId).x)
+    .attr('y1', (d: ConnectionStore) => getNodeMiddleCoordsFlow(d.parentId).y)
+    .attr('x2', (d: ConnectionStore) => getNodeMiddleCoordsFlow(d.childId).x)
+    .attr('y2', (d: ConnectionStore) => getNodeMiddleCoordsFlow(d.childId).y)
+    .transition()
+    .duration(200)
+
+    .attr('stroke', (d: ConnectionStore) => getConnColor(d))
+    .attr('stroke-width', (d: ConnectionStore) => getConnWidth(d));
+
+  nodeSelection.exit().remove();
+}
 export function updateConnections() {
   // called when a node is moved via dragging
   const { adjacentConnectionsId: connIds } = selection.get();
@@ -242,7 +324,10 @@ function moveOnDrag(id: string, newPos: { x: number; y: number }) {
   // syncs the tooltip movement with the node movement
   const tooltip = document.getElementById(`tooltip${id}`);
   const tooltipObj = d3.select(tooltip);
-  tooltipObj.attr('transform', `translate(${newPos.x}, ${newPos.y - 128})`);
+  tooltipObj.attr(
+    'transform',
+    `translate(${newPos.x - 20}, ${newPos.y - 128})`
+  );
 }
 
 export const addDraggability = (id: string, allowed: boolean) => {

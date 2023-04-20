@@ -15,9 +15,10 @@ import {
   emptyCachedNodeCoord,
   emptyCachedNodeCoordAll,
 } from '@store/runtime/cached-node-coords';
+import { addNewError } from '@store/runtime/error-list';
 
-type TriggerFunction<T extends any[]> = (id: string, ...args: T) => void;
-type TriggerFunctionNoId<T extends any[]> = (...args: T) => void;
+type TriggerFunction<T extends any[]> = (id: string, ...args: T) => any;
+type TriggerFunctionNoId<T extends any[]> = (...args: T) => any;
 type TriggerFunctionWithParent<T extends any[]> = (
   parentId: string,
   id: string,
@@ -80,6 +81,7 @@ export function triggerRerenderAllDecorator<T extends any[]>(
       if (trigger) trigger();
       else throw new Error('no trigger found');
     });
+    return 'ok';
   };
 }
 
@@ -100,8 +102,8 @@ export function triggerChunkRemovalOfNodeDecorator<T extends any[]>(
   func: TriggerFunction<T>
 ): TriggerFunction<T> {
   return (id: string, ...args: T) => {
-    removeChunkNode(id);
     func(id, ...args);
+    removeChunkNode(id);
     // recalculates the chunks for a specific node
   };
 }
@@ -122,5 +124,19 @@ export function triggerConnectionsForcedRerenderDecorator<T extends any[]>(
   return (id: string, ...args: T) => {
     func(id, ...args);
     renderConnections(); // forcefully rerenders connections even if the store hasn't changed
+  };
+}
+
+export function handleErrorsDecorator<T extends any[]>(
+  func: TriggerFunctionNoId<T>
+): TriggerFunctionNoId<T> {
+  return (...args: T): string => {
+    try {
+      func(...args);
+      return 'ok';
+    } catch (e) {
+      addNewError(e.message);
+      return 'err';
+    }
   };
 }

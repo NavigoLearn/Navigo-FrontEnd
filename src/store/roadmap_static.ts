@@ -1,7 +1,8 @@
 import { atom } from 'nanostores';
 import { Roadmap } from '@type/roadmap/roadmap';
 import { triggerChunkRerender } from '@store/runtime/renderedChunks';
-import { setLoadedTrue } from '@type/roadmap/utils';
+import { setLoadedTrue } from '@typescript/roadmap/utils';
+import miscParams from '@store/runtime/miscParams';
 import { fetchRoadmap } from '../api/roadmap/roadmaps';
 
 const roadmapStatic = atom({
@@ -18,6 +19,7 @@ export function setRoadmapFromAPI(pageId: string) {
     roadmapStatic.set(roadmap);
     setLoadedTrue();
     triggerChunkRerender();
+    miscParams.get().recenterRoadmap();
   });
 }
 export default roadmapStatic;

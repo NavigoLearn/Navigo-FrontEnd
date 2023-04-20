@@ -1,6 +1,6 @@
 const levels = {
   main: {
-    comp: 'opacity-100 border-2 border-primary rounded-xl',
+    comp: 'opacity-100',
   },
   secondary: {
     comp: '',

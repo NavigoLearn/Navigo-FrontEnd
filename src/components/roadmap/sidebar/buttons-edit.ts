@@ -1,10 +1,6 @@
 import notick from '@assets/notick.svg';
 import yestick from '@assets/yestick.svg';
-import {
-  cancelEditingProtocol,
-  saveEditingProtocol,
-} from '@type/roadmap/utils2';
-import { toggleEditing } from '@typescript/roadmap/roadmap-edit-logic-decorated';
+import { setConfirmCancel, setConfirmSave } from '@store/popup';
 
 const buttonsEdit = [
   {
@@ -12,7 +8,7 @@ const buttonsEdit = [
     cIcon: yestick,
     title: 'Save',
     clickHandler: () => {
-      saveEditingProtocol();
+      setConfirmSave();
     },
   },
   {
@@ -20,7 +16,7 @@ const buttonsEdit = [
     cIcon: notick,
     title: 'Cancel',
     clickHandler: () => {
-      cancelEditingProtocol();
+      setConfirmCancel();
     },
   },
 ];

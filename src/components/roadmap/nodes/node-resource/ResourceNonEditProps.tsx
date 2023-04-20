@@ -2,18 +2,15 @@ import React, { useEffect } from 'react';
 import { renderNodeNormal } from '@components/roadmap/nodes/node-resource/utils';
 import {
   addNodeNew,
-  addResourceSubNodeNew,
 } from '@typescript/roadmap/roadmap-edit-logic-decorated';
 import { NonEditingComponentProps } from '@type/roadmap/components';
 import { getNodeByIdEdit } from '@typescript/roadmap/roadmap-edit-logic';
 import {
-  isNodeInfoProps,
   isNodeResourceStore,
 } from '@type/roadmap/typecheckers';
 import { setToolTip } from '@store/runtime/miscParams';
 import ButtonsView from '@components/roadmap/nodes/misc/ButtonsView';
 import plus from '@assets/plus.svg';
-import { setInfoFlow } from '@typescript/roadmap/tab-logic-flows';
 import edit from '@assets/edit.svg';
 
 const ResourceNonEditProps = ({
@@ -25,7 +22,7 @@ const ResourceNonEditProps = ({
     throw new Error('node is not a resource');
   }
   const renderButtons = () => {
-    return <ButtonsView id={idProp} type={node.type} />;
+    return <ButtonsView id={idProp} type={node.type} level={node.level} />;
   };
   useEffect(() => {
     setToolTip(idProp, () => {

@@ -12,6 +12,7 @@ import tabStore, {
 } from '@store/runtime/tab-manager';
 import { diffSaveTabInfo } from '@store/runtime/diff-tabs';
 import cross from '@assets/cross.svg';
+import { capStringLen } from '@typescript/roadmap/utils2';
 
 type link = {
   title: string;
@@ -63,7 +64,8 @@ const InfoEditing = () => {
           className=' text-2xl font-kanit-text font-semibold md:text-4xl border-2 border-gray-200 w-3/4'
           value={info.title}
           onChange={(e) => {
-            changeInfoTabProp('title', e.target.value);
+            const newVal = capStringLen(e.target.value, 20);
+            changeInfoTabProp('title', newVal);
           }}
         />
         <div className='mt-2 flex gap-2 items-center '>
@@ -96,7 +98,8 @@ const InfoEditing = () => {
           className='w-full border-2 border-gray-200 text-sm md:text-lg'
           value={info.description}
           onChange={(e) => {
-            changeInfoTabProp('description', e.target.value);
+            const newVal = capStringLen(e.target.value, 100);
+            changeInfoTabProp('description', newVal);
           }}
         />
       )}
@@ -111,7 +114,8 @@ const InfoEditing = () => {
                   className='text-main font-semibold font-roboto-text text-sm md:text-lg border-2 border-gray-100 w-1/2'
                   value={resource.title}
                   onChange={(e) => {
-                    changeInfoTabLink(index, 'title', e.target.value);
+                    const newVal = capStringLen(e.target.value, 20);
+                    changeInfoTabLink(index, 'title', newVal);
                   }}
                 />
                 <input
@@ -138,7 +142,8 @@ const InfoEditing = () => {
               className='text-main font-semibold font-roboto-text text-base md:text-lg border-2 border-gray-100 w-1/2'
               value={newLink.title}
               onChange={(e) => {
-                setNewLink({ ...newLink, title: e.target.value });
+                const newVal = capStringLen(e.target.value, 20);
+                setNewLink({ ...newLink, title: newVal });
               }}
             />
             <input
@@ -171,7 +176,8 @@ const InfoEditing = () => {
             className='text-secondary font-normal font-roboto-text w-full h-10 mt-4 max-h-20 border-2 border-gray-200'
             value={info.additionalInfo}
             onChange={(e) => {
-              changeInfoTabProp('additionalInfo', e.target.value);
+              const newVal = capStringLen(e.target.value, 100);
+              changeInfoTabProp('additionalInfo', newVal);
             }}
           />
         )}

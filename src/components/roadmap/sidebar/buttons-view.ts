@@ -8,7 +8,7 @@ import roadmapState, { getRoadmapId } from '@store/roadmap_state';
 import {
   saveEditingProtocol,
   transferRoadmapToEdit,
-} from '@type/roadmap/utils2';
+} from '@typescript/roadmap/utils2';
 import { toggleEditing } from '@typescript/roadmap/roadmap-edit-logic-decorated';
 import { setTabAboutFlow } from '@typescript/roadmap/tab-logic-flows';
 

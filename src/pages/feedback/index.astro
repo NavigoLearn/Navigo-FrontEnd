@@ -1,7 +1,8 @@
 ---
 import Base from '@layouts/Base.astro';
+import Feedback from '@components/feedback/Feedback';
 ---
 
 <Base title='Welcome to Astro.'>
-  <div class='text-6xl'>feedback page</div>
+  <Feedback client:load />
 </Base>

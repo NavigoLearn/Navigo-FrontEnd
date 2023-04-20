@@ -3,6 +3,7 @@ import { LevelTypes } from '@type/roadmap/level-types';
 
 export type NodeIdentifierTypes = 'Info' | 'Resource';
 export const nodeIdentifierTypesArray = ['Info', 'Resource'];
+
 export interface NodeStore {
   id: string;
   title: string;
@@ -15,6 +16,7 @@ export interface NodeStore {
   level: LevelTypes;
   connections: string[];
 }
+
 export interface NodeInfoProps {
   editing?: boolean;
   editingNode?: boolean;

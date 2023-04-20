@@ -12,15 +12,25 @@ const miscParamsStore = atom({
   enableZoomTrigger: () => {
     // enables the zoom trigger
   },
+  recenterRoadmap: () => {
+    // recenter the roadmap
+  },
   editingCount: 0,
   toolTip: {}, // functions that render react components with the desired functionality
 } as {
   zoomAllowed: boolean;
   disableZoomTrigger: () => void;
   enableZoomTrigger: () => void;
+  recenterRoadmap: () => void;
   editingCount: number;
   toolTip: { [key: string]: any };
 });
+
+export function setRecenterRoadmap(value: () => void) {
+  const newStore = miscParamsStore.get();
+  newStore.recenterRoadmap = value;
+  miscParamsStore.set({ ...newStore });
+}
 
 export function getEnableZoomTrigger() {
   return miscParamsStore.get().enableZoomTrigger;

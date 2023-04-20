@@ -44,7 +44,7 @@ const ResourceEditProps = ({
       onTouchEnd={() => {
         setZoomAllowed(true);
       }}
-      className='border-2 border-green-400'
+      className=' py-4 px-2 '
     >
       <TitleEdit
         originalValue={node.title}
@@ -56,6 +56,7 @@ const ResourceEditProps = ({
       />
       <button
         type='button'
+        className=' text-secondary hover:text-main transition-all font-semibold text-sm mt-2'
         onClick={() => {
           // add a new sub node
           addResourceSubNodeNew(id);

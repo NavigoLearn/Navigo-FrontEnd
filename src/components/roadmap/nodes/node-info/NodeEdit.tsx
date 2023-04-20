@@ -13,12 +13,12 @@ import {
   transferNodeInfoFromPlaceholderToEdit,
 } from '@store/runtime/roadmap-placeholder';
 
-const NodeEdit = ({ title, tabId, id, level, editingNode }: NodeInfoProps) => {
+const NodeEdit = ({ title, tabId, id, level }: NodeInfoProps) => {
   const [editing, setEditing] = useState(false);
   return (
     <div
       className={`rounded-lg shadow-standard w-56 bg-white ${
-        level === 'main' ? ' border-2 border-primary' : ''
+        level === 'main' && !editing ? ' border-2 border-primary' : ''
       } `}
     >
       {editing ? (
@@ -44,6 +44,7 @@ const NodeEdit = ({ title, tabId, id, level, editingNode }: NodeInfoProps) => {
           data={{
             title,
             tabId,
+            level,
           }}
           id={id}
           setCb={() => {
