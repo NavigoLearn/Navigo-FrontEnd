@@ -1,7 +1,6 @@
 import { atom } from 'nanostores';
 import { fetchDefaultCards, fetchCardData } from 'src/api/explore/card-data';
 import { CardType } from '@type/explore/card';
-import { deepCopy } from '@type/roadmap/utils';
 
 const cardsFromApi = atom({});
 
@@ -11,7 +10,6 @@ export async function setCardsFromApi(cardName: string) {
   const original = cardsFromApi.get();
   original[cardName] = card;
   cardsFromApi.set({ ...original });
-  console.log(deepCopy(cardsFromApi.get()));
 }
 
 export async function setCardsFromApiDefault() {

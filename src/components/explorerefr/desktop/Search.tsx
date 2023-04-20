@@ -68,24 +68,36 @@ const SearchDesktop = () => {
 
       <div className='flex justify-center items-center my-8'>
         <button type='button'>
-          <img src={chevroleftduo} alt='doubleArrowLeft' className='w-7 h-7' />
+          <img
+            src={chevroleftduo}
+            alt='doubleArrowLeft'
+            className='w-8 h-8 2xl:w-9 2xl:h-9'
+          />
         </button>
         <button
           type='button'
           onClick={() => setPageNr((prev) => prev - 1)}
           disabled={isDisabled}
         >
-          <img src={chevronleft} alt='ArrowLeft' className='w-9 h-9' />
+          <img
+            src={chevronleft}
+            alt='ArrowLeft'
+            className='w-9 h-9 2xl:w-11 2xl:h-11'
+          />
         </button>
-        <span>{pageNr}</span>
+        <span className='text-xl 2xl:text-2xl'>{pageNr}</span>
         <button type='button' onClick={() => setPageNr((prev) => prev + 1)}>
-          <img src={chevronright} alt='ArrowRight' className='w-9 h-9' />
+          <img
+            src={chevronright}
+            alt='ArrowRight'
+            className='w-9 h-9 2xl:w-11 2xl:h-11'
+          />
         </button>
         <button type='button'>
           <img
             src={chevronrightduo}
             alt='doubleArrowRight'
-            className='w-8 h-8'
+            className='w-8 h-8 2xl:w-9 2xl:h-9'
           />
         </button>
       </div>
