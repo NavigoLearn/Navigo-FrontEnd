@@ -31,7 +31,7 @@ generateNodeResourceEmpty
 */
 
 export function addNewTab(newId: string, newTab: TabInfo) {
-  // adds the new Tab to the diff and to the cache
+  // adds the new TabManager to the diff and to the cache
   diffTabInfo(newId, newTab);
   cacheTabInfo(newId, newTab);
 }
@@ -162,12 +162,7 @@ export function getUnusedNodeId() {
   const original = roadmapEdit.get();
   const { nodes } = original;
   const ids = Object.keys(nodes);
-  let newId = 'nodeId';
-  let appendedNumber = 0;
-  while (ids.includes(newId + appendedNumber)) {
-    appendedNumber += 1;
-  }
-  newId += appendedNumber;
+  const newId = uuidv4();
   return newId;
 }
 
@@ -180,7 +175,7 @@ export function addNodeResourceEmpty(
 ) {
   const original = roadmapEdit.get();
   const { nodes } = original;
-  const newId = getUnusedNodeId();
+  const newId = id;
   nodes[newId] = generateNodeResourceEmpty(newId);
   nodes[newId].title = title;
   nodes[newId].x = x;
@@ -203,7 +198,7 @@ export function addNodeInfoEmpty(
 ) {
   const original = roadmapEdit.get();
   const { nodes } = original;
-  const newId = getUnusedNodeId();
+  const newId = id;
   const newNode = generateNodeInfoEmpty(newId);
   newNode.title = title;
   newNode.x = x;

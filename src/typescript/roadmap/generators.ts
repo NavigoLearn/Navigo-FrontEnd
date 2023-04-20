@@ -1,4 +1,5 @@
 import { TabInfo, TabAbout, TabIssue } from '@type/roadmap/tab-manager';
+import { v4 as uuidv4 } from 'uuid';
 import { NodeResourceStore, NodeInfoStore } from '@type/roadmap/nodes';
 import { ResourceSubNodeStore } from '@type/roadmap/resources';
 import roadmapEdit, { getNodeLevel } from '@store/roadmap_edit';
@@ -71,6 +72,36 @@ export function generateNodeInfo(
     chunk: calculateChunkId(x, y),
     level: 'secondary',
     connections,
+  };
+}
+
+export function generateStarterNode(
+  tabId: string,
+  x: number,
+  y: number,
+  parent: string,
+  children: string[]
+): any {
+  const nodes = {};
+  const id = 'rootNodeId';
+  const node = generateNodeInfo(
+    id,
+    'rootNode',
+    tabId,
+    x,
+    y,
+    parent,
+    children,
+    []
+  );
+  node.level = 'main';
+  const chunkNodes = {};
+  chunkNodes[node.chunk] = [node.id];
+  nodes[node.id] = node;
+
+  return {
+    nodes,
+    chunkNodes,
   };
 }
 

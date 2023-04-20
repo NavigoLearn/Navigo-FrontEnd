@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import DesktopNavbar from './DesktopNavbar';
-import MobileNavbar from './MobileNavbar';
+import DesktopNavbar from './Desktop';
+import MobileNavbar from './Mobile';
 
 const Navbar = () => {
   return (
-    <div className='z-100'>
+    <div className=''>
       <div className='hidden md:block'>
         <DesktopNavbar />
       </div>

@@ -3,8 +3,8 @@ import { NonEditingComponentBasicProps } from '@type/roadmap/components';
 
 const AboutNonEditField = ({ data, setCb }: NonEditingComponentBasicProps) => {
   return (
-    <>
-      <div>{data}</div>
+    <div className='flex w-full'>
+      <div className='md:text-lg text-main font-semibold'>{data}</div>
       <div className='flex flex-grow justify-end'>
         <button
           type='button'
@@ -15,7 +15,7 @@ const AboutNonEditField = ({ data, setCb }: NonEditingComponentBasicProps) => {
           Edit
         </button>
       </div>
-    </>
+    </div>
   );
 };
 

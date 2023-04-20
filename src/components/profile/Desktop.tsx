@@ -158,7 +158,7 @@ const DesktopProfile = () => {
                 <div className='flex items-center w-fit'>
                   <img src={dizaign} className='flex' alt='line' />
                   <h2 className='text-2xl font-normal text-center mx-4 font-roboto-text'>
-                    {/* {userData.inProgressRoadmaps} */}
+                    {userData.inProgressRoadmaps}
                   </h2>
                   <img src={dizaign} className='flex' alt='line' />
                 </div>
@@ -173,12 +173,12 @@ const DesktopProfile = () => {
           <div className='grid big:grid-cols-3 medium:gap-x-[48px] medium:gap-y-[61px] medium:grid-cols-2 gap-y-[35px]'>
             {data.map((value) => (
               <div key={value.id} className='w-[389px]'>
-                <CardGrid
-                  name={value.name}
-                  madeby={value.madeby}
-                  nolikes={value.nolikes}
-                  description={value.description}
-                />
+                {/*<CardGrid*/}
+                {/*  name={value.name}*/}
+                {/*  madeby={value.madeby}*/}
+                {/*  nolikes={value.nolikes}*/}
+                {/*  description={value.description}*/}
+                {/*/>*/}
               </div>
             ))}
           </div>

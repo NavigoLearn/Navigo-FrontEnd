@@ -29,7 +29,7 @@ const InfoEditProps = ({
   // title component when editing
   return (
     <div
-      className='border-2 border-black relative'
+      className='h-full  w-56 py-2 px-2 '
       onMouseEnter={() => {
         setZoomAllowed(false);
       }}

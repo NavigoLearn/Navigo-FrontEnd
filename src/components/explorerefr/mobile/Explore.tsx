@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import loupe from '@assets/loupe.svg';
 import filter from '@assets/filter.svg';
 import sort from '@assets/sortby.svg';

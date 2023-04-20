@@ -34,8 +34,8 @@ const MobileNavbar = () => {
     <nav
       className={
         click
-          ? 'bg-background h-12 flex w-full justify-center items-center'
-          : 'bg-background h-12 flex w-full justify-center'
+          ? 'bg-background h-12 flex w-full justify-center items-center relative overflow-visible min-h-full'
+          : 'bg-background h-12 flex w-full justify-center relative overflow-visible min-h-full'
       }
     >
       <div
@@ -45,17 +45,17 @@ const MobileNavbar = () => {
         role='presentation'
       >
         <img
-          className={click ? 'h-12 w-24' : 'h-12 object-contain'}
+          className={click ? 'h-12' : 'h-12 object-contain'}
           src={click ? dropclose : dropdown}
           alt='dropdown'
         />
       </div>
-      <div className='w-full h-full overflow-hidden'>
+      <div className='w-full h-full'>
         <ul
           className={
             click
-              ? 'bg-background left-0 flex-col absolute opacity-100 transition-all min-h-screen ease-linear duration-150 w-screen top-12 items-center z-50'
-              : 'flex-col bg-background w-screen absolute top-12 -left-full opacity-0 transition-all duration-150 ease-linear items-center'
+              ? 'bg-background left-0 flex-col absolute opacity-100 transition-all min-h-full ease-linear duration-150 w-full top-12 items-center z-50'
+              : 'flex-col bg-background w-full absolute top-12 -left-full opacity-0 transition-all duration-150 ease-linear items-cente justify-center'
           }
         >
           <a href='/home' className='justify-start cursor-pointer flex'>
@@ -70,11 +70,15 @@ const MobileNavbar = () => {
                 return (
                   <li
                     key={link.id}
-                    className='flex items-center text-center justify-center'
+                    className='flex items-center text-center justify-center relative'
                   >
                     <a className={link.cName} href={link.path}>
                       {link.cIcon && (
-                        <img src={link.cIcon} alt='icon' className='w-8 flex' />
+                        <img
+                          src={link.cIcon}
+                          alt='icon'
+                          className='w-8 flex justify-center'
+                        />
                       )}
                       {link.title}
                     </a>
@@ -85,17 +89,19 @@ const MobileNavbar = () => {
                 return (
                   <li
                     key={link.id}
-                    className='flex items-center text-center justify-center'
+                    className='items-center text-center justify-center relative'
                   >
                     <a className={link.cName} href={link.path}>
-                      {link.cIcon && (
-                        <img
-                          src={link.cIcon}
-                          alt='icon'
-                          className='w-8 m-2 flex'
-                        />
-                      )}
-                      {link.title}
+                      <div className='flex items-center justify-center '>
+                        {link.cIcon && (
+                          <img
+                            src={link.cIcon}
+                            alt='icon'
+                            className='w-8 flex -translate-x-2'
+                          />
+                        )}
+                        <div>{link.title}</div>
+                      </div>
                     </a>
                   </li>
                 );

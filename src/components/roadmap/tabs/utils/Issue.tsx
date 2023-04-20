@@ -8,7 +8,7 @@ const Issue = ({ title, author }: { title: string; author: string }) => {
         <img src={circledot} alt='issue icon' />
       </div>
       <div>
-        <div className='font-semibold font-roboto-text text-main text-base w-80'>
+        <div className='font-semibold font-roboto-text text-main text-sm md:text-base w-full'>
           {title}
         </div>
         <div className='font-medium font-roboto-text text-secondary text-sm mt-1'>

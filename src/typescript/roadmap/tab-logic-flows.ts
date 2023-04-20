@@ -105,10 +105,10 @@ export const checkjsonEmpty = (json: any) => {
   return Object.keys(json).length === 0;
 };
 
-export const getTabAboutFlow = async (roadmapId) => {
+export const getTabAboutFlow = async (roadmapId): Promise<TabAbout> => {
   let about = checkCachedTabAbout();
   if (!about || checkjsonEmpty(about)) {
-    about = await fetchTabAbout(roadmapId).then((tab) => {
+    about = await fetchTabAbout('roadmap1').then((tab) => {
       cacheTabAbout(tab);
       return tab;
     });

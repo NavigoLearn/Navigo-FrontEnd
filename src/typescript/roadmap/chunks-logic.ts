@@ -6,6 +6,8 @@ import chunksStore, { setChunks } from '@store/runtime/renderedChunks';
 import * as d3 from 'd3';
 import { setConnections } from '@store/runtime/renderedConnections';
 import { Roadmap } from '@type/roadmap/roadmap';
+import { setViewport } from '@store/runtime/viewport-coords';
+import { Viewport } from '@type/roadmap/misc';
 
 export function getConnectionsToRender(currentNodes: string[]): string[] {
   const { editing, loaded } = roadmapState.get();
@@ -101,12 +103,16 @@ export function calculateViewportCoordinates(transform: any) {
   const viewportWidth = width / transform.k;
   const viewportHeight = height / transform.k;
 
-  const viewport = {
+  const viewport: Viewport = {
     startX: viewportX,
     startY: viewportY,
     endX: viewportX + viewportWidth,
     endY: viewportY + viewportHeight,
+    scale: transform.k,
   };
+
+  setViewport(viewport);
+
   return viewport;
 }
 

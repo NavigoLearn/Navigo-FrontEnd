@@ -11,7 +11,7 @@ const DesktopNavbar = () => {
   }, []);
 
   return (
-    <nav className='bg-transparent flex w-full h-16 z-10 justify-between items-center'>
+    <nav className='bg-transparent flex w-full h-16 z-10 justify-between items-center overflow-visible'>
       <a href='/home' className='justify-start cursor-pointer flex'>
         <img className='w-20 ml-8' src={logoSrc} alt='navbar-logo' />
       </a>

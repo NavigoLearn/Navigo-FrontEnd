@@ -5,7 +5,7 @@ import {
 } from '@typescript/roadmap/roadmap-edit-logic';
 import { Roadmap } from '@type/roadmap/roadmap';
 import roadmapEdit from '@store/roadmap_edit';
-import { deepCopy } from '@type/roadmap/utils';
+import { deepCopy } from '@typescript/roadmap/utils';
 import {
   isNodeInfoStore,
   isNodeResourceStore,

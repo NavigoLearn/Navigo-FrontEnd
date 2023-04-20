@@ -6,7 +6,8 @@ import {
   triggerRerenderAllDecorator,
   triggerAddConnectionDecorator,
   triggerPositionCacheClearDecorator,
-  triggerChunkRemovalOfNodeDecorator,
+  handleErrorsDecorator,
+  triggerConnectionsForcedRerenderDecorator,
 } from '@typescript/roadmap/roadmap-edit-decorators';
 import { NodeIdentifierTypes, NodeInfoStore } from '@type/roadmap/nodes';
 import { LevelTypes } from '@type/roadmap/level-types';
@@ -27,10 +28,12 @@ import {
   generateNewTab,
   generateResourceSubNodeNew,
   getUnusedNodeId,
+  removeChunkNode,
 } from '@typescript/roadmap/roadmap-edit-logic';
 import { ResourceSubNodeStore } from '@type/roadmap/resources';
 import state from '@store/roadmap_state';
 import { getNodeCoords } from '@typescript/roadmap/roadmap-render';
+import ErrorHandler from '@typescript/error-handler';
 
 export const changeNodeCoords = triggerPositionCacheClearDecorator(
   triggerRerenderDecorator(
@@ -68,51 +71,94 @@ export const removeResourceSubNode = triggerRerenderDecorator(
   }
 );
 
-export const changeNodeLevel = triggerRerenderDecorator(
-  (id: string, level: LevelTypes) => {
-    const original = roadmapEdit.get();
-    const { nodes } = original;
-    const node = nodes[id];
-    if (!isNodeTypesStore(node)) {
-      throw new Error('No node found for given id');
-    }
-    node.level = level;
-    nodes[id] = node;
-    original.nodes = nodes;
-    roadmapEdit.set({ ...original });
+export const hasMainChild = (id: string): boolean => {
+  const original = roadmapEdit.get();
+  const { nodes } = original;
+  const node = nodes[id];
+  if (!isNodeTypesStore(node)) {
+    throw new Error('No node found for given id');
   }
+  if (node.children.length === 0) {
+    return false;
+  }
+  return node.children.some((childId) => nodes[childId].level === 'main');
+};
+
+export const changeNodeLevel = handleErrorsDecorator(
+  triggerConnectionsForcedRerenderDecorator(
+    triggerRerenderDecorator((id: string, level: LevelTypes) => {
+      // TODO optimize the connection rerender to recalculate only the connections that are affected
+      const original = roadmapEdit.get();
+      const { nodes } = original;
+      const node = nodes[id];
+      if (node.parent === 'root') {
+        throw new ErrorHandler('RootChangeLevel');
+      }
+      if (level === 'main' && nodes[node.parent].level === 'secondary') {
+        throw new ErrorHandler('SecondaryParentChangeLevel');
+      }
+      if (level === 'secondary' && hasMainChild(id)) {
+        throw new ErrorHandler('MainChildChangeLevel');
+      }
+
+      if (
+        level === 'main' &&
+        node.level === 'secondary' &&
+        hasMainChild(node.parent)
+      ) {
+        throw new ErrorHandler('DoubleMainChangeLevel');
+      }
+
+      if (!isNodeTypesStore(node)) {
+        throw new Error('No node found for given id');
+      }
+      node.level = level;
+      nodes[id] = node;
+      original.nodes = nodes;
+      roadmapEdit.set({ ...original });
+    })
+  )
 );
 
-export const changeNodeType = triggerRerenderDecorator(
-  (id: string, type: NodeIdentifierTypes) => {
-    const original = roadmapEdit.get();
-    const { nodes } = original;
-    // generate new Node based on the type
-    const nodeMapping = {
-      Resource: generateNodeResourceEmpty,
-      Info: generateNodeInfoEmpty,
-    };
-    const currentNode = nodes[id];
-    const newNode = nodeMapping[type](id);
-    newNode.parent = currentNode.parent;
-    newNode.title = currentNode.title;
-    newNode.x = currentNode.x;
-    newNode.y = currentNode.y;
-    newNode.chunk = currentNode.chunk;
-    newNode.level = currentNode.level;
-    newNode.children = currentNode.children;
+export const changeNodeType = handleErrorsDecorator(
+  triggerConnectionsForcedRerenderDecorator(
+    triggerRerenderDecorator((id: string, type: NodeIdentifierTypes) => {
+      const original = roadmapEdit.get();
+      const { nodes } = original;
+      // generate new Node based on the type
+      const nodeMapping = {
+        Resource: generateNodeResourceEmpty,
+        Info: generateNodeInfoEmpty,
+      };
+      const currentNode = nodes[id];
+      if (currentNode.parent === 'root') {
+        throw new ErrorHandler('RootChangeType');
+      }
+      if (currentNode.level === 'main' && hasMainChild(currentNode.id)) {
+        throw new ErrorHandler('UnallowedNodeTypeChange');
+      }
+      const newNode = nodeMapping[type](id);
+      newNode.parent = currentNode.parent;
+      newNode.title = currentNode.title;
+      newNode.x = currentNode.x;
+      newNode.y = currentNode.y;
+      newNode.chunk = currentNode.chunk;
+      newNode.level = 'secondary';
+      newNode.children = currentNode.children;
+      newNode.connections = currentNode.connections;
 
-    if (isNodeInfoProps(newNode) && type === 'Info') {
-      newNode.tabId = generateNewTab();
-    } else if (type === 'Resource') {
-      // whatever else needs to be done
-    } else {
-      throw new Error('Invalid type');
-    }
-    nodes[id] = { ...newNode };
-    original.nodes = nodes;
-    roadmapEdit.set({ ...original });
-  }
+      if (isNodeInfoProps(newNode) && type === 'Info') {
+        newNode.tabId = generateNewTab();
+      } else if (type === 'Resource') {
+        // whatever else needs to be done
+      } else {
+        throw new Error('Invalid type');
+      }
+      nodes[id] = { ...newNode };
+      original.nodes = nodes;
+      roadmapEdit.set({ ...original });
+    })
+  )
 );
 
 export const addResourceSubNodeNew = triggerRerenderDecorator((id: string) => {
@@ -207,8 +253,8 @@ export const changeResourceSubNode = <T extends keyof ResourceSubNodeStore>(
   roadmapEdit.set({ ...original });
 };
 
-export const removeNode = triggerChunkRerenderDecorator(
-  triggerChunkRemovalOfNodeDecorator(
+export const removeNode = handleErrorsDecorator(
+  triggerChunkRerenderDecorator(
     triggerPositionCacheClearDecorator((id: string) => {
       const original = roadmapEdit.get();
       const { nodes } = original;
@@ -217,7 +263,8 @@ export const removeNode = triggerChunkRerenderDecorator(
         throw new Error('No node found for given id');
       }
       // remove from parent
-      if (node.parent === 'root') throw new Error('Cannot remove root node');
+      if (node.parent === 'root') throw new ErrorHandler('RootRemove');
+      removeChunkNode(id);
 
       const parent = nodes[node.parent];
       if (!isNodeTypesStore(parent)) {
@@ -255,8 +302,12 @@ export const removeNode = triggerChunkRerenderDecorator(
           // redirects connection from node to parent of the node
           if (connection.parentId === id) {
             connection.parentId = node.parent;
+            nodes[node.parent].connections.push(connId);
+            nodes[node.parent].children.push(connection.childId);
           } else if (connection.childId === id) {
             connection.childId = node.parent;
+            nodes[node.parent].connections.push(connId);
+            nodes[node.parent].children.push(connection.parentId);
           } else {
             throw new Error('Connection does not contain node');
           }
