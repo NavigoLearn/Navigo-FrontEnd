@@ -33,13 +33,9 @@ module.exports = {
         'big': '1277px',
         'medium': '841px',
       },
-<<<<<<< HEAD
-
-=======
       backgroundImage: {
         buttongradient: 'linear-gradient(90deg, #3361D8 0%, #262EE7 100%)',
       }
->>>>>>> cbd41e966a78bd92b54c9c4efd4610a8d1dafeac
     },
   },
   plugins: [
