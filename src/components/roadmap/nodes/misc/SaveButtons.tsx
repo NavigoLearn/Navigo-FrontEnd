@@ -8,10 +8,10 @@ const SaveCancelButtons = ({
   onCancel: () => void;
 }) => {
   return (
-    <div className='flex pointer-events-auto '>
+    <div className='flex pointer-events-auto gap-3 items-center '>
       <button
         type='button'
-        className='w-10 h-10 border-black border-2'
+        className='w-10 h-10 text-base font-roboto-text font-semibold text-secondary hover:text-main transition-all '
         onClick={() => {
           onSave();
         }}
@@ -20,7 +20,7 @@ const SaveCancelButtons = ({
       </button>
       <button
         type='button'
-        className='w-10 h-10 border-black border-2'
+        className='w-10 h-10 text-sm font-roboto-text text-placeholder hover:text-secondary transition-all'
         onClick={() => {
           onCancel();
         }}

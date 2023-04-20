@@ -15,7 +15,7 @@ const InfoNonEditProps = <T,>({
   setCb: setEdit,
 }: NonEditingComponentProps) => {
   const renderButtons = () => {
-    return <ButtonsView id={id} type='Info' />;
+    return <ButtonsView id={id} type='Info' level={data.level} />;
   };
 
   useEffect(() => {

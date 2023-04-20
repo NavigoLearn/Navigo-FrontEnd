@@ -1,6 +1,6 @@
 import { atom } from 'nanostores';
 import { TabAbout } from '@type/roadmap/tab-manager';
-import { deepCopy } from '@type/roadmap/utils';
+import { deepCopy } from '@typescript/roadmap/utils';
 
 const tabManagerStore = atom({
   // holds the currently displayed tabs and is also used for editing tabs and issues
@@ -9,29 +9,13 @@ const tabManagerStore = atom({
   open: false,
   about: {
     // the data for the about tab
-    name: 'Nice roadmap_static',
-    author: 'Nice author',
-    description: 'very very nice description',
+    name: '',
+    author: '',
+    description: '',
   },
   issues: {
     // the data for the issues tab
-    issues: [
-      {
-        id: 1,
-        title: 'Add the useRef hook to the hooks resources',
-        author: 'Eughen',
-      },
-      {
-        id: 2,
-        title: 'Issue 2',
-        author: 'Author 2',
-      },
-      {
-        id: 3,
-        title: 'Issue 3',
-        author: 'Author 3',
-      },
-    ],
+    issues: [],
   },
   info: {
     // the data for the currently displayed info node
@@ -143,6 +127,13 @@ export function addInfoTabLink({
   });
 }
 
+export function setAboutInfoOnly(tab: TabAbout) {
+  const newTab = tabManagerStore.get();
+  tabManagerStore.set({
+    ...newTab,
+    about: { ...tab },
+  });
+}
 export function setAbout(tab: TabAbout) {
   const newTab = tabManagerStore.get();
   if (newTab.type === 'about' && newTab.open) {
@@ -156,7 +147,6 @@ export function setAbout(tab: TabAbout) {
     type: 'about',
   });
 }
-
 export function setTabAboutProp(property: string, value: string) {
   const newTab = tabManagerStore.get();
   newTab.about[property] = value;

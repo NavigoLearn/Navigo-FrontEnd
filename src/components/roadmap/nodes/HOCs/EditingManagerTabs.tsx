@@ -3,6 +3,7 @@ import {
   EditingComponentBasicProps,
   NonEditingComponentBasicProps,
 } from '@type/roadmap/components';
+import { capStringLen } from '@typescript/roadmap/utils2';
 
 // this is the component that manages the state of a specific part of a node
 function StateAugmentedComponent() {
@@ -11,11 +12,13 @@ function StateAugmentedComponent() {
     EditingComponent,
     NonEditingComponent,
     persistDataSave,
+    capLen,
   }: {
     data: string;
     EditingComponent: React.FC<EditingComponentBasicProps>;
     NonEditingComponent: React.FC<NonEditingComponentBasicProps>;
     persistDataSave(newVal: string): void;
+    capLen: number;
   }) => {
     // does the editing state management
     const [editing, setEditing] = useState(false);
@@ -25,7 +28,8 @@ function StateAugmentedComponent() {
       <EditingComponent
         data={state}
         onChange={(value: string) => {
-          setState(value);
+          const newVal = capStringLen(value, capLen);
+          setState(newVal);
         }}
         onSave={() => {
           setEditing(false);
@@ -33,6 +37,7 @@ function StateAugmentedComponent() {
         }}
         onCancel={() => {
           setEditing(false);
+          setState(data);
         }}
       />
     ) : (

@@ -20,7 +20,9 @@ import {
   setDisableZoomTrigger,
   setEnableZoomTrigger,
 } from '@store/runtime/miscParams';
-import Report from './tabs/Report';
+import { getTabAboutFlow } from '@typescript/roadmap/tab-logic-flows';
+import { setAboutInfoOnly } from '@store/runtime/tab-manager';
+import Popup from './tabs/popups/Popup';
 
 const Roadmap = ({ pageId }: { pageId: string }) => {
   const { editing } = useStore(roadmapState);
@@ -39,6 +41,7 @@ const Roadmap = ({ pageId }: { pageId: string }) => {
         top: 0,
       });
     }
+
     return () => {
       // sets overflow auto on body
       if (body) {
@@ -74,6 +77,12 @@ const Roadmap = ({ pageId }: { pageId: string }) => {
     setRoadmapFromAPI(pageId); // when request finishes it triggers chunk renderer which sets the nodes and connections to render
     // to their respective stores. The node rendering is triggered by the rerender of the Roadmap component
     // for the connections we need to subscribe to the store with a callback
+
+    // gets the about tab info
+    getTabAboutFlow(pageId).then((tab) => {
+      setAboutInfoOnly(tab);
+    });
+
     renderConnectionsStore.subscribe(() => {
       // calling the connection rendering function
       setTimeout(() => {
@@ -108,7 +117,7 @@ const Roadmap = ({ pageId }: { pageId: string }) => {
 
   return (
     <div className='w-full h-full '>
-      <Report />
+      <Popup />
       <svg id='rootSvg' width='100%' height='100%'>
         <g id='rootGroup'>
           <g id='rootGroupConnections'>

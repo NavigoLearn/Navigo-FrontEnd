@@ -20,16 +20,18 @@ const DropdownType = ({
 
   const handleChange = (value) => {
     if (isValidNodeType(value)) {
-      setSelectedOption(value);
-      changeNodeType(id, value);
+      const ok = changeNodeType(id, value);
+      if (ok === 'ok') {
+        setSelectedOption(value);
+      }
       setOpen(false);
     }
   };
 
   return (
-    <div className='w-full bg-transparent outline-none flex justify-center '>
+    <div className='w-24  bg-transparent outline-none flex justify-center '>
       <div className=' text-center w-24 '>
-        <div className='flex flex-col pb-4'>
+        <div className='flex flex-col absolute  bottom-7 right-3'>
           {open && (
             <>
               {nodeIdentifierTypesArray.map((option) => (

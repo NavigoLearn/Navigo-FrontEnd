@@ -5,7 +5,7 @@ import {
   toggleEditing,
 } from '@typescript/roadmap/roadmap-edit-logic-decorated';
 import { applyAllDiffs, emptyAllDiffs } from '@store/runtime/diff-tabs';
-import { deepCopy } from '@type/roadmap/utils';
+import { deepCopy } from '@typescript/roadmap/utils';
 import { resetAllTooltips } from '@store/runtime/miscParams';
 import {
   triggerChunkRecalculationDecorator,
@@ -43,4 +43,11 @@ export function saveEditingProtocol() {
   toggleEditing();
   triggerChunkRerender();
   // here there should be a request to the server with the new saved roadmap json
+}
+
+export function capStringLen(str: string, len: number) {
+  if (str.length > len) {
+    return `${str.slice(0, len)}`;
+  }
+  return str;
 }

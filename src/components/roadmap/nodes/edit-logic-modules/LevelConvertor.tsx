@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import arrow from '@assets/arrow-up.svg';
 import { changeNodeLevel } from '@typescript/roadmap/roadmap-edit-logic-decorated';
 import { LevelTypes, levelTypesArray } from '@type/roadmap/level-types';
 import { isLevelType } from '@type/roadmap/typecheckers';
@@ -6,26 +7,59 @@ import { isLevelType } from '@type/roadmap/typecheckers';
 // handles the level change logic for every node
 const DropdownLevel = ({ id, level }: { id: string; level: LevelTypes }) => {
   const [selectedOption, setSelectedOption] = useState(level);
-
-  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const { value } = event.target;
+  const [open, setOpen] = useState(false);
+  const handleChange = (value: string) => {
     if (!isLevelType(value)) throw new Error('Invalid level type');
-    setSelectedOption(value);
-    changeNodeLevel(id, value);
+    const err = changeNodeLevel(id, value);
+
+    if (err === 'ok') {
+      setSelectedOption(value);
+    }
+    setOpen(false);
   };
 
   return (
-    <select
-      className='w-20 block'
-      value={selectedOption}
-      onChange={handleChange}
-    >
-      {levelTypesArray.map((option) => (
-        <option key={option} value={option}>
-          {option}
-        </option>
-      ))}
-    </select>
+    <div className='w-16  bg-transparent outline-none flex justify-center '>
+      <div className=' text-center w-24 '>
+        <div className='flex flex-col absolute  bottom-7 right-0'>
+          {open && (
+            <>
+              {levelTypesArray.map((option) => (
+                <button
+                  type='button'
+                  key={option}
+                  className={` py-1 text-placeholder hover:text-main transition-colors text-sm`}
+                  onClick={() => {
+                    handleChange(option);
+                  }}
+                >
+                  {option}
+                </button>
+              ))}
+            </>
+          )}
+        </div>
+        <button
+          type='button'
+          className='flex relative text-center justify-center w-full bg-transparent outline-none '
+          onClick={() => {
+            setOpen((prev) => !prev);
+          }}
+        >
+          <div className=' text-secondary text-sm  mb-1  relative'>
+            {selectedOption}
+
+            <img
+              src={arrow}
+              alt='chose element'
+              className={` w-2 opacity-50 transition-transform absolute -right-4 bottom-1   ${
+                open ? ' rotate-180' : ' rotate-0'
+              }  `}
+            />
+          </div>
+        </button>
+      </div>
+    </div>
   );
 };
 

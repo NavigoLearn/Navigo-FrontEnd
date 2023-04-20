@@ -1,10 +1,7 @@
 import React from 'react';
-import {
-  EditingComponentBasicProps,
-  EditingComponentNodesProps,
-} from '@type/roadmap/components';
+import { EditingComponentBasicProps } from '@type/roadmap/components';
 
-const AboutEditingField = ({
+const AboutEditingFieldTextarea = ({
   data,
   onChange,
   onSave,
@@ -12,15 +9,15 @@ const AboutEditingField = ({
 }: EditingComponentBasicProps) => {
   return (
     <div className='flex justify-between w-full'>
-      <input
+      <textarea
         value={data}
         onChange={(e) => {
           onChange(e.target.value);
         }}
-        className='outline-none border-2 border-gray-300 rounded-md md:text-lg text-main font-semibold'
+        className=' grow outline-none border-2 border-gray-300 rounded-md text-sm md:text-lg text-main font-semibold'
       />
-      <div className='flex justify-end w-20'>
-        <div className='flex gap-2 md:gap-4'>
+      <div className='flex justify-end w-24 relative'>
+        <div className='flex gap-2 md:gap-4 absolute right-0 top-0'>
           <button
             type='button'
             className='text-sm md:text-base'
@@ -45,4 +42,4 @@ const AboutEditingField = ({
   );
 };
 
-export default AboutEditingField;
+export default AboutEditingFieldTextarea;

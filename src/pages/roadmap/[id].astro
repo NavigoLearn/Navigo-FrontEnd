@@ -1,5 +1,6 @@
 ---
 import Base from '@layouts/Base.astro';
+import TopBarRoadmap from '../../components/roadmap/top-bar/TopBarRoadmap';
 import Roadmap from '@components/roadmap/Roadmap';
 import SideBar from '../../components/roadmap/sidebar/SideBar';
 import SideBarMobile from '../../components/roadmap/sidebar/SideBarMobile';
@@ -14,7 +15,8 @@ const data = { id: '123' };
 
   <div class='h-[calc(100vh-64px)] mt-4 md:mt-0 relative'>
     <!-- offset from nav reduced from total screen size -->
-    <div class='md:ml-20 h-full'>
+    <div class='md:ml-20 h-full relative'>
+      <TopBarRoadmap client:idle />
       <Roadmap pageId={id} client:load />
     </div>
     <div class='hidden md:block'>

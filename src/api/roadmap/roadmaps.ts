@@ -2,6 +2,7 @@ import { Roadmap } from '@type/roadmap/roadmap';
 import {
   generateNNodesInfo,
   generateConnection,
+  generateStarterNode,
 } from '@typescript/roadmap/generators';
 import { networkLatency } from './params';
 //
@@ -94,25 +95,21 @@ import { networkLatency } from './params';
 // addConn('nodeId0_0', 'nodeId0_2');
 //
 const roadmap4: Roadmap = {
-  nodes: generateNNodesInfo('title', 'tabid1', 300, 150, 'root', [''], 1, 1)
-    .nodes,
+  nodes: generateStarterNode('tabid1', 300, 150, 'root', []).nodes,
   connections: {
     // list of all connections
   },
   resources: {
     // list of all resource nodes
   },
-  chunks: generateNNodesInfo(
-    'title',
+  chunks: generateStarterNode(
     'tabid1',
     300,
 
     150,
     'parent',
-    [''],
-    1,
-    1
-  ).chunksNodes,
+    []
+  ).chunkNodes,
   chunkSize: 400,
 };
 

@@ -173,12 +173,12 @@ const DesktopProfile = () => {
           <div className='grid big:grid-cols-3 medium:gap-x-[48px] medium:gap-y-[61px] medium:grid-cols-2 gap-y-[35px]'>
             {data.map((value) => (
               <div key={value.id} className='w-[389px]'>
-                <CardGrid
-                  name={value.name}
-                  madeby={value.madeby}
-                  nolikes={value.nolikes}
-                  description={value.description}
-                />
+                {/*<CardGrid*/}
+                {/*  name={value.name}*/}
+                {/*  madeby={value.madeby}*/}
+                {/*  nolikes={value.nolikes}*/}
+                {/*  description={value.description}*/}
+                {/*/>*/}
               </div>
             ))}
           </div>
