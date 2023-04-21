@@ -8,7 +8,7 @@ const Navbar = () => {
       <div className='hidden md:block'>
         <DesktopNavbar />
       </div>
-      <div className=' md:hidden'>
+      <div className=' md:hidden '>
         <MobileNavbar />
       </div>
     </div>
