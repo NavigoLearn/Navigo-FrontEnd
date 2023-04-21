@@ -8,7 +8,7 @@ import { describe, it, expect } from 'vitest';
 //     render(<LoggedInNavbar />);
 //     const logo = screen.getByAltText('navbar-logo');
 //     expect(logo).toBeInTheDocument();
-//     const homeLink = screen.getByRole('link', { name: 'Home' });
+//     const homeLink = screen.getByRole('link', { name: 'home' });
 //     expect(homeLink).toHaveAttribute('href', '/home');
 //   });
 //
@@ -16,7 +16,7 @@ import { describe, it, expect } from 'vitest';
 //   const { getByAltText, getByTestId, getByText } = render(<LoggedInNavbar />);
 //   const burgerIcon = getByAltText('dropdown');
 //   const mobileMenu = getByTestId('mobile-menu');
-//   const homeLink = getByText('Home');
+//   const homeLink = getByText('home');
 
 //   fireEvent.click(burgerIcon);
 
@@ -45,7 +45,7 @@ import { describe, it, expect } from 'vitest';
 //   render(<LoggedInNavbar />);
 //   const dropdown = screen.getByRole('button', { name: 'dropdown' });
 //   fireEvent.click(dropdown);
-// const homeLink = screen.getByRole('link', { name: 'Home' });
+// const homeLink = screen.getByRole('link', { name: 'home' });
 // expect(homeLink).toBeInTheDocument();
 // const feedbackLink = screen.getByRole('link', { name: 'Feedback' });
 // expect(feedbackLink).toBeInTheDocument();
@@ -59,7 +59,7 @@ import { describe, it, expect } from 'vitest';
 //     fireEvent.click(burgerMenu);
 //     const closeButton = screen.getByRole('button', { name: 'close' });
 //     fireEvent.click(closeButton);
-//     const homeLink = screen.queryByRole('link', { name: 'Home' });
+//     const homeLink = screen.queryByRole('link', { name: 'home' });
 //     expect(homeLink).not.toBeInTheDocument();
 //     const feedbackLink = screen.queryByRole('link', { name: 'Feedback' });
 //     expect(feedbackLink).not.toBeInTheDocument();

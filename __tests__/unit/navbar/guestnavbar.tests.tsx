@@ -28,7 +28,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 //
 //   test('menu links have correct href', () => {
 //     render(<LoggedInNavbar />);
-//     const homeLink = screen.getByRole('link', { name: 'Home' });
+//     const homeLink = screen.getByRole('link', { name: 'home' });
 //     const feedbackLink = screen.getByRole('link', { name: 'Feedback' });
 //     const signUpLink = screen.getByRole('link', { name: 'Sign Up' });
 //     const logInLink = screen.getByRole('link', { name: 'Log In' });
