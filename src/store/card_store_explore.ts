@@ -1,5 +1,9 @@
 import { atom } from 'nanostores';
-import { fetchDefaultCards, fetchCardData } from 'src/api/explore/card-data';
+import {
+  fetchDefaultCards,
+  fetchCardData,
+  fetchDefaultCardsProfile,
+} from 'src/api/explore/card-data';
 import { CardType } from '@type/explore/card';
 
 const cardsFromApi = atom({});
@@ -19,6 +23,19 @@ export async function setCardsFromApiDefault() {
       await setCardsFromApi(value);
     })
   );
+}
+
+export async function setCardsFromApiDefaultProfile() {
+  const idArray = await fetchDefaultCardsProfile();
+  await Promise.all(
+    idArray.map(async (value) => {
+      await setCardsFromApi(value);
+    })
+  );
+}
+
+export function emptyStore() {
+  cardsFromApi.set({});
 }
 
 export default cardsFromApi;

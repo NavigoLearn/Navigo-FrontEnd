@@ -6,34 +6,25 @@ import followers from '@assets/followers.svg';
 import link from '@assets/link.svg';
 import dizaign from '@assets/dizaign.svg';
 import placeholderchart from '@assets/placeholderchart.png';
-
-type Roamdmap = {
-  id: number;
-  name: string;
-  madeby: string;
-  nolikes: number;
-  description: string;
-};
+import Card from '@components/explorerefr/Card';
+import cardsFromApi, {
+  setCardsFromApiDefaultProfile,
+  emptyStore,
+} from '@store/card_store_explore';
 
 const DesktopProfile = () => {
-  const [data, setData] = useState<Roamdmap[]>([]);
   const userData = useStore(user);
+  const [render, setRender] = useState(false);
+  const cardStore = cardsFromApi.get();
   // eslint-disable-next-line no-console
   // console.log('in react component', userData);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(
-        '../src/components/search/roadmapTests.json'
-      );
-      const jsonData = await response.json();
-      setData(jsonData);
-    };
-
-    fetchData();
+    setCardsFromApiDefaultProfile().then(() => {
+      setRender((prev) => !prev);
+    });
+    console.log(localStorage.getItem('Item1'));
   }, []);
-
-  console.log(data);
 
   return (
     <div className='flex flex-col w-full h-full justify-center items-center '>
@@ -169,20 +160,17 @@ const DesktopProfile = () => {
             </div>
           </div>
         </div>
-        <ul className='flex justify-center mt-[228px]'>
-          <div className='grid big:grid-cols-3 medium:gap-x-[48px] medium:gap-y-[61px] medium:grid-cols-2 gap-y-[35px]'>
-            {data.map((value) => (
-              <div key={value.id} className='w-[389px]'>
-                {/*<CardGrid*/}
-                {/*  name={value.name}*/}
-                {/*  madeby={value.madeby}*/}
-                {/*  nolikes={value.nolikes}*/}
-                {/*  description={value.description}*/}
-                {/*/>*/}
+        {/* Here should be placed something like 'This {user} cards/roadmaps:' */}
+        <h1>This user profile</h1>
+        <div className='flex justify-center items-center mt-13 font-roboto-text text-4xl'>
+          <ul className='grid grid-cols-2 gap-x-9 gap-y-11 xl:grid-cols-3'>
+            {Object.keys(cardStore).map((card: string) => (
+              <div key={card} className='flex items-center justify-center'>
+                <Card cardStore={cardStore[card]} />
               </div>
             ))}
-          </div>
-        </ul>
+          </ul>
+        </div>
       </div>
     </div>
   );
