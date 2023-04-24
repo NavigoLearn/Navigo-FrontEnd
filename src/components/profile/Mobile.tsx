@@ -7,6 +7,11 @@ import link from '@assets/link.svg';
 import dizaign from '@assets/dizaign.svg';
 import arrowdwn from '@assets/arrow-down.svg';
 import arrowup from '@assets/arrow-up.svg';
+import cardsFromApi, {
+  setCardsFromApiDefaultProfile,
+  emptyStore,
+} from '@store/card_store_explore';
+import Card from '@components/explorerefr/Card';
 
 user.set({
   id: '1',
@@ -24,34 +29,19 @@ user.set({
   inProgressRoadmaps: 7,
 });
 
-type Roamdmap = {
-  id: number;
-  name: string;
-  madeby: string;
-  nolikes: number;
-  description: string;
-};
-
 const MobileProfile = () => {
   const userData = useStore(user);
-  const [data, setData] = useState<Roamdmap[]>([]);
   // eslint-disable-next-line no-console
   console.log('in react component', userData);
   const [click, setClick] = useState(false);
+  const [render, setRender] = useState(false);
+  const cardStore = cardsFromApi.get();
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(
-        '../src/components/search/roadmapTests.json'
-      );
-      const jsonData = await response.json();
-      setData(jsonData);
-    };
-
-    fetchData();
+    setCardsFromApiDefaultProfile().then(() => {
+      setRender((prev) => !prev);
+    });
   }, []);
-
-  console.log(data);
 
   const handleClick = () => {
     setClick((prev) => !prev);
@@ -184,20 +174,17 @@ const MobileProfile = () => {
           </button>
         )}
       </div>
-      <ul className='flex justify-center mt-[228px]'>
-        <div className='grid big:grid-cols-3 medium:gap-x-[48px] medium:gap-y-[61px] medium:grid-cols-2 gap-y-[35px]'>
-          {data.map((value) => (
-            <div key={value.id} className='w-[389px]'>
-              {/*<CardGrid*/}
-              {/*  name={value.name}*/}
-              {/*  madeby={value.madeby}*/}
-              {/*  nolikes={value.nolikes}*/}
-              {/*  description={value.description}*/}
-              {/*/>*/}
+      <div className='mt-10 sm:mt-12'>
+        <ul className='flex flex-col gap-7 sm:gap-9'>
+          {Object.keys(cardStore).map((card: string) => (
+            <div key={card} className='flex items-center justify-center'>
+              <Card cardStore={cardStore[card]} />
             </div>
           ))}
-        </div>
-      </ul>
+        </ul>
+      </div>
+      {/* Here should be introduced a paging system for the profile to scroll thorugh cards with paging, max of 9 cards/page */}
+      <div className='my-7' />
     </div>
   );
 };

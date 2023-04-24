@@ -91,3 +91,11 @@ export const fetchDefaultCards = async () => {
     }, networkLatency);
   });
 };
+
+export const fetchDefaultCardsProfile = async () => {
+  return new Promise<string[]>((resolve) => {
+    setTimeout(() => {
+      resolve(['1', '2', '3', '7', '8', '9']);
+    }, networkLatency);
+  });
+};

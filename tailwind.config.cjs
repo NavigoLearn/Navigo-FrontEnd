@@ -30,8 +30,7 @@ module.exports = {
         standard: '0px 4px 20px rgba(0, 0, 0, 0.15)',
       },
       screens: {
-        'big': '1277px',
-        'medium': '841px',
+        "landing-min": "1130px"
       },
       backgroundImage: {
         buttongradient: 'linear-gradient(90deg, #3361D8 0%, #262EE7 100%)',

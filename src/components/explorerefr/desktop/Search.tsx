@@ -4,7 +4,11 @@ import chevroleftduo from '@assets/chevron-left-duo.svg';
 import chevronrightduo from '@assets/chevron-right-duo.svg';
 import chevronleft from '@assets/chevron-left.svg';
 import chevronright from '@assets/chevron-right.svg';
-import cardsFromApi, { setCardsFromApiDefault } from '@store/card_store';
+import cardsFromApi, {
+  setCardsFromApiDefault,
+  emptyStore,
+} from '@store/card_store_explore';
+import { deepCopy } from '@typescript/roadmap/utils';
 import FilterAugD from './filterhoc/FilterAugD';
 import Card from '../Card';
 
@@ -18,6 +22,7 @@ const SearchDesktop = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
+
   useEffect(() => {
     setCardsFromApiDefault().then(() => {
       setRender((prev) => !prev);

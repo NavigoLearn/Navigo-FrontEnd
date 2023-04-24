@@ -10,7 +10,8 @@ import chevronright from '@assets/chevron-right.svg';
 import cardsFromApi, {
   setCardsFromApi,
   setCardsFromApiDefault,
-} from '@store/card_store';
+  emptyStore,
+} from '@store/card_store_explore';
 import { CardType } from '@type/explore/card';
 import SortBy from './SortBy';
 // import Filter from './Filter';
@@ -27,8 +28,7 @@ const SearchMobile = () => {
 
   useEffect(() => {
     setCardsFromApiDefault().then(() => {
-      setRender((prev) => !prev);
-      console.log(cardsFromApi.get());
+      setRender(true);
     });
   }, []);
 
