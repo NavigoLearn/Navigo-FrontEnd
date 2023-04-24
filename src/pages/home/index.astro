@@ -1,10 +1,11 @@
 ---
 import Base from '@layouts/Base.astro';
 import HeroRotate from '../../components/home/HeroRotate';
+import FirstSection from '@components/home/FirstSection.astro';
+import SecondSection from '@components/home/SecondSection.astro';
 ---
 
 <Base title='Welcome to Astro.'>
-  <div class='flex justify-center items-center w-full border-2 border-black'>
-    <HeroRotate scale={1} animSpeed={0.5} client:load />
-  </div>
+  <FirstSection/>
+  <SecondSection/>
 </Base>

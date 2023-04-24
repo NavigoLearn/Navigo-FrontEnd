@@ -31,7 +31,7 @@ const HeroRotate = ({ scale, animSpeed }: HeroRotateProps) => {
   const baseParams: BaseParams = {
     width: 800,
     height: 800,
-    rotatingImagesPercent: 0.05,
+    rotatingImagesPercent: 0.09,
     centerImagePercent: 0.4,
     duration: 20000,
   };
