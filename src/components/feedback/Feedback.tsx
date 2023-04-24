@@ -176,8 +176,11 @@ const Feedback = () => {
           Connect with us through our
         </h1>
         <div className='mt-5 flex flex-col-3 gap-10 justify-center text-center items-center'>
+          {/* disabled eslint for this anchor because WE DONT HAVE A SERVER !!!!!!!! */}
+          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
           <a
-            href='#'
+            // insert discord server link here
+            href=''
             className='w-48 text-placeholder font-kanit-text translate-y-12'
           >
             discord
