@@ -135,21 +135,21 @@ const Feedback = () => {
       <div className='flex flex-col-3 gap-20 justify-center mt-10 '>
         <button
           type='button'
-          className='font-roboto text-xl font-normal hover:underline'
+          className='font-roboto text-xl font-normal hover:underline hover:underline-offset-2'
           onClick={() => setFormType('featureRequest')}
         >
           Feature Request
         </button>
         <button
           type='button'
-          className='bg-primary py-2 px-8 font-roboto text-xl font-medium rounded-full text-white hover:underline'
+          className='bg-primary py-2 px-8 font-roboto text-xl font-medium rounded-full text-white hover:underline hover:underline-offset-2'
           onClick={() => setFormType('bugReport')}
         >
           Report a Bug
         </button>
         <button
           type='button'
-          className='font-roboto text-xl font-normal hover:underline'
+          className='font-roboto text-xl font-normal hover:underline hover:underline-offset-2'
           onClick={() => setFormType('somethingElse')}
         >
           Something else
