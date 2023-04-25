@@ -3,11 +3,11 @@ import issues from 'src/types/feedback/issues';
 
 const IssueCard = () => {
   return (
-    <ul className='grid grid-cols-2 gap-x-9 gap-y-11 xl:grid-cols-3 mx-4'>
+    <ul className='grid grid-col sm:grid-cols-2 lg:grid-cols-3 gap-x-9 gap-y-11 xl:grid-cols-3 sm:mx-4 md:mx-6'>
       {issues.map((issue) => {
         return (
           <li key={issue.id} className='flex justify-center items-center'>
-            <div className='bg-white w-[512px] sm:w-96 h-40 sm:h-52 relative shadow-standard rounded-lg 2xl:w-[460px] 2xl:h-64'>
+            <div className='bg-white w-64 sm:w-96 h-40 sm:h-52 relative shadow-standard rounded-lg 2xl:w-[460px] 2xl:h-64'>
               <div className='flex justify-center mt-3'>
                 <h1 className='font-kanit-text font-medium text-xl sm:text-xl flex 2xl:text-xl'>
                   {issue.title}
@@ -19,7 +19,7 @@ const IssueCard = () => {
               <div className='flex justify-end items-center relative mr-6'>
                 <a
                   href={issue.link}
-                  className='px-8 py-2 font-kanit-text font-medium text-end bg-black text-white rounded-full hover:underline hover:underline-offset-2'
+                  className='py-1 px-3 font-kanit-text font-medium text-end bg-black text-white rounded-full hover:underline hover:underline-offset-2'
                 >
                   See discussion
                 </a>
