@@ -12,6 +12,8 @@ module.exports = {
         textgradient: 'linear-gradient(90deg, #561BB6 0%, #253FC8 100%)',
         resourceSubNode: '#DEE2E7',
         white: '#FFFFFF',
+        thirdary: '#1A1B50',
+        eugene: '#6B6DB0'
       },
       borderColor: {
         light: 'rgb(0,0,0,0.3)',
