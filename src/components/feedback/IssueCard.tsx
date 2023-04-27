@@ -3,7 +3,7 @@ import issues from 'src/types/feedback/issues';
 
 const IssueCard = () => {
   return (
-    <ul className='grid grid-col sm:grid-cols-2 lg:grid-cols-3 gap-x-9 gap-y-11 xl:grid-cols-3 sm:mx-4 md:mx-6'>
+    <ul className='grid grid-col sm:grid-cols-2 lg:grid-cols-3 gap-x-9 gap-y-11 xl:grid-cols-3 xl:mx-6 2xl:mx-56'>
       {issues.map((issue) => {
         return (
           <li key={issue.id} className='flex justify-center items-center'>
