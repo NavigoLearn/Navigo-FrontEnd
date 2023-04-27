@@ -39,46 +39,38 @@ const DesktopSignUp = () => {
         </a>
       </div>
       <form className='mt-12' onSubmit={handleSubmit}>
-        <div className='flex flex-col'>
-          <div className='flex justify-start items-start ml-16 mb-2.5'>
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-            <label className='text-lg font-kanit-text text-secondary'>
-              Email
-            </label>
-          </div>
-          <div className='flex justify-center items-center'>
-            <input
-              required
-              type='text'
-              placeholder='Email'
-              value={email}
-              onChange={({ target }) => setEmail(target.value)}
-              className='rounded-xl w-96 pl-3 placeholder:font-kanit-text placeholder:text-placeholder h-11'
-            />
-          </div>
+        <div className='flex flex-col w-96 mx-auto'>
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+          <label className='text-lg font-kanit-text text-secondary'>
+            Email
+          </label>
+          <input
+            required
+            type='text'
+            placeholder='Email'
+            value={email}
+            onChange={({ target }) => setEmail(target.value)}
+            className='rounded-xl w-96 pl-3 placeholder:font-kanit-text placeholder:text-placeholder h-11 justify-center items-center mx-auto mt-3'
+          />
         </div>
         <div className='flex flex-col mt-5'>
-          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-          <div className='flex justify-start items-start ml-16 mb-2.5'>
+          <div className='flex flex-col w-96 mx-auto'>
             {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label className='text-lg font-kanit-text text-secondary'>
               Password
             </label>
-          </div>
-          <div className='flex justify-center items-center'>
             <input
               required
               type='password'
               placeholder='Password'
               value={password}
               onChange={({ target }) => setPassword(target.value)}
-              className='rounded-xl w-96 pl-3 placeholder:font-kanit-text placeholder:text-placeholder h-11'
+              className='flex rounded-xl w-96 pl-3 placeholder:font-kanit-text placeholder:text-placeholder h-11 mt-3'
             />
           </div>
         </div>
         <div className='flex flex-col mt-5'>
-          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-          <div className='flex justify-start items-start ml-16 mb-2.5'>
+          <div className='flex flex-col w-96 mx-auto'>
             {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label className='text-lg font-kanit-text text-secondary'>
               Confirm Password
@@ -91,7 +83,7 @@ const DesktopSignUp = () => {
               placeholder='Password'
               value={reapeatPassword}
               onChange={({ target }) => setRepeatPassword(target.value)}
-              className='rounded-xl w-96 pl-3 placeholder:font-kanit-text placeholder:text-placeholder h-11'
+              className='rounded-xl w-96 pl-3 placeholder:font-kanit-text placeholder:text-placeholder h-11 mt-3'
             />
           </div>
         </div>
