@@ -5,7 +5,7 @@ import {
 } from '@store/runtime/cached-tabs';
 import { HashMap } from '@type/roadmap/roadmap';
 import { TabInfo, TabIssue, TabAbout } from '@type/roadmap/tab-manager';
-import { postTabInfoProp } from '../../api/roadmap/tab-data';
+import { postTabInfoProp } from '../../api-wrapper/roadmap/tab-data';
 
 const diffTabsStore = atom({
   // this is a store keeping track of the changes made to the tabs while editing

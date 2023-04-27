@@ -3,7 +3,7 @@ import {
   fetchDefaultCards,
   fetchCardData,
   fetchDefaultCardsProfile,
-} from 'src/api/explore/card-data';
+} from '../api-wrapper/explore/card-data';
 import { CardType } from '@type/explore/card';
 
 const cardsFromApi = atom({});

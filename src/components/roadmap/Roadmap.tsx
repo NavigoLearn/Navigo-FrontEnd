@@ -73,7 +73,7 @@ const Roadmap = ({ pageId }: { pageId: string }) => {
       renderer.current.recalculateChunks.bind(renderer.current)
     );
     setRoadmapId(pageId);
-    // fetches the data from the api
+    // fetches the data from the api-wrapper
     setRoadmapFromAPI(pageId); // when request finishes it triggers chunk renderer which sets the nodes and connections to render
     // to their respective stores. The node rendering is triggered by the rerender of the Roadmap component
     // for the connections we need to subscribe to the store with a callback

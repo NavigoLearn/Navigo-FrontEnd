@@ -3,7 +3,7 @@ import { Roadmap } from '@type/roadmap/roadmap';
 import { triggerChunkRerender } from '@store/runtime/renderedChunks';
 import { setLoadedTrue } from '@typescript/roadmap/utils';
 import miscParams from '@store/runtime/miscParams';
-import { fetchRoadmap } from '../api/roadmap/roadmaps';
+import { fetchRoadmap } from '../api-wrapper/roadmap/roadmaps';
 
 const roadmapStatic = atom({
   chunkSize: 400,
