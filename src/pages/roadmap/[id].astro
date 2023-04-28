@@ -5,9 +5,14 @@ import Roadmap from '@components/roadmap/Roadmap';
 import SideBar from '../../components/roadmap/sidebar/SideBar';
 import SideBarMobile from '../../components/roadmap/sidebar/SideBarMobile';
 import TabManager from '../../components/roadmap/TabManager';
+import {
+  setEditingTrue,
+  setEditingFalse,
+} from '../../typescript/roadmap/roadmap-edit-logic-decorated';
+
 const { id } = Astro.params;
 // here we should get the data for the actual roadmap_static
-const data = { id: '123' };
+const isCreate = id === 'create';
 ---
 
 <Base title='Welcome to Astro.'>
@@ -17,13 +22,13 @@ const data = { id: '123' };
     <!-- offset from nav reduced from total screen size -->
     <div class='md:ml-20 h-full relative'>
       <TopBarRoadmap client:idle />
-      <Roadmap pageId={id} client:load />
+      <Roadmap pageId={id} client:idle />
     </div>
     <div class='hidden md:block'>
-      <SideBar client:idle />
+      <SideBar isCreate={isCreate} client:idle />
     </div>
     <div class='block md:hidden'>
-      <SideBarMobile client:idle />
+      <SideBarMobile isCreate={isCreate} client:idle />
     </div>
     <div class=''>
       <TabManager client:idle />

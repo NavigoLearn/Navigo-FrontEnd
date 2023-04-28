@@ -1,13 +1,9 @@
 import { TabInfo, TabAbout, TabIssue } from '@type/roadmap/tab-manager';
-import { v4 as uuidv4 } from 'uuid';
 import { NodeResourceStore, NodeInfoStore } from '@type/roadmap/nodes';
 import { ResourceSubNodeStore } from '@type/roadmap/resources';
-import roadmapEdit, { getNodeLevel } from '@store/roadmap_edit';
+import { LevelTypes } from '@type/roadmap/level-types';
+import { calculateChunkId } from '@typescript/roadmap/utils';
 
-export function calculateChunkId(x, y) {
-  const { chunkSize } = roadmapEdit.get();
-  return `${Math.floor(x / chunkSize)}_${Math.floor(y / chunkSize)}`;
-}
 export function generateTabAbout(
   name: string,
   author: string,
@@ -58,7 +54,8 @@ export function generateNodeInfo(
   y: number,
   parent: string,
   children: string[],
-  connections: string[]
+  connections: string[],
+  chunk: string
 ): NodeInfoStore {
   return {
     id,
@@ -69,7 +66,7 @@ export function generateNodeInfo(
     y,
     parent,
     children,
-    chunk: calculateChunkId(x, y),
+    chunk,
     level: 'secondary',
     connections,
   };
@@ -84,6 +81,7 @@ export function generateStarterNode(
 ): any {
   const nodes = {};
   const id = 'rootNodeId';
+  const chunk = calculateChunkId(x, y);
   const node = generateNodeInfo(
     id,
     'rootNode',
@@ -92,7 +90,8 @@ export function generateStarterNode(
     y,
     parent,
     children,
-    []
+    [],
+    chunk
   );
   node.level = 'main';
   const chunkNodes = {};
@@ -105,52 +104,6 @@ export function generateStarterNode(
   };
 }
 
-export function generateNNodesInfo(
-  title: string,
-  tabId: string,
-  x: number,
-  y: number,
-  parent: string,
-  children: string[],
-  n: number,
-  m: number
-): any {
-  // used for stress testing roadmap_static rendering capabilities and optimizations
-  const nodes: any = {};
-  for (let i = 0; i < n; i += 1) {
-    for (let j = 0; j < m; j += 1) {
-      const id = `nodeId${i}_${j}`;
-      nodes[id] = generateNodeInfo(
-        id,
-        id,
-        tabId,
-        x * i,
-        y * j,
-        parent,
-        children,
-        []
-      );
-      nodes[id].level = 'main';
-    }
-  }
-  const chunksNodes: any = {};
-
-  for (let i = 0; i < n; i += 1) {
-    for (let j = 0; j < m; j += 1) {
-      const id = `nodeId${i}_${j}`;
-      const chunkId = calculateChunkId(nodes[id].x, nodes[id].y);
-      if (!chunksNodes[chunkId]) {
-        chunksNodes[chunkId] = [];
-      }
-      chunksNodes[chunkId].push(id);
-    }
-  }
-  return {
-    nodes,
-    chunksNodes,
-  };
-}
-
 export function generateNodeResource(
   id: string,
   title: string,
@@ -158,7 +111,8 @@ export function generateNodeResource(
   y: number,
   nodes: string[],
   parent: string,
-  connections: string[]
+  connections: string[],
+  chunk: string
 ): NodeResourceStore {
   return {
     id,
@@ -169,7 +123,7 @@ export function generateNodeResource(
     y,
     parent,
     children: [],
-    chunk: calculateChunkId(x, y),
+    chunk,
     level: 'secondary',
     connections,
   };
@@ -227,7 +181,8 @@ export function generateResourceSubNode(
   id: string,
   parentId: string,
   title: string,
-  tabId: string
+  tabId: string,
+  level: LevelTypes
 ): ResourceSubNodeStore {
   return {
     parentId,
@@ -235,7 +190,7 @@ export function generateResourceSubNode(
     title,
     type: 'ResourceSubNode',
     tabId,
-    level: getNodeLevel(parentId),
+    level,
   };
 }
 

@@ -1,14 +1,14 @@
 import { v4 as uuidv4 } from 'uuid';
-import roadmapEdit, { getNodeLevel } from '@store/roadmap_edit';
+import roadmapEdit from '@store/roadmap_edit';
 import { Roadmap } from '@type/roadmap/roadmap';
 import {
-  calculateChunkId,
   generateNodeInfoEmpty,
   generateNodeResourceEmpty,
   generateTabInfo,
 } from '@typescript/roadmap/generators';
+import { calculateChunkId } from '@typescript/roadmap/utils';
 import { TabInfo, TabIssue } from '@type/roadmap/tab-manager';
-import { NodeIdentifierTypes, NodeResourceStore } from '@type/roadmap/nodes';
+import { NodeResourceStore } from '@type/roadmap/nodes';
 import {
   isNodeResourceStore,
   isNodeTypesStore,
@@ -29,6 +29,15 @@ The add/generate function naming convention is:
 add<Object><Type>
 generateNodeResourceEmpty
 */
+
+export function getNodeLevel(id: string) {
+  const original = roadmapEdit.get();
+  const { nodes } = original;
+  return nodes[id].level;
+}
+export function getRoadmapEdit() {
+  return roadmapEdit.get();
+}
 
 export function addNewTab(newId: string, newTab: TabInfo) {
   // adds the new TabManager to the diff and to the cache

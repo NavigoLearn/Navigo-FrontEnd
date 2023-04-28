@@ -1,9 +1,15 @@
 import React, { useEffect, useRef } from 'react';
-
+import { v4 as uuid4 } from 'uuid';
 import NodeManager from '@components/roadmap/NodeManager';
 import { useStore } from '@nanostores/react';
-import roadmapState, { setRoadmapId } from '@store/roadmap_state';
-import roadmapStatic, { setRoadmapFromAPI } from '@store/roadmap_static';
+import roadmapState, {
+  setEditingTrueNoRerender,
+  setRoadmapId,
+} from '@store/roadmap_state';
+import roadmapStatic, {
+  initialRoadmapCreateRender,
+  setRoadmapFromAPI,
+} from '@store/roadmap_static';
 import {
   setTriggerDisable,
   setTriggerEnable,
@@ -14,7 +20,7 @@ import { RoadmapChunkingManager } from '@typescript/roadmap/chunks-logic';
 import renderNodesStore from '@store/runtime/renderedNodes';
 import { setChunkRerenderTrigger } from '@store/runtime/renderedChunks';
 import renderConnectionsStore from '@store/runtime/renderedConnections';
-import { renderConnections } from '@typescript/roadmap/roadmap-render';
+import { renderConnections } from '@typescript/roadmap/render/connections';
 import roadmapEdit from '@store/roadmap_edit';
 import {
   setDisableZoomTrigger,
@@ -25,12 +31,15 @@ import { setAboutInfoOnly } from '@store/runtime/tab-manager';
 import Popup from './tabs/popups/Popup';
 
 const Roadmap = ({ pageId }: { pageId: string }) => {
-  const { editing } = useStore(roadmapState);
+  const isCreate = pageId === 'create'; // parameter to determine if we are in the create mode
+  if (isCreate) {
+    setEditingTrueNoRerender();
+  }
+  const { editing } = isCreate ? { editing: true } : useStore(roadmapState);
   // the ids of the nodes that need to be rendered accorind to the current view and the chunks visible
   const { nodes: nodesIds } = useStore(renderNodesStore); // used to trigger a rerender when the nodes change
-  const { nodes: nodesValues } = editing
-    ? roadmapEdit.get()
-    : roadmapStatic.get();
+  const { nodes: nodesValues } =
+    editing || isCreate ? roadmapEdit.get() : roadmapStatic.get();
 
   useEffect(() => {
     // sets overflow hidden on body
@@ -72,11 +81,16 @@ const Roadmap = ({ pageId }: { pageId: string }) => {
       // used for decorators
       renderer.current.recalculateChunks.bind(renderer.current)
     );
-    setRoadmapId(pageId);
+    if (!isCreate) setRoadmapId(pageId);
+    else setRoadmapId(uuid4());
     // fetches the data from the api-wrapper
-    setRoadmapFromAPI(pageId); // when request finishes it triggers chunk renderer which sets the nodes and connections to render
-    // to their respective stores. The node rendering is triggered by the rerender of the Roadmap component
-    // for the connections we need to subscribe to the store with a callback
+    if (!isCreate) {
+      setRoadmapFromAPI(pageId); // when request finishes it triggers chunk renderer which sets the nodes and connections to render
+      // to their respective stores. The node rendering is triggered by the rerender of the Roadmap component
+      // for the connections we need to subscribe to the store with a callback
+    } else {
+      initialRoadmapCreateRender();
+    }
 
     // gets the about tab info
     getTabAboutFlow(pageId).then((tab) => {

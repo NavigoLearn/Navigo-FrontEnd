@@ -3,7 +3,7 @@ import roadmapStatic from '@store/roadmap_static';
 import roadmapEdit from '@store/roadmap_edit';
 import roadmapState from '@store/roadmap_state';
 import { deepCopy } from '@typescript/roadmap/utils';
-import { calculateMiddleOfNodeOffsetStatic } from '@typescript/roadmap/roadmap-render';
+import { calculateMiddleOfNodeOffsetStatic } from '@typescript/roadmap/render/coord-calc';
 import { setRecenterRoadmap } from '@store/runtime/miscParams';
 
 export const calculateRootNodeTransform = () => {

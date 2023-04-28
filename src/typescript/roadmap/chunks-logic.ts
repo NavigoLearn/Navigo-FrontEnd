@@ -8,6 +8,7 @@ import { setConnections } from '@store/runtime/renderedConnections';
 import { Roadmap } from '@type/roadmap/roadmap';
 import { setViewport } from '@store/runtime/viewport-coords';
 import { Viewport } from '@type/roadmap/misc';
+import miscParams from '@store/runtime/miscParams';
 
 export function getConnectionsToRender(currentNodes: string[]): string[] {
   const { editing, loaded } = roadmapState.get();
@@ -180,7 +181,7 @@ export class RoadmapChunkingManager {
     this.svgRefId = svgRefId;
     this.svgRef = document.getElementById(svgRefId);
     this.throttledRendering = throttle(renderChunksFlow, 50);
-    this.chunkSize = roadmapStatic.get().chunkSize;
+    this.chunkSize = miscParams.get().chunkSize;
   }
 
   recalculateChunks() {
