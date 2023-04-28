@@ -19,6 +19,12 @@ export function setSaveTrue() {
   state.set({ ...original, save: true });
 }
 
+export function setEditingTrueNoRerender() {
+  const original = state.get();
+  original.editing = true;
+  state.set(original);
+}
+
 export function setRoadmapId(id: string) {
   const original = state.get();
   state.set({ ...original, id });

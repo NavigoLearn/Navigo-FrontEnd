@@ -1,6 +1,4 @@
 import { atom } from 'nanostores';
-import { ReactComponentElement } from 'react';
-import { manualTrigger } from '@typescript/roadmap/roadmap-edit-decorators';
 import { getTriggerTooltip } from '@store/runtime/rerenderTriggers';
 
 const miscParamsStore = atom({
@@ -16,6 +14,7 @@ const miscParamsStore = atom({
     // recenter the roadmap
   },
   editingCount: 0,
+  chunkSize: 400,
   toolTip: {}, // functions that render react components with the desired functionality
 } as {
   zoomAllowed: boolean;
@@ -23,6 +22,7 @@ const miscParamsStore = atom({
   enableZoomTrigger: () => void;
   recenterRoadmap: () => void;
   editingCount: number;
+  chunkSize: number;
   toolTip: { [key: string]: any };
 });
 

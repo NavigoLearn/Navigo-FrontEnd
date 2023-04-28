@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useStore } from '@nanostores/react';
 import roadmapState from '@store/roadmap_state';
 import buttonsEdit from '@components/roadmap/sidebar/buttons-edit';
+import buttonsCreate from '@components/roadmap/sidebar/buttons-create';
 import buttonsView from './buttons-view';
 
-const SideBar = () => {
+const SideBar = ({ isCreate }: { isCreate: string }) => {
   const [hover, setHover] = useState(false);
   const { editing } = useStore(roadmapState);
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
 
   const handleHover = (e) => {
     // set hover based on weather event is mouseenter or mouseleave
@@ -25,7 +31,9 @@ const SideBar = () => {
         `}
       >
         <ul className='flex-col-4 min-h-full w-full gap-10 justify-self-center items-center '>
-          {!editing &&
+          {hydrated &&
+            !editing &&
+            !isCreate &&
             buttonsView.map((button) => {
               return (
                 <li
@@ -47,8 +55,33 @@ const SideBar = () => {
                 </li>
               );
             })}
-          {editing &&
+          {hydrated &&
+            editing &&
+            !isCreate &&
             buttonsEdit.map((button) => {
+              return (
+                <li
+                  key={button.id}
+                  className='flex items-center text-center ml-5'
+                >
+                  <button
+                    type='button'
+                    className='w-10 flex justify-self-center items-center text-center text-2xl hover:underline'
+                    onClick={button.clickHandler}
+                  >
+                    <img
+                      src={button.cIcon}
+                      alt='icons sidebar'
+                      className='mr-4 my-6 w-8 h-8 '
+                    />
+                    {hover ? button.title : null}
+                  </button>
+                </li>
+              );
+            })}
+          {hydrated &&
+            isCreate &&
+            buttonsCreate.map((button) => {
               return (
                 <li
                   key={button.id}

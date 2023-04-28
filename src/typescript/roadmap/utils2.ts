@@ -7,10 +7,6 @@ import {
 import { applyAllDiffs, emptyAllDiffs } from '@store/runtime/diff-tabs';
 import { deepCopy } from '@typescript/roadmap/utils';
 import { resetAllTooltips } from '@store/runtime/miscParams';
-import {
-  triggerChunkRecalculationDecorator,
-  triggerChunkRerenderDecorator,
-} from '@typescript/roadmap/roadmap-edit-decorators';
 import { triggerChunkRerender } from '@store/runtime/renderedChunks';
 
 export function transferRoadmapToEdit() {

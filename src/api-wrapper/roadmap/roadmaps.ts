@@ -1,9 +1,5 @@
 import { Roadmap } from '@type/roadmap/roadmap';
-import {
-  generateNNodesInfo,
-  generateConnection,
-  generateStarterNode,
-} from '@typescript/roadmap/generators';
+import { generateStarterNode } from '@typescript/roadmap/generators';
 import { networkLatency } from './params';
 //
 // const roadmap1: Roadmap = {
@@ -110,7 +106,6 @@ const roadmap4: Roadmap = {
     'parent',
     []
   ).chunkNodes,
-  chunkSize: 400,
 };
 
 const roadmapData = {
