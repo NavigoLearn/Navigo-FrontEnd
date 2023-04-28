@@ -3,11 +3,9 @@ import { Roadmap } from '@type/roadmap/roadmap';
 import { triggerChunkRerender } from '@store/runtime/renderedChunks';
 import { setLoadedTrue } from '@typescript/roadmap/utils';
 import miscParams from '@store/runtime/miscParams';
-import { fetchRoadmap } from '../api/roadmap/roadmaps';
+import { fetchRoadmap } from '../api-wrapper/roadmap/roadmaps';
 
-const roadmapStatic = atom({
-  chunkSize: 400,
-} as Roadmap);
+const roadmapStatic = atom({} as Roadmap);
 
 export function getNodeById(id: string) {
   const original = roadmapStatic.get();
@@ -22,4 +20,11 @@ export function setRoadmapFromAPI(pageId: string) {
     miscParams.get().recenterRoadmap();
   });
 }
+
+export function initialRoadmapCreateRender() {
+  setLoadedTrue();
+  triggerChunkRerender();
+  miscParams.get().recenterRoadmap();
+}
+
 export default roadmapStatic;

@@ -1,5 +1,5 @@
 function handleSocialLogin(link: string, features: string) {
-  // open /api/auth/google-login in a new window and store the window reference
+  // open /api-wrapper/auth/google-login in a new window and store the window reference
   const popup = window.open(link, '_blank', features);
 
   // poll the child window's location every 500ms
@@ -44,7 +44,7 @@ export function handleGoogleLogin() {
   const features = `scrollbars=no,resizable=no,status=no,location=no,
   toolbar=no,menubar=no,width=500,height=700,left=${left},top=${top}`;
 
-  // open /api/auth/google-login in a new window and store the window reference
+  // open /api-wrapper/auth/google-login in a new window and store the window reference
   handleSocialLogin('/api/auth/google-login', features);
 }
 

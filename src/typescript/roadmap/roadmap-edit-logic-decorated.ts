@@ -32,8 +32,8 @@ import {
 } from '@typescript/roadmap/roadmap-edit-logic';
 import { ResourceSubNodeStore } from '@type/roadmap/resources';
 import state from '@store/roadmap_state';
-import { getNodeCoords } from '@typescript/roadmap/roadmap-render';
 import ErrorHandler from '@typescript/error-handler';
+import { getNodeCoords } from '@typescript/roadmap/render/coord-calc';
 
 export const changeNodeCoords = triggerPositionCacheClearDecorator(
   triggerRerenderDecorator(
@@ -331,6 +331,7 @@ export const toggleEditing = triggerRerenderAllDecorator(() => {
 });
 
 export const setEditingTrue = triggerRerenderAllDecorator(() => {
+  console.log('called editing');
   const original = state.get();
   state.set({ ...original, editing: true });
 });

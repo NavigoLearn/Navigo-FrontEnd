@@ -1,10 +1,8 @@
 import { getNodes } from '@store/runtime/renderedNodes';
-import {
-  getNodeCoords,
-  renderConnections,
-} from '@typescript/roadmap/roadmap-render';
+import { getNodeCoords } from '@typescript/roadmap/render/coord-calc';
+import { renderConnections } from '@typescript/roadmap/render/connections';
 import { getTriggersRenderAll } from '@store/runtime/rerenderTriggers';
-import { calculateChunkId } from '@typescript/roadmap/generators';
+import { calculateChunkId } from '@typescript/roadmap/utils';
 import {
   removeChunkNode,
   addChunkNode,

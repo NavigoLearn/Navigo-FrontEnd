@@ -135,21 +135,33 @@ const DesktopFeedback = () => {
       <div className='flex flex-col-3 gap-20 justify-center mt-10 '>
         <button
           type='button'
-          className='font-roboto text-xl font-normal hover:underline hover:underline-offset-2'
+          className={`font-roboto text-xl font-normal hover:underline hover:underline-offset-2 ${
+            formType === 'featureRequest'
+              ? 'bg-primary text-white py-2 px-8 rounded-full'
+              : ''
+          }`}
           onClick={() => setFormType('featureRequest')}
         >
           Feature request
         </button>
         <button
           type='button'
-          className='bg-primary py-2 px-8 font-roboto text-xl font-medium rounded-full text-white hover:underline hover:underline-offset-2'
+          className={`font-roboto text-xl font-normal hover:underline hover:underline-offset-2 ${
+            formType === 'bugReport'
+              ? 'bg-primary text-white py-2 px-8 rounded-full'
+              : ''
+          }`}
           onClick={() => setFormType('bugReport')}
         >
           Report a bug
         </button>
         <button
           type='button'
-          className='font-roboto text-xl font-normal hover:underline hover:underline-offset-2'
+          className={`font-roboto text-xl font-normal hover:underline hover:underline-offset-2 ${
+            formType === 'somethingElse'
+              ? 'bg-primary text-white py-2 px-8 rounded-full'
+              : ''
+          }`}
           onClick={() => setFormType('somethingElse')}
         >
           Something else
@@ -175,13 +187,13 @@ const DesktopFeedback = () => {
         <h1 className='text-center text-2xl font-kanit-text font-medium text-eugene'>
           Connect with us through our
         </h1>
-        <div className='mt-5 flex flex-col-3 gap-10 justify-center text-center items-center'>
+        <div className='mt-5 flex flex-col-3 gap-20 justify-center text-center items-center'>
           {/* disabled eslint for this anchor because WE DONT HAVE A SERVER !!!!!!!! */}
           {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
           <a
             // insert discord server link here
             href=''
-            className='w-48 text-placeholder font-kanit-text translate-y-12'
+            className='w-32 text-placeholder font-kanit-text translate-y-12'
           >
             discord
             <img src={discord} alt='discord' className='w-full mt-6' />
@@ -190,17 +202,17 @@ const DesktopFeedback = () => {
             href='https://github.com/NavigoLearn'
             target='_blank'
             rel='noreferrer'
-            className='w-48 text-placeholder font-kanit-text'
+            className='w-32 text-placeholder font-kanit-text'
           >
             github organization
             <img src={github} alt='github' className='mt-6' />
           </a>
           <a
             href='mailto:navigolearn@gmail.com'
-            className='w-48 text-placeholder font-kanit-text translate-y-12'
+            className='w-32 text-placeholder font-kanit-text translate-y-12'
           >
             email
-            <img src={gmail} alt='gmail' className='flex' />
+            <img src={gmail} alt='gmail' className='flex mt-6' />
           </a>
         </div>
       </div>

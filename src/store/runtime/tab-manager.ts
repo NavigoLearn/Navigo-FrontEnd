@@ -150,7 +150,6 @@ export function setAbout(tab: TabAbout) {
 export function setTabAboutProp(property: string, value: string) {
   const newTab = tabManagerStore.get();
   newTab.about[property] = value;
-  console.log(property, value, 'value field');
   tabManagerStore.set({
     ...newTab,
   });

@@ -3,7 +3,6 @@ import issues from '@assets/issues.svg';
 import about from '@assets/about.svg';
 
 import { setIssues } from '@store/runtime/tab-manager';
-import { setReport } from '@store/popup';
 import roadmapState, { getRoadmapId } from '@store/roadmap_state';
 import {
   saveEditingProtocol,

@@ -11,7 +11,7 @@ import {
   isNodeResourceProps,
 } from '@type/roadmap/typecheckers';
 import { getNodeById } from '@store/roadmap_static';
-import { addDraggability } from '@typescript/roadmap/roadmap-render';
+import { addDraggabilityFlow } from '@typescript/roadmap/render/drag-flows';
 import levels from '@styles/levelStyles';
 import { getNodeByIdEdit } from '@typescript/roadmap/roadmap-edit-logic';
 import Tooltip from '@components/roadmap/nodes/misc/Tooltip';
@@ -30,10 +30,10 @@ const NodeManager = ({ data, editing, triggerCb }: NodeManagerProps) => {
   }
 
   function disableDraggability() {
-    addDraggability(data.id, false);
+    addDraggabilityFlow(data.id, false);
   }
   function enableDraggability() {
-    addDraggability(data.id, true);
+    addDraggabilityFlow(data.id, true);
   }
 
   useLayoutEffect(() => {
@@ -53,7 +53,7 @@ const NodeManager = ({ data, editing, triggerCb }: NodeManagerProps) => {
 
   useEffect(() => {
     // locks the nodes that are currently in text editing or view mode
-    addDraggability(data.id, editing);
+    addDraggabilityFlow(data.id, editing);
   }, [editing]);
 
   const renderNode = () => {
