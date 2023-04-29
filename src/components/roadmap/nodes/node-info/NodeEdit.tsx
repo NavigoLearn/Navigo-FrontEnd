@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { setToolTip } from '@store/runtime/miscParams';
 import {
   getTriggerEnable,
@@ -17,7 +17,7 @@ const NodeEdit = ({ title, tabId, id, level }: NodeInfoProps) => {
   const [editing, setEditing] = useState(false);
   return (
     <div
-      className={`rounded-lg shadow-standard w-56 bg-white ${
+      className={`rounded-lg shadow-standard w-[224px] bg-white ${
         level === 'main' && !editing ? ' border-2 border-primary' : ''
       } `}
     >

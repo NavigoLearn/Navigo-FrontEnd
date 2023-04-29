@@ -96,7 +96,7 @@ const NodeManager = ({ data, editing, triggerCb }: NodeManagerProps) => {
     <>
       <g
         id={`tooltip${data.id}`}
-        transform={`translate(${data.x - 20},${data.y - 128})`}
+        transform={`translate(${data.x - 24},${data.y - 128})`}
       >
         <foreignObject className='pointer-events-none' width='260' height='128'>
           <Tooltip id={data.id} />

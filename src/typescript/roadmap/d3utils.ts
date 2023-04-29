@@ -5,6 +5,7 @@ import roadmapState from '@store/roadmap_state';
 import { deepCopy } from '@typescript/roadmap/utils';
 import { calculateMiddleOfNodeOffsetStatic } from '@typescript/roadmap/render/coord-calc';
 import { setRecenterRoadmap } from '@store/runtime/miscParams';
+import scaleSafari, { setScaleSafari } from "@store/runtime/scale-safari";
 
 export const calculateRootNodeTransform = () => {
   const { editing } = roadmapState.get();
@@ -33,7 +34,10 @@ export const addZoom = (rootSvgId, rootGroupId, rerender) => {
   function zoomed() {
     rerender();
     this.zoomTransform = d3.zoomIdentity;
-    rootGroup.attr('transform', d3.zoomTransform(this));
+    const zoomTransform = d3.zoomTransform(this);
+    rootGroup.attr('transform', zoomTransform);
+
+    setScaleSafari(zoomTransform.k);
   }
 
   const zoom = d3

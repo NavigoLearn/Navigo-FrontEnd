@@ -4,7 +4,7 @@ import compass from '@assets/compassbutton.webp';
 const Recenter = () => {
   return (
     <button
-      className='absolute top-10 w-8 h-8  '
+      className='absolute top-10 w-8 h-8 select-none'
       type='button'
       id='recenter-button'
     >

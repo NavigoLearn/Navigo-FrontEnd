@@ -132,7 +132,7 @@ const Roadmap = ({ pageId }: { pageId: string }) => {
   return (
     <div className='w-full h-full '>
       <Popup />
-      <svg id='rootSvg' width='100%' height='100%'>
+      <svg id='rootSvg' width='100%' height='100%' className='bg-background select-none'>
         <g id='rootGroup'>
           <g id='rootGroupConnections'>
             {/* placeholder for eslint to not scream at me */}

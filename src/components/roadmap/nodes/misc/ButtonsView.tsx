@@ -26,12 +26,12 @@ const Buttons = ({
       >
         Delete
       </button>
-      <div className=' absolute left-24 bottom-0 w-16 flex justify-center'>
+      <div className=' absolute left-[98px] bottom-0 w-16 flex justify-center'>
         <div className='relative'>
           <DropdownType id={id} type={type} />
         </div>
       </div>
-      <div className=' absolute right-0  bottom-0 w-24 flex justify-center'>
+      <div className=' absolute left-44  bottom-0 w-24 flex justify-center'>
         <div className='relative '>
           {type === 'Info' && <LevelConvertor id={id} level={level} />}
         </div>
