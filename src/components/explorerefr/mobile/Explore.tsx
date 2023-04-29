@@ -8,11 +8,8 @@ import chevronleft from '@assets/chevron-left.svg';
 import chevronright from '@assets/chevron-right.svg';
 // import Cookies from '@components/explorerefr/mobile/cookies/Cookies';
 import cardsFromApi, {
-  setCardsFromApi,
   setCardsFromApiDefault,
-  emptyStore,
 } from '@store/card_store_explore';
-import { CardType } from '@type/explore/card';
 import SortBy from './SortBy';
 // import Filter from './Filter';
 import FilterAug from './FilterManager';
@@ -43,14 +40,14 @@ const SearchMobile = () => {
       setClickFilter((prev) => !prev);
     }
 
-    const body = document.querySelector('body');
-    if (stateVar === 'filter' && clickFilter) {
-      body.style.overflow = 'auto';
-    } else if (stateVar === 'sort' && clickSort) {
-      body.style.overflow = 'auto';
-    } else {
-      body.style.overflow = 'hidden';
-    }
+    // const body = document.querySelector('body');
+    // if (stateVar === 'filter' && clickFilter) {
+    //   body.style.overflow = 'auto';
+    // } else if (stateVar === 'sort' && clickSort) {
+    //   body.style.overflow = 'auto';
+    // } else {
+    //   body.style.overflow = 'hidden';
+    // }
   };
 
   return (

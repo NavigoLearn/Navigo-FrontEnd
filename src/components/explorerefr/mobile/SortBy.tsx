@@ -8,11 +8,18 @@ const sorts = [
   { sort: 'Comments', id: 4 },
 ];
 
-const SortBy = ({ handleClick }) => {
+type ClickSort = {
+  handleClick: (stateVar: 'sort' | 'filter') => void;
+};
+
+const SortBy = ({ handleClick }: ClickSort) => {
   const [filterSelected, setFilterSelected] = useState('');
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const body = document.querySelector('body');
+    body.style.overflow = 'hidden';
+
     const calculateScroll = () => {
       const scrollPosition = window.scrollY;
       ref.current.style.top = `${scrollPosition}px`; // Convert to pixels
@@ -24,6 +31,7 @@ const SortBy = ({ handleClick }) => {
     window.addEventListener('scroll', calculateScroll);
     return () => {
       window.removeEventListener('scroll', calculateScroll);
+      body.style.overflow = 'auto';
     };
   }, []);
 
