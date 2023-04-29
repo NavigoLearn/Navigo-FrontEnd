@@ -29,7 +29,6 @@ import {
 import { getTabAboutFlow } from '@typescript/roadmap/tab-logic-flows';
 import { setAboutInfoOnly } from '@store/runtime/tab-manager';
 import Popup from './tabs/popups/Popup';
-import viewportCoord from "@store/runtime/viewport-coords";
 
 const Roadmap = ({ pageId }: { pageId: string }) => {
   const isCreate = pageId === 'create'; // parameter to determine if we are in the create mode
@@ -133,7 +132,7 @@ const Roadmap = ({ pageId }: { pageId: string }) => {
   return (
     <div className='w-full h-full '>
       <Popup />
-      <svg id='rootSvg' width='100%' height='100%' className='bg-background'>
+      <svg id='rootSvg' width='100%' height='100%' className='bg-background select-none'>
         <g id='rootGroup'>
           <g id='rootGroupConnections'>
             {/* placeholder for eslint to not scream at me */}

@@ -25,7 +25,7 @@ const InfoNonEditProps = <T,>({
   }, []);
 
   return (
-    <div className=' flex justify-between w-56 '>
+    <div className=' flex justify-between w-[224px] '>
       <button
         type='button'
         className='w-10 h-10 flex justify-center items-center'
