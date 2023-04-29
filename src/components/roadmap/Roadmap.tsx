@@ -29,6 +29,7 @@ import {
 import { getTabAboutFlow } from '@typescript/roadmap/tab-logic-flows';
 import { setAboutInfoOnly } from '@store/runtime/tab-manager';
 import Popup from './tabs/popups/Popup';
+import viewportCoord from "@store/runtime/viewport-coords";
 
 const Roadmap = ({ pageId }: { pageId: string }) => {
   const isCreate = pageId === 'create'; // parameter to determine if we are in the create mode

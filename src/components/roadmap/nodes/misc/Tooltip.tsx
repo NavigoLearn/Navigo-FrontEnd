@@ -4,10 +4,11 @@ import { useToolTip } from '@store/runtime/miscParams';
 import { setTriggerTooltip } from '@store/runtime/rerenderTriggers';
 import { useStore } from "@nanostores/react";
 import viewportCoord from "@store/runtime/viewport-coords";
+import scaleSafari from "@store/runtime/scale-safari";
 
 const Tooltip = ({ id }: { id: string }) => {
   // get the scale from the store (throttled, so a better way should be found)
-  const { scale } = useStore(viewportCoord);
+  const { scale } = useStore(scaleSafari);
 
   const isSafari =
     navigator.userAgent.indexOf('Safari') != -1 &&
@@ -31,8 +32,8 @@ const Tooltip = ({ id }: { id: string }) => {
       style={isSafari
         ? {
         transform:`scale(${scale})`,
-        transformOrigin: 'top left'
-      } : {}}
+        transformOrigin: 'top left',
+      } : {}} // this is a hack to make the tooltip work in safari
     >
       {options()}
     </div>

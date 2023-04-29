@@ -186,5 +186,7 @@ export class RoadmapChunkingManager {
 
   recalculateChunks() {
     this.throttledRendering(d3.zoomTransform(this.svgRef), this.chunkSize);
+    // get the current transfprm to edit scale
+    const transform = d3.zoomTransform(this.svgRef);
   }
 }
