@@ -6,9 +6,7 @@ import chevronleft from '@assets/chevron-left.svg';
 import chevronright from '@assets/chevron-right.svg';
 import cardsFromApi, {
   setCardsFromApiDefault,
-  emptyStore,
 } from '@store/card_store_explore';
-import { deepCopy } from '@typescript/roadmap/utils';
 import FilterAugD from './filterhoc/FilterAugD';
 import Card from '../Card';
 

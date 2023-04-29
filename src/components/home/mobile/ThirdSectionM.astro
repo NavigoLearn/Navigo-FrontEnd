@@ -1,0 +1,46 @@
+<div class="bg-transparent h-[920px] flex justify-center">
+    <div class="flex overflow-hidden mt-16 w-72">
+        <div class="nodes 2xl:text-lg">
+            <h1 class="absolute bg-background border border-primary w-24 h-5 rounded-md flex justify-center items-center text-xs ml-16 mt-20">Who</h1>
+            <h1 class="absolute bg-background border border-primary w-24 h-5 rounded-md flex justify-center items-center text-xs ml-40 mt-36">are</h1>
+            <h1 class="absolute bg-background border border-primary w-24 h-5 rounded-md flex justify-center items-center text-xs ml-28 mt-52">we?</h1>
+            <span style="--i:19"></span>
+            <span style="--i:27"></span>
+            <span style="--i:24"></span>
+            <span style="--i:34"></span>
+            <span style="--i:30"></span>
+            <span style="--i:25"></span>
+            <span style="--i:35"></span>
+            <span style="--i:23"></span>
+        </div>
+    </div>
+</div>
+
+<style>
+    .nodes {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+    .nodes span {
+        position: relative;
+        width: 75px;
+        height: 17px;
+        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
+        border-radius: 10px;
+        border: 1px solid black;
+        margin: 10px;
+        animation: animate 15s linear infinite;
+        animation-duration: calc(250s / var(--i));
+        z-index: -100;
+        opacity: 1;
+    }
+    @keyframes animate  {
+        0% {
+            transform: translateX(70vh);
+        }
+        100% {
+            opacity: 0; /* Set opacity to 0 (fully transparent) */
+        }
+    }
+</style>
