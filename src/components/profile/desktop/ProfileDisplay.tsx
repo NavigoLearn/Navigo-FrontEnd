@@ -122,20 +122,22 @@ const ProfileDisplay = () => {
               ]);
             }}
           />
-          <Bio
-            originalValue={userData.bio}
-            edit={edit}
-            saveRequest={(valueRef: RefObject<string>) => {
-              // sets a callback that saves the new bio with the ref
-              setAsyncCallbackList((prev) => [
-                ...prev,
-                async () => {
-                  // use valueRef
-                  await postBioData(valueRef.current);
-                },
-              ]);
-            }}
-          />
+          <div className='w-full  flex justify-center'>
+            <Bio
+              originalValue={userData.bio}
+              edit={edit}
+              saveRequest={(valueRef: RefObject<string>) => {
+                // sets a callback that saves the new bio with the ref
+                setAsyncCallbackList((prev) => [
+                  ...prev,
+                  async () => {
+                    // use valueRef
+                    await postBioData(valueRef.current);
+                  },
+                ]);
+              }}
+            />
+          </div>
         </div>
       </div>
       <div className='flex w-full flex-col justify-around my-24'>
