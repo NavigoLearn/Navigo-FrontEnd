@@ -16,12 +16,17 @@ const SearchDesktop = () => {
   const cardStore = cardsFromApi.get();
   const [pageNr, setPageNr] = useState(1);
   const isDisabled = pageNr <= 1;
+  let [isSafari, setIsSafari] = useState(false);
+  
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
 
   useEffect(() => {
+    setIsSafari(
+      navigator.userAgent.indexOf('Safari') != -1 &&
+      navigator.userAgent.indexOf('Chrome') == -1);
     setCardsFromApiDefault().then(() => {
       setRender((prev) => !prev);
     });
@@ -31,10 +36,10 @@ const SearchDesktop = () => {
     <div>
       <form
         action='submit'
-        className='flex justify-center mt-24'
+        className={`flex justify-center ${isSafari ? 'mt-44' : 'mt-24'}`}
         onSubmit={handleSubmit}
       >
-        <div className='relative'>
+        <div className={`relative ${isSafari ? 'mt-32' : ''}`}>
           <input
             required
             value={query}

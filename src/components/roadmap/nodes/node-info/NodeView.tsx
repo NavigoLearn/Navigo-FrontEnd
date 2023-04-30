@@ -9,7 +9,7 @@ const NodeView = ({ title, tabId, id, level }: NodeInfoProps) => {
     <button
       type='button'
       ref={rootRef}
-      className={` font-semibold rounded-lg shadow-standard w-56 py-1  bg-white ${
+      className={` font-semibold rounded-lg shadow-standard w-[224px] py-1  bg-white ${
         level === 'main' ? 'border-2 border-primary ' : ''
       } `}
       onClick={() => {
