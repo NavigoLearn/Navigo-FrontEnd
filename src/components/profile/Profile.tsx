@@ -3,7 +3,8 @@ import DesktopProfile from './Desktop';
 import MobileProfile from './Mobile';
 
 const Profile = () => {
-  const [isDesktop, setIsDesktop] = useState(undefined);
+  const [isDesktop, setIsDesktop] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -13,15 +14,14 @@ const Profile = () => {
     handleResize();
 
     window.addEventListener('resize', handleResize);
-
+    setLoaded(true);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   return (
     <div>
-      {typeof isDesktop === 'undefined' ? null : (
-        <div>{isDesktop ? <DesktopProfile /> : <MobileProfile />}</div>
-      )}
+      {loaded && isDesktop && <DesktopProfile />}
+      {loaded && !isDesktop && <MobileProfile />}
     </div>
   );
 };
