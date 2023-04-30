@@ -14,20 +14,20 @@ import {
   setTriggerDisable,
   setTriggerEnable,
   setTriggerRender,
-} from '@store/runtime/rerenderTriggers';
+} from '@store/runtime-roadmap/rerenderTriggers';
 import { addZoom, disableZoom } from '@typescript/roadmap/d3utils';
 import { RoadmapChunkingManager } from '@typescript/roadmap/chunks-logic';
-import renderNodesStore from '@store/runtime/renderedNodes';
-import { setChunkRerenderTrigger } from '@store/runtime/renderedChunks';
-import renderConnectionsStore from '@store/runtime/renderedConnections';
+import renderNodesStore from '@store/runtime-roadmap/renderedNodes';
+import { setChunkRerenderTrigger } from '@store/runtime-roadmap/renderedChunks';
+import renderConnectionsStore from '@store/runtime-roadmap/renderedConnections';
 import { renderConnections } from '@typescript/roadmap/render/connections';
 import roadmapEdit from '@store/roadmap_edit';
 import {
   setDisableZoomTrigger,
   setEnableZoomTrigger,
-} from '@store/runtime/miscParams';
+} from '@store/runtime-roadmap/miscParams';
 import { getTabAboutFlow } from '@typescript/roadmap/tab-logic-flows';
-import { setAboutInfoOnly } from '@store/runtime/tab-manager';
+import { setAboutInfoOnly } from '@store/runtime-roadmap/tab-manager';
 import Popup from './tabs/popups/Popup';
 
 const Roadmap = ({ pageId }: { pageId: string }) => {
@@ -114,7 +114,7 @@ const Roadmap = ({ pageId }: { pageId: string }) => {
 
     return () => {
       console.log('cleanup');
-      // cleaning up runtime stores to not interfere with other roadmaps
+      // cleaning up runtime-roadmap stores to not interfere with other roadmaps
       // cache cleanup
       // diff cleanup
       // renderedChunks cleanup
@@ -132,7 +132,12 @@ const Roadmap = ({ pageId }: { pageId: string }) => {
   return (
     <div className='w-full h-full '>
       <Popup />
-      <svg id='rootSvg' width='100%' height='100%' className='bg-background select-none'>
+      <svg
+        id='rootSvg'
+        width='100%'
+        height='100%'
+        className='bg-background select-none'
+      >
         <g id='rootGroup'>
           <g id='rootGroupConnections'>
             {/* placeholder for eslint to not scream at me */}

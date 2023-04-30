@@ -18,7 +18,7 @@ const HeroWrapper = ({ flag }: { flag: 'desktop' | 'mobile' }) => {
   }, []);
 
   return (
-    <div>
+    <div className='relative'>
       {isLoaded && isDesktop && flag === 'desktop' && (
         <HeroRotate scale={0.55} animSpeed={0.5} />
       )}

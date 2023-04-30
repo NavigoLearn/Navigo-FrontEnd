@@ -4,10 +4,10 @@ import {
   setEditingTrue,
   toggleEditing,
 } from '@typescript/roadmap/roadmap-edit-logic-decorated';
-import { applyAllDiffs, emptyAllDiffs } from '@store/runtime/diff-tabs';
+import { applyAllDiffs, emptyAllDiffs } from '@store/runtime-roadmap/diff-tabs';
 import { deepCopy } from '@typescript/roadmap/utils';
-import { resetAllTooltips } from '@store/runtime/miscParams';
-import { triggerChunkRerender } from '@store/runtime/renderedChunks';
+import { resetAllTooltips } from '@store/runtime-roadmap/miscParams';
+import { triggerChunkRerender } from '@store/runtime-roadmap/renderedChunks';
 
 export function transferRoadmapToEdit() {
   const deepCopyRoadmap = deepCopy(roadmapStatic.get());

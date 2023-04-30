@@ -4,8 +4,10 @@ import roadmapEdit from '@store/roadmap_edit';
 import roadmapState from '@store/roadmap_state';
 import { deepCopy } from '@typescript/roadmap/utils';
 import { calculateMiddleOfNodeOffsetStatic } from '@typescript/roadmap/render/coord-calc';
-import { setRecenterRoadmap } from '@store/runtime/miscParams';
-import scaleSafari, { setScaleSafari } from "@store/runtime/scale-safari";
+import { setRecenterRoadmap } from '@store/runtime-roadmap/miscParams';
+import scaleSafari, {
+  setScaleSafari,
+} from '@store/runtime-roadmap/scale-safari';
 
 export const calculateRootNodeTransform = () => {
   const { editing } = roadmapState.get();

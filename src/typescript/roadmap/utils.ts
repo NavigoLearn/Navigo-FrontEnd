@@ -1,5 +1,5 @@
 import state from '@store/roadmap_state';
-import miscParams from '@store/runtime/miscParams';
+import miscParams from '@store/runtime-roadmap/miscParams';
 
 export function setLoadedTrue() {
   const original = state.get();

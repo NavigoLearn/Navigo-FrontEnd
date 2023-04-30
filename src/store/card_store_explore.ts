@@ -1,16 +1,16 @@
 import { atom } from 'nanostores';
 import {
   fetchDefaultCards,
-  fetchCardData,
-  fetchDefaultCardsProfile,
-} from '../api-wrapper/explore/card-data';
-import { CardType } from '@type/explore/card';
+  fetchCardDataPseudo,
+  fetchDefaultCardsProfilePseudo,
+  fetchRoadmapCardsProfile,
+} from '../api-wrapper/explore/roadmap-card-data';
 
 const cardsFromApi = atom({});
 
 /* eslint-disable import/prefer-default-export */
-export async function setCardsFromApi(cardName: string) {
-  const card = await fetchCardData(cardName);
+export async function setRoadmapCardsFromApi(cardName: string) {
+  const card = await fetchCardDataPseudo(cardName);
   const original = cardsFromApi.get();
   original[cardName] = card;
   cardsFromApi.set({ ...original });
@@ -20,16 +20,17 @@ export async function setCardsFromApiDefault() {
   const idArray = await fetchDefaultCards();
   await Promise.all(
     idArray.map(async (value) => {
-      await setCardsFromApi(value);
+      await setRoadmapCardsFromApi(value);
     })
   );
 }
 
-export async function setCardsFromApiDefaultProfile() {
-  const idArray = await fetchDefaultCardsProfile();
+export async function setRoadmapCardsFromApiProfile(id: string) {
+  const idArrayObj = await fetchRoadmapCardsProfile(id);
+  const idArray = idArrayObj.roadmaps;
   await Promise.all(
     idArray.map(async (value) => {
-      await setCardsFromApi(value);
+      await setRoadmapCardsFromApi(value);
     })
   );
 }

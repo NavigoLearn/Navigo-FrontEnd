@@ -6,8 +6,8 @@ import {
   changeResourceSubNodeTitle,
   getResourceSubNodeByIdPlaceholder,
   removeResourceSubNode,
-} from '@store/runtime/roadmap-placeholder';
-import { setZoomAllowed } from '@store/runtime/miscParams';
+} from '@store/runtime-roadmap/roadmap-placeholder';
+import { setZoomAllowed } from '@store/runtime-roadmap/miscParams';
 
 const ResourceSubNodeEdit = ({
   id: resId,
