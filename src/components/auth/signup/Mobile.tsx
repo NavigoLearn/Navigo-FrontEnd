@@ -7,6 +7,7 @@ import {
   handleGoogleLogin,
   handleGitHubLogin,
 } from '@components/auth/socialAuth';
+import { postSignUpData } from '../../../api-wrapper/user/user';
 
 // Aici trebuie rescrise testele pentru ca name field a fost sters din register
 const MobileSignUp = () => {
@@ -22,7 +23,11 @@ const MobileSignUp = () => {
       return;
     }
     e.preventDefault();
-    // console.log(name, email, password, reapeatPassword);
+    postSignUpData(email, password).then((res) => {
+      if (res.status === 201) {
+        window.location.href = '/explore';
+      }
+    });
     setRepeatPassword('');
     setPassword('');
     setEmail('');

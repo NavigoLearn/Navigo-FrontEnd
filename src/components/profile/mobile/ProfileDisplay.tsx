@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { useStore } from '@nanostores/react';
-import user from '@store/user';
+import React, { useEffect, useState } from 'react';
 import eugene from '@assets/eugen.png';
 import followers from '@assets/followers.svg';
 import link from '@assets/link.svg';
@@ -9,48 +7,41 @@ import arrowdwn from '@assets/arrow-down.svg';
 import arrowup from '@assets/arrow-up.svg';
 import cardsFromApi, {
   setCardsFromApiDefaultProfile,
-  emptyStore,
 } from '@store/card_store_explore';
-import Card from '@components/explorerefr/Card';
+import user, { fetchUserAndSetStore } from '@store/user';
+import { useStore } from '@nanostores/react';
 
-user.set({
-  id: '1',
-  name: 'Eughen',
-  email: 'pussyslayer69@gmail.com',
-  avatar: eugene,
-  quote: 'Pentru ca la Cluj au apa calda',
-  link: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-  description: 'sunt cel mai sex baiat',
-  followers: 69,
-  following: 420,
-  BIO: 'Avid and passionate learner -- insert more linkedin boilerplate --. Average math enjoyer, likes a bit of competitive programming,  likes gym and the pump, likes nietzsche but goes out of his way to not read books despite wanting to.  Loves making startups and bringing ideas and meaningful changes to reality. Also likes speaking in public but is antisocial. If you want to contact me you are welcome to leave me alone',
-  completedRoadmaps: 3,
-  createdRoadmaps: 12,
-  inProgressRoadmaps: 7,
-});
-
-const MobileProfile = () => {
+const ProfileDisplay = () => {
   const userData = useStore(user);
-  // eslint-disable-next-line no-console
-  console.log('in react component', userData);
   const [click, setClick] = useState(false);
   const [render, setRender] = useState(false);
-  const cardStore = cardsFromApi.get();
+  const [loaded, setLoaded] = useState(false);
+  const handleClick = () => {
+    setClick((prev) => !prev);
+  };
 
   useEffect(() => {
+    fetchUserAndSetStore().then(() => {
+      // sets user data and loads it into profile
+      setRender((prev) => !prev);
+      setLoaded(true);
+    });
     setCardsFromApiDefaultProfile().then(() => {
       setRender((prev) => !prev);
     });
   }, []);
 
-  const handleClick = () => {
-    setClick((prev) => !prev);
-  };
+  function setProfileUrl() {
+    if (!loaded) return '';
+    return userData.profilePictureUrl === ''
+      ? 'https://media.istockphoto.com/id/470100848/ro/vector/pictograma-profilului-masculin-alb%C4%83-pe-fundal-albastru.jpg?s=612x612&w=0&k=20&c=-We-8zY-Oj7MMSuKwpOEkm7QUX8Gnc4Bk0KcBIO8lYY='
+      : userData.profilePictureUrl;
+  }
 
   return (
-    <div className='flex flex-col w-full h-full items-center my-24 text-center'>
+    <>
       <img
-        src={eugene}
+        src={setProfileUrl()}
         alt='avatar'
         className='rounded-full flex w-8/12 sm:w-7/12'
       />
@@ -58,7 +49,7 @@ const MobileProfile = () => {
         {userData.name}
       </h1>
       <h2 className='text-md font-light text-center mt-2 font-roboto-text text-secondary sm:text-lg'>
-        {userData.description}
+        no label yet
       </h2>
       <button type='button'>
         <h2 className='text-lg hover:underline text-white font-medium py-3 px-14 bg-primary rounded-3xl mt-4 font-roboto-text sm:-text-xl sm:py-4 sm:px-20'>
@@ -75,7 +66,7 @@ const MobileProfile = () => {
         <div className='flex items-center text-center justify-center'>
           <img src={followers} alt='followers' className='w-6 mx-2 sm:w-8' />
           <h2 className='text-md font-normal text-center items-center text-secondary font-roboto-text sm:text-lg'>
-            {userData.followers}
+            {userData.followerCount}
           </h2>
           <h3 className='text-md text-center text-main font-roboto-text mx-2 sm:text-lg'>
             followers
@@ -84,7 +75,7 @@ const MobileProfile = () => {
         <div className='flex items-center justify-center text-center'>
           <img src={followers} alt='followers' className='w-6 mx-2 sm:w-8' />
           <h2 className='text-md font-normal text-center items-center text-secondary font-roboto-text sm:text-lg'>
-            {userData.following}
+            {userData.followingCount}
           </h2>
           <h3 className='text-md text-center text-main font-robot mx-2 sm:text-lg'>
             following
@@ -93,14 +84,14 @@ const MobileProfile = () => {
       </div>
       <div className='mt-4 flex justify-center'>
         <a
-          href={userData.link}
+          href={userData.websiteUrl}
           className='inline-block text-md font-normal text-center text-primary font-roboto-text justify-center sm:text-lg'
           aria-label='Link to external website'
           target='_blank'
           rel='noopener noreferrer'
         >
           <img src={link} className='mx-2 inline-block' alt='linkicon' />
-          {userData.link}
+          {userData.websiteUrl}
         </a>
       </div>
       <div>
@@ -130,7 +121,7 @@ const MobileProfile = () => {
                   <div className='flex justify-center'>
                     <img src={dizaign} className='flex' alt='line' />
                     <h2 className='text-2xl font-normal mx-4 text-center font-roboto-text'>
-                      {userData.createdRoadmaps}
+                      {userData.roadmapsCount}
                     </h2>
                     <img src={dizaign} className='flex' alt='line' />
                   </div>
@@ -144,7 +135,7 @@ const MobileProfile = () => {
                   <div className='flex justify-center'>
                     <img src={dizaign} className='flex' alt='line' />
                     <h2 className='text-2xl font-normal mx-4 text-center font-roboto-text'>
-                      {userData.completedRoadmaps}
+                      {userData.roadmapsCount}
                     </h2>
                     <img src={dizaign} className='flex' alt='line' />
                   </div>
@@ -153,7 +144,7 @@ const MobileProfile = () => {
               <div className='flex flex-col justify-start text-start text-main font-normal font-roboto-text mt-4 mx-16 sm:text-xl'>
                 BIO
                 <h2 className='text-sm sm:text-xl flex font-normal text-start mt-4 text-secondary font-roboto-text'>
-                  {userData.BIO}
+                  {userData.bio}
                 </h2>
               </div>
             </div>
@@ -174,19 +165,8 @@ const MobileProfile = () => {
           </button>
         )}
       </div>
-      <div className='mt-10 sm:mt-12'>
-        <ul className='flex flex-col gap-7 sm:gap-9'>
-          {Object.keys(cardStore).map((card: string) => (
-            <div key={card} className='flex items-center justify-center'>
-              <Card cardStore={cardStore[card]} />
-            </div>
-          ))}
-        </ul>
-      </div>
-      {/* Here should be introduced a paging system for the profile to scroll thorugh cards with paging, max of 9 cards/page */}
-      <div className='my-7' />
-    </div>
+    </>
   );
 };
 
-export default MobileProfile;
+export default ProfileDisplay;

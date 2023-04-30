@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import DesktopProfile from './Desktop';
-import MobileProfile from './Mobile';
+import DesktopProfile from './desktop/Desktop';
+import MobileProfile from './mobile/Mobile';
 
 const Profile = () => {
   const [isDesktop, setIsDesktop] = useState(undefined);

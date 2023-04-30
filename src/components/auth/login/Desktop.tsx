@@ -7,6 +7,7 @@ import {
   handleGoogleLogin,
   handleGitHubLogin,
 } from '@components/auth/socialAuth';
+import { handleLocalLogin } from '../../../api-wrapper/user/user';
 
 const DesktopLogin = () => {
   useEffect(() => {
@@ -21,7 +22,15 @@ const DesktopLogin = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // console.log(email, password);
+
+    handleLocalLogin(email, password).then((res) => {
+      if (res.status === 200) {
+        window.location.href = '/explore';
+      } else {
+        alert('Invalid email or password');
+      }
+    });
+
     setEmail('');
     setPassword('');
   };
