@@ -1,5 +1,5 @@
 ---
-import HeroRotate from "../HeroRotate";
+import HeroWrapper from "../HeroWrapper";
 import landing1 from "@assets/Landing1.svg";
 ---
 <div class="w-full h-[500px] flex justify-center 2xl:[600px] bg-background">
@@ -17,7 +17,7 @@ import landing1 from "@assets/Landing1.svg";
             <circle cx="92%" cy="255" r="6" fill="#0B1C2C"/>
         </svg>
         <div>
-          <HeroRotate scale={0.55} animSpeed={0.5} client:load/>
+            <HeroWrapper flag={'desktop'} client:load/>
         </div>
     </div>
 </div>
