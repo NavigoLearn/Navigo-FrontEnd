@@ -1,18 +1,31 @@
-import React, { useEffect, useState } from 'react';
+import React, { RefObject, useEffect, useState } from 'react';
 import { useStore } from '@nanostores/react';
 import user, { fetchUserAndSetStore } from '@store/user';
-import { setCardsFromApiDefaultProfile } from '@store/card_store_explore';
-import followers from '@assets/followers.svg';
-import link from '@assets/link.svg';
-import dizaign from '@assets/dizaign.svg';
 import placeholderchart from '@assets/placeholderchart.png';
+import Bio from '@components/profile/common/components/Bio';
+import WebsiteUrl from '@components/profile/common/components/WebsiteUrl';
+import Quote from '@components/profile/common/components/Quote';
+import Label from '@components/profile/common/components/Label';
+import Follow from '@components/profile/common/components/Follow';
+import Name from '@components/profile/common/components/Name';
+import Statistics from '@components/profile/common/components/Statistics';
+import Buttons from '@components/profile/common/components/Buttons';
+import {
+  postBioData,
+  postNameData,
+  postQuoteData,
+  postWebsiteUrlData,
+} from '../../../api-wrapper/user/user';
 
+type asyncCb = () => Promise<void>;
 const ProfileDisplay = () => {
   const userData = useStore(user);
   const [render, setRender] = useState(false);
+  const [requestAgain, setRequestAgain] = useState(false);
   const [loaded, setLoaded] = useState(false);
-  // eslint-disable-next-line no-console
-  // console.log('in react component', userData);
+  const [edit, setEdit] = useState(false);
+
+  const [asyncCallbackList, setAsyncCallbackList] = useState<asyncCb[]>([]);
 
   useEffect(() => {
     fetchUserAndSetStore().then(() => {
@@ -20,10 +33,15 @@ const ProfileDisplay = () => {
       setRender((prev) => !prev);
       setLoaded(true);
     });
-    setCardsFromApiDefaultProfile().then(() => {
-      setRender((prev) => !prev);
-    });
   }, []);
+
+  useEffect(() => {
+    if (loaded === false) return;
+    fetchUserAndSetStore().then(() => {
+      setRender((prev) => !prev);
+      setEdit(false);
+    });
+  }, [requestAgain]);
 
   function setProfileUrl() {
     if (!loaded) return '';
@@ -43,118 +61,85 @@ const ProfileDisplay = () => {
               alt='profile'
             />
           </div>
-          <div className='flex justify-center items-center text-center w-fit'>
-            <div className='text-2xl font-semibold font-roboto-text'>
-              {userData.name}
-            </div>
-          </div>
-          <div>
-            <div className='text-lg font-light text-center mt-2 font-roboto-text text-secondary'>
-              we dont have small description yet
-            </div>
-          </div>
-          <div className='flex gap-10 mt-6'>
-            <div className='text-md font-normal text-center flex font-roboto-text'>
-              <img
-                src={followers}
-                className='flex mx-4 w-6 h-6 '
-                alt='followersicon'
-              />
-              {userData.followerCount}
-              <div className='flex text-md text-placeholder mx-2 font-roboto-text'>
-                followers
-              </div>
-            </div>
-            <div className='text-md font-normal text-center flex font-roboto-text'>
-              <img
-                src={followers}
-                className='flex mx-4 w-6 h-6'
-                alt='followingicon'
-              />
-              {userData.followingCount}
-              <div className='flex text-md text-placeholder mx-2 font-roboto-text'>
-                following
-              </div>
-            </div>
-          </div>
-          <button type='button'>
-            <div className='text-md hover:underline text-white font-normal py-2 px-16 bg-primary rounded-3xl mt-4 font-roboto-text'>
-              Edit profile
-            </div>
-          </button>
-          <div className='flex-col justify-center items-center w-fit mt-4'>
-            <div className='text-[14px] text-center text-placeholder font-roboto-text'>
-              Quote
-            </div>
-            <div className='italic text-[20px] font-normal text-center text-secondary font-roboto-text'>
-              &quot;{userData.quote}&quot;
-            </div>
-          </div>
-          <div className='flex justify-center text-center items-center mt-4 w-fit'>
-            <a
-              href={userData.websiteUrl === '' ? '#' : userData.websiteUrl}
-              className='inline-block text-[20px] font-normal text-center text-primary font-roboto-text'
-              aria-label='Link to external website'
-              target='_blank'
-              rel='noopener noreferrer'
-            >
-              <img src={link} className='mx-2 inline-block' alt='linkicon' />
-              {userData.websiteUrl}
-            </a>
-          </div>
-          <div className='flex flex-col justify-start text-start text-[20px] text-main font-normal font-roboto-text mt-4 mx-16'>
-            BIO
-            <h2 className='text-md flex font-normal text-start text-[16px] mt-4 text-secondary font-roboto-text'>
-              {userData.bio}
-            </h2>
-          </div>
+          <Name
+            edit={edit}
+            originalValue={userData.name}
+            saveRequest={(valueRef: RefObject<string>) => {
+              setAsyncCallbackList((prev) => [
+                ...prev,
+                async () => {
+                  // use valueRef
+                  await postNameData(valueRef.current);
+                },
+              ]);
+            }}
+          />
+          <Follow
+            followerCount={userData.followerCount}
+            followingCount={userData.followingCount}
+          />
+          <Label label='no label yet' />
+          <Buttons
+            edit={edit}
+            onEdit={() => {
+              setEdit(true);
+            }}
+            onSave={() => {
+              // calls all the callbacks and waits for all of them
+              Promise.all(asyncCallbackList.map(async (cb) => cb())).then(
+                () => {
+                  setRequestAgain((prev) => !prev);
+                }
+              );
+            }}
+            onCancel={() => {
+              setEdit(false);
+            }}
+          />
+          <Quote
+            edit={edit}
+            originalValue={userData.quote}
+            saveRequest={(valueRef: RefObject<string>) => {
+              setAsyncCallbackList((prev) => [
+                ...prev,
+                async () => {
+                  // use valueRef
+                  await postQuoteData(valueRef.current);
+                },
+              ]);
+            }}
+          />
+          <WebsiteUrl
+            edit={edit}
+            originalValue={userData.websiteUrl}
+            saveRequest={(valueRef: RefObject<string>) => {
+              setAsyncCallbackList((prev) => [
+                ...prev,
+                async () => {
+                  // use valueRef
+                  await postWebsiteUrlData(valueRef.current);
+                },
+              ]);
+            }}
+          />
+          <Bio
+            originalValue={userData.bio}
+            edit={edit}
+            saveRequest={(valueRef: RefObject<string>) => {
+              // sets a callback that saves the new bio with the ref
+              setAsyncCallbackList((prev) => [
+                ...prev,
+                async () => {
+                  // use valueRef
+                  await postBioData(valueRef.current);
+                },
+              ]);
+            }}
+          />
         </div>
       </div>
       <div className='flex w-full flex-col justify-around my-24'>
-        <div className='flex w-full justify-around'>
-          <div className='flex w-fit flex-col items-center'>
-            <div className='flex'>
-              <h1 className='font-normal text-secondary text-center text-[16px] font-roboto-text'>
-                Created Roadmaps
-              </h1>
-            </div>
-            <div className='flex'>
-              <img src={dizaign} className='flex' alt='line' />
-              <h2 className='text-xl font-normal mx-4 text-center font-roboto-text'>
-                {userData.roadmapsCount}
-              </h2>
-              <img src={dizaign} className='flex' alt='line' />
-            </div>
-          </div>
-          <div className='flex w-fit flex-col items-center'>
-            <div className='flex'>
-              <h1 className='font-normal text-secondary text-center text-[16px] font-roboto-text'>
-                Completed Roadmaps
-              </h1>
-            </div>
-            <div className='flex'>
-              <img src={dizaign} className='flex' alt='line' />
-              <h2 className='text-xl font-normal mx-4 text-center font-roboto-text'>
-                {userData.roadmapsCount}
-              </h2>
-              <img src={dizaign} className='flex' alt='line' />
-            </div>
-          </div>
-          <div className='flex flex-col items-center w-fit'>
-            <div className='flex items-center w-fit'>
-              <h1 className='font-normal text-secondary text-center text-[16px] font-roboto-text'>
-                Roadmaps in progress
-              </h1>
-            </div>
-            <div className='flex items-center w-fit'>
-              <img src={dizaign} className='flex' alt='line' />
-              <h2 className='text-xl font-normal text-center mx-4 font-roboto-text'>
-                {userData.roadmapsCount}
-              </h2>
-              <img src={dizaign} className='flex' alt='line' />
-            </div>
-          </div>
-        </div>
+        <Statistics roadmapsCount={userData.roadmapsCount} />
         <div className='flex justify-center'>
           <img className='w-60 ' src={placeholderchart} alt='chart' />
         </div>

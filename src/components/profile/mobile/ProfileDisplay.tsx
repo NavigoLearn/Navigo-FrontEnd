@@ -6,7 +6,7 @@ import dizaign from '@assets/dizaign.svg';
 import arrowdwn from '@assets/arrow-down.svg';
 import arrowup from '@assets/arrow-up.svg';
 import cardsFromApi, {
-  setCardsFromApiDefaultProfile,
+  setRoadmapCardsFromApiProfile,
 } from '@store/card_store_explore';
 import user, { fetchUserAndSetStore } from '@store/user';
 import { useStore } from '@nanostores/react';
@@ -26,9 +26,6 @@ const ProfileDisplay = () => {
       setRender((prev) => !prev);
       setLoaded(true);
     });
-    setCardsFromApiDefaultProfile().then(() => {
-      setRender((prev) => !prev);
-    });
   }, []);
 
   function setProfileUrl() {
@@ -43,7 +40,7 @@ const ProfileDisplay = () => {
       <img
         src={setProfileUrl()}
         alt='avatar'
-        className='rounded-full flex w-8/12 sm:w-7/12'
+        className='rounded-full flex w-6/12 '
       />
       <h1 className='flex text-center font-semibold font-roboto-text text-4xl mt-4'>
         {userData.name}

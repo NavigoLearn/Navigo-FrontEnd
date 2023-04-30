@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import AboutNonEditField from '@components/roadmap/tabs/AboutNonEditField';
 import AboutEditingField from '@components/roadmap/tabs/AboutEditingField';
 import { useStore } from '@nanostores/react';
-import tabStore, { setTabAboutProp } from '@store/runtime/tab-manager';
+import tabStore, { setTabAboutProp } from '@store/runtime-roadmap/tab-manager';
 import { TabAbout } from '@type/roadmap/tab-manager';
 import EditingManagerTabs from '@components/roadmap/nodes/HOCs/EditingManagerTabs';
 import useStateAndRef from '@hooks/useStateAndRef';

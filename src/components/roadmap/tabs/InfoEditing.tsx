@@ -9,8 +9,8 @@ import tabStore, {
   deleteInfoTabLink,
   addInfoTabLink,
   flipOpen,
-} from '@store/runtime/tab-manager';
-import { diffSaveTabInfo } from '@store/runtime/diff-tabs';
+} from '@store/runtime-roadmap/tab-manager';
+import { diffSaveTabInfo } from '@store/runtime-roadmap/diff-tabs';
 import cross from '@assets/cross.svg';
 import { capStringLen } from '@typescript/roadmap/utils2';
 

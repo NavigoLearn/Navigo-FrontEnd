@@ -77,13 +77,16 @@ const data: { [value: string]: CardType } = {
 };
 
 export const fetchCardData = async (id: string) => {
+  //
+};
+
+export const fetchCardDataPseudo = async (id: string) => {
   return new Promise<CardType>((resolve) => {
     setTimeout(() => {
       resolve(data[id]);
     }, networkLatency);
   });
 };
-
 export const fetchDefaultCards = async () => {
   return new Promise<string[]>((resolve) => {
     setTimeout(() => {
@@ -92,7 +95,17 @@ export const fetchDefaultCards = async () => {
   });
 };
 
-export const fetchDefaultCardsProfile = async () => {
+export const fetchRoadmapCardsProfile = async (id: string) => {
+  // fetches from the api the cards
+  const fetchRoute = `/api/users/${id}/roadmaps`;
+  const response = await fetch(fetchRoute, {
+    method: 'GET',
+    credentials: 'include',
+  }).then((res) => res);
+  const dataJson = await response.json();
+  return dataJson;
+};
+export const fetchDefaultCardsProfilePseudo = async () => {
   return new Promise<string[]>((resolve) => {
     setTimeout(() => {
       resolve(['1', '2', '3', '7', '8', '9']);

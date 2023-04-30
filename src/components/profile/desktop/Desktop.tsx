@@ -1,6 +1,6 @@
 import React from 'react';
 import ProfileDisplay from '@components/profile/desktop/ProfileDisplay';
-import CardDisplay from '@components/profile/desktop/CardDisplay';
+import CardDisplay from '@components/profile/common/CardDisplay';
 
 const DesktopProfile = () => {
   return (

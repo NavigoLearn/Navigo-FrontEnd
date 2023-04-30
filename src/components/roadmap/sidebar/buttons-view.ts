@@ -2,7 +2,7 @@ import edit from '@assets/edit.svg';
 import issues from '@assets/issues.svg';
 import about from '@assets/about.svg';
 
-import { setIssues } from '@store/runtime/tab-manager';
+import { setIssues } from '@store/runtime-roadmap/tab-manager';
 import roadmapState, { getRoadmapId } from '@store/roadmap_state';
 import {
   saveEditingProtocol,

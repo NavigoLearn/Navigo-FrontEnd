@@ -3,7 +3,7 @@ import React from 'react';
 import Button from '@components/roadmap/tabs/utils/Button';
 import { divWrapper } from '@components/roadmap/tabs/utils/logic';
 import { useStore } from '@nanostores/react';
-import tabStore, { flipOpen } from '@store/runtime/tab-manager';
+import tabStore, { flipOpen } from '@store/runtime-roadmap/tab-manager';
 import cross from '@assets/cross.svg';
 
 const InfoView = () => {

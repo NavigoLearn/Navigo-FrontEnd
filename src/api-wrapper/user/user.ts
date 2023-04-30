@@ -40,3 +40,58 @@ export const postSignUpData = async (email: string, password: string) => {
   }).then((res) => res);
   return response;
 };
+
+export const postBioData = async (bio: string) => {
+  const response = await fetch('/api/users/bio', {
+    method: 'POST',
+    credentials: 'include',
+    body: JSON.stringify({
+      bio,
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then((res) => res);
+  return response;
+};
+
+export const postNameData = async (name: string) => {
+  const response = await fetch('/api/users/name', {
+    method: 'POST',
+    credentials: 'include',
+    body: JSON.stringify({
+      name,
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then((res) => res);
+  return response;
+};
+
+export const postQuoteData = async (quote: string) => {
+  const response = await fetch('/api/users/quote', {
+    method: 'POST',
+    credentials: 'include',
+    body: JSON.stringify({
+      quote,
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then((res) => res);
+  return response;
+};
+
+export const postWebsiteUrlData = async (websiteUrl: string) => {
+  const response = await fetch('/api/users/website-url', {
+    method: 'POST',
+    credentials: 'include',
+    body: JSON.stringify({
+      websiteUrl,
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then((res) => res);
+};

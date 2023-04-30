@@ -36,7 +36,7 @@ export const fetchUserAndSetStore = async () => {
     throw new Error('Response is not of type User');
   }
   const parsedResponse = parseResponse(response);
-  user.set(parsedResponse);
+  user.set({ ...parsedResponse });
 };
 
 export default user;

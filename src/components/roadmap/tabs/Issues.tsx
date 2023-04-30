@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useStore } from '@nanostores/react';
-import tabStore from '@store/runtime/tab-manager';
+import tabStore from '@store/runtime-roadmap/tab-manager';
 import Button from '@components/roadmap/tabs/utils/Button';
 import arrowleft from '@assets/arrowleft.svg';
 import arrowright from '@assets/arrowright.svg';

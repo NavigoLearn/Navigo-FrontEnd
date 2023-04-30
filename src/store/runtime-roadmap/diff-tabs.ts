@@ -2,7 +2,7 @@ import { atom } from 'nanostores';
 import {
   changeCachedTabInfoProp,
   getCachedTabInfo,
-} from '@store/runtime/cached-tabs';
+} from '@store/runtime-roadmap/cached-tabs';
 import { HashMap } from '@type/roadmap/roadmap';
 import { TabInfo, TabIssue, TabAbout } from '@type/roadmap/tab-manager';
 import { postTabInfoProp } from '../../api-wrapper/roadmap/tab-data';

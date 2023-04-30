@@ -1,6 +1,6 @@
 import React from 'react';
 import { useStore } from '@nanostores/react';
-import tabStore from '@store/runtime/tab-manager';
+import tabStore from '@store/runtime-roadmap/tab-manager';
 import Issues from './tabs/Issues';
 import Info from './tabs/Info';
 import About from './tabs/About';

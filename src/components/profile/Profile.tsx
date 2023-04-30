@@ -14,6 +14,10 @@ const Profile = () => {
 
     window.addEventListener('resize', handleResize);
 
+    if (!document.cookie.includes('token')) {
+      window.location.href = '/login';
+    }
+
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
