@@ -8,6 +8,7 @@ import { applyAllDiffs, emptyAllDiffs } from '@store/runtime-roadmap/diff-tabs';
 import { deepCopy } from '@typescript/roadmap/utils';
 import { resetAllTooltips } from '@store/runtime-roadmap/miscParams';
 import { triggerChunkRerender } from '@store/runtime-roadmap/renderedChunks';
+import { updateRoadmapData } from '../../api-wrapper/roadmap/roadmaps';
 
 export function transferRoadmapToEdit() {
   const deepCopyRoadmap = deepCopy(roadmapStatic.get());
@@ -16,6 +17,8 @@ export function transferRoadmapToEdit() {
 
 export function transferEditToRoadmap() {
   const deepCopyRoadmap = deepCopy(roadmapEdit.get());
+  // sends the roadmap as update to the server
+  updateRoadmapData(deepCopyRoadmap);
   roadmapStatic.set({ ...deepCopyRoadmap });
 }
 

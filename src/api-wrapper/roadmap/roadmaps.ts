@@ -1,5 +1,11 @@
 import { Roadmap } from '@type/roadmap/roadmap';
-import { generateStarterNode } from '@typescript/roadmap/generators';
+import {
+  generateStarterNode,
+  generateTabInfo,
+} from '@typescript/roadmap/generators';
+import roadmapStatic from '@store/roadmap_static';
+import roadmap_state from '@store/roadmap_state';
+import roadmapState from '@store/roadmap_state';
 import { networkLatency } from './params';
 //
 // const roadmap1: Roadmap = {
@@ -106,6 +112,9 @@ const roadmap4: Roadmap = {
     'parent',
     []
   ).chunkNodes,
+  info: {
+    tab1: generateTabInfo('tab1', 'tab1 Title', false, '', [], ''),
+  },
 };
 
 const roadmapData = {
@@ -113,10 +122,80 @@ const roadmapData = {
 };
 
 export const a = 1;
-export const fetchRoadmap = async (id: string) => {
+export const fetchRoadmapPseudo = async (id: string) => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(roadmapData.roadmap4);
     }, networkLatency);
   });
+};
+
+export const fetchRoadmap = async (id: string) => {
+  // fetches roadmapData from api
+  const response = await fetch(`/api/roadmaps/${id}`, {
+    method: 'GET',
+    credentials: 'include',
+  }).then((res) => res.json());
+  // decodes the data field from base64 to json
+  response.data = JSON.parse(atob(response.data));
+  return response;
+};
+
+type BackendRoadmapFormat = {
+  name: string;
+  description: string;
+  isPublic: boolean;
+  createdAt?: string;
+  updatedAt?: string;
+  data: string; // base64 encoded json
+};
+export const updateRoadmapData = async (roadmap: Roadmap) => {
+  // posts roadmapData to api
+  const { id } = roadmapState.get();
+  const response = await fetch(`/api/roadmaps/${id}/data`, {
+    method: 'POST',
+    credentials: 'include',
+    body: JSON.stringify({
+      data: btoa(JSON.stringify(roadmap)),
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then((res) => res);
+  // posts all the tabs created in cache
+  return response.json();
+};
+
+export const postRoadmapData = async (roadmap: Roadmap) => {
+  // posts roadmapData to api
+  const newRoadmap: BackendRoadmapFormat = {
+    name: 'test',
+    description: 'test',
+    isPublic: true,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    data: btoa(JSON.stringify(roadmap)),
+  };
+
+  const response = await fetch('/api/roadmaps/create', {
+    method: 'POST',
+    credentials: 'include',
+    body: JSON.stringify({
+      roadmap: newRoadmap,
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then((res) => res);
+  // posts all the tabs created in cache
+  return response.json();
+};
+
+export const deleteRoadmap = async (id: string) => {
+  // deletes roadmapData from api
+  const response = await fetch(`/api/roadmaps/${id}`, {
+    method: 'DELETE',
+    credentials: 'include',
+  }).then((res) => res);
+  return response.json();
 };

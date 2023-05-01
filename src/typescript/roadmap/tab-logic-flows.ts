@@ -16,14 +16,15 @@ import {
   applyDiffIssueToTab,
 } from '@store/runtime-roadmap/diff-tabs';
 import {
-  postTabInfo,
-  fetchTabInfo,
-  postTabInfoProp,
+  postTabInfoPseudo,
+  fetchTabInfoPseudo,
+  postTabInfoPropPseudo,
   postTabIssue,
   postTabIssueProp,
   fetchTabIssue,
   fetchTabAbout,
   postTabAboutProp,
+  fetchTabInfoData,
 } from '../../api-wrapper/roadmap/tab-data';
 
 export const getTabInfoFlow = async (id: string) => {
@@ -31,7 +32,7 @@ export const getTabInfoFlow = async (id: string) => {
   let tabInfo = checkCachedTabInfo(id);
   if (!tabInfo) {
     // if no it fetches the value from the server and saves it to the cache
-    tabInfo = await fetchTabInfo(id).then((tab) => {
+    tabInfo = await fetchTabInfoData(id).then((tab) => {
       cacheTabInfo(id, tab);
       return tab;
     });
@@ -60,7 +61,7 @@ export const changeTabInfoFlow = async (id: string, newData: TabInfo) => {
   // saves to cache and to the api-wrapper
   // TODO optimize this to only save to the api-wrapper if the value is different
   cacheTabInfo(id, newData);
-  postTabInfo(id, newData);
+  postTabInfoPseudo(id, newData);
 };
 
 export const changeTabIssueFlow = async (id: string, newData: TabIssue) => {
@@ -92,7 +93,7 @@ export const changeTabInfoPropFlow = async <T extends keyof TabInfo>(
   // change in cache
   changeCachedTabInfoProp(id, prop, value);
   // change in api-wrapper
-  postTabInfoProp(id, prop, value);
+  postTabInfoPropPseudo(id, prop, value);
 };
 
 export const setInfoFlow = async (id: string) => {

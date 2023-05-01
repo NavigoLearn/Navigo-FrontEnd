@@ -7,7 +7,7 @@ import cardsFromApi, {
 import user from '@store/user';
 
 const CardDisplay = () => {
-  const { userId } = useStore(user);
+  const { userId, name } = useStore(user);
   const [render, setRender] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const cardStore = useStore(cardsFromApi);
@@ -16,7 +16,8 @@ const CardDisplay = () => {
     if (userId === '' || !userId) {
       return;
     }
-    setRoadmapCardsFromApiProfile(userId).then(() => {
+
+    setRoadmapCardsFromApiProfile(userId, name).then(() => {
       setRender((prev) => !prev);
       setLoaded(true);
     });
