@@ -3,6 +3,16 @@ type Link = {
   link: string;
 };
 
+export type TabInfoApi = {
+  stringId: string;
+  roadmapId: string;
+  content: string;
+};
+
+export type TabInfoApiSendFormat = {
+  tabInfo: TabInfoApi;
+};
+
 export type TabInfo = {
   id: string;
   title: string;

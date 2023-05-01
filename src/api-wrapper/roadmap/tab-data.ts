@@ -1,10 +1,17 @@
 import { HashMap } from '@type/roadmap/roadmap';
-import { TabAbout, TabInfo, TabIssue } from '@type/roadmap/tab-manager';
+import {
+  TabAbout,
+  TabInfo,
+  TabInfoApi,
+  TabInfoApiSendFormat,
+  TabIssue,
+} from '@type/roadmap/tab-manager';
 import {
   generateIssue,
   generateTabAbout,
   generateTabInfo,
 } from '@typescript/roadmap/generators';
+import roadmapState from '@store/roadmap_state';
 import { networkLatency } from './params';
 
 const aboutTab: HashMap<TabAbout> = {
@@ -81,7 +88,7 @@ export const fetchIssues = async (id: string) => {
   });
 };
 
-export const fetchTabInfo = async (id: string) => {
+export const fetchTabInfoPseudo = async (id: string) => {
   return new Promise<TabInfo>((resolve) => {
     setTimeout(() => {
       resolve(data[id]);
@@ -171,7 +178,51 @@ export function postTabAboutProp<T extends keyof TabAbout>(
   });
 }
 
-export function postTabInfoProp<T extends keyof TabInfo>(
+export async function fetchTabInfoData(id: string) {
+  // uses fetch to get data from the server
+  const roadmapId = roadmapState.get().id;
+  const response = await fetch(`/api/roadmaps/${roadmapId}/tabsInfo/${id}`, {
+    method: 'GET',
+
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+  }).then((res) => res.json());
+  const { tabInfo } = response;
+  const decoded = JSON.parse(atob(tabInfo.content));
+  return decoded;
+}
+
+export async function postTabInfoData(id: string, tabData: TabInfo) {
+  // uses fetch to post data on the server
+
+  const roadmapId = roadmapState.get().id;
+  // creates the API object
+  const apiTabData: TabInfoApi = {
+    stringId: tabData.id, // the id of the tab that is shared with the node
+    roadmapId, // the id of the roadmap that is shared with the node
+    // encoded json base64
+    content: btoa(JSON.stringify(tabData)),
+  };
+  const sentData: TabInfoApiSendFormat = {
+    tabInfo: apiTabData,
+  };
+
+  const response = await fetch(`/api/roadmaps/${roadmapId}/tabsInfo/create`, {
+    method: 'POST',
+    body: JSON.stringify(sentData),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+  }).then((res) => res);
+
+  console.log(response);
+
+  return response.json();
+}
+export function postTabInfoPropPseudo<T extends keyof TabInfo>(
   id: string,
   prop: T,
   value: TabInfo[T]

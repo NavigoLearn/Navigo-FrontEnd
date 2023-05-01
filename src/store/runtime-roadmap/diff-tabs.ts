@@ -5,7 +5,11 @@ import {
 } from '@store/runtime-roadmap/cached-tabs';
 import { HashMap } from '@type/roadmap/roadmap';
 import { TabInfo, TabIssue, TabAbout } from '@type/roadmap/tab-manager';
-import { postTabInfoProp } from '../../api-wrapper/roadmap/tab-data';
+import {
+  postTabInfo,
+  postTabInfoData,
+  postTabInfoPropPseudo,
+} from '../../api-wrapper/roadmap/tab-data';
 
 const diffTabsStore = atom({
   // this is a store keeping track of the changes made to the tabs while editing
@@ -22,6 +26,19 @@ const diffTabsStore = atom({
 export const diffTabInfo = (id: string, tab: TabInfo) => {
   const original = diffTabsStore.get();
   diffTabsStore.set({ ...original, info: { ...original.info, [id]: tab } });
+};
+
+export const createNewTabs = async () => {
+  // iterates over all keys in the diffTabsStore and creates new tabs
+  const original = diffTabsStore.get();
+  // waits for all promises to resolve
+  await Promise.all(
+    Object.keys(original.info).map(async (id) => {
+      const tab = original.info[id];
+      return postTabInfoData(tab.id, tab);
+    })
+  );
+  console.log('after all posts');
 };
 
 export const diffTabInfoProp = <T extends keyof TabInfo>(
@@ -91,7 +108,7 @@ export const applyAllDiffs = () => {
     // apply diffs for each property
     Object.keys(diffTab).forEach((key: keyof TabInfo) => {
       // apply to cache and send to server
-      postTabInfoProp(id, key, diffTab[key]);
+      postTabInfoPropPseudo(id, key, diffTab[key]);
       changeCachedTabInfoProp(id, key, diffTab[key]);
     });
   });

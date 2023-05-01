@@ -3,28 +3,42 @@ import { Roadmap } from '@type/roadmap/roadmap';
 import {
   generateNodeInfo,
   generateStarterNode,
+  generateTabInfo,
 } from '@typescript/roadmap/generators';
 import { calculateChunkId } from '@typescript/roadmap/utils';
+import { cacheTabInfo } from '@store/runtime-roadmap/cached-tabs';
+import { diffTabInfo } from '@store/runtime-roadmap/diff-tabs';
 
-const roadmapEdit = atom({
-  // has the boilerplate for the create roadmap
-  nodes: generateStarterNode('rootNodeId', 300, 150, 'root', []).nodes,
-  connections: {
-    // list of all connections
-  },
-  resources: {
-    // list of all resource nodes
-  },
-  chunks: generateStarterNode(
-    'rootNodeId',
-    300,
+export const generateInitialEditCreate = (): Roadmap => {
+  const initialTab = generateTabInfo('tab1', 'tab1 Title', false, '', [], '');
+  cacheTabInfo('tab1', initialTab);
+  diffTabInfo('tab1', initialTab);
 
-    150,
-    'parent',
-    []
-  ).chunkNodes,
-  chunkSize: 400,
-} as Roadmap);
+  return {
+    // has the boilerplate for the create roadmap
+    nodes: generateStarterNode('tab1', 300, 150, 'root', []).nodes,
+    connections: {
+      // list of all connections
+    },
+    resources: {
+      // list of all resource nodes
+    },
+    chunks: generateStarterNode(
+      'rootNodeId',
+      300,
+
+      150,
+      'parent',
+      []
+    ).chunkNodes,
+    info: {
+      // list of all tab info
+      tab1: initialTab,
+    },
+  };
+};
+
+const roadmapEdit = atom({} as Roadmap);
 
 export function generateNNodesInfo(
   title: string,

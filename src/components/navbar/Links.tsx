@@ -39,6 +39,14 @@ const loggedLinks = [
     id: 1,
   },
   {
+    title: 'Create Roadmap',
+    path: '/roadmap/create',
+    cName:
+      ' text-sm hover:underline flex items-center text-center font-normal hover:underline-offset-4',
+    cIcon: '',
+    id: 3,
+  },
+  {
     path: '/profile',
     cName: 'flex items-center',
     cIcon: circle,

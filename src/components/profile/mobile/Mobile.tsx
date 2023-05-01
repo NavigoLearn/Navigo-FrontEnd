@@ -6,7 +6,9 @@ const MobileProfile = () => {
   return (
     <div className='flex flex-col w-full h-full items-center my-24 text-center'>
       <ProfileDisplay />
-      <CardDisplay />
+      <div className='mt-20'>
+        <CardDisplay />
+      </div>
     </div>
   );
 };

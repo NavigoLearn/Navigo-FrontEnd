@@ -1,6 +1,7 @@
 import edit from '@assets/edit.svg';
 import issues from '@assets/issues.svg';
 import about from '@assets/about.svg';
+import cross from '@assets/cross.svg';
 
 import { setIssues } from '@store/runtime-roadmap/tab-manager';
 import roadmapState, { getRoadmapId } from '@store/roadmap_state';
@@ -10,6 +11,7 @@ import {
 } from '@typescript/roadmap/utils2';
 import { toggleEditing } from '@typescript/roadmap/roadmap-edit-logic-decorated';
 import { setTabAboutFlow } from '@typescript/roadmap/tab-logic-flows';
+import { deleteRoadmap } from '../../../api-wrapper/roadmap/roadmaps';
 
 const buttonsView = [
   {
@@ -43,6 +45,16 @@ const buttonsView = [
     title: 'About',
     clickHandler: () => {
       setTabAboutFlow(getRoadmapId());
+    },
+  },
+  {
+    id: 4,
+    cIcon: cross,
+    title: 'Delete',
+    clickHandler: () => {
+      // delete roadmap
+      deleteRoadmap(getRoadmapId());
+      window.location.href = '/explore';
     },
   },
 ];
