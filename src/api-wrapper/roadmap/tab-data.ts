@@ -144,7 +144,7 @@ export const postIssue = async (id: string, newData: TabIssue) => {
   });
 };
 
-export const postTabInfo = async (id: string, newData: TabInfo) => {
+export const postTabInfoPseudo = async (id: string, newData: TabInfo) => {
   return new Promise<TabInfo>((resolve) => {
     setTimeout(() => {
       // change data at id with data
@@ -194,9 +194,34 @@ export async function fetchTabInfoData(id: string) {
   return decoded;
 }
 
-export async function postTabInfoData(id: string, tabData: TabInfo) {
+export async function updateTabInfoData(id: string, tabData: TabInfo) {
   // uses fetch to post data on the server
+  const roadmapId = roadmapState.get().id;
+  // creates the API object
+  const apiTabData: TabInfoApi = {
+    stringId: tabData.id, // the id of the tab that is shared with the node
+    roadmapId, // the id of the roadmap that is shared with the node
+    // encoded json base64
+    content: btoa(JSON.stringify(tabData)),
+  };
+  const sentData: TabInfoApiSendFormat = {
+    tabInfo: apiTabData,
+  };
+  const response = await fetch(`/api/roadmaps/${roadmapId}/tabsInfo/${id}`, {
+    method: 'POST',
+    body: JSON.stringify(sentData),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+  }).then((res) => res);
 
+  console.log(response);
+
+  return response.json();
+}
+export async function createTabInfoData(id: string, tabData: TabInfo) {
+  // uses fetch to post data on the server
   const roadmapId = roadmapState.get().id;
   // creates the API object
   const apiTabData: TabInfoApi = {
@@ -231,7 +256,7 @@ export function postTabInfoPropPseudo<T extends keyof TabInfo>(
     setTimeout(() => {
       // change data at id with data
       if (data[id] === undefined) {
-        postTabInfo(
+        postTabInfoPseudo(
           id,
           generateTabInfo(
             id,

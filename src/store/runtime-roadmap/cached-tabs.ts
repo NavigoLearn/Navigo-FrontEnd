@@ -1,6 +1,10 @@
 import { atom } from 'nanostores';
 import { cachedTabs } from '@type/roadmap/cache';
 import { TabAbout, TabInfo, TabIssue } from '@type/roadmap/tab-manager';
+import {
+  createTabInfoData,
+  updateTabInfoData,
+} from '../../api-wrapper/roadmap/tab-data';
 
 const cachedTabs = atom({
   info: {},
@@ -100,6 +104,34 @@ export const changeCachedTabInfoProp = <T extends keyof TabInfo>(
     ...original,
     info: { ...original.info, [id]: { ...original.info[id], [prop]: value } },
   });
+};
+
+export const updateTabsToServer = async (idArray: string[]) => {
+  // iterates over all keys in the diffTabsStore and creates new tabs
+  console.log('before all posts', idArray);
+  const original = cachedTabs.get();
+  // waits for all promises to resolve
+  await Promise.all(
+    idArray.map(async (id) => {
+      const tab = original.info[id];
+      return updateTabInfoData(tab.id, tab);
+    })
+  );
+  console.log('after all posts updated');
+};
+
+export const createTabsToServer = async (idArray: string[]) => {
+  // iterates over all keys in the diffTabsStore and creates new tabs
+  console.log('before all posts', idArray);
+  const original = cachedTabs.get();
+  // waits for all promises to resolve
+  await Promise.all(
+    idArray.map(async (id) => {
+      const tab = original.info[id];
+      return createTabInfoData(tab.id, tab);
+    })
+  );
+  console.log('after all posts created');
 };
 
 export default cachedTabs;

@@ -14,7 +14,7 @@ import {
   isNodeTypesStore,
 } from '@type/roadmap/typecheckers';
 import { ResourceSubNodeStore } from '@type/roadmap/resources';
-import { diffTabInfo } from '@store/runtime-roadmap/diff-tabs';
+import { diffTabInfoNew } from '@store/runtime-roadmap/diff-tabs';
 import { cacheTabInfo } from '@store/runtime-roadmap/cached-tabs';
 import { changeTabIssuePropFlow } from '@typescript/roadmap/tab-logic-flows';
 
@@ -41,7 +41,7 @@ export function getRoadmapEdit() {
 
 export function addNewTab(newId: string, newTab: TabInfo) {
   // adds the new TabManager to the diff and to the cache
-  diffTabInfo(newId, newTab);
+  diffTabInfoNew(newId, newTab);
   cacheTabInfo(newId, newTab);
 }
 
