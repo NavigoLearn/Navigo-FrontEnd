@@ -2,17 +2,15 @@ import React, { useState, useEffect } from 'react';
 import loupe from '@assets/loupe.svg';
 import filter from '@assets/filter.svg';
 import sort from '@assets/sortby.svg';
+import warn from '@assets/warningErr.webp';
 import chevroleftduo from '@assets/chevron-left-duo.svg';
 import chevronrightduo from '@assets/chevron-right-duo.svg';
 import chevronleft from '@assets/chevron-left.svg';
 import chevronright from '@assets/chevron-right.svg';
 // import Cookies from '@components/explorerefr/mobile/cookies/Cookies';
 import cardsFromApi, {
-  setCardsFromApi,
   setCardsFromApiDefault,
-  emptyStore,
 } from '@store/card_store_explore';
-import { CardType } from '@type/explore/card';
 import SortBy from './SortBy';
 // import Filter from './Filter';
 import FilterAug from './FilterManager';
@@ -43,14 +41,14 @@ const SearchMobile = () => {
       setClickFilter((prev) => !prev);
     }
 
-    const body = document.querySelector('body');
-    if (stateVar === 'filter' && clickFilter) {
-      body.style.overflow = 'auto';
-    } else if (stateVar === 'sort' && clickSort) {
-      body.style.overflow = 'auto';
-    } else {
-      body.style.overflow = 'hidden';
-    }
+    // const body = document.querySelector('body');
+    // if (stateVar === 'filter' && clickFilter) {
+    //   body.style.overflow = 'auto';
+    // } else if (stateVar === 'sort' && clickSort) {
+    //   body.style.overflow = 'auto';
+    // } else {
+    //   body.style.overflow = 'hidden';
+    // }
   };
 
   return (
@@ -102,6 +100,17 @@ const SearchMobile = () => {
             </span>
           </div>
         </button>
+      </div>
+
+      <div className='bg-background w-full h-10 justify-center flex items-center -mt-9 relative opacity-75 sm:h-12 sm:-mt-12'>
+        <div className='w-full h-5 bg-red-100 text-xs flex justify-center items-center border border-red-700 sm:text-sm sm:h-6'>
+          <img
+            src={warn}
+            alt='warnForMobile'
+            className='h-4 w-4 mr-2 sm:h-5 sm:w-5'
+          />
+          Filters will be added post beta default: Likes.
+        </div>
       </div>
 
       <div className='mt-10 sm:mt-12'>

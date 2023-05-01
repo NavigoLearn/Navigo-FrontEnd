@@ -8,7 +8,7 @@ import roadmapState from '@store/roadmap_state';
 import roadmapStatic from '@store/roadmap_static';
 import cachedCoords, {
   cacheNodeCoord,
-} from '@store/runtime/cached-node-coords';
+} from '@store/runtime-roadmap/cached-node-coords';
 
 export function getTransformXY(transform: string) {
   const firstParentheses = transform.indexOf('(');

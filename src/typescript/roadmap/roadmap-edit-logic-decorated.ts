@@ -31,7 +31,7 @@ import {
   removeChunkNode,
 } from '@typescript/roadmap/roadmap-edit-logic';
 import { ResourceSubNodeStore } from '@type/roadmap/resources';
-import state from '@store/roadmap_state';
+import roadmapState from '@store/roadmap_state';
 import ErrorHandler from '@typescript/error-handler';
 import { getNodeCoords } from '@typescript/roadmap/render/coord-calc';
 
@@ -326,17 +326,17 @@ export const removeNode = handleErrorsDecorator(
 );
 
 export const toggleEditing = triggerRerenderAllDecorator(() => {
-  const original = state.get();
-  state.set({ ...original, editing: !original.editing });
+  const original = roadmapState.get();
+  roadmapState.set({ ...original, editing: !original.editing });
 });
 
 export const setEditingTrue = triggerRerenderAllDecorator(() => {
   console.log('called editing');
-  const original = state.get();
-  state.set({ ...original, editing: true });
+  const original = roadmapState.get();
+  roadmapState.set({ ...original, editing: true });
 });
 
 export const setEditingFalse = triggerRerenderAllDecorator(() => {
-  const original = state.get();
-  state.set({ ...original, editing: false });
+  const original = roadmapState.get();
+  roadmapState.set({ ...original, editing: false });
 });

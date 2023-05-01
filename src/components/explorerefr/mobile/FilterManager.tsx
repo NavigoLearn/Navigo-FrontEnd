@@ -4,6 +4,7 @@ import Filter1 from '@components/explorerefr/mobile/filter-components/Filter1';
 import Filter2 from '@components/explorerefr/mobile/filter-components/Filter2';
 import Filter3 from '@components/explorerefr/mobile/filter-components/Filter3';
 import AugmentFilter from '@components/explorerefr/mobile/filter-hoc/AugmentFilter';
+import { FilterManagerProps } from '@type/explore/filterProps';
 
 export const opitonsFilter1 = [
   { name: 'a', id: 1 },
@@ -33,21 +34,24 @@ const FilterManager = ({
   onSave,
   isOpen,
   setIsOpen,
-}) => {
+}: FilterManagerProps) => {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const body = document.querySelector('body');
+    body.style.overflow = 'hidden';
     const calculateScroll = () => {
       const scrollPosition = window.scrollY;
       ref.current.style.top = `${scrollPosition}px`; // Convert to pixels
       ref.current.style.display = 'block';
     };
-
     calculateScroll();
 
     window.addEventListener('scroll', calculateScroll);
+
     return () => {
       window.removeEventListener('scroll', calculateScroll);
+      body.style.overflow = 'auto';
     };
   }, []);
 

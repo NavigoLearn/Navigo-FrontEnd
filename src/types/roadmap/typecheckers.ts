@@ -1,4 +1,5 @@
 import { ConnectionProps, ConnectionStore } from '@type/roadmap/connections';
+import { Roadmap } from '@type/roadmap/roadmap';
 import { ResourceSubNodeProps } from '@type/roadmap/resources';
 import { LevelTypes, levelTypesArray } from '@type/roadmap/level-types';
 import {
@@ -73,4 +74,13 @@ export function isNodeTypesStore(props: any): props is NodeTypesStore {
 
 export function isValidNodeType(type: string): type is NodeIdentifierTypes {
   return nodeIdentifierTypesArray.includes(type);
+}
+
+export function isRoadmapType(props: any): props is Roadmap {
+  return (
+    'nodes' in props &&
+    'connections' in props &&
+    'resources' in props &&
+    'chunks' in props
+  );
 }

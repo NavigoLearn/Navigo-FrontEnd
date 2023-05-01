@@ -9,7 +9,7 @@ const Filter1d = (props) => {
     // normal este space-x-7 dar la fold trbuie space-x-1
     <div className='flex justify-center items-center flex-col gap-3'>
       <span className='text-[18px] font-roboto-text sm:text-[23px] 2xl:text-[28px]'>
-        SomeField1
+        First Filter
       </span>
       <div className='relative'>
         <button

@@ -5,12 +5,12 @@ import roadmapPlaceholder, {
   getNodeByIdPlaceholder,
   changeNodeResource,
   addResourceSubNodeNew,
-} from '@store/runtime/roadmap-placeholder';
+} from '@store/runtime-roadmap/roadmap-placeholder';
 import { EditingComponentNodesProps } from '@type/roadmap/components';
 import TitleEdit from '@components/roadmap/nodes/node-info/editable-fields/InfoTitleEdit';
 import { isNodeResourceStore } from '@type/roadmap/typecheckers';
 import SaveCancelButtons from '@components/roadmap/nodes/misc/SaveButtons';
-import { setToolTip, setZoomAllowed } from '@store/runtime/miscParams';
+import { setToolTip, setZoomAllowed } from '@store/runtime-roadmap/miscParams';
 
 const ResourceEditProps = ({
   id,

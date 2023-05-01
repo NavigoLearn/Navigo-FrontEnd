@@ -49,6 +49,7 @@ const HeroRotate = ({ scale, animSpeed }: HeroRotateProps) => {
 
     rootRef.current.style.width = `${params.width}px`;
     rootRef.current.style.height = `${params.height}px`;
+    rootRef.current.style.left = `calc(50% - ${params.width / 2}px)`;
     setSet(true); // the animation will start at the second render not the first
     // the first render will only create the scafolding for the animation
   }, []);
@@ -94,7 +95,7 @@ const HeroRotate = ({ scale, animSpeed }: HeroRotateProps) => {
             <button
               type='button'
               id='centerMain'
-              className='relative mainTarget rot'
+              className='absolute mainTarget rot'
             >
               <img
                 alt='imageCenter'

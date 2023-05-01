@@ -2,7 +2,7 @@ import React from 'react';
 import {
   decreaseEditingCount,
   increaseEditingCount,
-} from '@store/runtime/miscParams';
+} from '@store/runtime-roadmap/miscParams';
 import StateMangerCallbacks from '@components/roadmap/nodes/HOCs/StateMangerLocal';
 import {
   checkPossibleTypes,

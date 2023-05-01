@@ -54,6 +54,9 @@ export function switchPlaces(allowed: any, elem2Id: string) {
   const element1 = document.getElementById(elem1Id);
   const element2 = document.getElementById(elem2Id);
 
+  element1.classList.remove('relative');
+  element2.classList.remove('relative');
+
   transferTransforms(element1, element2);
 
   const element1Img = element1.getElementsByTagName('img')[0];

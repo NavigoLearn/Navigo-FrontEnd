@@ -1,6 +1,6 @@
 import React from 'react';
 import { useStore } from '@nanostores/react';
-import tabManagerStore from '@store/runtime/tab-manager';
+import tabManagerStore from '@store/runtime-roadmap/tab-manager';
 
 const Name = () => {
   const { about } = useStore(tabManagerStore);

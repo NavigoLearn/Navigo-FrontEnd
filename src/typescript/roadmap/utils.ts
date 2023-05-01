@@ -1,9 +1,9 @@
-import state from '@store/roadmap_state';
-import miscParams from '@store/runtime/miscParams';
+import roadmapState from '@store/roadmap_state';
+import miscParams from '@store/runtime-roadmap/miscParams';
 
 export function setLoadedTrue() {
-  const original = state.get();
-  state.set({ ...original, loaded: true });
+  const original = roadmapState.get();
+  roadmapState.set({ ...original, loaded: true });
 }
 export function calculateChunkId(x, y) {
   const { chunkSize } = miscParams.get();

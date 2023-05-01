@@ -1,6 +1,6 @@
 import { atom } from 'nanostores';
 
-const state = atom({
+const roadmapState = atom({
   editing: false, // used to determine if the user is editing the roadmap
   save: true, // and if the editing state should be saved or not
   loaded: false, // used to determine if the roadmap has been loaded
@@ -12,35 +12,35 @@ const state = atom({
   id: string;
 });
 
-export default state;
+export default roadmapState;
 
 export function setSaveTrue() {
-  const original = state.get();
-  state.set({ ...original, save: true });
+  const original = roadmapState.get();
+  roadmapState.set({ ...original, save: true });
 }
 
 export function setEditingTrueNoRerender() {
-  const original = state.get();
+  const original = roadmapState.get();
   original.editing = true;
-  state.set(original);
+  roadmapState.set(original);
 }
 
 export function setRoadmapId(id: string) {
-  const original = state.get();
-  state.set({ ...original, id });
+  const original = roadmapState.get();
+  roadmapState.set({ ...original, id });
 }
 
 export function getRoadmapId() {
-  const original = state.get();
+  const original = roadmapState.get();
   return original.id;
 }
 
 export function setSaveFalse() {
-  const original = state.get();
-  state.set({ ...original, save: false });
+  const original = roadmapState.get();
+  roadmapState.set({ ...original, save: false });
 }
 
 export function toggleSave() {
-  const original = state.get();
-  state.set({ ...original, save: !original.save });
+  const original = roadmapState.get();
+  roadmapState.set({ ...original, save: !original.save });
 }

@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import loupe from '@assets/loupe.svg';
+import warn from '@assets/warningErr.webp';
 import chevroleftduo from '@assets/chevron-left-duo.svg';
 import chevronrightduo from '@assets/chevron-right-duo.svg';
 import chevronleft from '@assets/chevron-left.svg';
 import chevronright from '@assets/chevron-right.svg';
 import cardsFromApi, {
   setCardsFromApiDefault,
-  emptyStore,
 } from '@store/card_store_explore';
-import { deepCopy } from '@typescript/roadmap/utils';
 import FilterAugD from './filterhoc/FilterAugD';
 import Card from '../Card';
 
@@ -18,8 +17,7 @@ const SearchDesktop = () => {
   const cardStore = cardsFromApi.get();
   const [pageNr, setPageNr] = useState(1);
   const isDisabled = pageNr <= 1;
-  let [isSafari, setIsSafari] = useState(false);
-  
+  const [isSafari, setIsSafari] = useState(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -27,8 +25,9 @@ const SearchDesktop = () => {
 
   useEffect(() => {
     setIsSafari(
-      navigator.userAgent.indexOf('Safari') != -1 &&
-      navigator.userAgent.indexOf('Chrome') == -1);
+      navigator.userAgent.indexOf('Safari') !== -1 &&
+        navigator.userAgent.indexOf('Chrome') === -1
+    );
     setCardsFromApiDefault().then(() => {
       setRender((prev) => !prev);
     });
@@ -65,6 +64,41 @@ const SearchDesktop = () => {
       </form>
 
       <FilterAugD />
+
+      <div className='bg-background h-20 w-full -mt-20 opacity-75 relative flex justify-center items-center 2xl:h-24 2xl:-mt-24'>
+        <div className='w-full bg-background h-7 2xl:h-8 flex justify-center items-center absolute'>
+          <div className='bg-red-100 w-96 h-full flex justify-center items-center text-opacity-40 text-sm border-2 border-red-700 border-opacity-50 rounded-md relative 2xl:text-base 2xl:w-[420px]'>
+            <img
+              src={warn}
+              alt='postBetWarning'
+              className='w-5 h-5 absolute left-1'
+            />
+            Filters will be added post beta default: Likes.
+          </div>
+        </div>
+      </div>
+
+      {/* <div className='bg-background w-full h-24 opacity-70 -mt-20' />
+      <div className='w-72 bg-red-100 rounded-md flex relative fadeInAnimation select-none z-20 '>
+        <div className='absolute h-full w-1 bg-red-800 rounded-md ' />
+        <div className=' w-8 relative  '>
+          <img
+            src={warn}
+            className='absolute top-4 left-4'
+            width='20'
+            height='20'
+            alt=''
+          />
+        </div>
+        <div className='w-full ml-7 mt-1 mr-1 mb-4  '>
+          <div className='mt-2 font-semibold  text-sm font-roboto-text  text-red-800 '>
+            Warning
+          </div>
+          <div className='text-xs mt-2 font-roboto-text text-red-600'>
+            {message}
+          </div>
+        </div>
+      </div> */}
 
       <div className='flex justify-center items-center mt-16 '>
         <ul className='grid grid-cols-2 gap-x-9 gap-y-11 xl:grid-cols-3'>

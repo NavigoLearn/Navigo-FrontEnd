@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import DesktopProfile from './Desktop';
-import MobileProfile from './Mobile';
+import DesktopProfile from '@components/profile/desktop/Desktop';
+import MobileProfile from '@components/profile/mobile/Mobile';
 
 const Profile = () => {
-  const [isDesktop, setIsDesktop] = useState(undefined);
+  const [isDesktop, setIsDesktop] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -13,15 +14,19 @@ const Profile = () => {
     handleResize();
 
     window.addEventListener('resize', handleResize);
+    setLoaded(true);
+
+    if (!document.cookie.includes('token')) {
+      window.location.href = '/login';
+    }
 
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   return (
     <div>
-      {typeof isDesktop === 'undefined' ? null : (
-        <div>{isDesktop ? <DesktopProfile /> : <MobileProfile />}</div>
-      )}
+      {loaded && isDesktop && <DesktopProfile />}
+      {loaded && !isDesktop && <MobileProfile />}
     </div>
   );
 };
