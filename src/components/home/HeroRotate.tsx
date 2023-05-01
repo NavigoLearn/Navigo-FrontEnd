@@ -84,11 +84,11 @@ const HeroRotate = ({ scale, animSpeed }: HeroRotateProps) => {
   return (
     <div
       ref={rootRef}
-      className=' absolute top-0 md:static flex justify-center items-center'
+      className='flex justify-center items-center overflow-hidden'
     >
       <div
         id='center'
-        className='w-1 h-1 border-2 border-green-400 relative hidden'
+        className='w-1 h-1 border-green-400 relative hidden'
       >
         {set && (
           <>
