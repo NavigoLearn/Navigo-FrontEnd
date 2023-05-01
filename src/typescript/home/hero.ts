@@ -138,7 +138,7 @@ export function arrangeImagesAndSetOnclick(
     baseArr.length,
     params.widthRotatingImages,
     params.heightRotatingImages,
-    params.width / 2
+    params.width*7 / 16
   );
   baseArr.forEach((el, idx) => {
     const elRef = document.getElementById(el);
