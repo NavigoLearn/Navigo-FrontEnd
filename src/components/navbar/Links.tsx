@@ -31,27 +31,23 @@ const universalLinks = [
 
 const loggedLinks = [
   {
-    title: 'Profile',
-    path: '/profile',
-    cName:
-      ' text-sm hover:underline flex items-center text-center font-normal hover:underline-offset-4',
-    cIcon: profile,
-    id: 1,
-  },
-  {
     title: 'Create Roadmap',
     path: '/roadmap/create',
+    iconDimensions: 'h-6 w-6',
     cName:
-      ' text-sm hover:underline flex items-center text-center font-normal hover:underline-offset-4',
+      ' text-md rounded-lg transition-all font-semibold bg-primary text-white hover:text-black hover:bg-transparent px-2 py-1 border-2 border-transparent hover:border-black  flex items-center text-center font-normal',
     cIcon: '',
     id: 3,
   },
-  {
-    path: '/profile',
-    cName: 'flex items-center',
-    cIcon: circle,
-    id: 2,
-  },
+  // {
+  //   title: 'Profile',
+  //   path: '/profile',
+  //   cName:
+  //     ' text-sm hover:underline flex items-center text-center font-normal hover:underline-offset-4',
+  //   cIcon: profile,
+  //   iconDimensions: 'h-6 w-6',
+  //   id: 1,
+  // },
 ];
 
 const guestLinks = [

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useLayoutEffect, useRef } from 'react';
 import { v4 as uuid4 } from 'uuid';
 import NodeManager from '@components/roadmap/NodeManager';
 import { useStore } from '@nanostores/react';
@@ -50,18 +50,19 @@ const Roadmap = ({ pageId }: { pageId: string }) => {
         top: 0,
       });
     }
-
-    useEffect(() => {
-      if (document.cookie.includes('token')) {
-      }
-    }, []);
-
     return () => {
       // sets overflow auto on body
       if (body) {
         body.style.overflow = 'auto';
       }
     };
+  }, []);
+
+  useLayoutEffect(() => {
+    console.log('it ran');
+    if (!document.cookie.includes('token') && isCreate) {
+      window.location.href = '/login';
+    }
   }, []);
 
   const renderer = useRef(null);
