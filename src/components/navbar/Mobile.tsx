@@ -2,23 +2,20 @@ import React, { useEffect, useState } from 'react';
 import dropdown from '@assets/menu.svg';
 import dropclose from '@assets/cross.svg';
 import logoSrc from '@assets/logo.svg';
+import HOCnav from '@components/navbar/HOCnav';
 import { mobileLogged, mobileGuest } from './Links';
 
-const MobileNavbar = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    if (document.cookie.includes('token')) {
-      setIsLoggedIn(true);
-    }
-  }, []);
-
+const MobileNavbar = ({
+  isLoggedIn,
+  loaded,
+}: {
+  isLoggedIn: boolean;
+  loaded: boolean;
+}) => {
   const [click, setClick] = useState(false);
 
   const handleClick = () => {
-    console.log('clicked');
     setClick((prev) => !prev);
-
     // body overflow hidden
     const body = document.querySelector('body');
     if (body) {
@@ -110,4 +107,4 @@ const MobileNavbar = () => {
   );
 };
 
-export default MobileNavbar;
+export default HOCnav(MobileNavbar);

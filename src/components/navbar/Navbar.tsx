@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import DesktopNavbar from './Desktop';
 import MobileNavbar from './Mobile';
+import { getMiniProfileData } from '../../api-wrapper/user/user';
 
 const Navbar = () => {
   return (
@@ -8,7 +9,7 @@ const Navbar = () => {
       <div className='hidden md:block'>
         <DesktopNavbar />
       </div>
-      <div className=' md:hidden '>
+      <div className='md:hidden'>
         <MobileNavbar />
       </div>
     </div>

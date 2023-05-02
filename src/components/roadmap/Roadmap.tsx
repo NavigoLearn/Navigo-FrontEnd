@@ -51,6 +51,11 @@ const Roadmap = ({ pageId }: { pageId: string }) => {
       });
     }
 
+    useEffect(() => {
+      if (document.cookie.includes('token')) {
+      }
+    }, []);
+
     return () => {
       // sets overflow auto on body
       if (body) {
