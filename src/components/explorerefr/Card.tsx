@@ -41,15 +41,15 @@ const Card = ({ cardStore }: { cardStore: CardType }) => {
         <p className='line-clamp-3'>{description}</p>
       </div>
       <div className='flex justify-center items-center relative 2xl:mt-3'>
-        <button
+        <a
           type='button'
-          className='bg-secondary w-20 h-7 text-white text-xs sm:w-24 sm:h-8 sm:text-sm rounded-lg font-roboto-text 2xl:text-base 2xl:w-28 2xl:h-9'
-          onClick={() => {
-            window.location.href = `/roadmap/${id}`;
-          }}
+          className='flex justify-center items-center bg-secondary w-20 h-7 text-white text-xs sm:w-24 sm:h-8 sm:text-sm rounded-lg font-roboto-text 2xl:text-base 2xl:w-28 2xl:h-9'
+          href={`/roadmap/${id}`}
+          target='_blank'
+          rel='noreferrer'
         >
           Explore
-        </button>
+        </a>
         <div className='absolute right-4 flex items-center justify-center flex-col -top-2'>
           <h1 className='text-[10px] sm:text-xs 2xl:text-sm'>
             {abbreviateNumber(likes)}

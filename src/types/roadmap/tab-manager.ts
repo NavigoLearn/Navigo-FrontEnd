@@ -49,3 +49,9 @@ export type TabManagerStore = {
   info: TabInfo;
   issues: TabIssue;
 };
+
+export type IssuePreview = {
+  id: string;
+  author: string;
+  title: string;
+};

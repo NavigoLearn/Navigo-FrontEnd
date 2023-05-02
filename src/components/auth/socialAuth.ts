@@ -60,3 +60,18 @@ export function handleGitHubLogin() {
 
   handleSocialLogin('/api/auth/github-login', features);
 }
+
+export function handleLogout() {
+  // makes call to api for logout
+  const response = fetch('/api/auth/logout', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  console.log(response);
+  // redirect to home page
+  // removes token from cookie
+  document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+  window.location.href = '/login';
+}

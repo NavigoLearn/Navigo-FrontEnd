@@ -14,16 +14,11 @@ const buttonsCreate = [
     title: 'Create',
     clickHandler: () => {
       // sending the roadmap to be created
-      console.log('created roadmap');
       postRoadmapData(roadmapEdit.get()).then((roadmapId) => {
-        console.log(
-          'posted roadmap, not posting tabs',
-          roadmapId,
-          roadmapId.id
-        );
         setRoadmapId(roadmapId.id);
         createNewTabs();
       });
+      window.location.href = '/profile';
     },
   },
 
@@ -33,7 +28,6 @@ const buttonsCreate = [
     title: 'Cancel',
     clickHandler: () => {
       // canceling the roadmap creation and redirect to explore
-      console.log('cenceled and redirect to profile');
       window.location.href = '/explore';
     },
   },

@@ -10,9 +10,11 @@ import {
   BaseParams,
 } from '@type/home/hero-rotate';
 import anime from 'animejs/lib/anime';
+import useScrollTop from '@hooks/useScrollTop';
 
 const HeroRotate = ({ scale, animSpeed }: HeroRotateProps) => {
   const [set, setSet] = useState(false);
+  useScrollTop();
   const rootRef = useRef<HTMLDivElement>(null);
   const allowed = useRef(true);
   const centerSrc = './home/nextjs.png';
@@ -86,10 +88,7 @@ const HeroRotate = ({ scale, animSpeed }: HeroRotateProps) => {
       ref={rootRef}
       className='flex justify-center items-center overflow-hidden'
     >
-      <div
-        id='center'
-        className='w-1 h-1 border-green-400 relative hidden'
-      >
+      <div id='center' className='w-1 h-1 border-green-400 relative hidden'>
         {set && (
           <>
             <button

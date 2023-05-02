@@ -28,11 +28,16 @@ const ProfileDisplay = () => {
   const [asyncCallbackList, setAsyncCallbackList] = useState<asyncCb[]>([]);
 
   useEffect(() => {
-    fetchUserAndSetStore().then(() => {
-      // sets user data and loads it into profile
-      setRender((prev) => !prev);
-      setLoaded(true);
-    });
+    fetchUserAndSetStore()
+      .then(() => {
+        // sets user data and loads it into profile
+        setRender((prev) => !prev);
+        setLoaded(true);
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log('errored out here');
+      });
   }, []);
 
   useEffect(() => {

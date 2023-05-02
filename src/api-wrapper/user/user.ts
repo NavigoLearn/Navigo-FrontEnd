@@ -6,9 +6,8 @@ export const fetchUserData = async (): Promise<UserResponse> => {
   const data = await fetch('/api/users/', {
     method: 'GET',
     credentials: 'include',
-  }).then((res) => res);
-  const dataJson = await data.json();
-  return dataJson;
+  }).then((res) => res.json());
+  return data;
 };
 
 export const handleLocalLogin = async (email: string, password: string) => {
@@ -94,4 +93,17 @@ export const postWebsiteUrlData = async (websiteUrl: string) => {
       'Content-Type': 'application/json',
     },
   }).then((res) => res);
+};
+
+export const getMiniProfileData = async () => {
+  try {
+    const response = await fetch(`/api/users/mini`, {
+      method: 'GET',
+      credentials: 'include',
+    }).then((res) => res);
+    if (!response.ok) throw new Error('User not found');
+    return response.json();
+  } catch (e) {
+    return false;
+  }
 };

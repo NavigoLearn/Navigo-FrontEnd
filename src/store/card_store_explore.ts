@@ -41,7 +41,6 @@ export async function setRoadmapCardsFromApiProfile(
   author: string
 ) {
   const idArray = await fetchRoadmapCardsProfile(id);
-  console.log(idArray);
   idArray.forEach((value) => {
     const newValue: CardType = {
       name: value.name,

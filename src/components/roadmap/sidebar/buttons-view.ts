@@ -54,7 +54,7 @@ const buttonsView = [
     clickHandler: () => {
       // delete roadmap
       deleteRoadmap(getRoadmapId());
-      window.location.href = '/explore';
+      window.location.href = '/profile';
     },
   },
 ];
