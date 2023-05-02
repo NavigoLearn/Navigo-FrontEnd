@@ -1,6 +1,26 @@
 function handleSocialLogin(link: string, features: string) {
-  // open /api-wrapper/auth/google-login in a new window and store the window reference
+  // open /api/auth/google-login in a new window and store the window reference
   const popup = window.open(link, '_blank', features);
+  // attach a listener to the child window's load event
+  popup.addEventListener('load', () => {
+    // check if cookie is set
+    if (!document.cookie.includes('token')) return;
+
+    // add closed event listener to the child window
+    popup.addEventListener('beforeunload', () => {
+      // do something before closing the child window
+      console.log('Closing login window...');
+
+      // redirect to home page
+      window.location.href = '/home';
+    });
+
+    // close the child window
+    popup.close();
+
+    // do something after successful login
+    console.log('Login successful!');
+  });
 
   // poll the child window's location every 500ms
   const intervalId = setInterval(() => {
@@ -30,6 +50,7 @@ function handleSocialLogin(link: string, features: string) {
       }
     } catch (e) {
       // do nothing
+      console.log(e);
     }
   }, 500);
 }
@@ -61,17 +82,17 @@ export function handleGitHubLogin() {
   handleSocialLogin('/api/auth/github-login', features);
 }
 
-export function handleLogout() {
+export async function handleLogout() {
   // makes call to api for logout
-  const response = fetch('/api/auth/logout', {
+  const response = await fetch('/api/auth/logout', {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
     },
   });
+
   console.log(response);
-  // redirect to home page
-  // removes token from cookie
-  document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-  window.location.href = '/login';
+
+  // reload page
+  window.location.reload();
 }
