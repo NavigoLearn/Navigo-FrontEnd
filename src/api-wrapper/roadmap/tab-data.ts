@@ -300,3 +300,12 @@ export const getNewTabId = async () => {
     }, networkLatency);
   });
 };
+
+export const fetchIssueCommentsPseudo = async (id: string) => {
+  return new Promise<Comment[]>((resolve) => {
+    setTimeout(() => {
+      // change data at id with data
+      resolve([]);
+    }, networkLatency);
+  });
+};
