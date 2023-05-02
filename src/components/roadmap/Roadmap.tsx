@@ -51,17 +51,19 @@ const Roadmap = ({ pageId }: { pageId: string }) => {
       });
     }
 
-    useEffect(() => {
-      if (document.cookie.includes('token')) {
-      }
-    }, []);
-
     return () => {
       // sets overflow auto on body
       if (body) {
         body.style.overflow = 'auto';
       }
     };
+  }, []);
+
+  useEffect(() => {
+    if (!document.cookie.includes('token') && isCreate) {
+      // checks if user is logged in
+      window.location.href = '/login';
+    }
   }, []);
 
   const renderer = useRef(null);

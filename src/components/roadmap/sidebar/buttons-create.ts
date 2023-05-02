@@ -18,7 +18,7 @@ const buttonsCreate = [
         setRoadmapId(roadmapId.id);
         createNewTabs();
       });
-      window.location.href = '/explore';
+      window.location.href = '/profile';
     },
   },
 

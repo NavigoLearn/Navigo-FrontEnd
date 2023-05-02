@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const SaveCancelButtons = ({
   onSave,
@@ -7,6 +7,14 @@ const SaveCancelButtons = ({
   onSave: () => void;
   onCancel: () => void;
 }) => {
+  useEffect(() => {
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter') {
+        onSave();
+      }
+    });
+  }, []);
+
   return (
     <div className='flex pointer-events-auto gap-3 items-center '>
       <button
