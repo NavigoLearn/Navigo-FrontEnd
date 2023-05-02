@@ -105,7 +105,7 @@ const NodeManager = ({ data, editing, triggerCb }: NodeManagerProps) => {
       <g id={`group${data.id}`} transform={`translate(${data.x},${data.y})`}>
         <foreignObject
           ref={objRef}
-          className='bg-transparent overflow-visible '
+          className='bg-transparent overflow-visible pointer-events-auto '
         >
           <div
             ref={rootRef}

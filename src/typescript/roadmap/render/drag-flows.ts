@@ -19,7 +19,7 @@ export function moveOnDrag(id: string, newPos: { x: number; y: number }) {
 }
 
 export const addDraggabilityFlow = (id: string, allowed: boolean) => {
-  const nodeSelection = d3.select('g').select(`#group${id}`);
+  const nodeSelection = d3.selectAll('g').select(`#group${id}`);
   const offsets = { x: 0, y: 0 };
   const newPos = { x: 0, y: 0 };
   const drag = d3
