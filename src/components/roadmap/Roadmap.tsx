@@ -77,6 +77,7 @@ const Roadmap = ({ pageId }: { pageId: string }) => {
   };
 
   const disableZoomFn = () => {
+    console.log('disable zoom');
     disableZoom('rootSvg');
   };
 
@@ -143,7 +144,7 @@ const Roadmap = ({ pageId }: { pageId: string }) => {
         id='rootSvg'
         width='100%'
         height='100%'
-        className='bg-background select-none'
+        className='bg-background pointer-events-auto'
       >
         <g id='rootGroup'>
           <g id='rootGroupConnections'>
