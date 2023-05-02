@@ -3,6 +3,7 @@ import logoSrc from '@assets/logo.svg';
 import HOCnav from '@components/navbar/HOCnav';
 import user from '@store/user';
 import { useStore } from '@nanostores/react';
+import ProfileDropdown from '@components/navbar/ProfileDropdown';
 import { loggedLinks, guestLinks, universalLinks } from './Links';
 
 const DesktopNavbar = ({
@@ -49,15 +50,7 @@ const DesktopNavbar = ({
             );
           })}
         {loaded && isLoggedIn && (
-          <li className='flex'>
-            <a className='' href='/profile'>
-              <img
-                src={profilePictureUrl}
-                alt='icon'
-                className='w-10 h-10 rounded-full flex m-1'
-              />
-            </a>
-          </li>
+          <ProfileDropdown profilePictureUrl={profilePictureUrl} />
         )}
         {loaded &&
           !isLoggedIn &&
