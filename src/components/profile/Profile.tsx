@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import DesktopProfile from '@components/profile/desktop/Desktop';
 import MobileProfile from '@components/profile/mobile/Mobile';
 
-const Profile = () => {
+const Profile = ({ id }: { id: string }) => {
   const [isDesktop, setIsDesktop] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const passId = useRef(id);
 
   useEffect(() => {
     const handleResize = () => {
@@ -14,6 +15,9 @@ const Profile = () => {
     handleResize();
 
     window.addEventListener('resize', handleResize);
+    if (id === null) {
+      passId.current = '';
+    }
     setLoaded(true);
 
     if (!document.cookie.includes('token')) {
@@ -22,11 +26,12 @@ const Profile = () => {
 
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+  console.log('profile roo');
 
   return (
     <div>
-      {loaded && isDesktop && <DesktopProfile />}
-      {loaded && !isDesktop && <MobileProfile />}
+      {loaded && isDesktop && <DesktopProfile id={passId.current} />}
+      {loaded && !isDesktop && <MobileProfile id={passId.current} />}
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import React, { RefObject, useEffect, useState } from 'react';
 import { useStore } from '@nanostores/react';
-import user, { fetchUserAndSetStore } from '@store/user';
+import userDisplay, { fetchUserAndSetStore } from '@store/user/user-display';
 import placeholderchart from '@assets/placeholderchart.png';
 import Bio from '@components/profile/common/components/Bio';
 import WebsiteUrl from '@components/profile/common/components/WebsiteUrl';
@@ -9,7 +9,9 @@ import Label from '@components/profile/common/components/Label';
 import Follow from '@components/profile/common/components/Follow';
 import Name from '@components/profile/common/components/Name';
 import Statistics from '@components/profile/common/components/Statistics';
-import Buttons from '@components/profile/common/components/Buttons';
+import ButtonsEdit from '@components/profile/common/components/ButtonsEdit';
+import loggedUser from '@store/user/logged-user';
+import ButtonsFollow from '@components/profile/common/components/ButtonsFollow';
 import {
   postBioData,
   postNameData,
@@ -18,8 +20,8 @@ import {
 } from '../../../api-wrapper/user/user';
 
 type asyncCb = () => Promise<void>;
-const ProfileDisplay = () => {
-  const userData = useStore(user);
+const ProfileDisplay = ({ id }: { id: string }) => {
+  const userData = useStore(userDisplay);
   const [render, setRender] = useState(false);
   const [requestAgain, setRequestAgain] = useState(false);
   const [loaded, setLoaded] = useState(false);
@@ -28,21 +30,16 @@ const ProfileDisplay = () => {
   const [asyncCallbackList, setAsyncCallbackList] = useState<asyncCb[]>([]);
 
   useEffect(() => {
-    fetchUserAndSetStore()
-      .then(() => {
-        // sets user data and loads it into profile
-        setRender((prev) => !prev);
-        setLoaded(true);
-      })
-      .catch((err) => {
-        console.log(err);
-        console.log('errored out here');
-      });
+    fetchUserAndSetStore(id).then(() => {
+      // sets userDisplay data and loads it into profile
+      setRender((prev) => !prev);
+      setLoaded(true);
+    });
   }, []);
 
   useEffect(() => {
     if (loaded === false) return;
-    fetchUserAndSetStore().then(() => {
+    fetchUserAndSetStore(id).then(() => {
       setRender((prev) => !prev);
       setEdit(false);
     });
@@ -84,23 +81,31 @@ const ProfileDisplay = () => {
             followingCount={userData.followingCount}
           />
           <Label label='no label yet' />
-          <Buttons
-            edit={edit}
-            onEdit={() => {
-              setEdit(true);
-            }}
-            onSave={() => {
-              // calls all the callbacks and waits for all of them
-              Promise.all(asyncCallbackList.map(async (cb) => cb())).then(
-                () => {
-                  setRequestAgain((prev) => !prev);
-                }
-              );
-            }}
-            onCancel={() => {
-              setEdit(false);
-            }}
-          />
+          {loggedUser.get().userId === userDisplay.get().userId ? (
+            <ButtonsEdit
+              edit={edit}
+              onEdit={() => {
+                setEdit(true);
+              }}
+              onSave={() => {
+                // calls all the callbacks and waits for all of them
+                Promise.all(asyncCallbackList.map(async (cb) => cb())).then(
+                  () => {
+                    setRequestAgain((prev) => !prev);
+                  }
+                );
+              }}
+              onCancel={() => {
+                setEdit(false);
+              }}
+            />
+          ) : (
+            <ButtonsFollow
+              reqAgain={() => {
+                setRequestAgain((prev) => !prev);
+              }}
+            />
+          )}
           <Quote
             edit={edit}
             originalValue={userData.quote}

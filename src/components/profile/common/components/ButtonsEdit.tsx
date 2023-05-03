@@ -7,7 +7,7 @@ type ButtonsProps = {
   onCancel: () => void;
 };
 
-const Buttons = ({ edit, onEdit, onSave, onCancel }: ButtonsProps) => {
+const ButtonsEdit = ({ edit, onEdit, onSave, onCancel }: ButtonsProps) => {
   return (
     <>
       {!edit && (
@@ -35,4 +35,4 @@ const Buttons = ({ edit, onEdit, onSave, onCancel }: ButtonsProps) => {
   );
 };
 
-export default Buttons;
+export default ButtonsEdit;

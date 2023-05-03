@@ -13,3 +13,13 @@ export interface IssueApi {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface IssueApiGet {
+  id: string;
+  userId: string;
+  roadmapId: string; // will be converted to bigint eventually
+  open: boolean;
+  title: string;
+  content: string;
+  createdAt: string;
+}

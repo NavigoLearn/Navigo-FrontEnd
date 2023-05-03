@@ -96,7 +96,7 @@ export const fetchTabInfoPseudo = async (id: string) => {
   });
 };
 
-export const fetchTabIssue = async (id: string) => {
+export const fetchTabIssuePseudo = async (id: string) => {
   return new Promise<TabIssue>((resolve) => {
     setTimeout(() => {
       resolve(issues[id]);

@@ -10,7 +10,7 @@ const data: { [value: string]: CardType } = {
     name: 'React',
     author: 'RusBoss',
     description:
-      'React lets you build user interfaces out of individual pieces called components. Create your own React components like Thumbnail, LikeButton, and Video. Then combine them into entire screens, pages, and apps.',
+      'React lets you build userDisplay interfaces out of individual pieces called components. Create your own React components like Thumbnail, LikeButton, and Video. Then combine them into entire screens, pages, and apps.',
     likes: 689,
     id: '1',
   },
@@ -18,7 +18,7 @@ const data: { [value: string]: CardType } = {
     name: 'React',
     author: 'RusBoss',
     description:
-      'React lets you build user interfaces out of individual pieces called components. Create your own React components like Thumbnail, LikeButton, and Video. Then combine them into entire screens, pages, and apps.',
+      'React lets you build userDisplay interfaces out of individual pieces called components. Create your own React components like Thumbnail, LikeButton, and Video. Then combine them into entire screens, pages, and apps.',
     likes: 0,
     id: '2',
   },
@@ -26,7 +26,7 @@ const data: { [value: string]: CardType } = {
     name: 'React',
     author: 'RusBoss',
     description:
-      'React lets you build user interfaces out of individual pieces called components. Create your own React components like Thumbnail, LikeButton, and Video. Then combine them into entire screens, pages, and apps.',
+      'React lets you build userDisplay interfaces out of individual pieces called components. Create your own React components like Thumbnail, LikeButton, and Video. Then combine them into entire screens, pages, and apps.',
     likes: 311143,
     id: '3',
   },
@@ -34,7 +34,7 @@ const data: { [value: string]: CardType } = {
     name: 'React',
     author: 'RusBoss',
     description:
-      'React lets you build user interfaces out of individual pieces called components. Create your own React components like Thumbnail, LikeButton, and Video. Then combine them into entire screens, pages, and apps.',
+      'React lets you build userDisplay interfaces out of individual pieces called components. Create your own React components like Thumbnail, LikeButton, and Video. Then combine them into entire screens, pages, and apps.',
     likes: 67,
     id: '4',
   },
@@ -42,7 +42,7 @@ const data: { [value: string]: CardType } = {
     name: 'React',
     author: 'RusBoss',
     description:
-      'React lets you build user interfaces out of individual pieces called components. Create your own React components like Thumbnail, LikeButton, and Video. Then combine them into entire screens, pages, and apps.',
+      'React lets you build userDisplay interfaces out of individual pieces called components. Create your own React components like Thumbnail, LikeButton, and Video. Then combine them into entire screens, pages, and apps.',
     likes: 313,
     id: '5',
   },
@@ -50,7 +50,7 @@ const data: { [value: string]: CardType } = {
     name: 'React',
     author: 'RusBoss',
     description:
-      'React lets you build user interfaces out of individual pieces called components. Create your own React components like Thumbnail, LikeButton, and Video. Then combine them into entire screens, pages, and apps.',
+      'React lets you build userDisplay interfaces out of individual pieces called components. Create your own React components like Thumbnail, LikeButton, and Video. Then combine them into entire screens, pages, and apps.',
     likes: 31114342,
     id: '6',
   },
@@ -58,7 +58,7 @@ const data: { [value: string]: CardType } = {
     name: 'React',
     author: 'RusBoss',
     description:
-      'React lets you build user interfaces out of individual pieces called components. Create your own React components like Thumbnail, LikeButton, and Video. Then combine them into entire screens, pages, and apps.',
+      'React lets you build userDisplay interfaces out of individual pieces called components. Create your own React components like Thumbnail, LikeButton, and Video. Then combine them into entire screens, pages, and apps.',
     likes: 311143123,
     id: '7',
   },
@@ -66,7 +66,7 @@ const data: { [value: string]: CardType } = {
     name: 'React',
     author: 'RusBoss',
     description:
-      'React lets you build user interfaces out of individual pieces called components. Create your own React components like Thumbnail, LikeButton, and Video. Then combine them into entire screens, pages, and apps.',
+      'React lets you build userDisplay interfaces out of individual pieces called components. Create your own React components like Thumbnail, LikeButton, and Video. Then combine them into entire screens, pages, and apps.',
     likes: 7543,
     id: '8',
   },
@@ -74,7 +74,7 @@ const data: { [value: string]: CardType } = {
     name: 'React',
     author: 'RusBoss',
     description:
-      'React lets you build user interfaces out of individual pieces called components. Create your own React components like Thumbnail, LikeButton, and Video. Then combine them into entire screens, pages, and apps.',
+      'React lets you build userDisplay interfaces out of individual pieces called components. Create your own React components like Thumbnail, LikeButton, and Video. Then combine them into entire screens, pages, and apps.',
     likes: 2132,
     id: '9',
   },

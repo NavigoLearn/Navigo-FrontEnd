@@ -3,11 +3,8 @@ import Base from '@layouts/Base.astro';
 import Profile from '@components/profile/Profile';
 
 const { id } = Astro.params;
-// request for user data
-// const user = ...
-console.log(Astro.params);
 ---
 
 <Base title='Welcome to Astro.'>
-    <Profile client:load/>
+  <Profile id={id} client:load />
 </Base>

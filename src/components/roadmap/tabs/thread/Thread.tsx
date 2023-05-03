@@ -5,44 +5,39 @@ import { useStore } from '@nanostores/react';
 import tabManagerStore, { setIssues } from '@store/runtime-roadmap/tab-manager';
 import cross from '@assets/cross.svg';
 import commentsDisplay, {
-  setDisplayComments,
+  getCommentsAndSetDisplay,
 } from '@store/runtime-roadmap/comments-display';
-import { getTabIssueFlow } from '@typescript/roadmap/tab-logic-flows';
 import Comment from '@components/roadmap/tabs/thread/Comment';
 import AddComment from '@components/roadmap/tabs/thread/AddComment';
-import { fetchIssueCommentsPseudo } from '../../../../api-wrapper/roadmap/tab-data';
+import { getDisplayIssue } from '@store/runtime-roadmap/issues-display';
+import roadmapState from '@store/roadmap_state';
 
 const Thread = () => {
   const { issueId } = useStore(tabManagerStore);
   const { comments } = useStore(commentsDisplay);
+  const { id } = roadmapState.get();
   const [loaded, setLoaded] = useState(false);
   const [render, setRender] = useState(false);
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [description, setDescription] = useState('');
 
-  useEffect(() => {
-    getTabIssueFlow(issueId).then((issue) => {
-      setTitle(issue.title);
-      setAuthor(issue.author);
-      // setDescription(issue);
-    });
+  async function triggerRerender() {
+    getCommentsAndSetDisplay(id, issueId).then(() => {
+      setRender((prev) => !prev);
+    }); // fetches the comments on the issue
+  }
 
-    fetchIssueCommentsPseudo(issueId).then((commentsArr) => {
-      // fetches the comments on the issue
-      setDisplayComments([]);
+  useEffect(() => {
+    const issue = getDisplayIssue(issueId);
+    setTitle(issue.title);
+    setAuthor(issue.author);
+    setDescription(issue.description);
+
+    triggerRerender().then(() => {
       setLoaded(true);
     });
   }, []);
-
-  function triggerRerender() {
-    fetchIssueCommentsPseudo(issueId).then((commentsArr) => {
-      // fetches the comments on the issue
-      setDisplayComments([]);
-      setLoaded(true);
-      setRender((prev) => !prev);
-    });
-  }
 
   return (
     <div className='w-full h-full relative flex flex-col '>

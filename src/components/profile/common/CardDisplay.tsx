@@ -4,10 +4,10 @@ import { useStore } from '@nanostores/react';
 import cardsFromApi, {
   setRoadmapCardsFromApiProfile,
 } from '@store/card_store_explore';
-import user from '@store/user';
+import userDisplay from '@store/user/user-display';
 
 const CardDisplay = () => {
-  const { userId, name } = useStore(user);
+  const { userId, name } = useStore(userDisplay);
   const [render, setRender] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const cardStore = useStore(cardsFromApi);

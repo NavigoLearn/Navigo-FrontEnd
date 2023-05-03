@@ -21,7 +21,7 @@ import {
   postTabInfoPropPseudo,
   postTabIssue,
   postTabIssueProp,
-  fetchTabIssue,
+  fetchTabIssuePseudo,
   fetchTabAbout,
   postTabAboutProp,
   fetchTabInfoData,
@@ -47,7 +47,7 @@ export const getTabIssueFlow = async (id: string) => {
   let tabIssue = checkCachedTabIssues(id);
   if (!tabIssue) {
     // if no it fetches the value from the server and saves it to the cache
-    tabIssue = await fetchTabIssue(id).then((tab) => {
+    tabIssue = await fetchTabIssuePseudo(id).then((tab) => {
       cacheTabIssues(id, tab);
       return tab;
     });
