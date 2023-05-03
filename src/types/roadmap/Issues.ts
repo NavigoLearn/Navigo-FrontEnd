@@ -4,3 +4,12 @@ export type IssueComment = {
   content: string;
   date: string;
 };
+
+export interface IssueApi {
+  roadmapId: string; // will be converted to bigint eventually
+  open: boolean;
+  title: string;
+  content: string;
+  createdAt: Date;
+  updatedAt: Date;
+}

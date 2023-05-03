@@ -242,9 +242,6 @@ export async function createTabInfoData(id: string, tabData: TabInfo) {
     },
     credentials: 'include',
   }).then((res) => res);
-
-  console.log(response);
-
   return response.json();
 }
 export function postTabInfoPropPseudo<T extends keyof TabInfo>(

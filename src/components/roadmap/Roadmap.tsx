@@ -77,7 +77,6 @@ const Roadmap = ({ pageId }: { pageId: string }) => {
   };
 
   const disableZoomFn = () => {
-    console.log('disable zoom');
     disableZoom('rootSvg');
   };
 

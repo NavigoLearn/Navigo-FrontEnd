@@ -2,8 +2,8 @@ import edit from '@assets/edit.svg';
 import issues from '@assets/issues.svg';
 import about from '@assets/about.svg';
 import cross from '@assets/cross.svg';
-
-import { setIssues } from '@store/runtime-roadmap/tab-manager';
+import book from '@assets/book.svg';
+import { setBook, setIssues } from '@store/runtime-roadmap/tab-manager';
 import roadmapState, { getRoadmapId } from '@store/roadmap_state';
 import {
   saveEditingProtocol,
@@ -45,6 +45,14 @@ const buttonsView = [
     title: 'About',
     clickHandler: () => {
       setTabAboutFlow(getRoadmapId());
+    },
+  },
+  {
+    id: 5,
+    cIcon: book,
+    title: 'Guide',
+    clickHandler: () => {
+      setBook();
     },
   },
   {

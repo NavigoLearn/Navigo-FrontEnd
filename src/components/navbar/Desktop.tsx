@@ -4,6 +4,7 @@ import HOCnav from '@components/navbar/HOCnav';
 import user from '@store/user';
 import { useStore } from '@nanostores/react';
 import ProfileDropdown from '@components/navbar/ProfileDropdown';
+
 import { loggedLinks, guestLinks, universalLinks } from './Links';
 
 const DesktopNavbar = ({
@@ -20,7 +21,7 @@ const DesktopNavbar = ({
       <a href='/home' className='justify-start cursor-pointer flex'>
         <img className='w-20 ml-8' src={logoSrc} alt='navbar-logo' />
       </a>
-      <ul className='flex absolute w-full justify-center text-center items-center gap-10 h-full pointer-events-none '>
+      <ul className='flex absolute w-full pointer-events-none justify-center text-center items-center gap-10 h-full '>
         {universalLinks.map((link) => {
           return (
             <li key={link.id} className='flex pointer-events-auto'>
@@ -42,7 +43,7 @@ const DesktopNavbar = ({
               <li key={link.id} className='flex'>
                 <a className={link.cName} href={link.path}>
                   {link.cIcon && (
-                    <img src={link.cIcon} alt='icon' className='w-6 flex m-1' />
+                    <img src={link.cIcon} alt='icon' className={` w-6 h-6`} />
                   )}
                   {link.title}
                 </a>

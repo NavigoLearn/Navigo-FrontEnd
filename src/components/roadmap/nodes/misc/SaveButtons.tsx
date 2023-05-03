@@ -8,11 +8,12 @@ const SaveCancelButtons = ({
   onCancel: () => void;
 }) => {
   useEffect(() => {
-    document.addEventListener('keydown', function (event) {
-      if (event.key === 'Enter') {
+    function listenForEnter(event) {
+      if (event.keyCode === 13) {
         onSave();
       }
-    });
+    }
+    document.addEventListener('keypress', listenForEnter);
   }, []);
 
   return (

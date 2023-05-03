@@ -67,13 +67,13 @@ const SvgProfileComponent = () => {
   return (
     <button
       type='button'
-      className='w-full flex justify-center py-2  mt-3 group/button hover:bg-primary transition-all duration-200'
+      className='w-full flex justify-center py-2  group/button hover:bg-primary transition-all duration-200'
       onClick={() => {
         window.location.href = '/profile';
       }}
     >
       <div className='absolute border-black bg-white group-hover/button:bg-primary w-full h-5 top-0 duration-200 transition-all ' />
-      <div className='w-4/6'>
+      <div className='w-4/6 z-10'>
         <SvgProfileSvg />
       </div>
     </button>
@@ -105,7 +105,7 @@ const ProfileDropdown = ({
 }) => {
   return (
     <li className='flex relative group/wrapper  w-12 h-12 mr-2'>
-      <div className=' absolute top-0 flex group/wrapper w-20 h-40'>
+      <div className=' absolute top-0 flex group/wrapper w-20 h-20'>
         <a className='' href='/profile'>
           <img
             src={profilePictureUrl}
@@ -113,7 +113,7 @@ const ProfileDropdown = ({
             className='w-10 h-10 rounded-full flex m-1 mr-4'
           />
         </a>
-        <div className='absolute flex flex-col w-12 overflow-hidden transition-all duration-300 h-4 opacity-0 group-hover/wrapper:opacity-100 group-hover/wrapper:h-[125px]  top-12 rounded-full bg-white shadow-standard '>
+        <div className='absolute flex flex-col left-2 w-8 overflow-hidden transition-all duration-300 h-4 opacity-0 group-hover/wrapper:opacity-100 group-hover/wrapper:h-[80px]  top-12 rounded-full bg-white shadow-standard '>
           <div className='w-full flex flex-col justify-center items-center'>
             <SvgProfileComponent />
             <SvgLogoutComponent />

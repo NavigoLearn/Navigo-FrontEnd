@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
 import { useStore } from '@nanostores/react';
-import tabStore from '@store/runtime-roadmap/tab-manager';
+import tabStore, {
+  flipOpen,
+  setAddIssue,
+  setBook,
+} from '@store/runtime-roadmap/tab-manager';
 import Button from '@components/roadmap/tabs/utils/Button';
 import arrowleft from '@assets/arrowleft.svg';
 import arrowright from '@assets/arrowright.svg';
 import doublearrowleft from '@assets/doublearrowleft.svg';
 import doublearrowright from '@assets/doublearrowright.svg';
+import cross from '@assets/cross.svg';
 import Issue from './utils/Issue';
 import IssueButton from './utils/IssueButton';
 import { divWrapper } from './utils/logic';
@@ -15,21 +20,33 @@ const Issues = () => {
   const { issues } = useStore(tabStore);
   return (
     <div className='w-full h-full relative border-t-black border-t-2 md:border-t-0'>
-      <div className='w-5/6 flex justify-between items-center mx-8 mt-6 '>
+      <div className='relative px-4 pt-4 flex justify-between w-full'>
+        <button
+          onClick={() => {
+            flipOpen();
+          }}
+          className='w-8 h-8 '
+        >
+          <img alt='Exit Issues' src={cross} className='w-full h-full' />
+        </button>
         <div className=' font-kanit-text font-semibold text-2xl md:text-4xl  '>
           Issues
         </div>
-        <div className='mt-2'>
-          <Button
-            text='Add issue'
-            callback={() => {
-              // to be done
-            }}
-            color='secondary'
-            size='small'
-          />
-        </div>
+        <Button
+          text='Add issue'
+          callback={() => {
+            // add issue
+            setAddIssue();
+          }}
+          color='secondary'
+          size='small'
+        />
       </div>
+      {divWrapper(
+        <div className='flex justify-center w-full items-center'>
+          <div className='mt-2' />
+        </div>
+      )}
       {divWrapper(<IssueButton />)}
       {divWrapper(
         <div>

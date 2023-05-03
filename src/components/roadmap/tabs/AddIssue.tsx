@@ -3,6 +3,9 @@ import { setIssues } from '@store/runtime-roadmap/tab-manager';
 import cross from '@assets/cross.svg';
 import { divWrapper } from '@components/roadmap/tabs/utils/logic';
 import Button from '@components/roadmap/tabs/utils/Button';
+import roadmapState from '@store/roadmap_state';
+import { IssueApi } from '@type/roadmap/Issues';
+import { postCreateNewIssue } from '../../../api-wrapper/roadmap/issues';
 
 const AddIssue = () => {
   const [title, setTitle] = useState('');
@@ -56,7 +59,15 @@ const AddIssue = () => {
             text='Add issue'
             callback={() => {
               // post issue to api
-              console.log('post to api');
+              const issue: IssueApi = {
+                title,
+                content: description,
+                roadmapId: roadmapState.get().id,
+                open: true,
+                createdAt: new Date(),
+                updatedAt: new Date(),
+              };
+              postCreateNewIssue(roadmapState.get().id, issue);
             }}
             color='primary'
             size='medium'

@@ -7,10 +7,7 @@ import { RoadmapTypeApi } from '@type/explore/card';
 import { isRoadmapType } from '@type/roadmap/typecheckers';
 import { setRoadmap } from '@typescript/roadmap/roadmap-edit-logic';
 import { generateInitialEditCreate } from '@store/roadmap_edit';
-import {
-  fetchRoadmap,
-  fetchRoadmapPseudo,
-} from '../api-wrapper/roadmap/roadmaps';
+import { fetchRoadmap } from '../api-wrapper/roadmap/roadmaps';
 
 const roadmapStatic = atom({} as Roadmap);
 
