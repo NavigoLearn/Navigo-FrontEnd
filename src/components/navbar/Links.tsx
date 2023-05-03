@@ -30,24 +30,22 @@ const universalLinks = [
 ];
 
 const loggedLinks = [
-  {
-    title: 'Create Roadmap',
-    path: '/roadmap/create',
-    iconDimensions: 'h-6 w-6',
-    cName:
-      ' text-md rounded-lg transition-all font-semibold bg-primary text-white hover:text-black hover:bg-transparent px-2 py-1 border-2 border-transparent hover:border-black  flex items-center text-center font-normal',
-    cIcon: '',
-    id: 3,
-  },
   // {
   //   title: 'Profile',
   //   path: '/profile',
   //   cName:
   //     ' text-sm hover:underline flex items-center text-center font-normal hover:underline-offset-4',
   //   cIcon: profile,
-  //   iconDimensions: 'h-6 w-6',
   //   id: 1,
   // },
+  {
+    title: 'Create Roadmap',
+    path: '/roadmap/create',
+    cName:
+      ' text-md font-semibold px-2 py-1 rounded-lg bg-primary border-2 border-transparent hover:border-black hover:bg-transparent hover:text-black transition-all text-white flex items-center text-center font-normal ',
+    cIcon: '',
+    id: 3,
+  },
 ];
 
 const guestLinks = [

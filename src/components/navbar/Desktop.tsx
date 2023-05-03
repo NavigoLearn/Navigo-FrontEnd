@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import logoSrc from '@assets/logo.svg';
 import HOCnav from '@components/navbar/HOCnav';
-import { useStore } from '@nanostores/react';
 import user from '@store/user';
+import { useStore } from '@nanostores/react';
+import ProfileDropdown from '@components/navbar/ProfileDropdown';
+
 import { loggedLinks, guestLinks, universalLinks } from './Links';
 
 const DesktopNavbar = ({
@@ -41,11 +43,7 @@ const DesktopNavbar = ({
               <li key={link.id} className='flex'>
                 <a className={link.cName} href={link.path}>
                   {link.cIcon && (
-                    <img
-                      src={link.cIcon}
-                      alt='icon'
-                      className={` ${link.iconDimensions} `}
-                    />
+                    <img src={link.cIcon} alt='icon' className={` w-6 h-6`} />
                   )}
                   {link.title}
                 </a>
@@ -53,15 +51,7 @@ const DesktopNavbar = ({
             );
           })}
         {loaded && isLoggedIn && (
-          <li className='flex mr-4'>
-            <a href='/profile'>
-              <img
-                src={profilePictureUrl}
-                alt='icon'
-                className='h-10 w-10 rounded-full'
-              />
-            </a>
-          </li>
+          <ProfileDropdown profilePictureUrl={profilePictureUrl} />
         )}
         {loaded &&
           !isLoggedIn &&

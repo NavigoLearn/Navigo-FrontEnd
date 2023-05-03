@@ -242,9 +242,6 @@ export async function createTabInfoData(id: string, tabData: TabInfo) {
     },
     credentials: 'include',
   }).then((res) => res);
-
-  console.log(response);
-
   return response.json();
 }
 export function postTabInfoPropPseudo<T extends keyof TabInfo>(
@@ -297,6 +294,15 @@ export const getNewTabId = async () => {
     setTimeout(() => {
       // change data at id with data
       resolve(`tabid${Object.keys(data).length + 1}`);
+    }, networkLatency);
+  });
+};
+
+export const fetchIssueCommentsPseudo = async (id: string) => {
+  return new Promise<Comment[]>((resolve) => {
+    setTimeout(() => {
+      // change data at id with data
+      resolve([]);
     }, networkLatency);
   });
 };

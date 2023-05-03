@@ -5,6 +5,8 @@ import about from '@assets/about.svg';
 import { setTabAboutFlow } from '@typescript/roadmap/tab-logic-flows';
 import roadmapEdit from '@store/roadmap_edit';
 import { createNewTabs } from '@store/runtime-roadmap/diff-tabs';
+import book from '@assets/book.svg';
+import { setBook } from '@store/runtime-roadmap/tab-manager';
 import { postRoadmapData } from '../../../api-wrapper/roadmap/roadmaps';
 
 const buttonsCreate = [
@@ -29,6 +31,15 @@ const buttonsCreate = [
     clickHandler: () => {
       // canceling the roadmap creation and redirect to explore
       window.location.href = '/explore';
+    },
+  },
+
+  {
+    id: 5,
+    cIcon: book,
+    title: 'Guide',
+    clickHandler: () => {
+      setBook();
     },
   },
 

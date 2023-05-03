@@ -169,4 +169,44 @@ export function setIssues() {
   });
 }
 
+export function setThread(issueId: string) {
+  const newTab = tabManagerStore.get();
+  if (newTab.type === 'thread' && newTab.open) {
+    falseOpen();
+    return;
+  }
+  trueOpen();
+  tabManagerStore.set({
+    ...newTab,
+    type: 'thread',
+    issueId,
+  });
+}
+
+export function setBook() {
+  const newTab = tabManagerStore.get();
+  if (newTab.type === 'book' && newTab.open) {
+    falseOpen();
+    return;
+  }
+  trueOpen();
+  tabManagerStore.set({
+    ...newTab,
+    type: 'book',
+  });
+}
+
+export function setAddIssue() {
+  const newTab = tabManagerStore.get();
+  if (newTab.type === 'addIssue' && newTab.open) {
+    falseOpen();
+    return;
+  }
+  trueOpen();
+  tabManagerStore.set({
+    ...newTab,
+    type: 'addIssue',
+  });
+}
+
 export default tabManagerStore;

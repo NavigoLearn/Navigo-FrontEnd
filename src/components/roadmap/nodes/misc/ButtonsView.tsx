@@ -20,7 +20,6 @@ const Buttons = ({
         type='button'
         className=' absolute bottom-0 left-4 text-md transition-all duration-300 font-semibold font-roboto-text text-secondary hover:text-red-600 '
         onClick={() => {
-          //
           removeNode(id);
         }}
       >

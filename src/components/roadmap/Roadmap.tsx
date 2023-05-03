@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { v4 as uuid4 } from 'uuid';
 import NodeManager from '@components/roadmap/NodeManager';
 import { useStore } from '@nanostores/react';
@@ -50,6 +50,7 @@ const Roadmap = ({ pageId }: { pageId: string }) => {
         top: 0,
       });
     }
+
     return () => {
       // sets overflow auto on body
       if (body) {
@@ -58,9 +59,9 @@ const Roadmap = ({ pageId }: { pageId: string }) => {
     };
   }, []);
 
-  useLayoutEffect(() => {
-    console.log('it ran');
+  useEffect(() => {
     if (!document.cookie.includes('token') && isCreate) {
+      // checks if user is logged in
       window.location.href = '/login';
     }
   }, []);
@@ -142,7 +143,7 @@ const Roadmap = ({ pageId }: { pageId: string }) => {
         id='rootSvg'
         width='100%'
         height='100%'
-        className='bg-background select-none'
+        className='bg-background pointer-events-auto'
       >
         <g id='rootGroup'>
           <g id='rootGroupConnections'>

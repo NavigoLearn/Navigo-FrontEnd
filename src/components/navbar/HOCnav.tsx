@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { setUserProfilePicture } from '@store/user';
+import { setProfilePictureUrl } from '@store/user';
 import { getMiniProfileData } from '../../api-wrapper/user/user';
 
 export default (WrappedComponent) => {
@@ -14,7 +14,7 @@ export default (WrappedComponent) => {
           setLoggedIn(false);
           return;
         }
-        setUserProfilePicture(res.profilePictureUrl);
+        setProfilePictureUrl(res.profilePictureUrl);
         setLoggedIn(true);
       });
       if (document.cookie.includes('token')) {

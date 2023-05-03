@@ -39,7 +39,7 @@ export const fetchUserAndSetStore = async () => {
   user.set({ ...parsedResponse });
 };
 
-export const setUserProfilePicture = (profilePictureUrl: string) => {
+export const setProfilePictureUrl = (profilePictureUrl: string) => {
   const originalUser = user.get();
   user.set({ ...originalUser, profilePictureUrl });
 };

@@ -43,7 +43,7 @@ const Card = ({ cardStore }: { cardStore: CardType }) => {
       <div className='flex justify-center items-center relative 2xl:mt-3'>
         <a
           type='button'
-          className='bg-secondary w-20 flex justify-center items-center h-7 text-white text-xs sm:w-24 sm:h-8 sm:text-sm rounded-lg font-roboto-text 2xl:text-base 2xl:w-28 2xl:h-9'
+          className='flex justify-center items-center bg-secondary w-20 h-7 text-white text-xs sm:w-24 sm:h-8 sm:text-sm rounded-lg font-roboto-text 2xl:text-base 2xl:w-28 2xl:h-9'
           href={`/roadmap/${id}`}
           target='_blank'
           rel='noreferrer'
