@@ -16,7 +16,7 @@ import {
 
 const diffTabsStore = atom({
   // this is a store keeping track of the changes made to the tabs while editing
-  // the roadmapDiff is made when the user transfers
+  // the roadmapDiff is made when the userDisplay transfers
   info: {},
   about: {},
   issues: {},

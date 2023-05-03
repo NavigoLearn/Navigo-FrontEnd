@@ -1,11 +1,12 @@
 import { atom } from 'nanostores';
 import { User, UserResponse } from '@type/user/types';
 import { checkIsTypeUser } from '@type/user/typecheckers';
-import { fetchUserData } from '../api-wrapper/user/user';
+import { fetchUserData } from '../../api-wrapper/user/user';
 
 const generateUserBoilerplate = (): User => ({
   userId: '',
-  profilePictureUrl: '',
+  profilePictureUrl:
+    'https://media.istockphoto.com/id/470100848/ro/vector/pictograma-profilului-masculin-alb%C4%83-pe-fundal-albastru.jpg?s=612x612&w=0&k=20&c=-We-8zY-Oj7MMSuKwpOEkm7QUX8Gnc4Bk0KcBIO8lYY=',
   name: '',
   followerCount: 0,
   followingCount: 0,
@@ -27,21 +28,28 @@ const parseResponse = (response: UserResponse): User => {
   return parsedResponse;
 };
 
-const user = atom(generateUserBoilerplate() as User);
+const userDisplay = atom(generateUserBoilerplate() as User);
 
-export const fetchUserAndSetStore = async () => {
-  const originalUser = user.get();
-  const response = await fetchUserData();
+export const fetchUserAndSetStore = async (id: string) => {
+  const originalUser = userDisplay.get();
+  const response = await fetchUserData(id);
   if (!checkIsTypeUser(response)) {
     throw new Error('Response is not of type User');
   }
   const parsedResponse = parseResponse(response);
-  user.set({ ...parsedResponse });
+  if (parsedResponse.profilePictureUrl === '') {
+    parsedResponse.profilePictureUrl = originalUser.profilePictureUrl;
+  }
+  userDisplay.set({ ...parsedResponse });
 };
 
 export const setProfilePictureUrl = (profilePictureUrl: string) => {
-  const originalUser = user.get();
-  user.set({ ...originalUser, profilePictureUrl });
+  const originalUser = userDisplay.get();
+  const newProfilePictureUrl =
+    profilePictureUrl !== ''
+      ? profilePictureUrl
+      : originalUser.profilePictureUrl;
+  userDisplay.set({ ...originalUser, profilePictureUrl });
 };
 
-export default user;
+export default userDisplay;

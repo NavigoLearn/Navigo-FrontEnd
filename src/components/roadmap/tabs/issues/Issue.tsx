@@ -6,10 +6,12 @@ const Issue = ({
   id,
   title,
   author,
+  imgUrl,
 }: {
   id: string;
   title: string;
   author: string;
+  imgUrl: string;
 }) => {
   return (
     <div className='w-full flex my-6 relative'>

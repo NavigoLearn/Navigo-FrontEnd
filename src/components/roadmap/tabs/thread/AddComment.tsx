@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import roadmapState from '@store/roadmap_state';
+import { fetchPostNewComment } from '../../../../api-wrapper/roadmap/issues';
 
 const Menu = () => {
   return (
@@ -14,7 +16,7 @@ const Menu = () => {
 };
 
 type AddCommentProps = {
-  issueId: number;
+  issueId: string;
   author: string;
   rerender: () => void;
 };
@@ -42,7 +44,11 @@ const AddComment = ({ issueId, author, rerender }: AddCommentProps) => {
           className='bg-primary rounded-xl mt-7  text-white font-medium text-base p-4 py-2'
           onClick={() => {
             // posts a comment
-            console.log('post comment');
+            fetchPostNewComment(roadmapState.get().id, issueId, text).then(
+              () => {
+                rerender();
+              }
+            );
           }}
         >
           Comment

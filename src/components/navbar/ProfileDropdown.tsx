@@ -86,7 +86,7 @@ const SvgLogoutComponent = () => {
       type='button'
       className='w-full flex justify-center py-2 pt-3  group/button hover:bg-primary transition-all duration-200'
       onClick={() => {
-        // logs out user
+        // logs out userDisplay
         handleLogout();
       }}
     >

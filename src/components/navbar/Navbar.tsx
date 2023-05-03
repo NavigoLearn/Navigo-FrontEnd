@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import DesktopNavbar from './Desktop';
 import MobileNavbar from './Mobile';
-import { getMiniProfileData } from '../../api-wrapper/user/user';
+import { fetchGetMiniProfileData } from '../../api-wrapper/user/user';
 
 const Navbar = () => {
   return (

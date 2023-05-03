@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { setProfilePictureUrl } from '@store/user';
-import { getMiniProfileData } from '../../api-wrapper/user/user';
+import { setProfileMini, setProfilePictureUrl } from '@store/user/logged-user';
+import { fetchGetMiniProfileData } from '../../api-wrapper/user/user';
 
 export default (WrappedComponent) => {
   const hocComponent = () => {
@@ -9,12 +9,12 @@ export default (WrappedComponent) => {
 
     const isMobile = useRef<boolean>();
     useEffect(() => {
-      getMiniProfileData().then((res) => {
+      fetchGetMiniProfileData().then((res) => {
         if (res === false) {
           setLoggedIn(false);
           return;
         }
-        setProfilePictureUrl(res.profilePictureUrl);
+        setProfileMini(res.profilePictureUrl, res.userId, res.name);
         setLoggedIn(true);
       });
       if (document.cookie.includes('token')) {

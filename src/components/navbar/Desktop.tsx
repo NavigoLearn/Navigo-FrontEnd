@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import logoSrc from '@assets/logo.svg';
 import HOCnav from '@components/navbar/HOCnav';
-import user from '@store/user';
 import { useStore } from '@nanostores/react';
 import ProfileDropdown from '@components/navbar/ProfileDropdown';
-
+import loggedUser from '@store/user/logged-user';
 import { loggedLinks, guestLinks, universalLinks } from './Links';
 
 const DesktopNavbar = ({
@@ -14,7 +13,7 @@ const DesktopNavbar = ({
   isLoggedIn: boolean;
   loaded: boolean;
 }) => {
-  const { profilePictureUrl } = useStore(user);
+  const { profilePictureUrl } = useStore(loggedUser);
 
   return (
     <nav className='bg-transparent flex w-full relative h-16 z-10 justify-between items-center overflow-visible'>
@@ -51,7 +50,12 @@ const DesktopNavbar = ({
             );
           })}
         {loaded && isLoggedIn && (
-          <ProfileDropdown profilePictureUrl={profilePictureUrl} />
+          <ProfileDropdown
+            profilePictureUrl={
+              profilePictureUrl ||
+              'https://media.istockphoto.com/id/470100848/ro/vector/pictograma-profilului-masculin-alb%C4%83-pe-fundal-albastru.jpg?s=612x612&w=0&k=20&c=-We-8zY-Oj7MMSuKwpOEkm7QUX8Gnc4Bk0KcBIO8lYY='
+            }
+          />
         )}
         {loaded &&
           !isLoggedIn &&

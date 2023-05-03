@@ -61,7 +61,7 @@ const Roadmap = ({ pageId }: { pageId: string }) => {
 
   useEffect(() => {
     if (!document.cookie.includes('token') && isCreate) {
-      // checks if user is logged in
+      // checks if userDisplay is logged in
       window.location.href = '/login';
     }
   }, []);

@@ -8,7 +8,9 @@ import tabStore, {
 import Button from '@components/roadmap/tabs/utils/Button';
 import cross from '@assets/cross.svg';
 import issuesDisplay, {
+  getsIssuesAndSetsStore,
   setDisplayIssues,
+  setDisplayPage,
 } from '@store/runtime-roadmap/issues-display';
 import PageArrows from '@components/roadmap/tabs/issues/PageArrows';
 import Issue from './Issue';
@@ -18,23 +20,20 @@ import { divWrapper } from '../utils/logic';
 const Issues = () => {
   const [page, setPage] = useState(1);
   const [loaded, setLoaded] = useState(false);
-  const { issues } = useStore(issuesDisplay);
-  const [idsArr, setIdsArr] = useState<string[]>([]);
+  const { displayedIssues, issues } = useStore(issuesDisplay);
   const issuePerPage = 5;
 
   useEffect(() => {
     // fetches and caches all issues
-    // fetchAllIssuesIds(roadmapState.get().id).then((ids) => {
-    //   setIdsArr(ids);
-    // });
+    getsIssuesAndSetsStore(roadmapState.get().id).then(() => {
+      setDisplayPage(page, issuePerPage);
+      setLoaded(true);
+    });
   }, []);
 
   useEffect(() => {
-    // fetchIssuesPage(idsArr, page, issuePerPage).then((issuesArr) => {
-    //   setDisplayIssues(issuesArr);
-    //   setLoaded(true);
-    // });
-  }, [page, idsArr]);
+    setDisplayPage(page, issuePerPage);
+  }, [page]);
 
   return (
     <div className='w-full h-full relative flex flex-col border-t-black border-t-2 md:border-t-0'>
@@ -70,13 +69,14 @@ const Issues = () => {
           <div className=' w-full  '>
             <div>
               {loaded &&
-                issues.map((issue) => {
+                displayedIssues.map((issue) => {
                   return (
                     <Issue
-                      key={issue.title}
+                      key={issue.id}
                       id={issue.id}
                       title={issue.title}
                       author={issue.author}
+                      imgUrl={issue.profilePictureUrl}
                     />
                   );
                 })}
@@ -90,14 +90,14 @@ const Issues = () => {
           setPage((prev) => prev - 1);
         }}
         incPage={() => {
-          if (page >= Math.ceil(idsArr.length / issuePerPage)) return;
+          if (page >= Math.ceil(issues.length / issuePerPage)) return;
           setPage((prev) => prev + 1);
         }}
         toBegin={() => {
           setPage(1);
         }}
         toEnd={() => {
-          setPage(Math.ceil(idsArr.length / issuePerPage));
+          setPage(Math.ceil(issues.length / issuePerPage));
         }}
         page={page}
       />

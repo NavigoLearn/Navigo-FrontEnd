@@ -2,11 +2,12 @@ import { UserResponse } from '@type/user/types';
 
 export const a = 1;
 
-export const fetchUserData = async (): Promise<UserResponse> => {
-  const data = await fetch('/api/users/', {
+export const fetchUserData = async (id: string): Promise<UserResponse> => {
+  const data = await fetch(`/api/users/${id}`, {
     method: 'GET',
     credentials: 'include',
   }).then((res) => res.json());
+  console.log(data);
   return data;
 };
 
@@ -95,7 +96,7 @@ export const postWebsiteUrlData = async (websiteUrl: string) => {
   }).then((res) => res);
 };
 
-export const getMiniProfileData = async () => {
+export const fetchGetMiniProfileData = async () => {
   try {
     const response = await fetch(`/api/users/mini`, {
       method: 'GET',
@@ -103,6 +104,62 @@ export const getMiniProfileData = async () => {
     }).then((res) => res);
     if (!response.ok) throw new Error('User not found');
     return response.json();
+  } catch (e) {
+    return false;
+  }
+};
+
+export const fetchGetMiniProfileDataById = async (userId: string) => {
+  try {
+    const response = await fetch(`/api/users/mini/${userId}`, {
+      method: 'GET',
+      credentials: 'include',
+    }).then((res) => res);
+    if (!response.ok) throw new Error('User not found');
+    return response.json();
+  } catch (e) {
+    return false;
+  }
+};
+
+export const fetchGetUserIsFollowing = async (userId: string) => {
+  try {
+    const response = await fetch(`/api/users/${userId}/is-following`, {
+      method: 'GET',
+      credentials: 'include',
+    }).then((res) => res);
+    const responseData = await response.json();
+    return responseData;
+  } catch (e) {
+    return false;
+  }
+};
+
+export const fetchFollowUser = async (userId: string) => {
+  try {
+    const response = await fetch(`/api/users/${userId}/follow`, {
+      method: 'GET',
+      credentials: 'include',
+    }).then((res) => res);
+    console.log(response);
+    const responseData = await response.json();
+    console.log(responseData);
+    return responseData;
+  } catch (e) {
+    console.log(e);
+    return false;
+  }
+};
+
+export const fetchUnfollowUser = async (userId: string) => {
+  try {
+    const response = await fetch(`/api/users/${userId}/follow`, {
+      method: 'DELETE',
+      credentials: 'include',
+    }).then((res) => res);
+    console.log(response);
+    const responseData = await response.json();
+    return responseData;
   } catch (e) {
     return false;
   }

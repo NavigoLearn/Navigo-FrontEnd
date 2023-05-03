@@ -1,7 +1,7 @@
 import { atom } from 'nanostores';
 
 const roadmapState = atom({
-  editing: false, // used to determine if the user is editing the roadmap
+  editing: false, // used to determine if the userDisplay is editing the roadmap
   save: true, // and if the editing state should be saved or not
   loaded: false, // used to determine if the roadmap has been loaded
   id: '', // the id of the roadmap

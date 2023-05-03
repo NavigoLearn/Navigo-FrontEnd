@@ -2,10 +2,10 @@ import React from 'react';
 import ProfileDisplay from '@components/profile/mobile/ProfileDisplay';
 import CardDisplay from '@components/profile/common/CardDisplay';
 
-const MobileProfile = () => {
+const MobileProfile = ({ id }: { id: string }) => {
   return (
     <div className='flex flex-col w-full h-full items-center my-24 text-center'>
-      <ProfileDisplay />
+      <ProfileDisplay id={id} />
       <div className='mt-20'>
         <CardDisplay />
       </div>

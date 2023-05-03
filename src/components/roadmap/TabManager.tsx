@@ -4,7 +4,7 @@ import tabStore from '@store/runtime-roadmap/tab-manager';
 import Book from '@components/roadmap/tabs/book/Book';
 import Thread from '@components/roadmap/tabs/thread/Thread';
 import AddIssue from '@components/roadmap/tabs/AddIssue';
-import Issues from './tabs/Issues';
+import Issues from '@components/roadmap/tabs/issues/Issues';
 import Info from './tabs/Info';
 import About from './tabs/About';
 

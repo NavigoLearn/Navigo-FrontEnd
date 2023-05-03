@@ -5,7 +5,7 @@ import { divWrapper } from '@components/roadmap/tabs/utils/logic';
 import Button from '@components/roadmap/tabs/utils/Button';
 import roadmapState from '@store/roadmap_state';
 import { IssueApi } from '@type/roadmap/Issues';
-import { postCreateNewIssue } from '../../../api-wrapper/roadmap/issues';
+import { fetchPostNewIssue } from '../../../api-wrapper/roadmap/issues';
 
 const AddIssue = () => {
   const [title, setTitle] = useState('');
@@ -67,7 +67,9 @@ const AddIssue = () => {
                 createdAt: new Date(),
                 updatedAt: new Date(),
               };
-              postCreateNewIssue(roadmapState.get().id, issue);
+              fetchPostNewIssue(roadmapState.get().id, issue).then(() => {
+                setIssues();
+              });
             }}
             color='primary'
             size='medium'
