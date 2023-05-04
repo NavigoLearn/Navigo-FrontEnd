@@ -1,10 +1,10 @@
 import React from 'react';
 import { useStore } from '@nanostores/react';
-import tabManagerStore from '@store/roadmap/display/tab-manager';
+import aboutTabStore from '@store/roadmap/data/about';
 
 const Name = () => {
-  const { about } = useStore(tabManagerStore);
-  return <div className='font-kanit-text text-main '>{about.name}</div>;
+  const { name } = useStore(aboutTabStore);
+  return <div className='font-kanit-text text-main '>{name}</div>;
 };
 
 export default Name;

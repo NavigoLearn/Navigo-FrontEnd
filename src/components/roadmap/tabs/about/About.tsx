@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import AboutNonEditField from '@components/roadmap/tabs/about/AboutNonEditField';
 import AboutEditingField from '@components/roadmap/tabs/about/AboutEditingField';
 import { useStore } from '@nanostores/react';
-import tabStore, { setTabAboutProp } from '@store/roadmap/display/tab-manager';
+import aboutTabStore, { setTabAboutProp } from '@store/roadmap/data/about';
 import { TabAbout } from '@type/roadmap/tab-manager';
 import EditingManagerTabs from '@components/roadmap/tabs/EditingManagerTabs';
 import useStateAndRef from '@hooks/useStateAndRef';
@@ -11,7 +11,12 @@ import AboutEditingFieldTextarea from '@components/roadmap/tabs/about/AboutEditi
 import roadmapVisitData, {
   validData,
 } from '@store/roadmap/data/roadmap-visit-data';
+import roadmapState, { getIsCreate } from '@store/roadmap/data/roadmap_state';
 import { divWrapper } from '../utils/logic';
+import {
+  fetchRoadmap,
+  fetchRoadmapMiniById,
+} from '../../../../api-wrapper/roadmap/roadmaps';
 
 const About = () => {
   const fields = ['name', 'author', 'description'];
@@ -23,7 +28,7 @@ const About = () => {
     description: 100,
   };
 
-  const { about: aboutStore } = useStore(tabStore);
+  const aboutStore = useStore(aboutTabStore);
   const [about, setAbout, aboutRef] = useStateAndRef(aboutStore);
   const [render, setRender] = useState(false);
 
@@ -34,7 +39,11 @@ const About = () => {
   const editableRef = useRef([]);
 
   useEffect(() => {
-    if (visitorIsOwner && validData()) {
+    setAbout(aboutStore);
+  }, [aboutStore]);
+
+  useEffect(() => {
+    if ((visitorIsOwner && validData()) || getIsCreate() === true) {
       editableRef.current = [...editableFields];
     } else {
       editableRef.current = [];
@@ -69,7 +78,11 @@ const About = () => {
                       NonEditingComponent={AboutNonEditField}
                       data={aboutRef.current[field]}
                       persistDataSave={(value) => {
-                        setTabAboutProp(field, value);
+                        setTabAboutProp(
+                          field,
+                          value,
+                          roadmapVisitData.get().roadmapId
+                        );
                       }}
                       capLen={capLens[field]}
                     />

@@ -99,11 +99,6 @@ const Roadmap = ({ pageId }: { pageId: string }) => {
       initialRoadmapCreateRender();
     }
 
-    // gets the about tab info
-    getTabAboutFlow(pageId).then((tab) => {
-      setAboutInfoOnly(tab);
-    });
-
     renderConnectionsStore.subscribe(() => {
       // calling the connection rendering function
       setTimeout(() => {

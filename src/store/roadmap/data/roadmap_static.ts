@@ -11,6 +11,8 @@ import {
   setOwnerId,
   setRoadmapId,
 } from '@store/roadmap/data/roadmap-visit-data';
+import { setIsCreateTrue } from '@store/roadmap/data/roadmap_state';
+import { setTabAboutFromApi } from '@store/roadmap/data/about';
 import { fetchRoadmap } from '../../../api-wrapper/roadmap/roadmaps';
 
 const roadmapStatic = atom({} as Roadmap);
@@ -24,9 +26,10 @@ export function setRoadmapFromAPI(pageId: string) {
   fetchRoadmap(pageId).then((roadmapData: RoadmapTypeApi) => {
     if (isRoadmapType(roadmapData.data)) {
       const roadmap: Roadmap = roadmapData.data;
-      roadmapStatic.set(roadmap);
+      roadmapStatic.set(roadmap); // sets the roadmap to its data
       setOwnerId(roadmapData.ownerId);
       setRoadmapId(roadmapData.id);
+      setTabAboutFromApi(roadmapData);
       setLoadedTrue();
       triggerChunkRerender();
       miscParams.get().recenterRoadmap();
@@ -38,6 +41,7 @@ export function setRoadmapFromAPI(pageId: string) {
 
 export function initialRoadmapCreateRender() {
   setRoadmap(generateInitialEditCreate());
+  setIsCreateTrue();
   setLoadedTrue();
   triggerChunkRerender();
   miscParams.get().recenterRoadmap();
