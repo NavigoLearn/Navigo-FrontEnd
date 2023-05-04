@@ -1,19 +1,23 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import AboutNonEditField from '@components/roadmap/tabs/about/AboutNonEditField';
 import AboutEditingField from '@components/roadmap/tabs/about/AboutEditingField';
 import { useStore } from '@nanostores/react';
-import tabStore, { setTabAboutProp } from '@store/runtime-roadmap/tab-manager';
+import tabStore, { setTabAboutProp } from '@store/roadmap/display/tab-manager';
 import { TabAbout } from '@type/roadmap/tab-manager';
 import EditingManagerTabs from '@components/roadmap/tabs/EditingManagerTabs';
 import useStateAndRef from '@hooks/useStateAndRef';
 import AboutStaticField from '@components/roadmap/tabs/about/AboutStaticField';
 import AboutEditingFieldTextarea from '@components/roadmap/tabs/about/AboutEditingFieldTextarea';
+import roadmapVisitData, {
+  validData,
+} from '@store/roadmap/data/roadmap-visit-data';
 import { divWrapper } from '../utils/logic';
 
 const About = () => {
   const fields = ['name', 'author', 'description'];
-  const editableFields = ['name', 'description'];
   const longFields = ['description'];
+  const editableFields = ['name', 'description'];
+
   const capLens = {
     name: 20,
     description: 100,
@@ -21,15 +25,22 @@ const About = () => {
 
   const { about: aboutStore } = useStore(tabStore);
   const [about, setAbout, aboutRef] = useStateAndRef(aboutStore);
+  const [render, setRender] = useState(false);
 
   const PropertyHOC = useRef(EditingManagerTabs());
   const Property = PropertyHOC.current;
 
+  const { visitorIsOwner } = useStore(roadmapVisitData);
+  const editableRef = useRef([]);
+
   useEffect(() => {
-    return () => {
-      // saves to db eventual changes
-    };
-  }, []);
+    if (visitorIsOwner && validData()) {
+      editableRef.current = [...editableFields];
+    } else {
+      editableRef.current = [];
+    }
+    setRender((prev) => !prev);
+  }, [visitorIsOwner]);
 
   return (
     <div className='h-full w-full relative border-t-2 border-t-black md:border-t-0'>
@@ -43,7 +54,7 @@ const About = () => {
         {fields.map((field: keyof TabAbout) => {
           return (
             <div key={field}>
-              {editableFields.includes(field) &&
+              {editableRef.current.includes(field) &&
                 divWrapper(
                   <div className=' w-full'>
                     <div className=' font-light text-secondary text-base'>
@@ -64,7 +75,7 @@ const About = () => {
                     />
                   </div>
                 )}
-              {!editableFields.includes(field) && (
+              {!editableRef.current.includes(field) && (
                 <AboutStaticField field={field} data={about[field]} />
               )}
             </div>

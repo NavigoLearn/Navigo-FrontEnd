@@ -3,7 +3,7 @@ import Card from '@components/explorerefr/Card';
 import { useStore } from '@nanostores/react';
 import cardsFromApi, {
   setRoadmapCardsFromApiProfile,
-} from '@store/card_store_explore';
+} from '@store/explore/card_store_explore';
 import userDisplay from '@store/user/user-display';
 
 const CardDisplay = () => {

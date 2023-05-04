@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import roadmapState from '@store/roadmap_state';
+import roadmapState from '@store/roadmap/data/roadmap_state';
 import { useStore } from '@nanostores/react';
 import tabStore, {
   flipOpen,
   setAddIssue,
-} from '@store/runtime-roadmap/tab-manager';
+} from '@store/roadmap/display/tab-manager';
 import Button from '@components/roadmap/tabs/utils/Button';
 import cross from '@assets/cross.svg';
 import issuesDisplay, {
   getsIssuesAndSetsStore,
   setDisplayIssues,
   setDisplayPage,
-} from '@store/runtime-roadmap/issues-display';
+} from '@store/roadmap/display/issues-display';
 import PageArrows from '@components/roadmap/tabs/issues/PageArrows';
 import Issue from './Issue';
 import IssueButton from '../utils/IssueButton';

@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-import filterObject from '@store/explorefilter';
-import { setData } from '@store/explorefilter';
+import filterObject, { setData } from '@store/explore/explorefilter';
 
 const Cookies = () => {
   useEffect(() => {

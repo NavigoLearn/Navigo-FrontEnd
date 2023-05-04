@@ -1,7 +1,7 @@
 import { atom } from 'nanostores';
 import { IssuePreview } from '@type/roadmap/tab-manager';
 import { IssueApi, IssueApiGet } from '@type/roadmap/Issues';
-import { fetchIssues } from '../../api-wrapper/roadmap/issues';
+import { fetchIssues } from '../../../api-wrapper/roadmap/issues';
 
 const IssuesDisplay = atom({
   issues: [],

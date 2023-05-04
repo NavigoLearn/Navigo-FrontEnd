@@ -3,9 +3,7 @@ import {
   generateStarterNode,
   generateTabInfo,
 } from '@typescript/roadmap/generators';
-import roadmapStatic from '@store/roadmap_static';
-import roadmap_state from '@store/roadmap_state';
-import roadmapState from '@store/roadmap_state';
+import roadmapState from '@store/roadmap/data/roadmap_state';
 import { networkLatency } from './params';
 //
 // const roadmap1: Roadmap = {

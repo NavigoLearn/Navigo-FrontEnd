@@ -7,7 +7,7 @@ import chevronleft from '@assets/chevron-left.svg';
 import chevronright from '@assets/chevron-right.svg';
 import cardsFromApi, {
   setCardsFromApiDefault,
-} from '@store/card_store_explore';
+} from '@store/explore/card_store_explore';
 import FilterAugD from './filterhoc/FilterAugD';
 import Card from '../Card';
 

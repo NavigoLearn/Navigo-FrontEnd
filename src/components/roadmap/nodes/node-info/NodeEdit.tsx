@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { setToolTip } from '@store/runtime-roadmap/miscParams';
+import { setToolTip } from '@store/roadmap/misc/miscParams';
 import {
   getTriggerEnable,
   getTriggerDisable,
-} from '@store/runtime-roadmap/rerenderTriggers';
+} from '@store/roadmap/render/rerenderTriggers';
 import { NodeInfoProps } from '@type/roadmap/nodes';
 import InfoNonEditProps from '@components/roadmap/nodes/node-info/InfoNonEditProps';
 import InfoEditProps from '@components/roadmap/nodes/node-info/InfoEditProps';
@@ -11,7 +11,7 @@ import {
   removeNodeInfoFromPlaceholder,
   transferNodeInfoFromEditToPlaceholder,
   transferNodeInfoFromPlaceholderToEdit,
-} from '@store/runtime-roadmap/roadmap-placeholder';
+} from '@store/roadmap/data/roadmap-placeholder';
 
 const NodeEdit = ({ title, tabId, id, level }: NodeInfoProps) => {
   const [editing, setEditing] = useState(false);

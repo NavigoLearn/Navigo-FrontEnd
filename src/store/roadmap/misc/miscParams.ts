@@ -1,5 +1,5 @@
 import { atom } from 'nanostores';
-import { getTriggerTooltip } from '@store/runtime-roadmap/rerenderTriggers';
+import { getTriggerTooltip } from '@store/roadmap/render/rerenderTriggers';
 
 const miscParamsStore = atom({
   // holds misc params of the roadmap

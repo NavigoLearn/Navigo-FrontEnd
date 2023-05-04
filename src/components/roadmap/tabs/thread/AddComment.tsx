@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import roadmapState from '@store/roadmap_state';
+import roadmapState from '@store/roadmap/data/roadmap_state';
 import { fetchPostNewComment } from '../../../../api-wrapper/roadmap/issues';
 
 const Menu = () => {

@@ -5,11 +5,13 @@ const roadmapState = atom({
   save: true, // and if the editing state should be saved or not
   loaded: false, // used to determine if the roadmap has been loaded
   id: '', // the id of the roadmap
+  userId: '',
 } as {
   editing: boolean;
   save: boolean;
   loaded: boolean;
   id: string;
+  userId: string;
 });
 
 export default roadmapState;

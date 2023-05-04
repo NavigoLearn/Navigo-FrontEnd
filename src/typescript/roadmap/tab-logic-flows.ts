@@ -8,13 +8,13 @@ import {
   checkCachedTabAbout,
   cacheTabAbout,
   changeCachedTabAboutProp,
-} from '@store/runtime-roadmap/cached-tabs';
+} from '@store/roadmap/cache/cached-tabs';
 import { TabAbout, TabInfo, TabIssue } from '@type/roadmap/tab-manager';
-import { setAbout, setInfo } from '@store/runtime-roadmap/tab-manager';
+import { setAbout, setInfo } from '@store/roadmap/display/tab-manager';
 import {
   applyDiffInfoToTab,
   applyDiffIssueToTab,
-} from '@store/runtime-roadmap/diff-tabs';
+} from '@store/roadmap/cache/diff-tabs';
 import {
   postTabInfoPseudo,
   fetchTabInfoPseudo,

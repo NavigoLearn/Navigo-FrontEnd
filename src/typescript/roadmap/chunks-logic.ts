@@ -1,14 +1,14 @@
-import roadmapState from '@store/roadmap_state';
-import roadmapEdit from '@store/roadmap_edit';
-import roadmapStatic from '@store/roadmap_static';
-import { getNodes, setNodes } from '@store/runtime-roadmap/renderedNodes';
-import chunksStore, { setChunks } from '@store/runtime-roadmap/renderedChunks';
+import roadmapState from '@store/roadmap/data/roadmap_state';
+import roadmapEdit from '@store/roadmap/data/roadmap_edit';
+import roadmapStatic from '@store/roadmap/data/roadmap_static';
+import { getNodes, setNodes } from '@store/roadmap/render/renderedNodes';
+import chunksStore, { setChunks } from '@store/roadmap/render/renderedChunks';
 import * as d3 from 'd3';
-import { setConnections } from '@store/runtime-roadmap/renderedConnections';
+import { setConnections } from '@store/roadmap/render/renderedConnections';
 import { Roadmap } from '@type/roadmap/roadmap';
-import { setViewport } from '@store/runtime-roadmap/viewport-coords';
+import { setViewport } from '@store/roadmap/misc/viewport-coords';
 import { Viewport } from '@type/roadmap/misc';
-import miscParams from '@store/runtime-roadmap/miscParams';
+import miscParams from '@store/roadmap/misc/miscParams';
 
 export function getConnectionsToRender(currentNodes: string[]): string[] {
   const { editing, loaded } = roadmapState.get();

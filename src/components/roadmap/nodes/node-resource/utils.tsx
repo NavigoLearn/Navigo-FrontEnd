@@ -1,8 +1,8 @@
-import roadmapEdit from '@store/roadmap_edit';
-import roadmapStatic from '@store/roadmap_static';
+import roadmapEdit from '@store/roadmap/data/roadmap_edit';
+import roadmapStatic from '@store/roadmap/data/roadmap_static';
 import ResourceSubNodeView from '@components/roadmap/nodes/node-resource/sub-node/ResourceSubNodeView';
 import React from 'react';
-import roadmapState from '@store/roadmap_state';
+import roadmapState from '@store/roadmap/data/roadmap_state';
 
 export function renderNodeNormal(id, parentID) {
   const { editing } = roadmapState.get();

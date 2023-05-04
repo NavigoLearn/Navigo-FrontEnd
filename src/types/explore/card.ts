@@ -1,6 +1,7 @@
 export type CardType = {
   name: string;
   author: string;
+  authorId: string;
   description: string;
   likes: number;
   id: string;

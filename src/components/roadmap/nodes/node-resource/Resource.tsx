@@ -1,6 +1,6 @@
 import React from 'react';
 import { useStore } from '@nanostores/react';
-import roadmapState from '@store/roadmap_state';
+import roadmapState from '@store/roadmap/data/roadmap_state';
 import ResourceView from '@components/roadmap/nodes/node-resource/ResourceView';
 import ResourceEdit from '@components/roadmap/nodes/node-resource/ResourceEdit';
 import { NodeResourceProps } from '@type/roadmap/nodes';

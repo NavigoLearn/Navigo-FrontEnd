@@ -11,7 +11,7 @@ import {
   generateTabAbout,
   generateTabInfo,
 } from '@typescript/roadmap/generators';
-import roadmapState from '@store/roadmap_state';
+import roadmapState from '@store/roadmap/data/roadmap_state';
 import { networkLatency } from './params';
 
 const aboutTab: HashMap<TabAbout> = {

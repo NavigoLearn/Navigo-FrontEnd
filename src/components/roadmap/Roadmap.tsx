@@ -5,29 +5,29 @@ import { useStore } from '@nanostores/react';
 import roadmapState, {
   setEditingTrueNoRerender,
   setRoadmapId,
-} from '@store/roadmap_state';
+} from '@store/roadmap/data/roadmap_state';
 import roadmapStatic, {
   initialRoadmapCreateRender,
   setRoadmapFromAPI,
-} from '@store/roadmap_static';
+} from '@store/roadmap/data/roadmap_static';
 import {
   setTriggerDisable,
   setTriggerEnable,
   setTriggerRender,
-} from '@store/runtime-roadmap/rerenderTriggers';
+} from '@store/roadmap/render/rerenderTriggers';
 import { addZoom, disableZoom } from '@typescript/roadmap/d3utils';
 import { RoadmapChunkingManager } from '@typescript/roadmap/chunks-logic';
-import renderNodesStore from '@store/runtime-roadmap/renderedNodes';
-import { setChunkRerenderTrigger } from '@store/runtime-roadmap/renderedChunks';
-import renderConnectionsStore from '@store/runtime-roadmap/renderedConnections';
+import renderNodesStore from '@store/roadmap/render/renderedNodes';
+import { setChunkRerenderTrigger } from '@store/roadmap/render/renderedChunks';
+import renderConnectionsStore from '@store/roadmap/render/renderedConnections';
 import { renderConnections } from '@typescript/roadmap/render/connections';
-import roadmapEdit from '@store/roadmap_edit';
+import roadmapEdit from '@store/roadmap/data/roadmap_edit';
 import {
   setDisableZoomTrigger,
   setEnableZoomTrigger,
-} from '@store/runtime-roadmap/miscParams';
+} from '@store/roadmap/misc/miscParams';
 import { getTabAboutFlow } from '@typescript/roadmap/tab-logic-flows';
-import { setAboutInfoOnly } from '@store/runtime-roadmap/tab-manager';
+import { setAboutInfoOnly } from '@store/roadmap/display/tab-manager';
 import Popup from './tabs/popups/Popup';
 
 const Roadmap = ({ pageId }: { pageId: string }) => {
@@ -121,7 +121,7 @@ const Roadmap = ({ pageId }: { pageId: string }) => {
 
     return () => {
       console.log('cleanup');
-      // cleaning up runtime-roadmap stores to not interfere with other roadmaps
+      // cleaning up roadmap stores to not interfere with other roadmaps
       // cache cleanup
       // diff cleanup
       // renderedChunks cleanup

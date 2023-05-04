@@ -1,10 +1,10 @@
 import * as d3 from 'd3';
-import renderConnectionsStore from '@store/runtime-roadmap/renderedConnections';
-import roadmapState from '@store/roadmap_state';
-import roadmapEdit from '@store/roadmap_edit';
-import roadmapStatic from '@store/roadmap_static';
+import renderConnectionsStore from '@store/roadmap/render/renderedConnections';
+import roadmapState from '@store/roadmap/data/roadmap_state';
+import roadmapEdit from '@store/roadmap/data/roadmap_edit';
+import roadmapStatic from '@store/roadmap/data/roadmap_static';
 import { ConnectionStore } from '@type/roadmap/connections';
-import selection from '@store/selection';
+import selection from '@store/roadmap/render/selection';
 import {
   getNodeMiddleCoordsFlow,
   calculateCoordOfNodeStatic,

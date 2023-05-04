@@ -5,15 +5,15 @@ import { NodeResourceProps } from '@type/roadmap/nodes';
 import {
   getTriggerDisable,
   getTriggerEnable,
-} from '@store/runtime-roadmap/rerenderTriggers';
-import { setToolTip } from '@store/runtime-roadmap/miscParams';
+} from '@store/roadmap/render/rerenderTriggers';
+import { setToolTip } from '@store/roadmap/misc/miscParams';
 import { manualTrigger } from '@typescript/roadmap/roadmap-edit-decorators';
 import {
   removeNodeInfoFromPlaceholder,
   removeNodeResourceFromPlaceholder,
   transferNodeResourceFromEditToPlaceholder,
   transferNodeResourceFromPlaceholderToEdit,
-} from '@store/runtime-roadmap/roadmap-placeholder';
+} from '@store/roadmap/data/roadmap-placeholder';
 
 const ResourceEdit = ({ id, title, nodes }: NodeResourceProps) => {
   const [editing, setEditing] = useState(false);
