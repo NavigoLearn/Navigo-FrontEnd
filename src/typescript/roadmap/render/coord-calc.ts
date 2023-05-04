@@ -3,12 +3,12 @@ import {
   isNodeInfoStore,
   isNodeResourceStore,
 } from '@type/roadmap/typecheckers';
-import roadmapEdit from '@store/roadmap_edit';
-import roadmapState from '@store/roadmap_state';
-import roadmapStatic from '@store/roadmap_static';
+import roadmapEdit from '@store/roadmap/data/roadmap_edit';
+import roadmapState from '@store/roadmap/data/roadmap_state';
+import roadmapStatic from '@store/roadmap/data/roadmap_static';
 import cachedCoords, {
   cacheNodeCoord,
-} from '@store/runtime-roadmap/cached-node-coords';
+} from '@store/roadmap/cache/cached-node-coords';
 
 export function getTransformXY(transform: string) {
   const firstParentheses = transform.indexOf('(');

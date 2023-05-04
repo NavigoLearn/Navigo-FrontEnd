@@ -1,4 +1,8 @@
-import { IssueApi, IssueApiGet } from '@type/roadmap/Issues';
+import {
+  IssueApi,
+  IssueApiGet,
+  IssueCommentApiGet,
+} from '@type/roadmap/Issues';
 
 export async function fetchPostNewIssue(roadmapId: string, issue: IssueApi) {
   const response = await fetch(`/api/roadmaps/${roadmapId}/issues/create`, {
@@ -24,7 +28,10 @@ export async function fetchIssues(roadmapId: string): Promise<IssueApiGet[]> {
   return responseData.issues;
 }
 
-export async function fetchIssueComments(roadmapId: string, issueId: string) {
+export async function fetchIssueComments(
+  roadmapId: string,
+  issueId: string
+): Promise<{ comments: IssueCommentApiGet[] }> {
   const response = await fetch(
     `/api/roadmaps/${roadmapId}/issues/${issueId}/comments/`
   );
@@ -46,6 +53,20 @@ export async function fetchPostNewComment(
       headers: {
         'Content-Type': 'application/json',
       },
+    }
+  );
+  return response.json();
+}
+
+export async function fetchDeleteComment(
+  roadmapId: string,
+  issueId: string,
+  commentId: string
+) {
+  const response = await fetch(
+    `/api/roadmaps/${roadmapId}/issues/${issueId}/comments/${commentId}/delete`,
+    {
+      method: 'POST',
     }
   );
   return response.json();

@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { divWrapper } from '@components/roadmap/tabs/utils/logic';
 import circledot from '@assets/circledot.svg';
 import { useStore } from '@nanostores/react';
-import tabManagerStore, { setIssues } from '@store/runtime-roadmap/tab-manager';
+import tabManagerStore, { setIssues } from '@store/roadmap/display/tab-manager';
 import cross from '@assets/cross.svg';
 import commentsDisplay, {
   getCommentsAndSetDisplay,
-} from '@store/runtime-roadmap/comments-display';
+} from '@store/roadmap/display/comments-display';
 import Comment from '@components/roadmap/tabs/thread/Comment';
 import AddComment from '@components/roadmap/tabs/thread/AddComment';
-import { getDisplayIssue } from '@store/runtime-roadmap/issues-display';
-import roadmapState from '@store/roadmap_state';
+import { getDisplayIssue } from '@store/roadmap/display/issues-display';
+import roadmapState from '@store/roadmap/data/roadmap_state';
 
 const Thread = () => {
   const { issueId } = useStore(tabManagerStore);
@@ -23,9 +23,7 @@ const Thread = () => {
   const [description, setDescription] = useState('');
 
   async function triggerRerender() {
-    getCommentsAndSetDisplay(id, issueId).then(() => {
-      setRender((prev) => !prev);
-    }); // fetches the comments on the issue
+    await getCommentsAndSetDisplay(id, issueId);
   }
 
   useEffect(() => {
@@ -36,6 +34,7 @@ const Thread = () => {
 
     triggerRerender().then(() => {
       setLoaded(true);
+      setRender((prev) => !prev);
     });
   }, []);
 
@@ -77,9 +76,14 @@ const Thread = () => {
       <div className='w-full grow overflow-auto'>
         {loaded &&
           comments.map((comment) => (
-            <div className='w-full' key={comment.id}>
+            <div className='' key={comment.id}>
               {divWrapper(
-                <Comment author={comment.author} text={comment.content} />
+                <Comment
+                  date={comment.date}
+                  urlPic={comment.profilePictureUrl}
+                  author={comment.author}
+                  text={comment.content}
+                />
               )}
             </div>
           ))}

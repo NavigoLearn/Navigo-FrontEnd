@@ -28,12 +28,12 @@ function handleSocialLogin(link: string, features: string) {
   // if the child window is closed, stop polling
   popup.onclose = () => {
     clearInterval(intervalId);
-  }
+  };
 
   // if parent window is closed, close the child window
   window.onunload = () => {
     popup.close();
-  }
+  };
 }
 
 export function handleGoogleLogin() {
@@ -70,8 +70,8 @@ export async function handleLogout() {
     },
   });
 
-  console.log(response);
-
   // reload page
-  window.location.reload();
+  setTimeout(() => {
+    window.location.reload();
+  }, 0);
 }

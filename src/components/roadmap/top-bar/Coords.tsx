@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useStore } from '@nanostores/react';
 import { Coord } from '@type/roadmap/nodes';
-import viewportCoord from '@store/runtime-roadmap/viewport-coords';
+import viewportCoord from '@store/roadmap/misc/viewport-coords';
 
 const Coords = () => {
   const { startX, startY, scale } = useStore(viewportCoord);

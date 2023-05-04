@@ -1,6 +1,6 @@
 import React from 'react';
 import { useStore } from '@nanostores/react';
-import errorList from '@store/runtime-roadmap/error-list';
+import errorList from '@store/roadmap/error-list';
 import ErrorDisplay from '@components/roadmap/top-bar/ErrorDisplay';
 
 const Error = () => {

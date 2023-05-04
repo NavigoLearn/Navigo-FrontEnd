@@ -3,8 +3,8 @@ import issues from '@assets/issues.svg';
 import about from '@assets/about.svg';
 import cross from '@assets/cross.svg';
 import book from '@assets/book.svg';
-import { setBook, setIssues } from '@store/runtime-roadmap/tab-manager';
-import roadmapState, { getRoadmapId } from '@store/roadmap_state';
+import { setBook, setIssues } from '@store/roadmap/display/tab-manager';
+import roadmapState, { getRoadmapId } from '@store/roadmap/data/roadmap_state';
 import {
   saveEditingProtocol,
   transferRoadmapToEdit,
@@ -13,7 +13,34 @@ import { toggleEditing } from '@typescript/roadmap/roadmap-edit-logic-decorated'
 import { setTabAboutFlow } from '@typescript/roadmap/tab-logic-flows';
 import { deleteRoadmap } from '../../../api-wrapper/roadmap/roadmaps';
 
-const buttonsView = [
+export const buttonsViewVisitor = [
+  {
+    id: 2,
+    cIcon: issues,
+    title: 'Issues',
+    clickHandler: () => {
+      setIssues();
+    },
+  },
+
+  {
+    id: 3,
+    cIcon: about,
+    title: 'About',
+    clickHandler: () => {
+      setTabAboutFlow(getRoadmapId());
+    },
+  },
+  {
+    id: 5,
+    cIcon: book,
+    title: 'Guide',
+    clickHandler: () => {
+      setBook();
+    },
+  },
+];
+export const buttonsViewOwner = [
   {
     id: 1,
     cIcon: edit,
@@ -66,5 +93,3 @@ const buttonsView = [
     },
   },
 ];
-
-export default buttonsView;

@@ -1,23 +1,53 @@
 import React, { useState, useEffect } from 'react';
 import { useStore } from '@nanostores/react';
-import roadmapState from '@store/roadmap_state';
-import buttonsEdit from '@components/roadmap/sidebar/buttons-edit';
+import roadmapState from '@store/roadmap/data/roadmap_state';
+import buttonsEditOwner from '@components/roadmap/sidebar/buttons-edit';
 import buttonsCreate from '@components/roadmap/sidebar/buttons-create';
-import buttonsView from './buttons-view';
+import loggedUser, { getLoggedUserId } from '@store/user/logged-user';
+import roadmapVisitData, {
+  validData,
+} from '@store/roadmap/data/roadmap-visit-data';
+import GenericButtonDesktop from '@components/roadmap/sidebar/GenericButtonDesktop';
+import { buttonsViewVisitor, buttonsViewOwner } from './buttons-view';
 
 const SideBar = ({ isCreate }: { isCreate: string }) => {
   const [hover, setHover] = useState(false);
   const { editing } = useStore(roadmapState);
   const [hydrated, setHydrated] = useState(false);
+  const [isOwner, setIsOwner] = useState(false);
+
+  const { visitorIsOwner } = useStore(roadmapVisitData);
 
   useEffect(() => {
+    if (validData()) {
+      if (visitorIsOwner) {
+        setIsOwner(true);
+      }
+    }
     setHydrated(true);
-  }, []);
+  }, [visitorIsOwner]);
 
   const handleHover = (e) => {
     // set hover based on weather event is mouseenter or mouseleave
     setHover(e.type === 'mouseenter');
   };
+
+  const getButtonRoute = () => {
+    if (hydrated && !editing && !isCreate && isOwner) {
+      return buttonsViewOwner;
+    }
+    if (hydrated && editing && !isCreate && isOwner) {
+      return buttonsEditOwner;
+    }
+    if (hydrated && isCreate) {
+      return buttonsCreate;
+    }
+    if (hydrated && !isOwner) {
+      return buttonsViewVisitor;
+    }
+    return [];
+  };
+
   return (
     <div
       className='w-48 h-full  top-0 absolute left-0'
@@ -31,77 +61,18 @@ const SideBar = ({ isCreate }: { isCreate: string }) => {
         `}
       >
         <ul className='flex-col-4 min-h-full w-full gap-10 justify-self-center items-center '>
-          {hydrated &&
-            !editing &&
-            !isCreate &&
-            buttonsView.map((button) => {
-              return (
-                <li
-                  key={button.id}
-                  className='flex items-center text-center ml-5'
-                >
-                  <button
-                    type='button'
-                    className='w-10 flex justify-self-center items-center text-center text-2xl hover:underline'
-                    onClick={button.clickHandler}
-                  >
-                    <img
-                      src={button.cIcon}
-                      alt='icons sidebar'
-                      className='mr-4 my-6 w-8 h-8 '
-                    />
-                    {hover ? button.title : null}
-                  </button>
-                </li>
-              );
-            })}
-          {hydrated &&
-            editing &&
-            !isCreate &&
-            buttonsEdit.map((button) => {
-              return (
-                <li
-                  key={button.id}
-                  className='flex items-center text-center ml-5'
-                >
-                  <button
-                    type='button'
-                    className='w-10 flex justify-self-center items-center text-center text-2xl hover:underline'
-                    onClick={button.clickHandler}
-                  >
-                    <img
-                      src={button.cIcon}
-                      alt='icons sidebar'
-                      className='mr-4 my-6 w-8 h-8 '
-                    />
-                    {hover ? button.title : null}
-                  </button>
-                </li>
-              );
-            })}
-          {hydrated &&
-            isCreate &&
-            buttonsCreate.map((button) => {
-              return (
-                <li
-                  key={button.id}
-                  className='flex items-center text-center ml-5'
-                >
-                  <button
-                    type='button'
-                    className='w-10 flex justify-self-center items-center text-center text-2xl hover:underline'
-                    onClick={button.clickHandler}
-                  >
-                    <img
-                      src={button.cIcon}
-                      alt='icons sidebar'
-                      className='mr-4 my-6 w-8 h-8 '
-                    />
-                    {hover ? button.title : null}
-                  </button>
-                </li>
-              );
-            })}
+          {getButtonRoute().map((button) => {
+            return (
+              <GenericButtonDesktop
+                key={button.id}
+                id={button.id}
+                onClick={button.clickHandler}
+                hover={hover}
+                title={button.title}
+                cIcon={button.cIcon}
+              />
+            );
+          })}
         </ul>
       </div>
     </div>

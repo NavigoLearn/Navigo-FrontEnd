@@ -10,7 +10,7 @@ import {
   isNodeInfoProps,
   isNodeResourceProps,
 } from '@type/roadmap/typecheckers';
-import { getNodeById } from '@store/roadmap_static';
+import { getNodeById } from '@store/roadmap/data/roadmap_static';
 import { addDraggabilityFlow } from '@typescript/roadmap/render/drag-flows';
 import levels from '@styles/levelStyles';
 import { getNodeByIdEdit } from '@typescript/roadmap/roadmap-edit-logic';

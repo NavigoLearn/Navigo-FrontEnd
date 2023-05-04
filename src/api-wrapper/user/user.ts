@@ -111,7 +111,7 @@ export const fetchGetMiniProfileData = async () => {
 
 export const fetchGetMiniProfileDataById = async (userId: string) => {
   try {
-    const response = await fetch(`/api/users/mini/${userId}`, {
+    const response = await fetch(`/api/users/${userId}/mini`, {
       method: 'GET',
       credentials: 'include',
     }).then((res) => res);

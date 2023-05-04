@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { getNodeByIdEdit } from '@typescript/roadmap/roadmap-edit-logic';
 import { EditingComponentNodesProps } from '@type/roadmap/components';
-import { setToolTip, setZoomAllowed } from '@store/runtime-roadmap/miscParams';
+import { setToolTip, setZoomAllowed } from '@store/roadmap/misc/miscParams';
 import TitleEdit from '@components/roadmap/nodes/node-resource/editable-fields/ResourceTitleEdit';
 import SaveCancelButtons from '@components/roadmap/nodes/misc/SaveButtons';
-import { changeNodeInfo } from '@store/runtime-roadmap/roadmap-placeholder';
+import { changeNodeInfo } from '@store/roadmap/data/roadmap-placeholder';
 
 const InfoEditProps = ({
   id,

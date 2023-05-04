@@ -1,5 +1,5 @@
 import { atom } from 'nanostores';
-import roadmapEdit from '@store/roadmap_edit';
+import roadmapEdit from '@store/roadmap/data/roadmap_edit';
 import { ConnectionStore } from '@type/roadmap/connections';
 import { HashMap } from '@type/roadmap/roadmap';
 

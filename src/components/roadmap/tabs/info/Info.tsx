@@ -1,6 +1,6 @@
 import React from 'react';
 import { useStore } from '@nanostores/react';
-import roadmapState from '@store/roadmap_state';
+import roadmapState from '@store/roadmap/data/roadmap_state';
 import InfoView from '@components/roadmap/tabs/info/infoView';
 import InfoEditing from './InfoEditing';
 

@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import likeButton from '@assets/heart.svg';
 import likeButtonFilled from '@assets/heartfill.svg';
 import { CardType } from '@type/explore/card';
+import RedirectToProfile from '@components/shared/RedirectToProfile';
 
 const Card = ({ cardStore }: { cardStore: CardType }) => {
-  const { name, author, description, likes, id } = cardStore;
+  const { name, author, description, likes, id, authorId } = cardStore;
   const [heartClicked, setHeartClicked] = useState(true);
   const SI_SYMBOL = ['', 'k', 'M', 'G', 'T', 'P', 'E'];
 
@@ -32,8 +33,12 @@ const Card = ({ cardStore }: { cardStore: CardType }) => {
         </h1>
         <div className='font-roboto'>
           <div className='absolute pl-14 text-[9px] sm:text-xs sm:pl-[83px] flex flex-col justify-center items-center text-placeholder 2xl:text-sm 2xl:pl-[102px]'>
-            <h1>made by</h1>
-            <h1>{author}</h1>
+            <div className='text-sm'>made by</div>
+            <RedirectToProfile redirectUserId={authorId}>
+              <div className='text-md text-blue-400  hover:text-blue-600 transition-all '>
+                {author}
+              </div>
+            </RedirectToProfile>
           </div>
         </div>
       </div>

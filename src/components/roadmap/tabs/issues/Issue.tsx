@@ -1,6 +1,6 @@
 import React from 'react';
 import circledot from '@assets/circledot.svg';
-import { setThread } from '@store/runtime-roadmap/tab-manager';
+import { setThread } from '@store/roadmap/display/tab-manager';
 
 const Issue = ({
   id,

@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import {
-  GoogleLoginButton,
-  GithubLoginButton,
-} from 'react-social-login-buttons';
+import GoogleLoginButton from '@components/auth/social-buttons/GoogleLoginButton';
+import GithubLoginButton from '@components/auth/social-buttons/GithubLoginButton';
 import {
   handleGoogleLogin,
   handleGitHubLogin,

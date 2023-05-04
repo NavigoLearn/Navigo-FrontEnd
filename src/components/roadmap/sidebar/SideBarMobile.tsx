@@ -1,68 +1,69 @@
 import React, { useState, useEffect } from 'react';
+import buttonsEditOwner from '@components/roadmap/sidebar/buttons-edit';
 import { useStore } from '@nanostores/react';
-import roadmapState from '@store/roadmap_state';
-import buttonsEdit from '@components/roadmap/sidebar/buttons-edit';
+import roadmapState from '@store/roadmap/data/roadmap_state';
 import buttonsCreate from '@components/roadmap/sidebar/buttons-create';
-import buttonsView from './buttons-view';
+import {
+  buttonsViewOwner,
+  buttonsViewVisitor,
+} from '@components/roadmap/sidebar/buttons-view';
+import roadmapVisitData, {
+  validData,
+} from '@store/roadmap/data/roadmap-visit-data';
+import GenericButtonMobile from '@components/roadmap/sidebar/GenericButtonMobile';
 
 const SideBarMobile = ({ isCreate }: { isCreate: string }) => {
+  const [hover, setHover] = useState(false);
   const { editing } = useStore(roadmapState);
-  const [hydrate, setHydrate] = useState(false);
+  const [hydrated, setHydrated] = useState(false);
+  const [isOwner, setIsOwner] = useState(false);
+
+  const { visitorIsOwner } = useStore(roadmapVisitData);
+
   useEffect(() => {
-    setHydrate(true);
-  }, []);
+    if (validData()) {
+      if (visitorIsOwner) {
+        setIsOwner(true);
+      }
+    }
+    setHydrated(true);
+  }, [visitorIsOwner]);
+
+  const handleHover = (e) => {
+    // set hover based on weather event is mouseenter or mouseleave
+    setHover(e.type === 'mouseenter');
+  };
+
+  const getButtonRoute = () => {
+    if (hydrated && !editing && !isCreate && isOwner) {
+      return buttonsViewOwner;
+    }
+    if (hydrated && editing && !isCreate && isOwner) {
+      return buttonsEditOwner;
+    }
+    if (hydrated && isCreate) {
+      return buttonsCreate;
+    }
+    if (hydrated && !isOwner) {
+      return buttonsViewVisitor;
+    }
+    return [];
+  };
 
   return (
     <div className='flex justify-start pl-4 w-full h-16 absolute -top-16  pointer-events-none '>
       <div />
       <ul className='flex gap-8 '>
-        {hydrate &&
-          !editing &&
-          !isCreate &&
-          buttonsView.map((button) => {
-            return (
-              <li key={button.id} className='flex items-center text-center'>
-                <button
-                  type='button'
-                  className=' pointer-events-auto w-6 h-6'
-                  onClick={button.clickHandler}
-                >
-                  <img src={button.cIcon} alt='' className=' w-6 h-6' />
-                </button>
-              </li>
-            );
-          })}
-        {hydrate &&
-          editing &&
-          !isCreate &&
-          buttonsEdit.map((button) => {
-            return (
-              <li key={button.id} className='flex items-center text-center'>
-                <button
-                  type='button'
-                  className=' pointer-events-auto w-6 h-6'
-                  onClick={button.clickHandler}
-                >
-                  <img src={button.cIcon} alt='' className=' w-6 h-6' />
-                </button>
-              </li>
-            );
-          })}
-        {hydrate &&
-          isCreate &&
-          buttonsCreate.map((button) => {
-            return (
-              <li key={button.id} className='flex items-center text-center'>
-                <button
-                  type='button'
-                  className=' pointer-events-auto w-6 h-6'
-                  onClick={button.clickHandler}
-                >
-                  <img src={button.cIcon} alt='' className=' w-6 h-6' />
-                </button>
-              </li>
-            );
-          })}
+        {getButtonRoute().map((button) => {
+          return (
+            <GenericButtonMobile
+              key={button.id}
+              id={button.id}
+              onClick={button.clickHandler}
+              cIcon={button.cIcon}
+            />
+          );
+        })}
       </ul>
     </div>
   );

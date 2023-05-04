@@ -1,6 +1,7 @@
 import { atom } from 'nanostores';
 import { User, UserResponse } from '@type/user/types';
 import { checkIsTypeUser } from '@type/user/typecheckers';
+import { processUserUrlPic } from '@typescript/user/misc';
 import { fetchUserData } from '../../api-wrapper/user/user';
 
 const generateUserBoilerplate = (): User => ({
@@ -45,10 +46,7 @@ export const fetchUserAndSetStore = async (id: string) => {
 
 export const setProfilePictureUrl = (profilePictureUrl: string) => {
   const originalUser = userDisplay.get();
-  const newProfilePictureUrl =
-    profilePictureUrl !== ''
-      ? profilePictureUrl
-      : originalUser.profilePictureUrl;
+  const newProfilePictureUrl = processUserUrlPic(profilePictureUrl);
   userDisplay.set({ ...originalUser, profilePictureUrl });
 };
 

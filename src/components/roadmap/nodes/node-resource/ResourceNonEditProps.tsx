@@ -4,7 +4,7 @@ import { addNodeNew } from '@typescript/roadmap/roadmap-edit-logic-decorated';
 import { NonEditingComponentProps } from '@type/roadmap/components';
 import { getNodeByIdEdit } from '@typescript/roadmap/roadmap-edit-logic';
 import { isNodeResourceStore } from '@type/roadmap/typecheckers';
-import { setToolTip } from '@store/runtime-roadmap/miscParams';
+import { setToolTip } from '@store/roadmap/misc/miscParams';
 import ButtonsView from '@components/roadmap/nodes/misc/ButtonsView';
 import plus from '@assets/plus.svg';
 import edit from '@assets/edit.svg';
