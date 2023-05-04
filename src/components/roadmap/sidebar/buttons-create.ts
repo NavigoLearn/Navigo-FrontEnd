@@ -14,12 +14,12 @@ const buttonsCreate = [
     id: 1,
     cIcon: yestick,
     title: 'Create',
-    clickHandler: () => {
+    clickHandler: async () => {
       // sending the roadmap to be created
-      postRoadmapData(roadmapEdit.get()).then((roadmapId) => {
+      await postRoadmapData(roadmapEdit.get()).then((roadmapId) => {
         setRoadmapId(roadmapId.id);
-        createNewTabs();
       });
+      await createNewTabs();
       window.location.href = '/profile';
     },
   },

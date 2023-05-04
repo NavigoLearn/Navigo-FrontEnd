@@ -185,7 +185,7 @@ export const postRoadmapData = async (roadmap: Roadmap) => {
     headers: {
       'Content-Type': 'application/json',
     },
-  }).then((res) => res);
+  });
   // posts all the tabs created in cache
   return response.json();
 };
