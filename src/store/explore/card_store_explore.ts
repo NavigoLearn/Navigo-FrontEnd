@@ -28,6 +28,7 @@ export async function setRoadmapCardsFromApiExplore() {
       description: value.description,
       likes: value.likes,
       id: value.id,
+      authorId: value.ownerId,
     };
     addCardToStore(value.id, newValueExplore);
   });

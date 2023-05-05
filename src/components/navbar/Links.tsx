@@ -9,7 +9,7 @@ const universalLinks = [
     title: 'home',
     path: '/home',
     cName:
-      'text-[14px] flex items-center text-center  inline-block text-secondary hover:text-main transtion-all duration-300 ',
+      'text-[14px] flex items-center text-center font-medium inline-block text-secondary hover:text-main transtion-all duration-300 ',
     id: 1,
     hasUnder: true,
   },
@@ -26,7 +26,7 @@ const universalLinks = [
     title: 'Feedback',
     path: '/feedback',
     cName:
-      'text-[14px] flex items-center text-center  inline-block text-secondary hover:text-main transtion-all duration-300 ',
+      'text-[14px] flex items-center text-center  inline-block font-medium text-secondary hover:text-main transtion-all duration-300 ',
     id: 3,
     hasUnder: true,
   },
@@ -57,7 +57,7 @@ const guestLinks = [
     title: 'Login',
     path: '/login',
     cName:
-      'text-[14px] flex items-center text-center  inline-block text-secondary hover:text-main transtion-all duration-300 ',
+      'text-[14px] flex items-center text-center font-medium inline-block text-secondary hover:text-main transtion-all duration-300 ',
     id: 1,
     cIcon: '',
     hasUnder: true,
