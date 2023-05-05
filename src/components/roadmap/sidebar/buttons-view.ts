@@ -3,7 +3,11 @@ import issues from '@assets/issues.svg';
 import about from '@assets/about.svg';
 import cross from '@assets/cross.svg';
 import book from '@assets/book.svg';
-import { setBook, setIssues } from '@store/roadmap/display/tab-manager';
+import {
+  falseOpen,
+  setBook,
+  setIssues,
+} from '@store/roadmap/display/tab-manager';
 import roadmapState, { getRoadmapId } from '@store/roadmap/data/roadmap_state';
 import {
   saveEditingProtocol,
@@ -53,6 +57,7 @@ export const buttonsViewOwner = [
       } else {
         transferRoadmapToEdit();
       }
+      falseOpen();
       toggleEditing();
     },
   },

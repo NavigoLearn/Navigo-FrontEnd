@@ -6,15 +6,18 @@ import Socials from '@components/feedback/desktop/Socials';
 
 const DesktopFeedback = () => {
   const [formType, setFormType] = useState('bugReport');
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (
+    e: React.FormEvent<HTMLFormElement>,
+    type: 'bugReport' | 'featureRequest' | 'somethingElse'
+  ) => {
     e.preventDefault();
-    if (formType === 'featureRequest') {
+    if (type === 'featureRequest') {
       //
     }
-    if (formType === 'bugReport') {
+    if (type === 'bugReport') {
       //
     }
-    if (formType === 'somethingElse') {
+    if (type === 'somethingElse') {
       //
     }
   };
@@ -25,8 +28,9 @@ const DesktopFeedback = () => {
         <StandardForm
           placeholderDescription='please introduce a detailed description of the feature, go as wild as you want :) '
           placeholderTitle='feature request title'
-          handleSubmit={() => {
+          handleSubmit={(e) => {
             // submit feature request
+            handleSubmit(e, 'featureRequest');
           }}
         />
       );
@@ -36,8 +40,9 @@ const DesktopFeedback = () => {
         <StandardForm
           placeholderDescription="we don't want to fix this but we will do it for you. Please mention your browser and steps to reproduce"
           placeholderTitle='bug title'
-          handleSubmit={() => {
+          handleSubmit={(e) => {
             // submit feature request
+            handleSubmit(e, 'bugReport');
           }}
         />
       );
@@ -47,8 +52,9 @@ const DesktopFeedback = () => {
         <StandardForm
           placeholderDescription='whatever you want to tell us'
           placeholderTitle='just anything'
-          handleSubmit={() => {
+          handleSubmit={(e) => {
             // submit feature request
+            handleSubmit(e, 'somethingElse');
           }}
         />
       );

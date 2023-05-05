@@ -19,6 +19,10 @@ export function addCardToStore(id: string, card: CardType) {
   cardsFromApi.set({ ...original });
 }
 
+export function emptyStore() {
+  cardsFromApi.set({});
+}
+
 export async function setRoadmapCardsFromApiExplore(
   query: string,
   page: number
@@ -54,10 +58,6 @@ export async function setRoadmapCardsFromApiProfile(
     };
     addCardToStore(value.id, newValue);
   });
-}
-
-export function emptyStore() {
-  cardsFromApi.set({});
 }
 
 export default cardsFromApi;

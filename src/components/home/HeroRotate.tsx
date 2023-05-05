@@ -3,6 +3,7 @@ import {
   arrangeImagesAndSetOnclick,
   initializeImgCenter,
   populateParams,
+  switchPlaces,
 } from '@typescript/home/hero';
 import {
   PopulatedParams,
@@ -80,13 +81,26 @@ const HeroRotate = ({ scale, animSpeed }: HeroRotateProps) => {
         easing: 'linear',
         loop: true,
       });
+
+      // starts timeout for images switching
+      function switchPlacesTimeout() {
+        const elArr = document.querySelectorAll('.smallTarget');
+        const randomIdx = Math.floor(Math.random() * elArr.length);
+        const randomElId = elArr[randomIdx].id;
+        switchPlaces(allowed, randomElId);
+        setTimeout(() => {
+          switchPlacesTimeout();
+        }, 2500);
+      }
+
+      switchPlacesTimeout();
     }
   }, [set]);
 
   return (
     <div
       ref={rootRef}
-      className='flex justify-center items-center overflow-hidden'
+      className='flex justify-center items-center overflow-hidden bg-background'
     >
       <div id='center' className='w-1 h-1 border-green-400 relative hidden'>
         {set && (
