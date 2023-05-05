@@ -18,17 +18,17 @@ const HeroRotate = ({ scale, animSpeed }: HeroRotateProps) => {
   useScrollTop();
   const rootRef = useRef<HTMLDivElement>(null);
   const allowed = useRef(true);
-  const centerSrc = './home/nextjs.png';
+  const centerSrc = '/home/nextjs.png';
   const baseArr: string[] = [
-    './home/cpp.png',
-    './home/csharp.png',
-    './home/css.png',
-    './home/html.png',
-    './home/js.png',
-    './home/python.png',
-    './home/pytorch.png',
-    './home/react.png',
-    './home/ts.png',
+    '/home/cpp.png',
+    '/home/csharp.png',
+    '/home/css.png',
+    '/home/html.png',
+    '/home/js.png',
+    '/home/python.png',
+    '/home/pytorch.png',
+    '/home/react.png',
+    '/home/ts.png',
   ];
 
   const baseParams: BaseParams = {
