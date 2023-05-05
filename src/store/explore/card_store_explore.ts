@@ -19,8 +19,16 @@ export function addCardToStore(id: string, card: CardType) {
   cardsFromApi.set({ ...original });
 }
 
-export async function setRoadmapCardsFromApiExplore() {
-  const exploreRoadmaps = await fetchDefaultCardsExplore();
+export function emptyStore() {
+  cardsFromApi.set({});
+}
+
+export async function setRoadmapCardsFromApiExplore(
+  query: string,
+  page: number
+) {
+  const exploreRoadmaps = await fetchDefaultCardsExplore(query, page);
+  emptyStore();
   exploreRoadmaps.forEach((value) => {
     const newValueExplore: CardType = {
       name: value.name,
@@ -50,10 +58,6 @@ export async function setRoadmapCardsFromApiProfile(
     };
     addCardToStore(value.id, newValue);
   });
-}
-
-export function emptyStore() {
-  cardsFromApi.set({});
 }
 
 export default cardsFromApi;

@@ -24,11 +24,11 @@ const SearchMobile = () => {
   const isDisabled = pageNr <= 1;
   const cardStore = cardsFromApi.get();
 
-  useEffect(() => {
-    setRoadmapCardsFromApiExplore().then(() => {
-      setRender(true);
-    });
-  }, []);
+  // useEffect(() => {
+  //   setRoadmapCardsFromApiExplore().then(() => {
+  //     setRender(true);
+  //   });
+  // }, []);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

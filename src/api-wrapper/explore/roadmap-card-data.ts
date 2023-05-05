@@ -94,10 +94,16 @@ export const fetchCardDataPseudo = async (id: string) => {
   });
 };
 
-export const fetchDefaultCardsExplore = async (): Promise<
-  RoadmapTypeApiExplore[]
-> => {
-  const fetchRouteExplore = '/api/explore';
+export const fetchDefaultCardsExplore = async (
+  query: string,
+  page: number
+): Promise<RoadmapTypeApiExplore[]> => {
+  let fetchRouteExplore;
+  if (query !== '') {
+    fetchRouteExplore = `api/explore/?query=${query}&count=9&page=${page}`;
+  } else {
+    fetchRouteExplore = `api/explore/?count=9&page=${page}`;
+  }
   const responseExplore = await fetch(fetchRouteExplore, {
     method: 'GET',
     credentials: 'include',
