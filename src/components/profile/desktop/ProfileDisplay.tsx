@@ -152,8 +152,11 @@ const ProfileDisplay = ({ id }: { id: string }) => {
       </div>
       <div className='flex w-full flex-col justify-around my-24'>
         <Statistics roadmapsCount={userData.roadmapsCount} />
-        <div className='flex justify-center'>
-          <img className='w-60 ' src={placeholderchart} alt='chart' />
+        <div className='flex justify-center  items-center'>
+          <div className='text-4xl text-main opacity-20 select-none text-center w-5/6 '>
+            We will add here some achivements at a later time. If you are one of
+            the first users to join, be sure you will get some special bagdes
+          </div>
         </div>
       </div>
     </>

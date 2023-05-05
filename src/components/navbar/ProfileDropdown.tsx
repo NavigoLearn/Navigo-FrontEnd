@@ -113,7 +113,7 @@ const ProfileDropdown = ({
             className='w-10 h-10 rounded-full flex m-1 mr-4'
           />
         </a>
-        <div className='absolute flex flex-col left-2 w-8 overflow-hidden transition-all duration-300 h-4 opacity-0 group-hover/wrapper:opacity-100 group-hover/wrapper:h-[80px]  top-12 rounded-full bg-white shadow-standard '>
+        <div className='absolute flex flex-col left-1 w-10 overflow-hidden transition-all duration-300 h-4 opacity-0 group-hover/wrapper:opacity-100 group-hover/wrapper:h-[95px]  top-12 rounded-full bg-white shadow-standard '>
           <div className='w-full flex flex-col justify-center items-center'>
             <SvgProfileComponent />
             <SvgLogoutComponent />

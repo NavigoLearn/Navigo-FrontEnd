@@ -28,7 +28,5 @@ export default (WrappedComponent) => {
     return <WrappedComponent isLoggedIn={loggedIn} loaded={loaded} />;
   };
 
-  hocComponent.propTypes = {};
-
   return hocComponent;
 };

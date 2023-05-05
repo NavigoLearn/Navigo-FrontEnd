@@ -141,12 +141,9 @@ export const fetchFollowUser = async (userId: string) => {
       method: 'GET',
       credentials: 'include',
     }).then((res) => res);
-    console.log(response);
     const responseData = await response.json();
-    console.log(responseData);
     return responseData;
   } catch (e) {
-    console.log(e);
     return false;
   }
 };
@@ -157,7 +154,6 @@ export const fetchUnfollowUser = async (userId: string) => {
       method: 'DELETE',
       credentials: 'include',
     }).then((res) => res);
-    console.log(response);
     const responseData = await response.json();
     return responseData;
   } catch (e) {
