@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import DesktopFeedback from '@components/feedback/Desktop';
+import DesktopFeedback from '@components/feedback/desktop/Desktop';
 import MobileFeedback from '@components/feedback/Mobile';
 
 const Feedback = () => {
