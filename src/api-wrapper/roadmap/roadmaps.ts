@@ -205,6 +205,5 @@ export const fetchRoadmapMiniById = async (id: string) => {
     method: 'GET',
     credentials: 'include',
   }).then((res) => res.json());
-  console.log(response);
   return response;
 };

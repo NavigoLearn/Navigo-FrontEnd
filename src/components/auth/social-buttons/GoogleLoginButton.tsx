@@ -1,5 +1,5 @@
 import React from 'react';
-import googleLogo from '@assets/googlelogo.svg';
+import googleLogo from '@assets/googleLogo.svg';
 
 const GoogleLoginButton = ({ onClick }: { onClick: () => void }) => {
   return (

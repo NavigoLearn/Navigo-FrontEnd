@@ -85,8 +85,8 @@ const MobileSignUp = () => {
           <hr className='border-gray-300' />
         </div>
         <div className='grid gap-2.5 mt-6 items-center justify-center'>
-          <GoogleLoginButton onClick={handleGoogleLogin} />
           <GithubLoginButton onClick={handleGitHubLogin} />
+          <GoogleLoginButton onClick={handleGoogleLogin} />
         </div>
       </form>
     </div>
