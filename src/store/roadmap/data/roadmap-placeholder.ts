@@ -4,7 +4,7 @@ import {
   generateResourceSubNodeEmpty,
 } from '@typescript/roadmap/roadmap-edit-logic';
 import { Roadmap } from '@type/roadmap/roadmap';
-import roadmapEdit from '@store/roadmap_edit';
+import roadmapEdit from '@store/roadmap/data/roadmap_edit';
 import { deepCopy } from '@typescript/roadmap/utils';
 import {
   isNodeInfoStore,

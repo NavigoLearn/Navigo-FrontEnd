@@ -10,7 +10,7 @@ import chevronright from '@assets/chevron-right.svg';
 // import Cookies from '@components/explorerefr/mobile/cookies/Cookies';
 import cardsFromApi, {
   setRoadmapCardsFromApiExplore,
-} from '@store/card_store_explore';
+} from '@store/explore/card_store_explore';
 import SortBy from './SortBy';
 // import Filter from './Filter';
 import FilterAug from './FilterManager';

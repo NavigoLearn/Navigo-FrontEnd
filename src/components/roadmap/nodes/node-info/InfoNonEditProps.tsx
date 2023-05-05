@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { NonEditingComponentProps } from '@type/roadmap/components';
 import { addNodeNew } from '@typescript/roadmap/roadmap-edit-logic-decorated';
-import { setToolTip } from '@store/runtime-roadmap/miscParams';
+import { setToolTip } from '@store/roadmap/misc/miscParams';
 import { setInfoFlow } from '@typescript/roadmap/tab-logic-flows';
 import ButtonsView from '@components/roadmap/nodes/misc/ButtonsView';
 import plus from '@assets/plus.svg';

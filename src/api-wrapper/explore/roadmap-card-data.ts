@@ -7,7 +7,7 @@ import {
 } from '@type/explore/card';
 import { networkLatency } from '../roadmap/params';
 
-const data: { [value: string]: CardType } = {
+const data: { [value: string]: any } = {
   '1': {
     name: 'React',
     author: 'RusBoss',

@@ -16,6 +16,8 @@ const generateUserBoilerplate = (): User => ({
   roadmapsCount: 0,
 });
 
+const loggedUser = atom(generateUserBoilerplate() as User);
+
 const parseResponse = (response: UserResponse): User => {
   if (!checkIsTypeUser(response)) {
     throw new Error('Response is not of type User');
@@ -26,21 +28,6 @@ const parseResponse = (response: UserResponse): User => {
   parsedResponse.followingCount = parseInt(response.followingCount, 10);
   parsedResponse.roadmapsCount = parseInt(response.roadmapsCount, 10);
   return parsedResponse;
-};
-
-const loggedUser = atom(generateUserBoilerplate() as User);
-
-export const fetchUserAndSetStore = async (id: string) => {
-  const originalUser = loggedUser.get();
-  const response = await fetchUserData(id);
-  if (!checkIsTypeUser(response)) {
-    throw new Error('Response is not of type User');
-  }
-  const parsedResponse = parseResponse(response);
-  if (parsedResponse.profilePictureUrl === '') {
-    parsedResponse.profilePictureUrl = originalUser.profilePictureUrl;
-  }
-  loggedUser.set({ ...parsedResponse });
 };
 
 export const setProfilePictureUrl = (profilePictureUrl: string) => {
@@ -69,5 +56,9 @@ export const setProfileMini = (
     name,
   });
 };
+
+export function getLoggedUserId(): string {
+  return loggedUser.get().userId;
+}
 
 export default loggedUser;

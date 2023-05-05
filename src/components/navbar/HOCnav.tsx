@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { setProfileMini, setProfilePictureUrl } from '@store/user/logged-user';
+import { setVisitorId } from '@store/roadmap/data/roadmap-visit-data';
 import { fetchGetMiniProfileData } from '../../api-wrapper/user/user';
 
 export default (WrappedComponent) => {
@@ -15,6 +16,7 @@ export default (WrappedComponent) => {
           return;
         }
         setProfileMini(res.profilePictureUrl, res.userId, res.name);
+        setVisitorId(res.userId);
         setLoggedIn(true);
       });
       if (document.cookie.includes('token')) {
@@ -25,8 +27,6 @@ export default (WrappedComponent) => {
 
     return <WrappedComponent isLoggedIn={loggedIn} loaded={loaded} />;
   };
-
-  hocComponent.propTypes = {};
 
   return hocComponent;
 };

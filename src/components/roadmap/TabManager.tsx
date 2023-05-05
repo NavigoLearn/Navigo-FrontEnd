@@ -1,12 +1,12 @@
 import React from 'react';
 import { useStore } from '@nanostores/react';
-import tabStore from '@store/runtime-roadmap/tab-manager';
+import tabStore from '@store/roadmap/display/tab-manager';
 import Book from '@components/roadmap/tabs/book/Book';
 import Thread from '@components/roadmap/tabs/thread/Thread';
 import AddIssue from '@components/roadmap/tabs/AddIssue';
 import Issues from '@components/roadmap/tabs/issues/Issues';
+import About from '@components/roadmap/tabs/about/About';
 import Info from './tabs/Info';
-import About from './tabs/About';
 
 const TabManager = () => {
   const { open, type } = useStore(tabStore);

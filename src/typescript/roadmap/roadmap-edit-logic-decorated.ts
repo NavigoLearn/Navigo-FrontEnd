@@ -11,7 +11,7 @@ import {
 } from '@typescript/roadmap/roadmap-edit-decorators';
 import { NodeIdentifierTypes, NodeInfoStore } from '@type/roadmap/nodes';
 import { LevelTypes } from '@type/roadmap/level-types';
-import roadmapEdit from '@store/roadmap_edit';
+import roadmapEdit from '@store/roadmap/data/roadmap_edit';
 import {
   isNodeInfoProps,
   isNodeInfoStore,
@@ -31,7 +31,7 @@ import {
   removeChunkNode,
 } from '@typescript/roadmap/roadmap-edit-logic';
 import { ResourceSubNodeStore } from '@type/roadmap/resources';
-import roadmapState from '@store/roadmap_state';
+import roadmapState from '@store/roadmap/data/roadmap_state';
 import ErrorHandler from '@typescript/error-handler';
 import { getNodeCoords } from '@typescript/roadmap/render/coord-calc';
 

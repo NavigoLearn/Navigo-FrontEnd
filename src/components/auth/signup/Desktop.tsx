@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import {
-  GoogleLoginButton,
-  GithubLoginButton,
-} from 'react-social-login-buttons';
+import GoogleLoginButton from '@components/auth/social-buttons/GoogleLoginButton';
+import GithubLoginButton from '@components/auth/social-buttons/GithubLoginButton';
 import {
   handleGoogleLogin,
   handleGitHubLogin,
@@ -106,8 +104,8 @@ const DesktopSignUp = () => {
           <hr className='border-gray-500' />
         </div>
         <div className='grid gap-2.5 mt-12 items-center justify-center'>
-          <GoogleLoginButton onClick={handleGoogleLogin} />
           <GithubLoginButton onClick={handleGitHubLogin} />
+          <GoogleLoginButton onClick={handleGoogleLogin} />
         </div>
       </form>
     </div>

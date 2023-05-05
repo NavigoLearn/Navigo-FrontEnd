@@ -1,7 +1,7 @@
 import React from 'react';
 import dropclose from '@assets/cross.svg';
 import Button from '@components/roadmap/tabs/utils/Button';
-import { flipOpen } from '@store/runtime-roadmap/tab-manager';
+import { flipOpen } from '@store/roadmap/display/tab-manager';
 
 type NavBookProps = {
   setSelect: (value: string) => void;

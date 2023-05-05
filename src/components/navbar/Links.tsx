@@ -9,23 +9,26 @@ const universalLinks = [
     title: 'home',
     path: '/home',
     cName:
-      'text-sm hover:underline flex items-center text-center font-normal inline-block text-secondary hover:underline-offset-4 ',
+      'text-[14px] flex items-center text-center  inline-block text-secondary hover:text-main transtion-all duration-300 ',
     id: 1,
+    hasUnder: true,
   },
   {
     title: 'Explore',
     path: '/explore',
     cName:
-      ' text-base hover:underline flex items-center text-center font-medium text-text/80 hover:underline-offset-4',
-    cIcon: explore,
+      ' text-md text-main opacity-70 hover:opacity-100 flex items-center text-center font-medium hover:text-main transtion-all duration-300  ',
+    cIcon: '',
     id: 2,
+    hasUnder: true,
   },
   {
     title: 'Feedback',
     path: '/feedback',
     cName:
-      'text-sm hover:underline flex items-center text-center font-normal text-secondary hover:underline-offset-4 ',
+      'text-[14px] flex items-center text-center  inline-block text-secondary hover:text-main transtion-all duration-300 ',
     id: 3,
+    hasUnder: true,
   },
 ];
 
@@ -45,6 +48,7 @@ const loggedLinks = [
       ' text-md font-semibold px-2 py-1 rounded-lg bg-primary border-2 border-transparent hover:border-black hover:bg-transparent hover:text-black transition-all text-white flex items-center text-center font-normal ',
     cIcon: '',
     id: 3,
+    hasUnder: false,
   },
 ];
 
@@ -53,15 +57,19 @@ const guestLinks = [
     title: 'Login',
     path: '/login',
     cName:
-      'text-sm hover:underline flex items-center text-center justify-end font-normal hover:underline-offset-4',
+      'text-[14px] flex items-center text-center  inline-block text-secondary hover:text-main transtion-all duration-300 ',
     id: 1,
+    cIcon: '',
+    hasUnder: true,
   },
   {
     title: 'Get Started',
     path: '/signup',
     cName:
-      'text-background text-sm hover:underline flex items-center text-center bg-primary rounded-md px-4 py-1 justify-end font-medium hover:underline-offset-2',
+      ' text-md font-semibold px-2 py-1 rounded-lg bg-primary border-2 border-transparent hover:border-black hover:bg-transparent hover:text-black transition-all text-white flex items-center text-center font-normal ',
     id: 2,
+    cIcon: '',
+    hasUnder: false,
   },
 ];
 

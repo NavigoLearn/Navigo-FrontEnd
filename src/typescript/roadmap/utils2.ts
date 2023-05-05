@@ -1,13 +1,13 @@
-import roadmapEdit from '@store/roadmap_edit';
-import roadmapStatic from '@store/roadmap_static';
+import roadmapEdit from '@store/roadmap/data/roadmap_edit';
+import roadmapStatic from '@store/roadmap/data/roadmap_static';
 import {
   setEditingTrue,
   toggleEditing,
 } from '@typescript/roadmap/roadmap-edit-logic-decorated';
-import { applyAllDiffs, emptyAllDiffs } from '@store/runtime-roadmap/diff-tabs';
+import { applyAllDiffs, emptyAllDiffs } from '@store/roadmap/cache/diff-tabs';
 import { deepCopy } from '@typescript/roadmap/utils';
-import { resetAllTooltips } from '@store/runtime-roadmap/miscParams';
-import { triggerChunkRerender } from '@store/runtime-roadmap/renderedChunks';
+import { resetAllTooltips } from '@store/roadmap/misc/miscParams';
+import { triggerChunkRerender } from '@store/roadmap/render/renderedChunks';
 import { updateRoadmapData } from '../../api-wrapper/roadmap/roadmaps';
 
 export function transferRoadmapToEdit() {

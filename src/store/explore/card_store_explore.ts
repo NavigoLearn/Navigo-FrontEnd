@@ -3,7 +3,7 @@ import { CardType } from '@type/explore/card';
 import {
   fetchDefaultCardsExplore,
   fetchRoadmapCardsProfile,
-} from '../api-wrapper/explore/roadmap-card-data';
+} from '../../api-wrapper/explore/roadmap-card-data';
 
 const cardsFromApi = atom(
   {} as {
@@ -45,6 +45,7 @@ export async function setRoadmapCardsFromApiProfile(
       description: value.description,
       likes: 0,
       id: value.id,
+      authorId: value.ownerId,
     };
     addCardToStore(value.id, newValue);
   });

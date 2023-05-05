@@ -4,7 +4,7 @@ import { TabAbout, TabInfo, TabIssue } from '@type/roadmap/tab-manager';
 import {
   createTabInfoData,
   updateTabInfoData,
-} from '../../api-wrapper/roadmap/tab-data';
+} from '../../../api-wrapper/roadmap/tab-data';
 
 const cachedTabs = atom({
   info: {},

@@ -1,6 +1,8 @@
 import { atom } from 'nanostores';
 import { TabAbout } from '@type/roadmap/tab-manager';
 import { deepCopy } from '@typescript/roadmap/utils';
+import { RoadmapTypeApi } from '@type/explore/card';
+import { fetchGetMiniProfileDataById } from '../../../api-wrapper/user/user';
 
 const tabManagerStore = atom({
   // holds the currently displayed tabs and is also used for editing tabs and issues
@@ -134,7 +136,16 @@ export function setAboutInfoOnly(tab: TabAbout) {
     about: { ...tab },
   });
 }
-export function setAbout(tab: TabAbout) {
+export function setAboutTabData(tab: TabAbout) {
+  const newTab = tabManagerStore.get();
+  tabManagerStore.set({
+    ...newTab,
+    about: { ...tab },
+    type: 'about',
+  });
+}
+
+export function setAbout() {
   const newTab = tabManagerStore.get();
   if (newTab.type === 'about' && newTab.open) {
     falseOpen();
@@ -143,15 +154,7 @@ export function setAbout(tab: TabAbout) {
   trueOpen();
   tabManagerStore.set({
     ...newTab,
-    about: { ...tab },
     type: 'about',
-  });
-}
-export function setTabAboutProp(property: string, value: string) {
-  const newTab = tabManagerStore.get();
-  newTab.about[property] = value;
-  tabManagerStore.set({
-    ...newTab,
   });
 }
 

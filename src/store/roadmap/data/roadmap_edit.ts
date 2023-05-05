@@ -6,8 +6,8 @@ import {
   generateTabInfo,
 } from '@typescript/roadmap/generators';
 import { calculateChunkId } from '@typescript/roadmap/utils';
-import { cacheTabInfo } from '@store/runtime-roadmap/cached-tabs';
-import { diffTabInfoNew } from '@store/runtime-roadmap/diff-tabs';
+import { cacheTabInfo } from '@store/roadmap/cache/cached-tabs';
+import { diffTabInfoNew } from '@store/roadmap/cache/diff-tabs';
 
 export const generateInitialEditCreate = (): Roadmap => {
   const initialTab = generateTabInfo('tab1', 'tab1 Title', false, '', [], '');

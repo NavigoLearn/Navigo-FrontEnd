@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import roadmapEdit from '@store/roadmap_edit';
+import roadmapEdit from '@store/roadmap/data/roadmap_edit';
 import { Roadmap } from '@type/roadmap/roadmap';
 import {
   generateNodeInfoEmpty,
@@ -14,8 +14,8 @@ import {
   isNodeTypesStore,
 } from '@type/roadmap/typecheckers';
 import { ResourceSubNodeStore } from '@type/roadmap/resources';
-import { diffTabInfoNew } from '@store/runtime-roadmap/diff-tabs';
-import { cacheTabInfo } from '@store/runtime-roadmap/cached-tabs';
+import { diffTabInfoNew } from '@store/roadmap/cache/diff-tabs';
+import { cacheTabInfo } from '@store/roadmap/cache/cached-tabs';
 import { changeTabIssuePropFlow } from '@typescript/roadmap/tab-logic-flows';
 
 /*

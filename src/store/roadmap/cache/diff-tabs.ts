@@ -4,15 +4,13 @@ import {
   createTabsToServer,
   getCachedTabInfo,
   updateTabsToServer,
-} from '@store/runtime-roadmap/cached-tabs';
+} from '@store/roadmap/cache/cached-tabs';
 import { HashMap } from '@type/roadmap/roadmap';
 import { TabInfo, TabIssue, TabAbout } from '@type/roadmap/tab-manager';
-import { readUInt } from 'astro/dist/assets/vendor/image-size/readUInt';
 import {
   postTabInfoPseudo,
   createTabInfoData,
-  postTabInfoPropPseudo,
-} from '../../api-wrapper/roadmap/tab-data';
+} from '../../../api-wrapper/roadmap/tab-data';
 
 const diffTabsStore = atom({
   // this is a store keeping track of the changes made to the tabs while editing

@@ -8,13 +8,17 @@ import {
   checkCachedTabAbout,
   cacheTabAbout,
   changeCachedTabAboutProp,
-} from '@store/runtime-roadmap/cached-tabs';
+} from '@store/roadmap/cache/cached-tabs';
 import { TabAbout, TabInfo, TabIssue } from '@type/roadmap/tab-manager';
-import { setAbout, setInfo } from '@store/runtime-roadmap/tab-manager';
+import {
+  setAbout,
+  setAboutTabData,
+  setInfo,
+} from '@store/roadmap/display/tab-manager';
 import {
   applyDiffInfoToTab,
   applyDiffIssueToTab,
-} from '@store/runtime-roadmap/diff-tabs';
+} from '@store/roadmap/cache/diff-tabs';
 import {
   postTabInfoPseudo,
   fetchTabInfoPseudo,
@@ -22,9 +26,10 @@ import {
   postTabIssue,
   postTabIssueProp,
   fetchTabIssuePseudo,
-  fetchTabAbout,
+  fetchTabAboutPseudo,
   postTabAboutProp,
   fetchTabInfoData,
+  fetchTabAbout,
 } from '../../api-wrapper/roadmap/tab-data';
 
 export const getTabInfoFlow = async (id: string) => {
@@ -109,7 +114,7 @@ export const checkjsonEmpty = (json: any) => {
 export const getTabAboutFlow = async (roadmapId): Promise<TabAbout> => {
   let about = checkCachedTabAbout();
   if (!about || checkjsonEmpty(about)) {
-    about = await fetchTabAbout('roadmap1').then((tab) => {
+    about = await fetchTabAbout(roadmapId).then((tab) => {
       cacheTabAbout(tab);
       return tab;
     });
@@ -128,12 +133,12 @@ export const postTabAboutPropFlow = async <T extends keyof TabAbout>(
 
 export const postTabAboutFlow = async (roadmapId: string) => {
   getTabAboutFlow(roadmapId).then((tab) => {
-    setAbout(tab);
+    setAboutTabData(tab);
   });
 };
 
 export const setTabAboutFlow = async (roadmapId: string) => {
-  getTabAboutFlow(roadmapId).then((tab) => {
-    setAbout(tab);
-  });
+  // getTabAboutFlow(roadmapId).then((tab) => {
+  // });
+  setAbout();
 };

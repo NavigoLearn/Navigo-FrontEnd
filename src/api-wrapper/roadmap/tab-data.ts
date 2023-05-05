@@ -11,7 +11,7 @@ import {
   generateTabAbout,
   generateTabInfo,
 } from '@typescript/roadmap/generators';
-import roadmapState from '@store/roadmap_state';
+import roadmapState from '@store/roadmap/data/roadmap_state';
 import { networkLatency } from './params';
 
 const aboutTab: HashMap<TabAbout> = {
@@ -72,7 +72,7 @@ const data: HashMap<TabInfo> = {
   ),
 };
 
-export const fetchTabAbout = async (id: string) => {
+export const fetchTabAboutPseudo = async (id: string) => {
   return new Promise<TabAbout>((resolve) => {
     setTimeout(() => {
       resolve(aboutTab[id]);
@@ -288,21 +288,57 @@ export function postTabIssueProp<T extends keyof TabIssue>(
     }, networkLatency);
   });
 }
+export const fetchTabAbout = async (roadmapId: string) => {
+  const response = await fetch(`/roadmaps/${roadmapId}/mini`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then((res) => res);
+  console.log(response);
+  const responseData = await response.json();
+  console.log(responseData);
 
-export const getNewTabId = async () => {
-  return new Promise<string>((resolve) => {
-    setTimeout(() => {
-      // change data at id with data
-      resolve(`tabid${Object.keys(data).length + 1}`);
-    }, networkLatency);
-  });
+  return responseData;
 };
 
-export const fetchIssueCommentsPseudo = async (id: string) => {
-  return new Promise<Comment[]>((resolve) => {
-    setTimeout(() => {
-      // change data at id with data
-      resolve([]);
-    }, networkLatency);
-  });
+export const fetchRoadmapMiniById = async (id: string) => {
+  // fetches roadmapData from api
+  const response = await fetch(`/api/roadmaps/${id}/mini`, {
+    method: 'GET',
+    credentials: 'include',
+  }).then((res) => res.json());
+  return response;
+};
+
+export const fetchPostTabAboutTitle = async (
+  roadmapId: string,
+  title: string
+) => {
+  const response = await fetch(`/api/roadmaps/${roadmapId}/title`, {
+    method: 'POST',
+    credentials: 'include',
+    body: JSON.stringify({ title }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then((res) => res);
+  const responseData = await response.json();
+  return responseData;
+};
+
+export const fetchPostTabAboutDescription = async (
+  roadmapId: string,
+  description: string
+) => {
+  const response = await fetch(`/api/roadmaps/${roadmapId}/description`, {
+    method: 'POST',
+    body: JSON.stringify({ description }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then((res) => res);
+  const responseData = await response.json();
+
+  return responseData;
 };

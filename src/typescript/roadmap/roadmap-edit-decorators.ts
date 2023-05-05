@@ -1,19 +1,19 @@
-import { getNodes } from '@store/runtime-roadmap/renderedNodes';
+import { getNodes } from '@store/roadmap/render/renderedNodes';
 import { getNodeCoords } from '@typescript/roadmap/render/coord-calc';
 import { renderConnections } from '@typescript/roadmap/render/connections';
-import { getTriggersRenderAll } from '@store/runtime-roadmap/rerenderTriggers';
+import { getTriggersRenderAll } from '@store/roadmap/render/rerenderTriggers';
 import { calculateChunkId } from '@typescript/roadmap/utils';
 import {
   removeChunkNode,
   addChunkNode,
   addConnection,
 } from '@typescript/roadmap/roadmap-edit-logic';
-import { triggerChunkRerender } from '@store/runtime-roadmap/renderedChunks';
+import { triggerChunkRerender } from '@store/roadmap/render/renderedChunks';
 import {
   emptyCachedNodeCoord,
   emptyCachedNodeCoordAll,
-} from '@store/runtime-roadmap/cached-node-coords';
-import { addNewError } from '@store/runtime-roadmap/error-list';
+} from '@store/roadmap/cache/cached-node-coords';
+import { addNewError } from '@store/roadmap/error-list';
 
 type TriggerFunction<T extends any[]> = (id: string, ...args: T) => any;
 type TriggerFunctionNoId<T extends any[]> = (...args: T) => any;
