@@ -16,11 +16,18 @@ const SearchDesktop = () => {
   const [render, setRender] = useState(false);
   const cardStore = cardsFromApi.get();
   const [pageNr, setPageNr] = useState(1);
-  const isDisabled = pageNr <= 1;
   const [isSafari, setIsSafari] = useState(false);
+  const cardCount = Object.keys(cardStore).length;
+  const disabledRight = cardCount < 9;
+  const disabledLeft = pageNr <= 1;
 
+  console.log(cardCount);
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    setRoadmapCardsFromApiExplore(query, 1).then(() => {
+      setRender((prev) => !prev);
+    });
   };
 
   useEffect(() => {
@@ -29,13 +36,17 @@ const SearchDesktop = () => {
         navigator.userAgent.indexOf('Chrome') === -1
     );
 
-    setRoadmapCardsFromApiExplore().then(() => {
+    setRoadmapCardsFromApiExplore('', 1).then(() => {
       setRender((prev) => !prev);
     });
-    console.log(cardStore);
   }, []);
   // const CompFilter = AugmentComp(UIButton, UIDropdown);
-  console.log(cardStore);
+
+  useEffect(() => {
+    setRoadmapCardsFromApiExplore(query, pageNr).then(() => {
+      setRender((prev) => !prev);
+    });
+  }, [pageNr]);
 
   return (
     <div>
@@ -46,7 +57,6 @@ const SearchDesktop = () => {
       >
         <div className={`relative ${isSafari ? 'mt-32' : ''}`}>
           <input
-            required
             value={query}
             onChange={({ target }) => setQuery(target.value)}
             type='text'
@@ -82,28 +92,6 @@ const SearchDesktop = () => {
         </div>
       </div>
 
-      {/* <div className='bg-background w-full h-24 opacity-70 -mt-20' />
-      <div className='w-72 bg-red-100 rounded-md flex relative fadeInAnimation select-none z-20 '>
-        <div className='absolute h-full w-1 bg-red-800 rounded-md ' />
-        <div className=' w-8 relative  '>
-          <img
-            src={warn}
-            className='absolute top-4 left-4'
-            width='20'
-            height='20'
-            alt=''
-          />
-        </div>
-        <div className='w-full ml-7 mt-1 mr-1 mb-4  '>
-          <div className='mt-2 font-semibold  text-sm font-roboto-text  text-red-800 '>
-            Warning
-          </div>
-          <div className='text-xs mt-2 font-roboto-text text-red-600'>
-            {message}
-          </div>
-        </div>
-      </div> */}
-
       <div className='flex justify-center items-center mt-16 '>
         <ul className='grid grid-cols-2 gap-x-9 gap-y-11 xl:grid-cols-3'>
           {Object.keys(cardStore).map((card: string) => (
@@ -113,6 +101,12 @@ const SearchDesktop = () => {
           ))}
         </ul>
       </div>
+
+      {cardCount === 0 && (
+        <div className='flex items-center justify-center font-kanit-text text-3xl text-secondary'>
+          Oops! Seems like someone ate all the roadmaps!
+        </div>
+      )}
 
       <div className='flex justify-center items-center my-8'>
         <button type='button'>
@@ -124,8 +118,10 @@ const SearchDesktop = () => {
         </button>
         <button
           type='button'
-          onClick={() => setPageNr((prev) => prev - 1)}
-          disabled={isDisabled}
+          onClick={() => {
+            setPageNr((prev) => prev - 1);
+          }}
+          disabled={disabledLeft}
         >
           <img
             src={chevronleft}
@@ -134,7 +130,13 @@ const SearchDesktop = () => {
           />
         </button>
         <span className='text-xl 2xl:text-2xl'>{pageNr}</span>
-        <button type='button' onClick={() => setPageNr((prev) => prev + 1)}>
+        <button
+          type='button'
+          onClick={() => {
+            setPageNr((prev) => prev + 1);
+          }}
+          disabled={disabledRight}
+        >
           <img
             src={chevronright}
             alt='ArrowRight'
