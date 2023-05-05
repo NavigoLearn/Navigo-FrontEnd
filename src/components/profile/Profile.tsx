@@ -20,7 +20,7 @@ const Profile = ({ id }: { id: string }) => {
     }
     setLoaded(true);
 
-    if (!document.cookie.includes('token')) {
+    if (!document.cookie.includes('token') && id === '') {
       window.location.href = '/login';
     }
 

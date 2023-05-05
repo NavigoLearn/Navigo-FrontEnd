@@ -2,22 +2,19 @@
 import Base from '@layouts/Base.astro';
 import SearchMobile from '../../components/explorerefr/mobile/Explore';
 import SearchDesktop from '@components/explorerefr/desktop/Search';
-import wave from '@assets/wavesNegative.svg';
 ---
 
 <Base title='Welcome to Astro.'>
   <div class='hidden md:block'>
-    <div class='mt-40 relative'>
-      <div class='bg-[#cfeefc] absolute w-full h-[300px] top-[-160px] -z-20'></div>
-      </div>
-      <img src={wave} alt='WaveBackground' class='absolute -z-10 bg-[#cfeefc] h-36 w-full'/>
-      <div class='flex justify-center items-center'>
-        <h1 class='font-semibold font-kanit-text mt-2 lg:text-4xl text-[35px] absolute 2xl:text-5xl'>
-          The journey of 1000 miles starts with 1 roadmap
-        </h1>
-      </div>
-      <SearchDesktop client:idle />
+    <div class='flex justify-center items-center'>
+      <h1
+        class='font-semibold font-kanit-text mt-2 lg:text-4xl text-[35px] absolute 2xl:text-5xl'
+      >
+        The journey of 1000 miles starts with 1 roadmap
+      </h1>
     </div>
+    <SearchDesktop client:idle />
+  </div>
   <div class='md:hidden'>
     <div
       class='flex items-center justify-center font-kanit-text text-[21px] flex-col mt-9 sm:text-[31px]'

@@ -1,6 +1,5 @@
 import { atom } from 'nanostores';
 import { RoadmapTypeApi } from '@type/explore/card';
-import tabManagerStore from '@store/roadmap/display/tab-manager';
 import { fetchGetMiniProfileDataById } from '../../../api-wrapper/user/user';
 import {
   fetchPostTabAboutDescription,
@@ -34,7 +33,11 @@ export function setTabAboutName(name: string, roadmapId: string) {
   const newTab = aboutTabStore.get();
   newTab.name = name;
   // also dispatches request to backend
-  fetchPostTabAboutTitle(roadmapId, name);
+  try {
+    fetchPostTabAboutTitle(roadmapId, name);
+  } catch (e) {
+    throw new Error('Error updating title');
+  }
   aboutTabStore.set({
     ...newTab,
   });
@@ -44,7 +47,27 @@ export function setTabAboutDescription(description: string, roadmapId: string) {
   const newTab = aboutTabStore.get();
   newTab.description = description;
   // also dispatches request to backend
-  fetchPostTabAboutDescription(roadmapId, description);
+  try {
+    fetchPostTabAboutDescription(roadmapId, description);
+  } catch (e) {
+    throw new Error('Error updating description');
+  }
+  aboutTabStore.set({
+    ...newTab,
+  });
+}
+
+export function setTabAboutNameNoRequest(name: string) {
+  const newTab = aboutTabStore.get();
+  newTab.name = name;
+  aboutTabStore.set({
+    ...newTab,
+  });
+}
+
+export function setTabAboutDescriptionNoRequest(description: string) {
+  const newTab = aboutTabStore.get();
+  newTab.description = description;
   aboutTabStore.set({
     ...newTab,
   });
@@ -59,7 +82,17 @@ export function setTabAboutProp(
     name: setTabAboutName,
     description: setTabAboutDescription,
   };
-  console.log(field, value);
   updaters[field](value, roadmapId);
-  console.log(aboutTabStore.get());
+}
+
+export function setTabAboutPropNoRequest(
+  field: string,
+  value: string,
+  roadmapId: string
+) {
+  const updaters = {
+    name: setTabAboutNameNoRequest,
+    description: setTabAboutDescriptionNoRequest,
+  };
+  updaters[field](value, roadmapId);
 }

@@ -5,6 +5,7 @@ import {
 } from '@typescript/roadmap/generators';
 import roadmapState from '@store/roadmap/data/roadmap_state';
 import tabManagerStore from '@store/roadmap/display/tab-manager';
+import aboutTabStore from '@store/roadmap/data/about';
 import { networkLatency } from './params';
 //
 // const roadmap1: Roadmap = {
@@ -168,8 +169,8 @@ export const updateRoadmapData = async (roadmap: Roadmap) => {
 export const postRoadmapData = async (roadmap: Roadmap) => {
   // posts roadmapData to api
   const newRoadmap: BackendRoadmapFormat = {
-    name: tabManagerStore.get().about.name,
-    description: tabManagerStore.get().about.description,
+    name: aboutTabStore.get().name,
+    description: aboutTabStore.get().description,
     isPublic: true,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),

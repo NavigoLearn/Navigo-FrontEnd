@@ -2,7 +2,10 @@ import React, { useRef, useEffect, useState } from 'react';
 import AboutNonEditField from '@components/roadmap/tabs/about/AboutNonEditField';
 import AboutEditingField from '@components/roadmap/tabs/about/AboutEditingField';
 import { useStore } from '@nanostores/react';
-import aboutTabStore, { setTabAboutProp } from '@store/roadmap/data/about';
+import aboutTabStore, {
+  setTabAboutProp,
+  setTabAboutPropNoRequest,
+} from '@store/roadmap/data/about';
 import { TabAbout } from '@type/roadmap/tab-manager';
 import EditingManagerTabs from '@components/roadmap/tabs/EditingManagerTabs';
 import useStateAndRef from '@hooks/useStateAndRef';
@@ -13,10 +16,6 @@ import roadmapVisitData, {
 } from '@store/roadmap/data/roadmap-visit-data';
 import roadmapState, { getIsCreate } from '@store/roadmap/data/roadmap_state';
 import { divWrapper } from '../utils/logic';
-import {
-  fetchRoadmap,
-  fetchRoadmapMiniById,
-} from '../../../../api-wrapper/roadmap/roadmaps';
 
 const About = () => {
   const fields = ['name', 'author', 'description'];
@@ -78,11 +77,19 @@ const About = () => {
                       NonEditingComponent={AboutNonEditField}
                       data={aboutRef.current[field]}
                       persistDataSave={(value) => {
-                        setTabAboutProp(
-                          field,
-                          value,
-                          roadmapVisitData.get().roadmapId
-                        );
+                        if (!roadmapState.get().isCreate) {
+                          setTabAboutProp(
+                            field,
+                            value,
+                            roadmapVisitData.get().roadmapId
+                          );
+                        } else {
+                          setTabAboutPropNoRequest(
+                            field,
+                            value,
+                            roadmapVisitData.get().roadmapId
+                          );
+                        }
                       }}
                       capLen={capLens[field]}
                     />
