@@ -2,6 +2,8 @@ import {
   CardType,
   RoadmapTypeApi,
   CardTypeApiResponse,
+  CardTypeApiResponseExplore,
+  RoadmapTypeApiExplore,
 } from '@type/explore/card';
 import { networkLatency } from '../roadmap/params';
 
@@ -91,12 +93,19 @@ export const fetchCardDataPseudo = async (id: string) => {
     }, networkLatency);
   });
 };
-export const fetchDefaultCards = async () => {
-  return new Promise<string[]>((resolve) => {
-    setTimeout(() => {
-      resolve(['1', '2', '3', '4', '5', '6', '7', '8', '9']);
-    }, networkLatency);
-  });
+
+export const fetchDefaultCardsExplore = async (): Promise<
+  RoadmapTypeApiExplore[]
+> => {
+  const fetchRouteExplore = '/api/explore';
+  const responseExplore = await fetch(fetchRouteExplore, {
+    method: 'GET',
+    credentials: 'include',
+  }).then((res) => res);
+  const dataJsonExplore: CardTypeApiResponseExplore =
+    await responseExplore.json();
+  console.log(dataJsonExplore);
+  return dataJsonExplore.roadmaps;
 };
 
 export const fetchRoadmapCardsProfile = async (
