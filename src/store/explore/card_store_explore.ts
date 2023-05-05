@@ -19,8 +19,12 @@ export function addCardToStore(id: string, card: CardType) {
   cardsFromApi.set({ ...original });
 }
 
-export async function setRoadmapCardsFromApiExplore() {
-  const exploreRoadmaps = await fetchDefaultCardsExplore();
+export async function setRoadmapCardsFromApiExplore(
+  query: string,
+  page: number
+) {
+  const exploreRoadmaps = await fetchDefaultCardsExplore(query, page);
+  emptyStore();
   exploreRoadmaps.forEach((value) => {
     const newValueExplore: CardType = {
       name: value.name,

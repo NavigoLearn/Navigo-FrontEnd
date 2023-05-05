@@ -23,6 +23,7 @@ export type CardTypeApiResponse = {
   userId: string;
   roadmaps: RoadmapTypeApi[];
 };
+
 export type RoadmapTypeApiExplore = {
   id: string;
   name: string;
