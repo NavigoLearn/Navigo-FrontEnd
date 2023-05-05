@@ -6,7 +6,7 @@ import chevronrightduo from '@assets/chevron-right-duo.svg';
 import chevronleft from '@assets/chevron-left.svg';
 import chevronright from '@assets/chevron-right.svg';
 import cardsFromApi, {
-  setCardsFromApiDefault,
+  setRoadmapCardsFromApiExplore,
 } from '@store/card_store_explore';
 import FilterAugD from './filterhoc/FilterAugD';
 import Card from '../Card';
@@ -28,11 +28,15 @@ const SearchDesktop = () => {
       navigator.userAgent.indexOf('Safari') !== -1 &&
         navigator.userAgent.indexOf('Chrome') === -1
     );
-    setCardsFromApiDefault().then(() => {
+
+    setRoadmapCardsFromApiExplore().then(() => {
       setRender((prev) => !prev);
     });
+    console.log(cardStore);
   }, []);
   // const CompFilter = AugmentComp(UIButton, UIDropdown);
+  console.log(cardStore);
+
   return (
     <div>
       <form

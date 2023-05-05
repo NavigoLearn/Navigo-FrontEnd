@@ -9,7 +9,7 @@ import chevronleft from '@assets/chevron-left.svg';
 import chevronright from '@assets/chevron-right.svg';
 // import Cookies from '@components/explorerefr/mobile/cookies/Cookies';
 import cardsFromApi, {
-  setCardsFromApiDefault,
+  setRoadmapCardsFromApiExplore,
 } from '@store/card_store_explore';
 import SortBy from './SortBy';
 // import Filter from './Filter';
@@ -25,7 +25,7 @@ const SearchMobile = () => {
   const cardStore = cardsFromApi.get();
 
   useEffect(() => {
-    setCardsFromApiDefault().then(() => {
+    setRoadmapCardsFromApiExplore().then(() => {
       setRender(true);
     });
   }, []);
