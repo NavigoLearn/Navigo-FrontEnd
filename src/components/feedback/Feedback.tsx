@@ -20,7 +20,9 @@ const Feedback = () => {
   return (
     <div>
       {typeof isDesktop === 'undefined' ? null : (
-        <div>{isDesktop ? <DesktopFeedback /> : <MobileFeedback />}</div>
+        <div>
+          <DesktopFeedback />
+        </div>
       )}
     </div>
   );

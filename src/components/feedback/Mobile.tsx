@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import discord from '@assets/discord.svg';
 import github from '@assets/github.svg';
 import gmail from '@assets/gmail.svg';
-import IssueCard from '@components/feedback/IssueCard';
+import IssuesList from '@components/feedback/IssuesList';
 import Issue from '@components/roadmap/tabs/utils/Issue';
 
 const DesktopFeedback = () => {
@@ -161,7 +161,7 @@ const DesktopFeedback = () => {
         Planned features
       </h1>
       <div className='justify-center text-center mt-10'>
-        <IssueCard />
+        <IssuesList />
       </div>
       <a
         href='https://github.com/orgs/NavigoLearn/discussions'

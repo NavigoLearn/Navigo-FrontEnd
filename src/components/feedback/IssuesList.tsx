@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import issues from 'src/types/feedback/issues';
 
-const IssueCard = () => {
+const IssuesList = () => {
   return (
     <ul className='grid grid-col sm:grid-cols-2 lg:grid-cols-3 gap-x-9 gap-y-11 xl:grid-cols-3 xl:mx-6 2xl:mx-56'>
       {issues.map((issue) => {
@@ -19,7 +19,7 @@ const IssueCard = () => {
               <div className='flex justify-end items-center relative mr-6'>
                 <a
                   href={issue.link}
-                  className='py-1 px-3 font-kanit-text font-medium text-end bg-black text-white rounded-full hover:underline hover:underline-offset-2'
+                  className='py-1 px-3 font-kanit-text font-medium text-end bg-black text-white rounded-full transition-all border-2 border-none  hover:bg-transparent hover:text-black '
                 >
                   See discussion
                 </a>
@@ -32,4 +32,4 @@ const IssueCard = () => {
   );
 };
 
-export default IssueCard;
+export default IssuesList;
