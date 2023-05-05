@@ -26,7 +26,6 @@ const Profile = ({ id }: { id: string }) => {
 
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-  console.log('profile roo');
 
   return (
     <div>

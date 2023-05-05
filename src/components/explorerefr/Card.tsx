@@ -32,7 +32,7 @@ const Card = ({ cardStore }: { cardStore: CardType }) => {
           {name}
         </h1>
         <div className='font-roboto'>
-          <div className='absolute pl-14 text-[9px] sm:text-xs sm:pl-[83px] flex flex-col justify-center items-center text-placeholder 2xl:text-sm 2xl:pl-[102px]'>
+          <div className='absolute top-4 right-4 text-[9px] sm:text-xs sm:pl-[83px] flex flex-col justify-center items-center text-placeholder 2xl:text-sm 2xl:pl-[102px]'>
             <div className='text-sm'>made by</div>
             <RedirectToProfile redirectUserId={authorId}>
               <div className='text-md text-blue-400  hover:text-blue-600 transition-all '>

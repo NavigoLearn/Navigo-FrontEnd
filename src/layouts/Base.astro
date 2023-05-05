@@ -1,5 +1,6 @@
 ---
 import Navbar from '@components/navbar/Navbar';
+import RequestManager from '../components/misc/RequestManager';
 export interface Props {
   title: string;
 }
@@ -22,6 +23,7 @@ import '@fontsource/oxygen';
   </head>
   <body class='bg-background relative w-screen h-screen'>
     <Navbar client:load />
+    <RequestManager client:load />
     <slot />
   </body>
 </html>
