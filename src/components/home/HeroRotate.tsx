@@ -58,6 +58,8 @@ const HeroRotate = ({ scale, animSpeed }: HeroRotateProps) => {
   }, []);
 
   useEffect(() => {
+    let switchInterval: NodeJS.Timer;
+
     if (set) {
       // initialize the images and their positions + onclick
       arrangeImagesAndSetOnclick(baseArr, params, allowed);
@@ -87,14 +89,16 @@ const HeroRotate = ({ scale, animSpeed }: HeroRotateProps) => {
         const elArr = document.querySelectorAll('.smallTarget');
         const randomIdx = Math.floor(Math.random() * elArr.length);
         const randomElId = elArr[randomIdx].id;
+
         switchPlaces(allowed, randomElId);
-        setTimeout(() => {
-          switchPlacesTimeout();
-        }, 2500);
       }
 
-      switchPlacesTimeout();
+      switchInterval = setInterval(switchPlacesTimeout, 3000);
     }
+
+    return () => {
+      clearInterval(switchInterval);
+    };
   }, [set]);
 
   return (

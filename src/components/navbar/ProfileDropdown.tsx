@@ -84,7 +84,7 @@ const SvgLogoutComponent = () => {
   return (
     <button
       type='button'
-      className='w-full flex justify-center py-2 pt-3  group/button hover:bg-primary transition-all duration-200'
+      className='w-full flex justify-center py-2 pt-3  group/button hover:bg-red-500 transition-all duration-200'
       onClick={() => {
         // logs out userDisplay
         handleLogout();
@@ -93,7 +93,7 @@ const SvgLogoutComponent = () => {
       <div className='w-3/6 p-[1px] ml-1 z-10'>
         <SvgLogoutSvg />
       </div>
-      <div className='absolute border-black bg-white group-hover/button:bg-primary w-full h-10 bottom-0 duration-200 transition-all z-0 ' />
+      <div className='absolute border-black bg-white group-hover/button:bg-red-500 w-full h-10 bottom-0 duration-200 transition-all z-0 ' />
     </button>
   );
 };
@@ -105,12 +105,12 @@ const ProfileDropdown = ({
 }) => {
   return (
     <li className='flex relative group/wrapper  w-12 h-12 mr-2'>
-      <div className=' absolute top-0 flex group/wrapper w-20 h-20'>
+      <div className=' absolute top-0 flex group/wrapper w-10 h-20'>
         <a className='' href='/profile'>
           <img
             src={profilePictureUrl}
             alt='icon'
-            className='w-10 h-10 rounded-full flex m-1 mr-4'
+            className='w-10 h-10 rounded-full flex m-1'
           />
         </a>
         <div className='absolute flex flex-col left-1 w-10 overflow-hidden transition-all duration-300 h-4 opacity-0 group-hover/wrapper:opacity-100 group-hover/wrapper:h-[95px]  top-12 rounded-full bg-white shadow-standard '>
