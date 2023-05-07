@@ -8,9 +8,6 @@ function handleSocialLogin(link: string, features: string) {
       // check if cookie is set
       if (!document.cookie.includes('token')) return;
 
-      // close the child window
-      popup.close();
-
       // do something after successful login
       console.log('Login successful!');
 
@@ -18,12 +15,12 @@ function handleSocialLogin(link: string, features: string) {
       clearInterval(intervalId);
 
       // redirect to home page
-      window.location.href = '/';
+      window.location.href = '/home';
     } catch (e) {
       // do nothing
       console.log(e);
     }
-  }, 1);
+  }, 100);
 
   // if the child window is closed, stop polling
   popup.onclose = () => {
@@ -63,7 +60,7 @@ export function handleGitHubLogin() {
 
 export async function handleLogout() {
   // makes call to api for logout
-  const response = await fetch('/api/auth/logout', {
+  await fetch('/api/auth/logout', {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
