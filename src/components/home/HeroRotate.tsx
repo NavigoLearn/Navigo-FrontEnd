@@ -1,10 +1,4 @@
-import React, {
-  useRef,
-  useEffect,
-  useState,
-  useMemo,
-  MutableRefObject
-} from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   arrangeImagesAndSetOnclick,
   initializeImgCenter,
@@ -12,9 +6,9 @@ import {
   switchPlaces,
 } from '@typescript/home/hero';
 import {
-  PopulatedParams,
-  HeroRotateProps,
   BaseParams,
+  HeroRotateProps,
+  PopulatedParams,
 } from '@type/home/hero-rotate';
 import anime from 'animejs/lib/anime';
 import useScrollTop from '@hooks/useScrollTop';
@@ -63,41 +57,6 @@ const HeroRotate = ({ scale, animSpeed }: HeroRotateProps) => {
     // the first render will only create the scafolding for the animation
   }, []);
 
-  function switchPlacesLoop(allowed: MutableRefObject<boolean>, interval: number) {
-    let lastTime = 0;
-    let isPaused = false;
-
-    function animateSwitch(currentTime: number) {
-      if (isPaused) {
-        return;
-      }
-
-      if (currentTime - lastTime >= interval) {
-        lastTime = currentTime;
-
-        const elArr = document.querySelectorAll('.smallTarget');
-        const randomIdx = Math.floor(Math.random() * elArr.length);
-        const randomElId = elArr[randomIdx].id;
-
-        switchPlaces(allowed, randomElId);
-      }
-
-      requestAnimationFrame(animateSwitch);
-    }
-
-    document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'hidden') {
-        isPaused = true;
-      } else {
-        // The page is now visible again, so resume the animations
-        isPaused = false;
-        initializeImgCenter('centerMain', params);
-      }
-    });
-
-    requestAnimationFrame(animateSwitch);
-  }
-
   useEffect(() => {
     if (set) {
       // initialize the images and their positions + onclick
@@ -123,15 +82,41 @@ const HeroRotate = ({ scale, animSpeed }: HeroRotateProps) => {
         loop: true,
       });
 
-      // starts loop for images switching
-      switchPlacesLoop(allowed, 3000);
+      let lastTime = 0;
+      let isPaused = false;
+      let frameId: number;
+
+      function animateSwitch(currentTime: number) {
+        if (isPaused) {
+          return;
+        }
+
+        if (currentTime - lastTime >= 250) {
+          lastTime = currentTime;
+
+          const elArr = document.querySelectorAll('.smallTarget');
+          const randomIdx = Math.floor(Math.random() * elArr.length);
+          const randomElId = elArr[randomIdx].id;
+
+          switchPlaces(allowed, randomElId);
+        }
+
+        frameId = requestAnimationFrame(animateSwitch);
+      }
+
+      document.addEventListener('visibilitychange', () => {
+        arrangeImagesAndSetOnclick(baseArr, params, allowed);
+        initializeImgCenter('centerMain', params);
+      });
+
+      frameId = requestAnimationFrame(animateSwitch);
+
+      return () => {
+        // cleanup
+        cancelAnimationFrame(frameId);
+      };
     }
-
-    return () => {
-      // cleanup
-    };
   }, [set]);
-
 
   return (
     <div
