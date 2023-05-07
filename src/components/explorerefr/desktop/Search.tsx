@@ -52,7 +52,7 @@ const SearchDesktop = () => {
     <div>
       <form
         action='submit'
-        className={`flex justify-center ${isSafari ? 'mt-44' : 'mt-24'}`}
+        className={`flex justify-center ${isSafari ? 'mt-44' : 'mt-24'} select-none`}
         onSubmit={handleSubmit}
       >
         <div className={`relative ${isSafari ? 'mt-32' : ''}`}>
@@ -63,7 +63,7 @@ const SearchDesktop = () => {
             placeholder='Search for a roadmap'
             className='h-[75px] w-[765px] bg-white z-10 rounded-full shadow-standard pl-20 text-2xl placeholder:font-roboto-text pb-[2px] focus:outline-none 2xl:w-[1000px]'
           />
-          <img
+          <img draggable="false"
             src={loupe}
             alt='LoupeSearch'
             className='absolute top-6 w-8 h-8 left-5'
@@ -82,10 +82,10 @@ const SearchDesktop = () => {
       <div className='bg-background h-20 w-full -mt-20 opacity-75 relative flex justify-center items-center 2xl:h-24 2xl:-mt-24'>
         <div className='w-full bg-background h-7 2xl:h-8 flex justify-center items-center absolute'>
           <div className='bg-red-100 w-96 h-full flex justify-center items-center text-opacity-40 text-sm border-2 border-red-700 border-opacity-50 rounded-md relative 2xl:text-base 2xl:w-[420px]'>
-            <img
+            <img draggable="false"
               src={warn}
               alt='postBetWarning'
-              className='w-5 h-5 absolute left-1'
+              className='w-5 h-5 absolute left-1 select-none '
             />
             Filters will be added post beta default: Likes.
           </div>
@@ -108,9 +108,9 @@ const SearchDesktop = () => {
         </div>
       )}
 
-      <div className='flex justify-center items-center my-8'>
+      <div className='flex justify-center items-center my-8 select-none'>
         <button type='button'>
-          <img
+          <img draggable="false"
             src={chevroleftduo}
             alt='doubleArrowLeft'
             className='w-8 h-8 2xl:w-9 2xl:h-9'
@@ -123,13 +123,13 @@ const SearchDesktop = () => {
           }}
           disabled={disabledLeft}
         >
-          <img
+          <img draggable="false"
             src={chevronleft}
             alt='ArrowLeft'
             className='w-9 h-9 2xl:w-11 2xl:h-11'
           />
         </button>
-        <span className='text-xl 2xl:text-2xl'>{pageNr}</span>
+        <span className='text-xl 2xl:text-2xl select-auto'>{pageNr}</span>
         <button
           type='button'
           onClick={() => {
@@ -137,14 +137,14 @@ const SearchDesktop = () => {
           }}
           disabled={disabledRight}
         >
-          <img
+          <img draggable="false"
             src={chevronright}
             alt='ArrowRight'
             className='w-9 h-9 2xl:w-11 2xl:h-11'
           />
         </button>
         <button type='button'>
-          <img
+          <img draggable="false"
             src={chevronrightduo}
             alt='doubleArrowRight'
             className='w-8 h-8 2xl:w-9 2xl:h-9'

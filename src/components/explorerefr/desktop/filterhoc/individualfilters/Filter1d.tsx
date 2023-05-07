@@ -22,13 +22,13 @@ const Filter1d = (props) => {
               {value}
             </span>
             {isOpen ? (
-              <img
+              <img draggable="false"
                 src={chevronup}
                 alt='openList'
                 className='h-6 w-6 sm:h-7 sm:w-7 sm:top-0 top-[0px] absolute right-1 2xl:w-9 2xl:h-9'
               />
             ) : (
-              <img
+              <img draggable="false"
                 src={chevrondown}
                 alt='closeList'
                 className='h-6 w-6 sm:h-7 sm:w-7 sm:top-0 top-[0px] absolute right-1 2xl:w-9 2xl:h-9'

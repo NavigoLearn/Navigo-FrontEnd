@@ -57,8 +57,8 @@ const ProfileDisplay = ({ id }: { id: string }) => {
       <div className='flex justify-between w-10/12 mt-44 items-center text-center'>
         <div className='flex flex-col justify-center items-center w-full transform my-12'>
           <div className='w-60 h-60 xl:w-72 xl:h-72 absolute -top-80 '>
-            <img
-              className='rounded-full w-full h-full flex '
+            <img draggable="false"
+              className='rounded-full w-full h-full flex select-none'
               src={setProfileUrl()}
               alt='profile'
             />

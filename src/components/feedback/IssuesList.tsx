@@ -19,7 +19,7 @@ const IssuesList = () => {
               <div className='flex justify-end items-center relative mr-6'>
                 <a
                   href={issue.link}
-                  className='py-1 px-3 font-kanit-text font-medium text-end bg-black text-white rounded-full transition-all border-2 border-none  hover:bg-transparent hover:text-black '
+                  className='py-1 px-3 font-kanit-text font-medium text-end bg-black text-white rounded-full transition-all border-2 border-none  hover:bg-transparent hover:text-black select-none'
                 >
                   See discussion
                 </a>

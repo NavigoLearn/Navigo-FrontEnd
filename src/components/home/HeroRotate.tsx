@@ -104,7 +104,7 @@ const HeroRotate = ({ scale, animSpeed }: HeroRotateProps) => {
   return (
     <div
       ref={rootRef}
-      className='flex justify-center items-center overflow-hidden bg-background'
+      className='flex justify-center items-center overflow-hidden bg-background select-none'
     >
       <div id='center' className='w-1 h-1 border-green-400 relative hidden'>
         {set && (
@@ -114,7 +114,7 @@ const HeroRotate = ({ scale, animSpeed }: HeroRotateProps) => {
               id='centerMain'
               className='absolute mainTarget rot'
             >
-              <img
+              <img draggable="false"
                 alt='imageCenter'
                 id='mainImg'
                 className='w-full h-full'
@@ -129,10 +129,10 @@ const HeroRotate = ({ scale, animSpeed }: HeroRotateProps) => {
                   key={el}
                   id={`${el}`}
                 >
-                  <img
+                  <img draggable="false"
                     alt='imagerotating'
                     src={el}
-                    className='w-full h-full  rounded-md'
+                    className='w-full h-full rounded-md'
                   />
                 </button>
               );

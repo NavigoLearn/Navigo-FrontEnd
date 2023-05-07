@@ -16,7 +16,7 @@ const Issue = ({
   return (
     <div className='w-full flex my-6 relative'>
       <div className='w-10 h-10 '>
-        <img src={circledot} alt='issue icon' />
+        <img draggable="false" src={circledot} alt='issue icon' />
       </div>
       <div>
         <button

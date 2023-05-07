@@ -71,7 +71,7 @@ const SearchMobile = () => {
       <div>{clickFilter && <FilterAug handleClick={handleClick} />}</div>
       <div>{clickSort && <SortBy handleClick={handleClick} />}</div>
       <form
-        className='flex justify-center items-center mt-9 sm:mt-12'
+        className='flex justify-center items-center mt-9 sm:mt-12 select-none'
         action='submit'
         onSubmit={handleSubmit}
       >
@@ -83,7 +83,7 @@ const SearchMobile = () => {
             className='rounded-full w-[273px] h-10 placeholder: text-[14px] pl-10 font-roboto-text outline-none shadow-standard sm:w-[375px] sm:h-12'
             placeholder='Search for a roadmap_static'
           />
-          <img
+          <img draggable="false"
             src={loupe}
             alt='searchIcon'
             className='absolute left-3 top-3 sm:top-[14px]'
@@ -91,10 +91,10 @@ const SearchMobile = () => {
         </div>
       </form>
 
-      <div className='flex justify-center items-center space-x-12 mt-7 sm:mt-9'>
+      <div className='flex justify-center items-center space-x-12 mt-7 sm:mt-9 select-none'>
         <button type='button' onClick={() => handleClick('filter')}>
           <div className='bg-primary flex justify-center items-center shadow-standard rounded-lg w-[90px] text-white h-[30px] sm:w-[122px] sm:h-[42px]'>
-            <img
+            <img draggable="false"
               src={filter}
               alt='filterButton'
               className='inline-block h-4 w-4 sm:h-5 sm:w-5'
@@ -106,7 +106,7 @@ const SearchMobile = () => {
         </button>
         <button type='button' onClick={() => handleClick('sort')}>
           <div className='bg-primary flex justify-center items-center shadow-standard rounded-lg w-[90px] text-white h-[30px] sm:w-[122px] sm:h-[42px]'>
-            <img
+            <img draggable="false"
               src={sort}
               alt='filterButton'
               className='inline-block h-4 w-4'
@@ -120,10 +120,10 @@ const SearchMobile = () => {
 
       <div className='bg-background w-full h-10 justify-center flex items-center -mt-9 relative opacity-75 sm:h-12 sm:-mt-12'>
         <div className='w-full h-5 bg-red-100 text-xs flex justify-center items-center border border-red-700 sm:text-sm sm:h-6'>
-          <img
+          <img draggable="false"
             src={warn}
             alt='warnForMobile'
-            className='h-4 w-4 mr-2 sm:h-5 sm:w-5'
+            className='h-4 w-4 mr-2 sm:h-5 sm:w-5 select-none'
           />
           Filters will be added post beta default: Likes.
         </div>
@@ -139,9 +139,9 @@ const SearchMobile = () => {
         </ul>
       </div>
 
-      <div className='flex justify-center items-center my-8'>
+      <div className='flex justify-center items-center my-8 select-none'>
         <button type='button'>
-          <img
+          <img draggable="false"
             src={chevroleftduo}
             alt='doubleArrowLeft'
             className='w-5 h-5 sm:w-7 sm:h-7'
@@ -152,22 +152,22 @@ const SearchMobile = () => {
           onClick={() => setPageNr((prev) => prev - 1)}
           disabled={disabledLeft}
         >
-          <img
+          <img draggable="false"
             src={chevronleft}
             alt='ArrowLeft'
             className='w-6 h-6 sm:w-8 sm:h-8'
           />
         </button>
-        <span>{pageNr}</span>
+        <span className="select-all">{pageNr}</span>
         <button type='button' onClick={() => setPageNr((prev) => prev + 1)} disabled={disabledRight}>
-          <img
+          <img draggable="false"
             src={chevronright}
             alt='ArrowRight'
             className='w-6 h-6 sm:w-8 sm:h-8'
           />
         </button>
         <button type='button'>
-          <img
+          <img draggable="false"
             src={chevronrightduo}
             alt='doubleArrowRight'
             className='w-5 h-5 sm:w-8 sm:h-8'

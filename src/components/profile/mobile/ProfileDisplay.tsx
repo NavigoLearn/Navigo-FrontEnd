@@ -60,7 +60,7 @@ const ProfileDisplay = ({ id }: { id: string }) => {
 
   return (
     <>
-      <img
+      <img draggable="false"
         src={setProfileUrl()}
         alt='avatar'
         className='rounded-full flex w-6/12 '
@@ -142,7 +142,7 @@ const ProfileDisplay = ({ id }: { id: string }) => {
             onKeyDown={handleClick}
           >
             <h3 className='inline-block text-center'>See less</h3>
-            <img
+            <img draggable="false"
               src={arrowup}
               alt='arrowupicon'
               className='inline-block ml-4 w-4'
@@ -175,7 +175,7 @@ const ProfileDisplay = ({ id }: { id: string }) => {
           onKeyDown={handleClick}
         >
           <h3 className='inline-block'>See more</h3>
-          <img
+          <img draggable="false"
             src={arrowdwn}
             alt='arrowdownicon'
             className='inline-block ml-4 w-4'

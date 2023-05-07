@@ -14,7 +14,7 @@ const StandardButton = ({
       type='button'
       className={`font-roboto text-md md:text-xl px-4 py-2 font-normal  rounded-md  transition-all ${
         currentForm ? 'bg-primary text-white' : 'bg-transparent'
-      } `}
+      } select-none`}
       onClick={() => setFormType()}
     >
       {formType}

@@ -22,7 +22,7 @@ const Arrows = ({ decPage, incPage, toBegin, toEnd, page }: Props) => {
               toBegin();
             }}
           >
-            <img alt='first page' src={doublearrowright} className='w-3 h-3' />
+            <img draggable="false" alt='first page' src={doublearrowright} className='w-3 h-3' />
           </button>
           <button
             type='button'
@@ -30,7 +30,7 @@ const Arrows = ({ decPage, incPage, toBegin, toEnd, page }: Props) => {
               decPage();
             }}
           >
-            <img alt='previous page' src={arrowright} className='w-4 h-4 ' />
+            <img draggable="false" alt='previous page' src={arrowright} className='w-4 h-4 ' />
           </button>
         </div>
         <div className='text-lg font-roboto-text'>{page}</div>
@@ -41,7 +41,7 @@ const Arrows = ({ decPage, incPage, toBegin, toEnd, page }: Props) => {
               incPage();
             }}
           >
-            <img alt='next page' src={arrowleft} className='w-4 h-4' />
+            <img draggable="false" alt='next page' src={arrowleft} className='w-4 h-4' />
           </button>
           <button
             type='button'
@@ -49,7 +49,7 @@ const Arrows = ({ decPage, incPage, toBegin, toEnd, page }: Props) => {
               toEnd();
             }}
           >
-            <img alt='go to end' src={doublearrowleft} className='w-3 h-3 ' />
+            <img draggable="false" alt='go to end' src={doublearrowleft} className='w-3 h-3 ' />
           </button>
         </div>
       </div>

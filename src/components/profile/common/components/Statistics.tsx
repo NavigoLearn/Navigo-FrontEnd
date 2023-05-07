@@ -11,11 +11,11 @@ const Statistics = ({ roadmapsCount }: { roadmapsCount: number }) => {
           </h1>
         </div>
         <div className='flex'>
-          <img src={dizaign} className='flex' alt='line' />
+          <img draggable="false" src={dizaign} className='flex select-none' alt='line' />
           <h2 className='text-xl font-normal mx-4 text-center font-roboto-text'>
             {roadmapsCount}
           </h2>
-          <img src={dizaign} className='flex' alt='line' />
+          <img draggable="false" src={dizaign} className='flex select-none' alt='line' />
         </div>
       </div>
     </div>

@@ -24,7 +24,7 @@ const FilterAugD = (props) => {
 
   return (
     <div>
-      <div className='flex justify-center items-center'>
+      <div className='flex justify-center items-center select-none '>
         <div className='grid grid-cols-3 mt-10 w-[830px] gap-16 2xl:w-[1100px]'>
           <div>
             <Filter1d

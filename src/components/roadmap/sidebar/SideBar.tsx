@@ -50,7 +50,7 @@ const SideBar = ({ isCreate }: { isCreate: string }) => {
 
   return (
     <div
-      className='w-48 h-full  top-0 absolute left-0'
+      className='h-full  top-0 absolute left-0'
       onMouseEnter={handleHover}
       onMouseLeave={handleHover}
     >

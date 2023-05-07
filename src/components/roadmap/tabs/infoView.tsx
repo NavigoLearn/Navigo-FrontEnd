@@ -18,7 +18,7 @@ const InfoView = () => {
               flipOpen();
             }}
           >
-            <img src={cross} className='w-6 h-6' />
+            <img draggable="false" src={cross} className='w-6 h-6' />
           </button>
           <div className='mt-2'>
             <Button

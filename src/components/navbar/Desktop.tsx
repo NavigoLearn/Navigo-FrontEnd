@@ -16,9 +16,9 @@ const DesktopNavbar = () => {
   }, []);
 
   return (
-    <nav className='bg-transparent flex w-full relative h-16 z-10 justify-between items-center overflow-visible'>
+    <nav className='bg-transparent flex w-full relative h-16 z-10 justify-between items-center overflow-visible select-none'>
       <a href='/home' className='justify-start cursor-pointer flex'>
-        <img className='w-20 ml-8' src={logoSrc} alt='navbar-logo' />
+        <img draggable="false" className='w-20 ml-8 select-none ' src={logoSrc} alt='navbar-logo' />
       </a>
       <ul className='flex absolute w-full pointer-events-none justify-center text-center items-center gap-10 h-full '>
         {universalLinks.map((link) => {

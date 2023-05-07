@@ -18,7 +18,7 @@ const AboutEditing = () => {
     <div className='w-full'>
       <MainTitle text='About Editing' />
       <div className='w-full flex justify-center'>
-        <img
+        <img draggable="false"
           alt='img node explanation'
           src='/roadmap/nodeExpl.png'
           className='w-4/6 '

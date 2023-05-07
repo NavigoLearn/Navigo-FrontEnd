@@ -48,7 +48,7 @@ import book from '@assets/bookwhite.svg';
   <div class='flex justify-center items-center'>
     <div class='grid grid-cols-3 items-start text-white gap-36 2xl:gap-44'>
       <div class='flex justify-center items-center flex-col'>
-        <img src={bulb} alt='lighBulb' class='w-24 h-24 2xl:w-32 2xl:h-32' />
+        <img draggable="false" src={bulb} alt='lighBulb' class='w-24 h-24 2xl:w-32 2xl:h-32 select-none' />
         <h1
           class='landing-min:text-3xl text-2xl font-kanit-text mt-2 2xl:text-4xl'
         >
@@ -63,7 +63,7 @@ import book from '@assets/bookwhite.svg';
         </p>
       </div>
       <div class='flex justify-center items-center flex-col'>
-        <img src={book} alt='learnBook' class='w-24 h-24 2xl:w-32 2xl:h-32' />
+        <img draggable="false" src={book} alt='learnBook' class='w-24 h-24 2xl:w-32 2xl:h-32 select-none' />
         <h1
           class='landing-min:text-3xl text-2xl font-kanit-text mt-2 2xl:text-4xl'
         >
@@ -78,10 +78,10 @@ import book from '@assets/bookwhite.svg';
         </p>
       </div>
       <div class='flex justify-center items-center flex-col'>
-        <img
+        <img draggable="false"
           src={contribute}
           alt='peopleAtDesk'
-          class='w-24 h-24 2xl:w-32 2xl:h-32'
+          class='w-24 h-24 2xl:w-32 2xl:h-32 select-none'
         />
         <h1
           class='landing-min:text-3xl text-2xl font-kanit-text mt-2 2xl:text-4xl'

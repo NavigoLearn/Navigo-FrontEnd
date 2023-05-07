@@ -58,7 +58,7 @@ const DesktopLogin = () => {
             value={email}
             data-testid='email'
             onChange={({ target }) => setEmail(target.value)}
-            className='py-3 mt-3 rounded-xl ml-px w-96 pl-3 placeholder:font-kanit-text placeholder:text-placeholder h-12'
+            className='py-3 mt-3 rounded-xl ml-px w-96 pl-3 placeholder:font-kanit-text placeholder:text-placeholder h-12 select-none'
           />
         </div>
         <div className='flex flex-col mt-5'>
@@ -73,12 +73,12 @@ const DesktopLogin = () => {
             value={password}
             data-testid='password'
             onChange={({ target }) => setPassword(target.value)}
-            className='py-3 mt-3 rounded-xl ml-px w-96 pl-3 placeholder:font-kanit-text placeholder:text-placeholder h-12'
+            className='py-3 mt-3 rounded-xl ml-px w-96 pl-3 placeholder:font-kanit-text placeholder:text-placeholder h-12 select-none'
           />
         </div>
         <div className='flex justify-center items-center text-[18px]'>
           <button
-            className='bg-buttongradient mt-11 py-2.5 text-white w-60 rounded-full font-kanit-text'
+            className='bg-buttongradient mt-11 py-2.5 text-white w-60 rounded-full font-kanit-text select-none'
             type='submit'
           >
             Login
@@ -92,7 +92,7 @@ const DesktopLogin = () => {
         </div>
         <div className='mt-14 grid grid-cols-3 items-center text-gray-500'>
           <hr className='border-gray-500' />
-          <p className='text-center text-xs font-roboto-text text-placeholder'>
+          <p className='text-center text-xs font-roboto-text text-placeholder select-none'>
             OR
           </p>
           <hr className='border-gray-500' />

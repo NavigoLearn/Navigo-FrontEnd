@@ -59,7 +59,7 @@ const DropdownType = ({
           <div className=' text-secondary text-md mb-1  relative'>
             {selectedOption}
 
-            <img
+            <img draggable="false"
               src={arrow}
               alt='chose element'
               className={` w-3 opacity-50 transition-transform absolute -right-5 bottom-1   ${

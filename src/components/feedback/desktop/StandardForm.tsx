@@ -23,7 +23,7 @@ const StandardForm = HOCForm(
   }: FormProps) => {
     return (
       <form
-        className='flex flex-col gap-5 items-center justify-center mt-14'
+        className='flex flex-col gap-5 items-center justify-center mt-14 select-none'
         onSubmit={handleSubmit}
       >
         <textarea

@@ -25,7 +25,7 @@ const AddIssue = () => {
             setIssues();
           }}
         >
-          <img alt='close tab issue' src={cross} className='w-6 h-6' />
+          <img draggable="false" alt='close tab issue' src={cross} className='w-6 h-6' />
         </button>
       </div>
 

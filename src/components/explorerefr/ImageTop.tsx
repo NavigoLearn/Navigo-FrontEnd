@@ -7,7 +7,7 @@ const MyComponent = () => {
       <div className='mt-40 relative'>
         <div className='bg-[#cfeefc] absolute w-full h-[300px] top-[-160px] -z-20' />
       </div>
-      <img
+      <img draggable="false"
         src={wave}
         alt='WaveBackground'
         className='absolute -z-10 bg-[#cfeefc] h-36 w-full'
