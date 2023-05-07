@@ -1,4 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
+import cross from '@assets/cross.svg';
+import { flipOpen } from '@store/roadmap/display/tab-manager';
 import AboutNonEditField from '@components/roadmap/tabs/about/AboutNonEditField';
 import AboutEditingField from '@components/roadmap/tabs/about/AboutEditingField';
 import { useStore } from '@nanostores/react';
@@ -51,9 +53,25 @@ const About = () => {
   }, [visitorIsOwner]);
 
   return (
-    <div className='h-full w-full relative border-t-2 border-t-black md:border-t-0'>
-      <div className='w-5/6 flex justify-between items-center mx-8 mt-6 '>
-        <div className=' font-kanit-text font-semibold text-2xl md:text-4xl  '>
+    <div className='h-full w-full relative bg-white md:border-t-0'>
+      <div className='w-5/6 flex justify-center items-center mx-8 mt-6 relative '>
+        <button
+          type='button'
+          className=' w-6 h-6 absolute left-0 select-none'
+          onClick={() => {
+            // close tab
+            flipOpen();
+          }}
+        >
+          <img
+            draggable='false'
+            alt='close tab issue'
+            src={cross}
+            className='w-6 h-6'
+          />
+        </button>
+
+        <div className=' font-kanit-text font-semibold text-2xl md:text-4xl '>
           About
         </div>
       </div>
