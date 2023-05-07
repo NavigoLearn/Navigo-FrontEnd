@@ -51,21 +51,23 @@ const SideBarMobile = ({ isCreate }: { isCreate: string }) => {
   };
 
   return (
-    <div className='flex justify-start pl-4 w-full h-8 absolute -top-10  pointer-events-none '>
-      <div />
-      <ul className='flex gap-8 '>
-        {getButtonRoute().map((button) => {
-          return (
-            <GenericButtonMobile
-              key={button.id}
-              id={button.id}
-              onClick={button.clickHandler}
-              cIcon={button.cIcon}
-            />
-          );
-        })}
-      </ul>
-    </div>
+    <>
+      <div className='w-full h-12 bg-[#FFFFFF]  opacity-100   absolute top-[-48px] ' />
+      <div className='flex justify-start  pl-4 w-full h-8 absolute -top-10  pointer-events-none '>
+        <ul className='flex gap-8 z-10 '>
+          {getButtonRoute().map((button) => {
+            return (
+              <GenericButtonMobile
+                key={button.id}
+                id={button.id}
+                onClick={button.clickHandler}
+                cIcon={button.cIcon}
+              />
+            );
+          })}
+        </ul>
+      </div>
+    </>
   );
 };
 

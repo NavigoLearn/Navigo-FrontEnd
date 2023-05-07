@@ -8,6 +8,7 @@ const RequestManager = () => {
   useEffect(() => {
     fetchGetMiniProfileData().then((res) => {
       if (res === false) {
+        console.log('res is false');
         setIsLogged(false);
         setLoaded(true);
         // deletes token if exists because it is invalid

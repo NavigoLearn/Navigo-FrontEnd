@@ -41,7 +41,6 @@ const SearchDesktop = () => {
       setRender((prev) => !prev);
       setLoaded(true);
     });
-    
   }, []);
   // const CompFilter = AugmentComp(UIButton, UIDropdown);
 
@@ -57,7 +56,9 @@ const SearchDesktop = () => {
     <div>
       <form
         action='submit'
-        className={`flex justify-center ${isSafari ? 'mt-44' : 'mt-24'} select-none`}
+        className={`flex justify-center ${
+          isSafari ? 'mt-44' : 'mt-24'
+        } select-none`}
         onSubmit={handleSubmit}
       >
         <div className={`relative ${isSafari ? 'mt-32' : ''}`}>
@@ -68,7 +69,8 @@ const SearchDesktop = () => {
             placeholder='Search for a roadmap'
             className='h-[75px] w-[765px] bg-white z-10 rounded-full shadow-standard pl-20 text-2xl placeholder:font-roboto-text pb-[2px] focus:outline-none 2xl:w-[1000px]'
           />
-          <img draggable="false"
+          <img
+            draggable='false'
             src={loupe}
             alt='LoupeSearch'
             className='absolute top-6 w-8 h-8 left-5'
@@ -87,7 +89,8 @@ const SearchDesktop = () => {
       <div className='bg-background h-20 w-full -mt-20 opacity-75 relative flex justify-center items-center 2xl:h-24 2xl:-mt-24'>
         <div className='w-full bg-background h-7 2xl:h-8 flex justify-center items-center absolute'>
           <div className='bg-red-100 w-96 h-full flex justify-center items-center text-opacity-40 text-sm border-2 border-red-700 border-opacity-50 rounded-md relative 2xl:text-base 2xl:w-[420px]'>
-            <img draggable="false"
+            <img
+              draggable='false'
               src={warn}
               alt='postBetWarning'
               className='w-5 h-5 absolute left-1 select-none '
@@ -99,11 +102,12 @@ const SearchDesktop = () => {
 
       <div className='flex justify-center items-center mt-16 '>
         <ul className='grid grid-cols-2 gap-x-9 gap-y-11 xl:grid-cols-3'>
-          {loaded && Object.keys(cardStore).map((card: string) => (
-            <div key={card} className='flex items-center justify-center'>
-              <Card cardStore={cardStore[card]} />
-            </div>
-          ))}
+          {loaded &&
+            Object.keys(cardStore).map((card: string) => (
+              <div key={card} className='flex items-center justify-center'>
+                <Card cardStore={cardStore[card]} />
+              </div>
+            ))}
         </ul>
       </div>
 
@@ -115,7 +119,8 @@ const SearchDesktop = () => {
 
       <div className='flex justify-center items-center my-8 select-none'>
         <button type='button'>
-          <img draggable="false"
+          <img
+            draggable='false'
             src={chevroleftduo}
             alt='doubleArrowLeft'
             className='w-8 h-8 2xl:w-9 2xl:h-9'
@@ -128,7 +133,8 @@ const SearchDesktop = () => {
           }}
           disabled={disabledLeft}
         >
-          <img draggable="false"
+          <img
+            draggable='false'
             src={chevronleft}
             alt='ArrowLeft'
             className='w-9 h-9 2xl:w-11 2xl:h-11'
@@ -142,14 +148,16 @@ const SearchDesktop = () => {
           }}
           disabled={disabledRight}
         >
-          <img draggable="false"
+          <img
+            draggable='false'
             src={chevronright}
             alt='ArrowRight'
             className='w-9 h-9 2xl:w-11 2xl:h-11'
           />
         </button>
         <button type='button'>
-          <img draggable="false"
+          <img
+            draggable='false'
             src={chevronrightduo}
             alt='doubleArrowRight'
             className='w-8 h-8 2xl:w-9 2xl:h-9'

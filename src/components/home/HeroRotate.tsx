@@ -82,7 +82,7 @@ const HeroRotate = ({ scale, animSpeed }: HeroRotateProps) => {
         loop: true,
       });
 
-      let lastTime = 0;
+      let lastTime = -2500;
       const isPaused = false;
       let frameId: number;
 

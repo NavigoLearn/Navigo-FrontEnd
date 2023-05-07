@@ -55,8 +55,8 @@ const SideBar = ({ isCreate }: { isCreate: string }) => {
       onMouseLeave={handleHover}
     >
       <div
-        className={`
-      bg-white  h-full top-0 transition-all ease-linear duration-100 items-center justify-center gap-5 drop-shadow-xl flex-col-4 absolute left-0
+        className={` bg-white
+        h-full top-0 transition-all ease-linear duration-100 items-center justify-center gap-5 drop-shadow-xl flex-col-4 absolute left-0
        ${hover ? 'w-48' : 'w-20 m-auto'} 
         `}
       >

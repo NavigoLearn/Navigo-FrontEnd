@@ -2,17 +2,19 @@ import React, { useEffect, useState } from 'react';
 import dropdown from '@assets/menu.svg';
 import dropclose from '@assets/cross.svg';
 import logoSrc from '@assets/logo.svg';
-import HOCnav from '@components/navbar/HOCnav';
+import { useStore } from '@nanostores/react';
+import loggedUser from '@store/user/logged-user';
+import userStatus from '@store/user/user-status';
 import { mobileLogged, mobileGuest } from './Links';
 
-const MobileNavbar = ({
-  isLoggedIn,
-  loaded,
-}: {
-  isLoggedIn: boolean;
-  loaded: boolean;
-}) => {
+const MobileNavbar = () => {
   const [click, setClick] = useState(false);
+  const [hydrated, setHydrated] = useState(false);
+  const { profilePictureUrl } = useStore(loggedUser);
+  const { loaded, isLogged } = useStore(userStatus);
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
 
   const handleClick = () => {
     setClick((prev) => !prev);
@@ -39,13 +41,24 @@ const MobileNavbar = ({
         onKeyDown={handleClick}
         role='presentation'
       >
-        <img draggable="false"
-          className={click ? 'h-12' : 'h-12 object-contain'}
+        <img
+          draggable='false'
+          className={`relative z-[100] ${
+            click ? 'h-12' : 'h-12 object-contain'
+          }`}
           src={click ? dropclose : dropdown}
           alt='dropdown'
         />
       </div>
       <div className='w-full h-full'>
+        <div
+          className={`top-0 bg-background h-20 transition-all w-full  z-50 absolute ease-linear duration-150 ${
+            click
+              ? 'left-0  opacity-100'
+              : 'w-full pointer-events-none -left-full opacity-0'
+          }`}
+        />
+
         <ul
           className={`  bg-background flex-col absolute items-center  ease-linear duration-150 ${
             click
@@ -54,13 +67,14 @@ const MobileNavbar = ({
           }`}
         >
           <a href='/home' className='justify-start cursor-pointer flex'>
-            <img draggable="false"
+            <img
+              draggable='false'
               className='w-full h-20 object-contain items-center'
               src={logoSrc}
               alt='navbar-logo'
             />
           </a>
-          {isLoggedIn
+          {hydrated && isLogged
             ? mobileLogged.map((link) => {
                 return (
                   <li
@@ -69,7 +83,8 @@ const MobileNavbar = ({
                   >
                     <a className={link.cName} href={link.path}>
                       {link.cIcon && (
-                        <img draggable="false"
+                        <img
+                          draggable='false'
                           src={link.cIcon}
                           alt='icon'
                           className='w-8 flex justify-center'
@@ -89,7 +104,8 @@ const MobileNavbar = ({
                     <a className={link.cName} href={link.path}>
                       <div className='flex items-center justify-center '>
                         {link.cIcon && (
-                          <img draggable="false"
+                          <img
+                            draggable='false'
                             src={link.cIcon}
                             alt='icon'
                             className='w-8 flex -translate-x-2'
@@ -107,4 +123,4 @@ const MobileNavbar = ({
   );
 };
 
-export default HOCnav(MobileNavbar);
+export default MobileNavbar;

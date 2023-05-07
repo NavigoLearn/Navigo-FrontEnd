@@ -52,7 +52,7 @@ export async function setRoadmapCardsFromApiProfile(
       name: value.name,
       author,
       description: value.description,
-      likes: 0,
+      likes: parseInt(value.likes, 10),
       id: value.id,
       authorId: value.ownerId,
     };

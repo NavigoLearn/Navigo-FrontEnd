@@ -13,10 +13,10 @@ import issuesDisplay, {
   setDisplayPage,
 } from '@store/roadmap/display/issues-display';
 import PageArrows from '@components/roadmap/tabs/issues/PageArrows';
+import loggedUser from '@store/user/logged-user';
 import Issue from './Issue';
 import IssueButton from '../utils/IssueButton';
 import { divWrapper } from '../utils/logic';
-import loggedUser from "@store/user/logged-user";
 
 const Issues = () => {
   const [page, setPage] = useState(1);
@@ -37,32 +37,40 @@ const Issues = () => {
   }, [page]);
 
   return (
-    <div className='w-full h-full relative flex flex-col border-t-black border-t-2 md:border-t-0'>
-      <div className='w-full  flex justify-center items-center mx-8 mt-6 flex-shrink-0 '>
+    <div className='w-full h-full  relative bg-white flex flex-col border-t-black border-t-0 md:border-t-0'>
+      <div className='w-full  flex justify-center items-center px-8 mt-6 flex-shrink-0 '>
         <div className=' font-kanit-text font-semibold text-2xl md:text-4xl  '>
           Issues
         </div>
-        <div className='mt-2 absolute right-10'>
-          {loggedUser.get().userId === '' ? ( '' ) : (
-          <Button
-            text='Add issue'
-            callback={() => {
-              setAddIssue();
-            }}
-            color='secondary'
-            size='small'
-          />)}
+        <div className=' absolute right-10'>
+          {loggedUser.get().userId === '' ? (
+            ''
+          ) : (
+            <Button
+              text='Add issue'
+              callback={() => {
+                setAddIssue();
+              }}
+              color='secondary'
+              size='small'
+            />
+          )}
         </div>
 
         <button
           type='button'
-          className='mt-2 w-6 h-6 absolute left-10 select-none'
+          className=' w-6 h-6 absolute left-10 select-none'
           onClick={() => {
             // close tab
             flipOpen();
           }}
         >
-          <img draggable="false" alt='close tab issue' src={cross} className='w-6 h-6' />
+          <img
+            draggable='false'
+            alt='close tab issue'
+            src={cross}
+            className='w-6 h-6'
+          />
         </button>
       </div>
       {divWrapper(<IssueButton />)}

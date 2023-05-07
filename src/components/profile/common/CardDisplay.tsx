@@ -25,10 +25,10 @@ const CardDisplay = () => {
 
   return (
     <>
-      <ul className='grid grid-cols-1 md:grid-cols-2 gap-x-9 gap-y-11 xl:grid-cols-3'>
+      <ul className='grid grid-cols-1 md:grid-cols-2 gap-x-9 gap-y-11 xl:grid-cols-3 w-full'>
         {loaded &&
           Object.keys(cardStore).map((card: string) => (
-            <div key={card} className='flex items-center justify-center'>
+            <div key={card} className='flex items-center justify-center w-full'>
               <Card cardStore={cardStore[card]} />
             </div>
           ))}
