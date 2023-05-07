@@ -13,7 +13,7 @@ const Socials = () => {
           // insert discord server link here
           href='https://discord.gg/TRGqNXvj'
           target='_blank'
-          className='text-placeholder font-kanit-text'
+          className='text-placeholder font-kanit-text select-none'
           rel='noreferrer'
         >
           <img src={discord} alt='discord' className='w-8 h-8 mt-6' />
@@ -22,7 +22,7 @@ const Socials = () => {
           href='https://github.com/NavigoLearn'
           target='_blank'
           rel='noreferrer'
-          className='text-placeholder font-kanit-text'
+          className='text-placeholder font-kanit-text select-none'
         >
           <img
             src={github}
@@ -32,7 +32,7 @@ const Socials = () => {
         </a>
         <a
           href='mailto:navigolearn@gmail.com'
-          className='text-placeholder font-kanit-text'
+          className='text-placeholder font-kanit-text select-none'
         >
           <img src={gmail} alt='gmail' className='flex md:mt-6 w-8 h-8' />
         </a>
