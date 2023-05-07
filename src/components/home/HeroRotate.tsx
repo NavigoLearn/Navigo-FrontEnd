@@ -83,7 +83,7 @@ const HeroRotate = ({ scale, animSpeed }: HeroRotateProps) => {
       });
 
       let lastTime = 0;
-      let isPaused = false;
+      const isPaused = false;
       let frameId: number;
 
       function animateSwitch(currentTime: number) {
@@ -131,7 +131,8 @@ const HeroRotate = ({ scale, animSpeed }: HeroRotateProps) => {
               id='centerMain'
               className='absolute mainTarget rot'
             >
-              <img draggable="false"
+              <img
+                draggable='false'
                 alt='imageCenter'
                 id='mainImg'
                 className='w-full h-full'
@@ -146,7 +147,8 @@ const HeroRotate = ({ scale, animSpeed }: HeroRotateProps) => {
                   key={el}
                   id={`${el}`}
                 >
-                  <img draggable="false"
+                  <img
+                    draggable='false'
                     alt='imagerotating'
                     src={el}
                     className='w-full h-full rounded-md'
