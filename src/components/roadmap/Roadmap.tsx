@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+
 import { v4 as uuid4 } from 'uuid';
 import NodeManager from '@components/roadmap/NodeManager';
 import { useStore } from '@nanostores/react';
@@ -26,8 +27,6 @@ import {
   setDisableZoomTrigger,
   setEnableZoomTrigger,
 } from '@store/roadmap/misc/miscParams';
-import { getTabAboutFlow } from '@typescript/roadmap/tab-logic-flows';
-import { setAboutInfoOnly } from '@store/roadmap/display/tab-manager';
 import Popup from './tabs/popups/Popup';
 
 const Roadmap = ({ pageId }: { pageId: string }) => {
@@ -113,17 +112,6 @@ const Roadmap = ({ pageId }: { pageId: string }) => {
     setDisableZoomTrigger(() => {
       disableZoomFn();
     });
-
-    return () => {
-      console.log('cleanup');
-      // cleaning up roadmap stores to not interfere with other roadmaps
-      // cache cleanup
-      // diff cleanup
-      // renderedChunks cleanup
-      // renderedNodes cleanup
-      // renderedTriggers cleanup
-      // tab manager cleanup
-    };
   }, []);
 
   useEffect(() => {

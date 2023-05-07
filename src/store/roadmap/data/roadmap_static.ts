@@ -40,11 +40,14 @@ export function setRoadmapFromAPI(pageId: string) {
 }
 
 export function initialRoadmapCreateRender() {
-  setRoadmap(generateInitialEditCreate());
-  setIsCreateTrue();
-  setLoadedTrue();
-  triggerChunkRerender();
-  miscParams.get().recenterRoadmap();
+  setTimeout(() => {
+    // allows js to run all the code on the stack before running this
+    setRoadmap(generateInitialEditCreate());
+    setIsCreateTrue();
+    setLoadedTrue();
+    triggerChunkRerender();
+    miscParams.get().recenterRoadmap();
+  }, 0);
 }
 
 export default roadmapStatic;

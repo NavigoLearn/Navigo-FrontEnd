@@ -11,6 +11,7 @@ export type RoadmapTypeApi = {
   id: string;
   ownerId: string;
   name: string;
+  likes: string;
   description: string;
   createdAt: string;
   updatedAt: string;
@@ -40,5 +41,5 @@ export type CardTypeApiResponseExplore = {
 };
 
 export type likeType = {
-  success: boolean
-}
+  success: boolean;
+};
