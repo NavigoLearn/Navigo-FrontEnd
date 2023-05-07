@@ -13,7 +13,8 @@ module.exports = {
         resourceSubNode: '#DEE2E7',
         white: '#FFFFFF',
         thirdary: '#1A1B50',
-        eugene: '#6B6DB0'
+        eugene: '#6B6DB0',
+        footer: '#040E16',
       },
       borderColor: {
         light: 'rgb(0,0,0,0.3)',

@@ -1,11 +1,13 @@
 ---
 import Navbar from '@components/navbar/Navbar';
+import Footer from '@layouts/Footer.astro';
 import RequestManager from '../components/misc/RequestManager';
 export interface Props {
   title: string;
+  excludeFooter?: boolean;
 }
 
-const { title } = Astro.props;
+const { title, excludeFooter } = Astro.props;
 
 import '@fontsource/kanit';
 import '@fontsource/roboto';
@@ -21,9 +23,11 @@ import '@fontsource/oxygen';
     <meta name='generator' content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body class='bg-background relative w-screen h-screen'>
+  <body class='bg-background relative w-screen min-h-screen'>
     <Navbar client:load />
     <RequestManager client:load />
     <slot />
+    <div class="h-72"></div>
+    {!excludeFooter && <Footer />}
   </body>
 </html>
