@@ -91,7 +91,7 @@ const HeroRotate = ({ scale, animSpeed }: HeroRotateProps) => {
           return;
         }
 
-        if (currentTime - lastTime >= 250) {
+        if (currentTime - lastTime >= 3000) {
           lastTime = currentTime;
 
           const elArr = document.querySelectorAll('.smallTarget');
