@@ -36,10 +36,10 @@ const SearchMobile = () => {
   }, []);
 
   useEffect(() => {
-    if(loaded) {
+    if (loaded) {
       setRoadmapCardsFromApiExplore(query, pageNr).then(() => {
         setRender((prev) => !prev);
-     });
+      });
     }
   }, [pageNr]);
 
@@ -80,13 +80,14 @@ const SearchMobile = () => {
       >
         <div className='relative'>
           <input
-          value={query}
-          onChange={({ target }) => setQuery(target.value)}
+            value={query}
+            onChange={({ target }) => setQuery(target.value)}
             type='text'
             className='rounded-full w-[273px] h-10 placeholder: text-[14px] pl-10 font-roboto-text outline-none shadow-standard sm:w-[375px] sm:h-12'
             placeholder='Search for a roadmap_static'
           />
-          <img draggable="false"
+          <img
+            draggable='false'
             src={loupe}
             alt='searchIcon'
             className='absolute left-3 top-3 sm:top-[14px]'
@@ -97,7 +98,8 @@ const SearchMobile = () => {
       <div className='flex justify-center items-center space-x-12 mt-7 sm:mt-9 select-none'>
         <button type='button' onClick={() => handleClick('filter')}>
           <div className='bg-primary flex justify-center items-center shadow-standard rounded-lg w-[90px] text-white h-[30px] sm:w-[122px] sm:h-[42px]'>
-            <img draggable="false"
+            <img
+              draggable='false'
               src={filter}
               alt='filterButton'
               className='inline-block h-4 w-4 sm:h-5 sm:w-5'
@@ -109,7 +111,8 @@ const SearchMobile = () => {
         </button>
         <button type='button' onClick={() => handleClick('sort')}>
           <div className='bg-primary flex justify-center items-center shadow-standard rounded-lg w-[90px] text-white h-[30px] sm:w-[122px] sm:h-[42px]'>
-            <img draggable="false"
+            <img
+              draggable='false'
               src={sort}
               alt='filterButton'
               className='inline-block h-4 w-4'
@@ -123,7 +126,8 @@ const SearchMobile = () => {
 
       <div className='bg-background w-full h-10 justify-center flex items-center -mt-9 relative opacity-75 sm:h-12 sm:-mt-12'>
         <div className='w-full h-5 bg-red-100 text-xs flex justify-center items-center border border-red-700 sm:text-sm sm:h-6'>
-          <img draggable="false"
+          <img
+            draggable='false'
             src={warn}
             alt='warnForMobile'
             className='h-4 w-4 mr-2 sm:h-5 sm:w-5 select-none'
@@ -134,17 +138,19 @@ const SearchMobile = () => {
 
       <div className='mt-10 sm:mt-12'>
         <ul className='flex flex-col gap-7 sm:gap-9'>
-          {loaded && Object.keys(cardStore).map((card: string) => (
-            <div key={card} className='flex items-center justify-center'>
-              <Card cardStore={cardStore[card]} />
-            </div>
-          ))}
+          {loaded &&
+            Object.keys(cardStore).map((card: string) => (
+              <div key={card} className='flex items-center justify-center'>
+                <Card cardStore={cardStore[card]} />
+              </div>
+            ))}
         </ul>
       </div>
 
       <div className='flex justify-center items-center my-8 select-none'>
         <button type='button'>
-          <img draggable="false"
+          <img
+            draggable='false'
             src={chevroleftduo}
             alt='doubleArrowLeft'
             className='w-5 h-5 sm:w-7 sm:h-7'
@@ -155,22 +161,29 @@ const SearchMobile = () => {
           onClick={() => setPageNr((prev) => prev - 1)}
           disabled={disabledLeft}
         >
-          <img draggable="false"
+          <img
+            draggable='false'
             src={chevronleft}
             alt='ArrowLeft'
             className='w-6 h-6 sm:w-8 sm:h-8'
           />
         </button>
-        <span className="select-all">{pageNr}</span>
-        <button type='button' onClick={() => setPageNr((prev) => prev + 1)} disabled={disabledRight}>
-          <img draggable="false"
+        <span className='select-all'>{pageNr}</span>
+        <button
+          type='button'
+          onClick={() => setPageNr((prev) => prev + 1)}
+          disabled={disabledRight}
+        >
+          <img
+            draggable='false'
             src={chevronright}
             alt='ArrowRight'
             className='w-6 h-6 sm:w-8 sm:h-8'
           />
         </button>
         <button type='button'>
-          <img draggable="false"
+          <img
+            draggable='false'
             src={chevronrightduo}
             alt='doubleArrowRight'
             className='w-5 h-5 sm:w-8 sm:h-8'

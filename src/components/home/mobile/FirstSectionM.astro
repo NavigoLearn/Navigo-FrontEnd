@@ -2,19 +2,20 @@
 import HeroWrapper from '../HeroWrapper';
 ---
 
-<div class='flex flex-col items-center h-[560px] mt-8'>
-  <div class='flex flex-col text-center w-64 font-kanit-text mt-1'>
+<div class='flex flex-col items-center h-[350px] mt-8 bg-background'>
+  <div class='flex flex-col text-center w-64 font-kanit-text mt-1 mb-4'>
     <h1 class='text text-3xl'>Navigo Learn</h1>
     <p class='mt-4 text-xs'>
       The place you can learn anything through organized roadmaps that will
       guide you in your journey
     </p>
   </div>
-  <div class='mt-12'>
     <HeroWrapper flag={'mobile'} client:load />
   </div>
-  <svg class='w-64 h-44 mt-[240px]'>
-    <circle cx='50%' cy='40' r='5' fill='#0B1C2C'></circle>
+</div>
+<div class="w-full flex justify-center items-center">
+  <svg class='w-64 h-44 bg-background'>
+    <circle cx='50%' cy='40' r='5' fill='black'></circle>
     <circle cx='55%' cy='84' r='5' fill='#0B1C2C'></circle>
     <circle cx='53.5%' cy='130' r='5' fill='#0B1C2C'></circle>
     <circle cx='50%' cy='100%' r='5' fill='#0B1C2C'></circle>
