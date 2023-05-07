@@ -21,17 +21,31 @@ const SearchMobile = () => {
   const [clickSort, setClickSort] = useState(false);
   const [render, setRender] = useState(false);
   const [pageNr, setPageNr] = useState(1);
-  const isDisabled = pageNr <= 1;
+  const [query, setQuery] = useState('');
   const cardStore = cardsFromApi.get();
+  const cardCount = Object.keys(cardStore).length;
+  const disabledRight = cardCount < 9;
+  const disabledLeft = pageNr <= 1;
 
-  // useEffect(() => {
-  //   setRoadmapCardsFromApiExplore().then(() => {
-  //     setRender(true);
-  //   });
-  // }, []);
+
+  useEffect(() => {
+    setRoadmapCardsFromApiExplore('', 1).then(() => {
+      setRender((prev) => !prev);
+    });
+  }, []);
+
+  useEffect(() => {
+    setRoadmapCardsFromApiExplore(query, pageNr).then(() => {
+      setRender((prev) => !prev);
+    });
+  }, [pageNr]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    setRoadmapCardsFromApiExplore(query, 1).then(() => {
+      setRender((prev) => !prev);
+    });
   };
 
   const handleClick = (stateVar: 'sort' | 'filter') => {
@@ -63,6 +77,8 @@ const SearchMobile = () => {
       >
         <div className='relative'>
           <input
+          value={query}
+          onChange={({ target }) => setQuery(target.value)}
             type='text'
             className='rounded-full w-[273px] h-10 placeholder: text-[14px] pl-10 font-roboto-text outline-none shadow-standard sm:w-[375px] sm:h-12'
             placeholder='Search for a roadmap_static'
@@ -134,7 +150,7 @@ const SearchMobile = () => {
         <button
           type='button'
           onClick={() => setPageNr((prev) => prev - 1)}
-          disabled={isDisabled}
+          disabled={disabledLeft}
         >
           <img
             src={chevronleft}
@@ -143,7 +159,7 @@ const SearchMobile = () => {
           />
         </button>
         <span>{pageNr}</span>
-        <button type='button' onClick={() => setPageNr((prev) => prev + 1)}>
+        <button type='button' onClick={() => setPageNr((prev) => prev + 1)} disabled={disabledRight}>
           <img
             src={chevronright}
             alt='ArrowRight'
