@@ -14,22 +14,22 @@ const WebsiteUrl = ({ edit, onEdit, value }: ProfileComponentProps) => {
           target='_blank'
           rel='noopener noreferrer'
         >
-          <img
+          <img draggable="false"
             src={link}
-            className='mx-2 inline-block w-4 h-4'
+            className='mx-2 inline-block w-4 h-4 select-none'
             alt='linkicon'
           />
           {value}
         </a>
       ) : (
         <div className='flex'>
-          <img
+          <img draggable="false"
             src={link}
-            className='mx-2 inline-block w-4 h-4 '
+            className='mx-2 inline-block w-4 h-4 select-none'
             alt='linkicon'
           />
           <input
-            className='inline-block min-w-[20px] border-2 border-gray-300 text-lg font-normal text-center text-primary font-roboto-text'
+            className='inline-block min-w-[20px] border-2 border-gray-300 text-lg font-normal text-center text-primary font-roboto-text select-none'
             value={value}
             onChange={(e) => {
               onEdit(e.target.value);

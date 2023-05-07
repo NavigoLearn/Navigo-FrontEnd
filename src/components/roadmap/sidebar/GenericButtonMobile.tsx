@@ -14,7 +14,7 @@ const GenericButtonMobile = ({ id, onClick, cIcon }: ButtonProps) => {
         className=' pointer-events-auto w-6 h-6'
         onClick={onClick}
       >
-        <img src={cIcon} alt='' className=' w-6 h-6' />
+        <img draggable="false" src={cIcon} alt='' className=' w-6 h-6 select-none' />
       </button>
     </li>
   );

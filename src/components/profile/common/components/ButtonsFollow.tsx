@@ -5,6 +5,7 @@ import {
   fetchGetUserIsFollowing,
   fetchUnfollowUser,
 } from '../../../../api-wrapper/user/user';
+import loggedUser from "@store/user/logged-user";
 
 const ButtonsFollow = ({ reqAgain }: { reqAgain: () => void }) => {
   const [loaded, setLoaded] = useState(false);
@@ -36,7 +37,7 @@ const ButtonsFollow = ({ reqAgain }: { reqAgain: () => void }) => {
           }}
           type='button'
         >
-          <div className='text-md hover:underline text-white font-normal py-2 px-16 bg-primary rounded-3xl mt-4 font-roboto-text'>
+          <div className='text-md hover:underline text-white font-normal py-2 px-16 bg-primary rounded-3xl mt-4 font-roboto-text select-none'>
             Unfollow
           </div>
         </button>
@@ -46,13 +47,19 @@ const ButtonsFollow = ({ reqAgain }: { reqAgain: () => void }) => {
           onClick={() => {
             // folllows user
             fetchFollowUser(userId).then(() => {
+              // if user is logged in
+              if (loggedUser.get().userId === '') {
+                // redirect to /login
+                window.location.href = '/login';
+                return;
+              }
               setFollowing(true);
               reqAgain();
             });
           }}
           type='button'
         >
-          <div className='text-md hover:underline text-white font-normal py-2 px-16 bg-primary rounded-3xl mt-4 font-roboto-text'>
+          <div className='text-md hover:underline text-white font-normal py-2 px-16 bg-primary rounded-3xl mt-4 font-roboto-text select-none'>
             Follow
           </div>
         </button>

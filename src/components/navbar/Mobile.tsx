@@ -29,7 +29,7 @@ const MobileNavbar = ({
 
   return (
     <nav
-      className={`bg-background relative  overflow-visible h-12 flex w-full justify-center  ${
+      className={`bg-background relative  overflow-visible h-12 flex w-full justify-center select-none  ${
         click ? 'items-center ' : ' '
       }`}
     >
@@ -39,7 +39,7 @@ const MobileNavbar = ({
         onKeyDown={handleClick}
         role='presentation'
       >
-        <img
+        <img draggable="false"
           className={click ? 'h-12' : 'h-12 object-contain'}
           src={click ? dropclose : dropdown}
           alt='dropdown'
@@ -54,7 +54,7 @@ const MobileNavbar = ({
           }`}
         >
           <a href='/home' className='justify-start cursor-pointer flex'>
-            <img
+            <img draggable="false"
               className='w-full h-20 object-contain items-center'
               src={logoSrc}
               alt='navbar-logo'
@@ -69,7 +69,7 @@ const MobileNavbar = ({
                   >
                     <a className={link.cName} href={link.path}>
                       {link.cIcon && (
-                        <img
+                        <img draggable="false"
                           src={link.cIcon}
                           alt='icon'
                           className='w-8 flex justify-center'
@@ -89,7 +89,7 @@ const MobileNavbar = ({
                     <a className={link.cName} href={link.path}>
                       <div className='flex items-center justify-center '>
                         {link.cIcon && (
-                          <img
+                          <img draggable="false"
                             src={link.cIcon}
                             alt='icon'
                             className='w-8 flex -translate-x-2'

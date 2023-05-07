@@ -11,9 +11,9 @@ const Follow = ({
   return (
     <div className='flex gap-10 mt-6'>
       <div className='text-md font-normal text-center flex font-roboto-text'>
-        <img
+        <img draggable="false"
           src={followers}
-          className='flex mx-4 w-6 h-6 '
+          className='flex mx-4 w-6 h-6 select-none'
           alt='followersicon'
         />
         {followerCount}
@@ -22,9 +22,9 @@ const Follow = ({
         </div>
       </div>
       <div className='text-md font-normal text-center flex font-roboto-text'>
-        <img
+        <img draggable="false"
           src={followers}
-          className='flex mx-4 w-6 h-6'
+          className='flex mx-4 w-6 h-6 select-none'
           alt='followingicon'
         />
         {followingCount}

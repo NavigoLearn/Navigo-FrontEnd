@@ -36,7 +36,7 @@ const ResourceNonEditProps = ({
             addNodeNew(idProp, 'Info');
           }}
         >
-          <img src={plus} width='16px' alt='add' />
+          <img draggable="false" src={plus} width='16px' alt='add' />
         </button>
         <div className='text-lg  text-placeholder'>{node.title}</div>
         <button
@@ -46,7 +46,7 @@ const ResourceNonEditProps = ({
             setCb();
           }}
         >
-          <img src={edit} width='20px' alt='edit' />
+          <img draggable="false" src={edit} width='20px' alt='edit' />
         </button>
       </div>
       {node.nodes.map((id) => {

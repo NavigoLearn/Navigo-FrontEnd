@@ -51,7 +51,7 @@ const SideBarMobile = ({ isCreate }: { isCreate: string }) => {
   };
 
   return (
-    <div className='flex justify-start pl-4 w-full h-16 absolute -top-16  pointer-events-none '>
+    <div className='flex justify-start pl-4 w-full h-8 absolute -top-10  pointer-events-none '>
       <div />
       <ul className='flex gap-8 '>
         {getButtonRoute().map((button) => {

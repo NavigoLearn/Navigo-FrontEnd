@@ -185,7 +185,7 @@ const DesktopFeedback = () => {
             className='w-48 text-placeholder font-kanit-text translate-y-12'
           >
             discord
-            <img src={discord} alt='discord' className='w-full mt-2' />
+            <img draggable="false" src={discord} alt='discord' className='w-full mt-2' />
           </a>
           <a
             href='https://github.com/NavigoLearn'
@@ -194,14 +194,14 @@ const DesktopFeedback = () => {
             className='w-48 text-placeholder font-kanit-text'
           >
             github organization
-            <img src={github} alt='github' className='mt-2' />
+            <img draggable="false" src={github} alt='github' className='mt-2' />
           </a>
           <a
             href='mailto:navigolearn@gmail.com'
             className='w-48 text-placeholder font-kanit-text translate-y-12'
           >
             email
-            <img src={gmail} alt='gmail' className='flex' />
+            <img draggable="false" src={gmail} alt='gmail' className='flex' />
           </a>
         </div>
       </div>

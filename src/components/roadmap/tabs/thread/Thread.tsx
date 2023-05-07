@@ -43,7 +43,7 @@ const Thread = () => {
       <div className='relative mt-6 w-full flex justify-center'>
         <div className=' font-kanit-text font-semibold text-xl md:text-3xl relative flex flex-col '>
           <div className=' w-full flex justify-center py-2 '>
-            <img alt='img circledot' src={circledot} className='h-8 w-8' />
+            <img draggable="false" alt='img circledot' src={circledot} className='h-8 w-8' />
           </div>
           <div className='flex justify-center font-medium font-kanit-text '>
             {title}
@@ -69,7 +69,7 @@ const Thread = () => {
             setIssues();
           }}
         >
-          <img alt='close tab issue' src={cross} className='w-6 h-6' />
+          <img draggable="false" alt='close tab issue' src={cross} className='w-6 h-6' />
         </button>
       </div>
 

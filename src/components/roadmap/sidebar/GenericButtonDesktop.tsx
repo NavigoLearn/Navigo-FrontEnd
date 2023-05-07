@@ -22,7 +22,7 @@ const GenericButtonDesktop = ({
         className='w-10 flex justify-self-center items-center text-center text-2xl hover:underline'
         onClick={onClick}
       >
-        <img src={cIcon} alt='icons sidebar' className='mr-4 my-6 w-8 h-8 ' />
+        <img draggable="false" src={cIcon} alt='icons sidebar' className='mr-4 my-6 w-8 h-8  select-none' />
         {hover ? title : null}
       </button>
     </li>

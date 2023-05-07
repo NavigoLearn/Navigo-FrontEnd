@@ -16,6 +16,7 @@ import PageArrows from '@components/roadmap/tabs/issues/PageArrows';
 import Issue from './Issue';
 import IssueButton from '../utils/IssueButton';
 import { divWrapper } from '../utils/logic';
+import loggedUser from "@store/user/logged-user";
 
 const Issues = () => {
   const [page, setPage] = useState(1);
@@ -42,6 +43,7 @@ const Issues = () => {
           Issues
         </div>
         <div className='mt-2 absolute right-10'>
+          {loggedUser.get().userId === '' ? ( '' ) : (
           <Button
             text='Add issue'
             callback={() => {
@@ -49,18 +51,18 @@ const Issues = () => {
             }}
             color='secondary'
             size='small'
-          />
+          />)}
         </div>
 
         <button
           type='button'
-          className='mt-2 w-6 h-6 absolute left-10'
+          className='mt-2 w-6 h-6 absolute left-10 select-none'
           onClick={() => {
             // close tab
             flipOpen();
           }}
         >
-          <img alt='close tab issue' src={cross} className='w-6 h-6' />
+          <img draggable="false" alt='close tab issue' src={cross} className='w-6 h-6' />
         </button>
       </div>
       {divWrapper(<IssueButton />)}

@@ -40,7 +40,7 @@ const SortBy = ({ handleClick }: ClickSort) => {
       <div className='text-[18px] flex justify-center space-x-24 items-center mt-6 sm:space-x-72 sm:text-[28px]'>
         <h1 className='inline-block'>Sort roadmaps by</h1>
         <button type='button' onClick={() => handleClick('sort')}>
-          <img
+          <img draggable="false"
             src={dropclose}
             alt='closeButton'
             className='h-7 w-7 sm:h-9 sm:w-9 inline-block'

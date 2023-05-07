@@ -10,7 +10,7 @@ const GoogleLoginButton = ({ onClick }: { onClick: () => void }) => {
     >
       <div className='w-20 h-full  flex justify-center items-center'>
         <div className='w-8 h-8 flex justify-center items-center'>
-          <img alt='' src={googleLogo} className='w-full h-full' />
+          <img draggable="false" alt='' src={googleLogo} className='w-full h-full select-none ' />
         </div>
       </div>
       <div className='absolute w-full flex justify-center items-center h-full'>

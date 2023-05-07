@@ -49,7 +49,7 @@ const DropdownLevel = ({ id, level }: { id: string; level: LevelTypes }) => {
           <div className=' text-secondary text-sm  mb-1  relative'>
             {selectedOption}
 
-            <img
+            <img draggable="false"
               src={arrow}
               alt='chose element'
               className={` w-2 opacity-50 transition-transform absolute -right-4 bottom-1   ${

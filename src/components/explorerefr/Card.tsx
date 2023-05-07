@@ -85,7 +85,7 @@ const Card = ({ cardStore }: { cardStore: CardType }) => {
       <div className='flex justify-center items-center relative 2xl:mt-3'>
         <a
           type='button'
-          className='flex justify-center items-center bg-secondary w-20 h-7 text-white text-xs sm:w-24 sm:h-8 sm:text-sm rounded-lg font-roboto-text 2xl:text-base 2xl:w-28 2xl:h-9'
+          className='flex justify-center items-center bg-secondary w-20 h-7 text-white text-xs sm:w-24 sm:h-8 sm:text-sm rounded-lg font-roboto-text 2xl:text-base 2xl:w-28 2xl:h-9 select-none'
           href={`/roadmap/${id}`}
           target='_blank'
           rel='noreferrer'
@@ -98,17 +98,19 @@ const Card = ({ cardStore }: { cardStore: CardType }) => {
           </h1>
           <button
             type='button'
-            className=''
+            className='select-none'
             onClick={() => setHeartClicked((prev) => !prev)}
           >
             {heartClicked ? (
               <img
+                draggable='false'
                 src={likeButtonFilled}
                 alt='heart'
                 className='h-5 w-5 sm:h-6 sm:w-6 2xl:h-8 2xl:w-8'
               />
             ) : (
               <img
+                draggable='false'
                 src={likeButton}
                 alt='heart'
                 className='h-5 w-5 sm:h-6 sm:w-6 2xl:h-8 2xl:w-8'

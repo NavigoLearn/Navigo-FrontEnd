@@ -109,7 +109,7 @@ const DesktopFeedback = () => {
         aria-label='Link to github discussion'
         target='_blank'
         rel='noreferrer'
-        className='flex justify-center text-center mx-auto  text-xl font-roboto-text font-medium bg-black rounded-2xl py-4 px-8 text-white w-fit transition-all border-2 border-transparent hover:border-black  hover:bg-transparent hover:text-black'
+        className='flex justify-center text-center mx-auto  text-xl font-roboto-text font-medium bg-black rounded-2xl py-4 px-8 text-white w-fit transition-all border-2 border-transparent hover:border-black  hover:bg-transparent hover:text-black select-none'
       >
         See all discussion
       </a>

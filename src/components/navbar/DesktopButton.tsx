@@ -42,7 +42,7 @@ const DesktopButton = ({ id, cName, path, cIcon, title, hasUnder }: Props) => {
         />
       )}
       <a className={cName} href={path}>
-        {cIcon && <img src={cIcon} alt='icon' className='w-6 flex m-1' />}
+        {cIcon && <img draggable="false" src={cIcon} alt='icon' className='w-6 flex m-1' />}
         {title}
       </a>
     </li>

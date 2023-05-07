@@ -107,7 +107,7 @@ const ProfileDropdown = ({
     <li className='flex relative group/wrapper  w-12 h-12 mr-2'>
       <div className=' absolute top-0 flex group/wrapper w-10 h-20'>
         <a className='' href='/profile'>
-          <img
+          <img draggable="false"
             src={profilePictureUrl}
             alt='icon'
             className='w-10 h-10 rounded-full flex m-1'

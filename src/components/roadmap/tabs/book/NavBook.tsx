@@ -16,7 +16,7 @@ const NavBook = ({ setSelect }: NavBookProps) => {
         }}
         className='absolute h-6 w-6 left-2 flex justify-center items-center'
       >
-        <img src={dropclose} className='h-full w-full' />
+        <img draggable="false" src={dropclose} className='h-full w-full' />
       </button>
       <div className='absolute left-14 h-full flex justify-center items-center'>
         <Button

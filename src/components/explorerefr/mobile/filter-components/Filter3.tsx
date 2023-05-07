@@ -22,13 +22,13 @@ const Filter3 = (props) => {
           <div className='relative rounded-md'>
             <span className='font-roboto sm:text-[18px]'>{value}</span>
             {isOpen === 'SomeField3' ? (
-              <img
+              <img draggable="false"
                 src={chevronup}
                 alt='openList'
                 className='h-6 w-6 sm:h-7 sm:w-7 sm:top-0 top-[0px] absolute right-1'
               />
             ) : (
-              <img
+              <img draggable="false"
                 src={chevrondown}
                 alt='closeList'
                 className='h-6 w-6 sm:h-7 sm:w-7 sm:top-0 top-[0px] absolute right-1'

@@ -9,7 +9,7 @@ const Recenter = () => {
       id='recenter-button'
     >
       <div className=' group'>
-        <img src={compass} alt='compass' className='h-full' />
+        <img draggable="false" src={compass} alt='compass' className='h-8 w-8' />
         <div className='text-secondary text-sm font-light w-20 left-[-24px] top-10 absolute group-hover:text-main group-hover:font-medium'>
           Recenter
         </div>

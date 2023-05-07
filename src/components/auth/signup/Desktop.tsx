@@ -53,7 +53,7 @@ const DesktopSignUp = () => {
             placeholder='Email'
             value={email}
             onChange={({ target }) => setEmail(target.value)}
-            className='rounded-xl w-96 pl-3 placeholder:font-kanit-text placeholder:text-placeholder h-11 justify-center items-center mx-auto mt-3'
+            className='rounded-xl w-96 pl-3 placeholder:font-kanit-text placeholder:text-placeholder h-11 justify-center items-center mx-auto mt-3 select-none'
           />
         </div>
         <div className='flex flex-col mt-5'>
@@ -68,7 +68,7 @@ const DesktopSignUp = () => {
               placeholder='Password'
               value={password}
               onChange={({ target }) => setPassword(target.value)}
-              className='flex rounded-xl w-96 pl-3 placeholder:font-kanit-text placeholder:text-placeholder h-11 mt-3'
+              className='flex rounded-xl w-96 pl-3 placeholder:font-kanit-text placeholder:text-placeholder h-11 mt-3 select-none'
             />
           </div>
         </div>
@@ -86,19 +86,19 @@ const DesktopSignUp = () => {
               placeholder='Password'
               value={reapeatPassword}
               onChange={({ target }) => setRepeatPassword(target.value)}
-              className='rounded-xl w-96 pl-3 placeholder:font-kanit-text placeholder:text-placeholder h-11 mt-3'
+              className='rounded-xl w-96 pl-3 placeholder:font-kanit-text placeholder:text-placeholder h-11 mt-3 select-none'
             />
           </div>
         </div>
         <div className='flex justify-center items-center text-lg'>
           <button
-            className='bg-buttongradient mt-11 py-2.5 text-white w-60 rounded-full font-kanit-text'
+            className='bg-buttongradient mt-11 py-2.5 text-white w-60 rounded-full font-kanit-text select-none'
             type='submit'
           >
             Sign Up
           </button>
         </div>
-        <div className='mt-14 grid grid-cols-3 items-center text-placeholder'>
+        <div className='mt-14 grid grid-cols-3 items-center text-placeholder select-none'>
           <hr className='border-gray-500' />
           <p className='text-center text-xs font-roboto-text'>OR</p>
           <hr className='border-gray-500' />

@@ -17,7 +17,7 @@ const SaveCancelButtons = ({
   }, []);
 
   return (
-    <div className='flex pointer-events-auto gap-3 items-center '>
+    <div className='flex pointer-events-auto gap-3 items-center select-none'>
       <button
         type='button'
         className='w-10 h-10 text-base font-roboto-text font-semibold text-secondary hover:text-main transition-all '

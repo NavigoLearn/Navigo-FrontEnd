@@ -13,7 +13,7 @@ const Comment = ({ author, text, date, urlPic }: CommentProps) => {
   return (
     <div className='w-full relative  '>
       <div className='absolute -left-10 w-8 h-8 '>
-        <img
+        <img draggable="false"
           alt='img circledot'
           src={urlPic}
           className='w-full h-full rounded-full border-[1px] border-black'

@@ -45,7 +45,7 @@ const MobileSignUp = () => {
               placeholder='Email'
               value={email}
               onChange={({ target }) => setEmail(target.value)}
-              className='rounded-xl w-11/12 sm:w-10/12 pl-3 placeholder:font-kanit-text placeholder:text-placeholder h-11 border-1 shadow-sm'
+              className='rounded-xl w-11/12 sm:w-10/12 pl-3 placeholder:font-kanit-text placeholder:text-placeholder h-11 border-1 shadow-sm select-none'
             />
           </div>
           <div className='flex justify-center items-center'>
@@ -55,7 +55,7 @@ const MobileSignUp = () => {
               placeholder='Password'
               value={password}
               onChange={({ target }) => setPassword(target.value)}
-              className='rounded-xl w-11/12 sm:w-10/12 pl-3 placeholder:font-kanit-text placeholder:text-placeholder h-11 border-1 shadow-sm mt-3'
+              className='rounded-xl w-11/12 sm:w-10/12 pl-3 placeholder:font-kanit-text placeholder:text-placeholder h-11 border-1 shadow-sm mt-3 select-none'
             />
           </div>
           <div className='flex justify-center items-center'>
@@ -65,19 +65,19 @@ const MobileSignUp = () => {
               placeholder='Confirm password'
               value={reapeatPassword}
               onChange={({ target }) => setRepeatPassword(target.value)}
-              className='rounded-xl w-11/12 sm:w-10/12 pl-3 placeholder:font-kanit-text placeholder:text-placeholder h-11 border-1 shadow-sm mt-3'
+              className='rounded-xl w-11/12 sm:w-10/12 pl-3 placeholder:font-kanit-text placeholder:text-placeholder h-11 border-1 shadow-sm mt-3 select-none'
             />
           </div>
         </div>
         <div className='flex justify-center items-center mt-5'>
           <button
             type='submit'
-            className='rounded-full w-8/12 sm:w-6/12 py-2.5 bg-buttongradient text-white font-kanit-text text-lg'
+            className='rounded-full w-8/12 sm:w-6/12 py-2.5 bg-buttongradient text-white font-kanit-text text-lg select-none'
           >
             Sign up
           </button>
         </div>
-        <div className='mt-6 grid grid-cols-3 items-center text-placeholder mx-8'>
+        <div className='mt-6 grid grid-cols-3 items-center text-placeholder mx-8 select-none'>
           <hr className='border-gray-300' />
           <p className='text-center text-xs sm:text-base font-roboto-text'>
             OR

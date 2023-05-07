@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   arrangeImagesAndSetOnclick,
   initializeImgCenter,
@@ -6,9 +6,9 @@ import {
   switchPlaces,
 } from '@typescript/home/hero';
 import {
-  PopulatedParams,
-  HeroRotateProps,
   BaseParams,
+  HeroRotateProps,
+  PopulatedParams,
 } from '@type/home/hero-rotate';
 import anime from 'animejs/lib/anime';
 import useScrollTop from '@hooks/useScrollTop';
@@ -58,8 +58,6 @@ const HeroRotate = ({ scale, animSpeed }: HeroRotateProps) => {
   }, []);
 
   useEffect(() => {
-    let switchInterval: NodeJS.Timer;
-
     if (set) {
       // initialize the images and their positions + onclick
       arrangeImagesAndSetOnclick(baseArr, params, allowed);
@@ -84,27 +82,46 @@ const HeroRotate = ({ scale, animSpeed }: HeroRotateProps) => {
         loop: true,
       });
 
-      // starts timeout for images switching
-      function switchPlacesTimeout() {
-        const elArr = document.querySelectorAll('.smallTarget');
-        const randomIdx = Math.floor(Math.random() * elArr.length);
-        const randomElId = elArr[randomIdx].id;
+      let lastTime = 0;
+      let isPaused = false;
+      let frameId: number;
 
-        switchPlaces(allowed, randomElId);
+      function animateSwitch(currentTime: number) {
+        if (isPaused) {
+          return;
+        }
+
+        if (currentTime - lastTime >= 3000) {
+          lastTime = currentTime;
+
+          const elArr = document.querySelectorAll('.smallTarget');
+          const randomIdx = Math.floor(Math.random() * elArr.length);
+          const randomElId = elArr[randomIdx].id;
+
+          switchPlaces(allowed, randomElId);
+        }
+
+        frameId = requestAnimationFrame(animateSwitch);
       }
 
-      switchInterval = setInterval(switchPlacesTimeout, 3000);
-    }
+      document.addEventListener('visibilitychange', () => {
+        arrangeImagesAndSetOnclick(baseArr, params, allowed);
+        initializeImgCenter('centerMain', params);
+      });
 
-    return () => {
-      clearInterval(switchInterval);
-    };
+      frameId = requestAnimationFrame(animateSwitch);
+
+      return () => {
+        // cleanup
+        cancelAnimationFrame(frameId);
+      };
+    }
   }, [set]);
 
   return (
     <div
       ref={rootRef}
-      className='flex justify-center items-center overflow-hidden bg-background'
+      className='flex justify-center items-center overflow-hidden bg-background select-none'
     >
       <div id='center' className='w-1 h-1 border-green-400 relative hidden'>
         {set && (
@@ -114,7 +131,7 @@ const HeroRotate = ({ scale, animSpeed }: HeroRotateProps) => {
               id='centerMain'
               className='absolute mainTarget rot'
             >
-              <img
+              <img draggable="false"
                 alt='imageCenter'
                 id='mainImg'
                 className='w-full h-full'
@@ -129,10 +146,10 @@ const HeroRotate = ({ scale, animSpeed }: HeroRotateProps) => {
                   key={el}
                   id={`${el}`}
                 >
-                  <img
+                  <img draggable="false"
                     alt='imagerotating'
                     src={el}
-                    className='w-full h-full  rounded-md'
+                    className='w-full h-full rounded-md'
                   />
                 </button>
               );
