@@ -22,6 +22,7 @@ const CardDisplay = () => {
       setLoaded(true);
     });
   }, [userId]);
+
   return (
     <>
       <ul className='grid grid-cols-1 md:grid-cols-2 gap-x-9 gap-y-11 xl:grid-cols-3'>

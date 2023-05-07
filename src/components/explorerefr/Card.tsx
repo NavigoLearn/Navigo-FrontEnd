@@ -1,13 +1,50 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import likeButton from '@assets/heart.svg';
 import likeButtonFilled from '@assets/heartfill.svg';
 import { CardType } from '@type/explore/card';
 import RedirectToProfile from '@components/shared/RedirectToProfile';
+import {
+  unlikeCardFetch,
+  likeCardFetch,
+  checkForLike,
+} from 'src/api-wrapper/explore/roadmap-likes';
 
 const Card = ({ cardStore }: { cardStore: CardType }) => {
   const { name, author, description, likes, id, authorId } = cardStore;
-  const [heartClicked, setHeartClicked] = useState(true);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [likeCount, setLikeCount] = useState(Number(likes));
+  const [heartClicked, setHeartClicked] = useState(false);
   const SI_SYMBOL = ['', 'k', 'M', 'G', 'T', 'P', 'E'];
+
+  useEffect(() => {
+    if (isLoaded) {
+      const likeManager = async () => {
+        if (heartClicked) {
+          if ((await likeCardFetch(id)) === true) {
+            setLikeCount((prev) => prev + 1);
+            console.log(likeCount);
+          }
+        } else {
+          await unlikeCardFetch(id);
+          setLikeCount((prev) => prev - 1);
+        }
+      };
+      likeManager();
+    } else {
+      setIsLoaded(true);
+    }
+  }, [heartClicked]);
+
+  useEffect(() => {
+    const likeCheck = async () => {
+      if ((await checkForLike(id)) === true) {
+        setHeartClicked(true);
+        // console.log(heartClicked);
+      }
+    };
+    likeCheck();
+  }, []);
+  console.log(heartClicked);
 
   function abbreviateNumber(number: number): string | number {
     // handle 0 specifically
@@ -57,7 +94,7 @@ const Card = ({ cardStore }: { cardStore: CardType }) => {
         </a>
         <div className='absolute right-4 flex items-center justify-center flex-col -top-2'>
           <h1 className='text-[10px] sm:text-xs 2xl:text-sm'>
-            {abbreviateNumber(likes)}
+            {abbreviateNumber(likeCount)}
           </h1>
           <button
             type='button'
@@ -65,14 +102,16 @@ const Card = ({ cardStore }: { cardStore: CardType }) => {
             onClick={() => setHeartClicked((prev) => !prev)}
           >
             {heartClicked ? (
-              <img draggable="false"
-                src={likeButton}
+              <img
+                draggable='false'
+                src={likeButtonFilled}
                 alt='heart'
                 className='h-5 w-5 sm:h-6 sm:w-6 2xl:h-8 2xl:w-8'
               />
             ) : (
-              <img draggable="false"
-                src={likeButtonFilled}
+              <img
+                draggable='false'
+                src={likeButton}
                 alt='heart'
                 className='h-5 w-5 sm:h-6 sm:w-6 2xl:h-8 2xl:w-8'
               />

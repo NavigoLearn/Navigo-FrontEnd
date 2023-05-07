@@ -17,6 +17,7 @@ const SearchDesktop = () => {
   const cardStore = cardsFromApi.get();
   const [pageNr, setPageNr] = useState(1);
   const [isSafari, setIsSafari] = useState(false);
+  const [loaded, setLoaded] = useState(false);
   const cardCount = Object.keys(cardStore).length;
   const disabledRight = cardCount < 9;
   const disabledLeft = pageNr <= 1;
@@ -38,14 +39,18 @@ const SearchDesktop = () => {
 
     setRoadmapCardsFromApiExplore('', 1).then(() => {
       setRender((prev) => !prev);
+      setLoaded(true);
     });
+    
   }, []);
   // const CompFilter = AugmentComp(UIButton, UIDropdown);
 
   useEffect(() => {
-    setRoadmapCardsFromApiExplore(query, pageNr).then(() => {
-      setRender((prev) => !prev);
-    });
+    if (loaded) {
+      setRoadmapCardsFromApiExplore(query, pageNr).then(() => {
+        setRender((prev) => !prev);
+      });
+    }
   }, [pageNr]);
 
   return (
@@ -94,7 +99,7 @@ const SearchDesktop = () => {
 
       <div className='flex justify-center items-center mt-16 '>
         <ul className='grid grid-cols-2 gap-x-9 gap-y-11 xl:grid-cols-3'>
-          {Object.keys(cardStore).map((card: string) => (
+          {loaded && Object.keys(cardStore).map((card: string) => (
             <div key={card} className='flex items-center justify-center'>
               <Card cardStore={cardStore[card]} />
             </div>

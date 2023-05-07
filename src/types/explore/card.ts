@@ -38,3 +38,7 @@ export type CardTypeApiResponseExplore = {
   success: boolean;
   roadmaps: RoadmapTypeApiExplore[];
 };
+
+export type likeType = {
+  success: boolean
+}

@@ -20,6 +20,7 @@ const SearchMobile = () => {
   const [clickFilter, setClickFilter] = useState(false);
   const [clickSort, setClickSort] = useState(false);
   const [render, setRender] = useState(false);
+  const [loaded, setLoaded] = useState(false);
   const [pageNr, setPageNr] = useState(1);
   const [query, setQuery] = useState('');
   const cardStore = cardsFromApi.get();
@@ -27,17 +28,19 @@ const SearchMobile = () => {
   const disabledRight = cardCount < 9;
   const disabledLeft = pageNr <= 1;
 
-
   useEffect(() => {
     setRoadmapCardsFromApiExplore('', 1).then(() => {
       setRender((prev) => !prev);
+      setLoaded(true);
     });
   }, []);
 
   useEffect(() => {
-    setRoadmapCardsFromApiExplore(query, pageNr).then(() => {
-      setRender((prev) => !prev);
-    });
+    if(loaded) {
+      setRoadmapCardsFromApiExplore(query, pageNr).then(() => {
+        setRender((prev) => !prev);
+     });
+    }
   }, [pageNr]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -131,7 +134,7 @@ const SearchMobile = () => {
 
       <div className='mt-10 sm:mt-12'>
         <ul className='flex flex-col gap-7 sm:gap-9'>
-          {Object.keys(cardStore).map((card: string) => (
+          {loaded && Object.keys(cardStore).map((card: string) => (
             <div key={card} className='flex items-center justify-center'>
               <Card cardStore={cardStore[card]} />
             </div>
