@@ -4,8 +4,8 @@ import Socials from './Socials';
 
 const Footer = () => {
   return (
-    <div className='h-72 w-full absolute bg-footer bottom-0 flex flex-col'>
-      <h1 className='text-white flex text-4xl font-roboto-text font-medium text-center mt-6 justify-center mx-auto'>
+    <div className=' h-64 md:h-72 w-full absolute bg-footer bottom-0 flex flex-col'>
+      <h1 className='text-white flex text-xl md:text-2xl font-roboto-text font-medium text-center mt-6 justify-center mx-auto'>
         Navigo Learn
       </h1>
       <Links />
