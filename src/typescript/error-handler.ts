@@ -1,3 +1,6 @@
+import { emptyCachedNodeCoord } from '@store/roadmap/cache/cached-node-coords';
+import { addNewError } from '@store/roadmap/error-list';
+
 type ErrorTypes =
   | 'RootRemove'
   | 'RootChangeLevel'
@@ -26,4 +29,18 @@ export default class ErrorHandler extends Error {
     super(message);
     this.type = type;
   }
+}
+
+type TriggerFunctionNoId<T extends any[]> = (...args: T) => any;
+
+export function errorHandlerDecorator<T extends any[]>(
+  func: TriggerFunctionNoId<T>
+): TriggerFunctionNoId<T> {
+  return async function (...args: T) {
+    try {
+      await func(...args);
+    } catch (error) {
+      addNewError(error.message);
+    }
+  };
 }

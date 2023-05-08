@@ -1,5 +1,6 @@
 ---
 import Navbar from '@components/navbar/Navbar';
+import Error from '../components/roadmap/top-bar/Error';
 import Footer from '@layouts/Footer.astro';
 import RequestManager from '../components/misc/RequestManager';
 export interface Props {
@@ -27,7 +28,12 @@ import '@fontsource/oxygen';
     <Navbar client:load />
     <RequestManager client:load />
     <slot />
-    <div class="h-72"></div>
+    <div class='h-72'></div>
     {!excludeFooter && <Footer />}
+    <div
+      class='fixed top-[100px] flex justify-center w-full h-10 pointer-events-none'
+    >
+      <Error client:load />
+    </div>
   </body>
 </html>

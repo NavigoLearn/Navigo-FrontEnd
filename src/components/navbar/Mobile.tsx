@@ -60,10 +60,10 @@ const MobileNavbar = () => {
         />
 
         <ul
-          className={`  bg-background flex-col absolute items-center  ease-linear duration-150 ${
+          className={` bg-background  transition-all flex-col absolute items-center  top-12  z-50 ease-linear duration-150 ${
             click
-              ? ' left-0  opacity-100 transition-all h-screen w-full top-12  z-50'
-              : ' w-full  top-12 -left-full opacity-0 transition-all justify-center z-50'
+              ? ' left-0  opacity-100 h-screen w-full'
+              : ' w-full   -left-full opacity-0  justify-center'
           }`}
         >
           <a href='/home' className='justify-start cursor-pointer flex'>

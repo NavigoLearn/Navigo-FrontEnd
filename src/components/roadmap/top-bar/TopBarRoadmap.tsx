@@ -13,7 +13,6 @@ const TopBarRoadmap = () => {
       </div>
       <div className=' w-72  flex justify-center '>
         <Name />
-        <Error />
         <Recenter />
       </div>
     </div>

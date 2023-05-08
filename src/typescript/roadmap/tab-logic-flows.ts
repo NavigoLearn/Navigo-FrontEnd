@@ -20,14 +20,6 @@ import {
   applyDiffIssueToTab,
 } from '@store/roadmap/cache/diff-tabs';
 import {
-  postTabInfoPseudo,
-  fetchTabInfoPseudo,
-  postTabInfoPropPseudo,
-  postTabIssue,
-  postTabIssueProp,
-  fetchTabIssuePseudo,
-  fetchTabAboutPseudo,
-  postTabAboutProp,
   fetchTabInfoData,
   fetchTabAbout,
 } from '../../api-wrapper/roadmap/tab-data';
@@ -52,10 +44,10 @@ export const getTabIssueFlow = async (id: string) => {
   let tabIssue = checkCachedTabIssues(id);
   if (!tabIssue) {
     // if no it fetches the value from the server and saves it to the cache
-    tabIssue = await fetchTabIssuePseudo(id).then((tab) => {
-      cacheTabIssues(id, tab);
-      return tab;
-    });
+    // tabIssue = await fetchTabIssuePseudo(id).then((tab) => {
+    //   cacheTabIssues(id, tab);
+    //   return tab;
+    // });
   }
   tabIssue = applyDiffIssueToTab(tabIssue); // we apply the diff for editing purposes
   // returns the value of the tab
@@ -66,14 +58,14 @@ export const changeTabInfoFlow = async (id: string, newData: TabInfo) => {
   // saves to cache and to the api-wrapper
   // TODO optimize this to only save to the api-wrapper if the value is different
   cacheTabInfo(id, newData);
-  postTabInfoPseudo(id, newData);
+  // postTabInfoPseudo(id, newData);
 };
 
 export const changeTabIssueFlow = async (id: string, newData: TabIssue) => {
   // saves to cache and to the api-wrapper
   // TODO optimize this to only save to the api-wrapper if the value is different
   cacheTabIssues(id, newData);
-  postTabIssue(id, newData);
+  // postTabIssue(id, newData);
 };
 
 export const changeTabIssuePropFlow = async <T extends keyof TabIssue>(
@@ -86,7 +78,7 @@ export const changeTabIssuePropFlow = async <T extends keyof TabIssue>(
   // change in cache
   changeCachedTabIssueProp(id, prop, value);
   // change in api-wrapper
-  postTabIssueProp(id, prop, value);
+  // postTabIssueProp(id, prop, value);
 };
 
 export const changeTabInfoPropFlow = async <T extends keyof TabInfo>(
@@ -98,7 +90,7 @@ export const changeTabInfoPropFlow = async <T extends keyof TabInfo>(
   // change in cache
   changeCachedTabInfoProp(id, prop, value);
   // change in api-wrapper
-  postTabInfoPropPseudo(id, prop, value);
+  // postTabInfoPropPseudo(id, prop, value);
 };
 
 export const setInfoFlow = async (id: string) => {
@@ -127,7 +119,7 @@ export const postTabAboutPropFlow = async <T extends keyof TabAbout>(
   prop: T,
   value: TabAbout[T]
 ) => {
-  postTabAboutProp(roadmapId, prop, value);
+  // postTabAboutProp(roadmapId, prop, value);
   changeCachedTabAboutProp(prop, value);
 };
 

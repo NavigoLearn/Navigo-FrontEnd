@@ -1,6 +1,6 @@
 import { likeType } from '@type/explore/card';
 
-export const likeCardFetch = async (id: string): Promise<{}> => {
+export const likeCardFetch = async (id: string): Promise<any> => {
   const fetchSource = `/api/roadmaps/${id}/like`;
   const response = await fetch(fetchSource, {
     method: 'GET',
@@ -19,7 +19,7 @@ export const unlikeCardFetch = async (id: string): Promise<void> => {
   });
 };
 
-export const checkForLike = async (id: string): Promise<{}> => {
+export const checkForLike = async (id: string): Promise<any> => {
   const fetchSource = `/api/roadmaps/${id}/check-like`;
   let isFetched: boolean;
   const response = await fetch(fetchSource, {

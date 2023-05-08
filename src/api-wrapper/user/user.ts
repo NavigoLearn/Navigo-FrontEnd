@@ -103,7 +103,8 @@ export const fetchGetMiniProfileData = async () => {
       credentials: 'include',
     }).then((res) => res);
     if (!response.ok) throw new Error('User not found');
-    return response.json();
+    const responseData = await response.json();
+    return responseData;
   } catch (e) {
     return false;
   }

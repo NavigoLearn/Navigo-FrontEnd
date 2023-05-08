@@ -32,6 +32,7 @@ export const addNewError = (message: string) => {
     ...original,
     errors: [...original.errors, newError],
   });
+  console.log('new error', newError);
   setTimeout(() => {
     removeError(id);
   }, original.errorUpTime);
