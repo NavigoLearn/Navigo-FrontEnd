@@ -1,6 +1,5 @@
 import {
   CardType,
-  RoadmapTypeApi,
   CardTypeApiResponse,
   CardTypeApiResponseExplore,
   RoadmapTypeApiExplore,
@@ -97,7 +96,7 @@ export const fetchCardDataPseudo = async (id: string) => {
 export const fetchDefaultCardsExplore = async (
   query: string,
   page: number
-): Promise<RoadmapTypeApiExplore[]> => {
+): Promise<CardTypeApiResponseExplore> => {
   let fetchRouteExplore;
   if (query !== '') {
     fetchRouteExplore = `api/explore/?query=${query}&count=9&page=${page}`;
@@ -111,7 +110,7 @@ export const fetchDefaultCardsExplore = async (
   const dataJsonExplore: CardTypeApiResponseExplore =
     await responseExplore.json();
   console.log(dataJsonExplore);
-  return dataJsonExplore.roadmaps;
+  return dataJsonExplore;
 };
 
 export const fetchRoadmapCardsProfile = async (

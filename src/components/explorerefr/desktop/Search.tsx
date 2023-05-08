@@ -18,16 +18,19 @@ const SearchDesktop = () => {
   const [pageNr, setPageNr] = useState(1);
   const [isSafari, setIsSafari] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const [maxPage, setMaxPage] = useState(1);
   const cardCount = Object.keys(cardStore).length;
-  const disabledRight = cardCount < 9;
+  const disabledRight = pageNr >= maxPage;
   const disabledLeft = pageNr <= 1;
 
   console.log(cardCount);
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    setRoadmapCardsFromApiExplore(query, 1).then(() => {
+    setRoadmapCardsFromApiExplore(query, 1).then(({ pageCount }) => {
       setRender((prev) => !prev);
+
+      setMaxPage(pageCount);
     });
   };
 
@@ -37,8 +40,9 @@ const SearchDesktop = () => {
         navigator.userAgent.indexOf('Chrome') === -1
     );
 
-    setRoadmapCardsFromApiExplore('', 1).then(() => {
+    setRoadmapCardsFromApiExplore('', 1).then(({ pageCount }) => {
       setRender((prev) => !prev);
+      setMaxPage(pageCount)
       setLoaded(true);
     });
   }, []);
@@ -46,8 +50,9 @@ const SearchDesktop = () => {
 
   useEffect(() => {
     if (loaded) {
-      setRoadmapCardsFromApiExplore(query, pageNr).then(() => {
+      setRoadmapCardsFromApiExplore(query, pageNr).then(({ pageCount }) => {
         setRender((prev) => !prev);
+        setMaxPage(pageCount);
       });
     }
   }, [pageNr]);
@@ -120,7 +125,12 @@ const SearchDesktop = () => {
       )}
 
       <div className='flex justify-center items-center my-8 select-none'>
-        <button type='button'>
+        <button type='button'
+          className={`disabled:opacity-50`}
+          onClick={() => {
+            setPageNr(1);
+          }}
+          disabled={disabledLeft}>
           <img
             draggable='false'
             src={chevroleftduo}
@@ -130,6 +140,7 @@ const SearchDesktop = () => {
         </button>
         <button
           type='button'
+          className={`disabled:opacity-50`}
           onClick={() => {
             setPageNr((prev) => prev - 1);
           }}
@@ -145,6 +156,7 @@ const SearchDesktop = () => {
         <span className='text-xl 2xl:text-2xl select-auto'>{pageNr}</span>
         <button
           type='button'
+          className={`disabled:opacity-50`}
           onClick={() => {
             setPageNr((prev) => prev + 1);
           }}
@@ -157,7 +169,12 @@ const SearchDesktop = () => {
             className='w-9 h-9 2xl:w-11 2xl:h-11'
           />
         </button>
-        <button type='button'>
+        <button type='button'
+        className={`disabled:opacity-50`}
+        onClick={() => {
+          setPageNr(maxPage)
+        }}
+        disabled={disabledRight}>
           <img
             draggable='false'
             src={chevronrightduo}
