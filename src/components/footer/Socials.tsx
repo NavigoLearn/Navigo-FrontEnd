@@ -5,7 +5,7 @@ import gmail from '@assets/gmail-footer.svg';
 
 const Socials = () => {
   return (
-    <div className='mt-2 flex flex-col'>
+    <div className='flex flex-col mt-4'>
       <div className=' md:gap-10 flex gap-4 flex-row justify-center text-center items-center'>
         {/* disabled eslint for this anchor because WE DONT HAVE A SERVER !!!!!!!! */}
         {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
@@ -16,11 +16,7 @@ const Socials = () => {
           className='text-placeholder font-kanit-text select-none'
           rel='noreferrer'
         >
-          <img
-            src={discord}
-            alt='discord'
-            className='w-6 sm:w-8 h-6 sm:h-8 mt-6'
-          />
+          <img src={discord} alt='discord' className='w-6 h-6 ' />
         </a>
         <a
           href='https://github.com/NavigoLearn'
@@ -28,17 +24,13 @@ const Socials = () => {
           rel='noreferrer'
           className='text-placeholder font-kanit-text select-none'
         >
-          <img
-            src={github}
-            alt='github'
-            className='w-6 sm:w-8 h-6 sm:h-8 mt-6 translate-y-2'
-          />
+          <img src={github} alt='github' className='w-6 h-6 translate-y-2' />
         </a>
         <a
           href='mailto:navigolearn@gmail.com'
           className='text-placeholder font-kanit-text select-none'
         >
-          <img src={gmail} alt='gmail' className='w-6 sm:w-8 h-6 sm:h-8 mt-6' />
+          <img src={gmail} alt='gmail' className='w-6 h-6 ' />
         </a>
       </div>
     </div>
