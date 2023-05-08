@@ -4,46 +4,52 @@ import likeButtonFilled from '@assets/heartfill.svg';
 import { CardType } from '@type/explore/card';
 import RedirectToProfile from '@components/shared/RedirectToProfile';
 import {
-  unlikeCardFetch,
   likeCardFetch,
-  checkForLike,
+  unlikeCardFetch,
 } from 'src/api-wrapper/explore/roadmap-likes';
 import userStatus from '@store/user/user-status';
 
 const Card = ({ cardStore }: { cardStore: CardType }) => {
   const { name, author, description, likes, id, authorId } = cardStore;
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [likeCount, setLikeCount] = useState(Number(likes));
-  const [heartClicked, setHeartClicked] = useState(false);
-  const SI_SYMBOL = ['', 'k', 'M', 'G', 'T', 'P', 'E'];
+  const [ isLoaded, setIsLoaded ] = useState(false);
+  const [ likeCount, setLikeCount ] = useState(Number(likes));
+  const [ heartClicked, setHeartClicked ] = useState(false);
+  const SI_SYMBOL = [ '', 'k', 'M', 'G', 'T', 'P', 'E' ];
 
   useEffect(() => {
-    if (isLoaded && userStatus.get().isLogged && userStatus.get().loaded) {
-      const likeManager = async () => {
-        if (heartClicked) {
-          if ((await likeCardFetch(id)) === true) {
-            setLikeCount((prev) => prev + 1);
-          }
-        } else {
-          await unlikeCardFetch(id);
-          setLikeCount((prev) => prev - 1);
-        }
-      };
-      likeManager();
-    } else {
-      setIsLoaded(true);
-    }
-  }, [heartClicked]);
-
-  useEffect(() => {
-    const likeCheck = async () => {
-      if ((await checkForLike(id)) === true) {
-        setHeartClicked(true);
-        // console.log(heartClicked);
-      }
-    };
-    likeCheck();
+    setHeartClicked(cardStore.isLiked);
+    setIsLoaded(true);
   }, []);
+
+  async function like(bool: boolean) {
+    if (!isLoaded) return;
+
+    if (!userStatus.get().isLogged) {
+      // redirect to login
+      location.href = '/login';
+      return;
+    }
+
+    if (bool) {
+      setHeartClicked(true);
+      setLikeCount((prev) => prev + 1);
+      let result = await likeCardFetch(id);
+
+      if (!result) {
+        setHeartClicked(false);
+        setLikeCount((prev) => prev - 1);
+      }
+    } else {
+      setHeartClicked(false);
+      setLikeCount((prev) => prev - 1);
+      let result = await unlikeCardFetch(id);
+
+      if (!result) {
+        setHeartClicked(true);
+        setLikeCount((prev) => prev + 1);
+      }
+    }
+  }
 
   function abbreviateNumber(number: number): string | number {
     // handle 0 specifically
@@ -62,23 +68,27 @@ const Card = ({ cardStore }: { cardStore: CardType }) => {
   }
 
   return (
-    <div className='bg-white w-11/12 md:w-[340px] sm:w-96 h-40 sm:h-52 relative shadow-standard rounded-lg 2xl:w-[460px] 2xl:h-64'>
+    <div
+      className='bg-white w-11/12 md:w-[340px] sm:w-96 h-40 sm:h-52 relative shadow-standard rounded-lg 2xl:w-[460px] 2xl:h-64'>
       <div className='flex justify-center mt-3'>
         <h1 className='font-kanit-text text-xl sm:text-2xl flex 2xl:text-3xl'>
           {name}
         </h1>
         <div className='font-roboto'>
-          <div className='absolute top-4 right-4 text-[9px] sm:text-xs sm:pl-[83px] flex flex-col justify-center items-center text-placeholder 2xl:text-sm 2xl:pl-[102px]'>
+          <div
+            className='absolute top-4 right-4 text-[9px] sm:text-xs sm:pl-[83px] flex flex-col justify-center items-center text-placeholder 2xl:text-sm 2xl:pl-[102px]'>
             <div className='text-xs md:text-sm'>made by</div>
             <RedirectToProfile redirectUserId={authorId}>
-              <div className='text-xs md:text-md text-blue-400  hover:text-blue-600 transition-all '>
+              <div
+                className='text-xs md:text-md text-blue-400  hover:text-blue-600 transition-all '>
                 {author}
               </div>
             </RedirectToProfile>
           </div>
         </div>
       </div>
-      <div className='box-border h-[85px] w-full px-6 py-5 text-xs text-center sm:h-[120px] sm:text-sm sm:p-8 font-roboto-text text-secondary 2xl:h-36 2xl:text-base 2xl:py-10 2xl:px-9'>
+      <div
+        className='box-border h-[85px] w-full px-6 py-5 text-xs text-center sm:h-[120px] sm:text-sm sm:p-8 font-roboto-text text-secondary 2xl:h-36 2xl:text-base 2xl:py-10 2xl:px-9'>
         <p className='line-clamp-3'>{description}</p>
       </div>
       <div className='flex justify-center items-center relative 2xl:mt-3'>
@@ -91,14 +101,15 @@ const Card = ({ cardStore }: { cardStore: CardType }) => {
         >
           Explore
         </a>
-        <div className='absolute right-4 flex items-center justify-center flex-col -top-2'>
+        <div
+          className='absolute right-4 flex items-center justify-center flex-col -top-2'>
           <h1 className='text-[10px] sm:text-xs 2xl:text-sm'>
             {abbreviateNumber(likeCount)}
           </h1>
           <button
             type='button'
             className='select-none'
-            onClick={() => setHeartClicked((prev) => !prev)}
+            onClick={() => like(!heartClicked)}
           >
             {heartClicked ? (
               <img

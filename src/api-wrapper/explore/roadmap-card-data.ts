@@ -116,13 +116,13 @@ export const fetchDefaultCardsExplore = async (
 
 export const fetchRoadmapCardsProfile = async (
   id: string
-): Promise<RoadmapTypeApi[]> => {
+): Promise<RoadmapTypeApiExplore[]> => {
   // fetches from the api the cards
   const fetchRoute = `/api/users/${id}/roadmaps`;
   const response = await fetch(fetchRoute, {
     method: 'GET',
     credentials: 'include',
-  }).then((res) => res);
+  });
   const dataJson: CardTypeApiResponse = await response.json();
   return dataJson.roadmaps;
 };

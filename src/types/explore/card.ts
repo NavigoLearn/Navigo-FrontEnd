@@ -4,6 +4,7 @@ export type CardType = {
   authorId: string;
   description: string;
   likes: number;
+  isLiked: boolean;
   id: string;
 };
 
@@ -22,7 +23,7 @@ export type RoadmapTypeApi = {
 export type CardTypeApiResponse = {
   type: 'roadmaps';
   userId: string;
-  roadmaps: RoadmapTypeApi[];
+  roadmaps: RoadmapTypeApiExplore[];
 };
 
 export type RoadmapTypeApiExplore = {
@@ -30,13 +31,14 @@ export type RoadmapTypeApiExplore = {
   name: string;
   description: string;
   likes: number;
-  issueCount: number;
+  isLiked: boolean;
   ownerName: string;
   ownerId: string;
 };
 
 export type CardTypeApiResponseExplore = {
   success: boolean;
+  pageCount: number;
   roadmaps: RoadmapTypeApiExplore[];
 };
 

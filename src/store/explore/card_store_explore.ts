@@ -35,6 +35,7 @@ export async function setRoadmapCardsFromApiExplore(
       author: value.ownerName,
       description: value.description,
       likes: value.likes,
+      isLiked: value.isLiked,
       id: value.id,
       authorId: value.ownerId,
     };
@@ -50,9 +51,10 @@ export async function setRoadmapCardsFromApiProfile(
   idArray.forEach((value) => {
     const newValue: CardType = {
       name: value.name,
-      author,
+      author: value.ownerName,
       description: value.description,
-      likes: parseInt(value.likes, 10),
+      likes: value.likes,
+      isLiked: value.isLiked,
       id: value.id,
       authorId: value.ownerId,
     };
