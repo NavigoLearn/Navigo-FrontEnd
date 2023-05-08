@@ -38,7 +38,7 @@ export function errorHandlerDecorator<T extends any[]>(
 ): TriggerFunctionNoId<T> {
   return async function (...args: T) {
     try {
-      await func(...args);
+      return await func(...args);
     } catch (error) {
       addNewError(error.message);
     }
