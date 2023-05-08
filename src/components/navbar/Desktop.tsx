@@ -11,12 +11,26 @@ const DesktopNavbar = () => {
   const [hydrated, setHydrated] = useState(false);
   const { profilePictureUrl } = useStore(loggedUser);
   const { loaded, isLogged } = useStore(userStatus);
+
   useEffect(() => {
     setHydrated(true);
+    // add event listener for scroll
+    window.addEventListener('scroll', () => {
+      const navbar = document.querySelector('nav');
+      if (navbar) {
+        if (window.scrollY > 0) {
+          navbar.classList.add('bg-white');
+          navbar.classList.add('shadow-standard');
+        } else {
+          navbar.classList.remove('bg-white');
+          navbar.classList.remove('shadow-standard');
+        }
+      }
+    });
   }, []);
 
   return (
-    <nav className='bg-white flex w-full relative h-16 z-10 justify-between items-center overflow-visible select-none'>
+    <nav className='bg-transparent relative flex w-full h-16 z-10 justify-between items-center transition-all  duration-300 select-none'>
       <a href='/home' className='justify-start cursor-pointer flex'>
         <img
           draggable='false'

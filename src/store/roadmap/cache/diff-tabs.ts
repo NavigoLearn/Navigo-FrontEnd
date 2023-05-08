@@ -7,10 +7,7 @@ import {
 } from '@store/roadmap/cache/cached-tabs';
 import { HashMap } from '@type/roadmap/roadmap';
 import { TabInfo, TabIssue, TabAbout } from '@type/roadmap/tab-manager';
-import {
-  postTabInfoPseudo,
-  createTabInfoData,
-} from '../../../api-wrapper/roadmap/tab-data';
+import { createTabInfoData } from '../../../api-wrapper/roadmap/tab-data';
 
 const diffTabsStore = atom({
   // this is a store keeping track of the changes made to the tabs while editing
@@ -44,18 +41,6 @@ export const createNewTabs = async () => {
     original.newTabs.map(async (id) => {
       const tab = original.info[id];
       return createTabInfoData(tab.id, tab);
-    })
-  );
-};
-
-export const updateTabs = async () => {
-  // iterates over all keys in the diffTabsStore and creates new tabs
-  const original = diffTabsStore.get();
-  // waits for all promises to resolve
-  await Promise.all(
-    original.changedTabs.map(async (id) => {
-      const tab = original.info[id];
-      return postTabInfoPseudo(tab.id, tab);
     })
   );
 };

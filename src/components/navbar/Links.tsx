@@ -78,7 +78,7 @@ const mobileLogged = [
     title: 'home',
     path: '/home',
     cName:
-      'flex items-center text-center text-2xl p-12 m-auto hover:underline w-10/12 h-12 justify-center font-normal -translate-x-1',
+      'flex items-center text-center text-xl py-8 m-auto hover:underline w-10/12 h-12 justify-center font-normal -translate-x-1',
     cIcon: home,
     id: 1,
   },
@@ -86,7 +86,7 @@ const mobileLogged = [
     title: 'Explore',
     path: '/explore',
     cName:
-      'flex items-center text-center text-2xl p-12 m-auto hover:underline w-10/12 h-12 justify-center font-medium -translate-x-1',
+      'flex items-center text-center text-xl py-8 m-auto hover:underline w-10/12 h-12 justify-center font-medium -translate-x-1',
     cIcon: explore,
     id: 2,
   },
@@ -94,7 +94,7 @@ const mobileLogged = [
     title: 'Feedback',
     path: '/feedback',
     cName:
-      'flex items-center text-center text-2xl p-12 m-auto hover:underline w-10/12 h-12 justify-center font-normal -translate-x-1',
+      'flex items-center text-center text-xl py-8 m-auto hover:underline w-10/12 h-12 justify-center font-normal -translate-x-1',
     cIcon: feedback,
     id: 3,
   },
@@ -102,9 +102,17 @@ const mobileLogged = [
     title: 'Profile',
     path: '/profile',
     cName:
-      'flex items-center text-center text-2xl p-12 m-auto hover:underline w-10/12 h-12 justify-center font-normal -translate-x-1',
+      'flex items-center text-center text-xl py-8 m-auto hover:underline w-10/12 h-12 justify-center font-normal -translate-x-1',
     cIcon: profile,
     id: 4,
+  },
+  {
+    title: 'Create roadmap',
+    path: '/roadmap/create',
+    cName:
+      'flex items-center text-center text-xl py-8 m-auto  w-full h-8 justify-center font-normal bg-primary text-white ',
+    cIcon: '',
+    id: 5,
   },
 ];
 
@@ -113,7 +121,7 @@ const mobileGuest = [
     title: 'home',
     path: '/home',
     cName:
-      'flex items-center text-center text-2xl p-12 m-auto hover:underline w-10/12 h-12 justify-center -translate-x-1',
+      'flex items-center text-center text-xl py-8 m-auto hover:underline w-10/12 h-12 justify-center -translate-x-1',
     cIcon: home,
     id: 1,
   },
@@ -121,7 +129,7 @@ const mobileGuest = [
     title: 'Explore',
     path: '/explore',
     cName:
-      'flex items-center text-center text-2xl p-12 m-auto hover:underline w-10/12 h-12 justify-center font-medium -translate-x-1',
+      'flex items-center text-center text-xl py-8 m-auto hover:underline w-10/12 h-12 justify-center font-medium -translate-x-1',
     cIcon: explore,
     id: 2,
   },
@@ -129,7 +137,7 @@ const mobileGuest = [
     title: 'Feedback',
     path: '/feedback',
     cName:
-      'flex items-center text-center text-2xl p-12 m-auto hover:underline w-10/12 h-12 justify-center -translate-x-1',
+      'flex items-center text-center text-xl py-8 m-auto hover:underline w-10/12 h-12 justify-center -translate-x-1',
     cIcon: feedback,
     id: 3,
   },
@@ -137,7 +145,7 @@ const mobileGuest = [
     title: 'Login',
     path: '/login',
     cName:
-      'flex items-center text-center text-2xl p-12 mx-auto hover:underline w-10/12 h-12 justify-center -translate-x-2',
+      'flex items-center text-center text-xl py-8 mx-auto hover:underline w-10/12 h-12 justify-center -translate-x-2',
     cIcon: profile,
     id: 4,
   },
@@ -145,7 +153,7 @@ const mobileGuest = [
     title: 'Get Started',
     path: '/signup',
     cName:
-      'flex items-center text-center text-2xl m-auto hover:underline bg-primary text-background rounded-full px-4 py-8 justify-center h-12 rounded-xl w-56 h-14',
+      'flex items-center text-center text-xl m-auto hover:underline bg-primary text-background rounded-full px-4 py-8 justify-center h-12 rounded-xl w-56 h-14',
     id: 5,
   },
 ];

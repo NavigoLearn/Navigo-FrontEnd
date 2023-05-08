@@ -5,8 +5,10 @@ import ErrorDisplay from '@components/roadmap/top-bar/ErrorDisplay';
 
 const Error = () => {
   const { errors, errorUpTime } = useStore(errorList);
+  console.log(errors);
+  console.log('anything');
   return (
-    <div className=' w-72 absolute top-10 flex flex-col gap-2'>
+    <div className=' w-72 absolute top-10 flex  flex-col gap-2'>
       {errors.map((error) => {
         return (
           <ErrorDisplay

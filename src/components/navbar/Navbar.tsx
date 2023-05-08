@@ -4,14 +4,14 @@ import MobileNavbar from './Mobile';
 
 const Navbar = () => {
   return (
-    <div className=''>
-      <div className='hidden md:block'>
+    <>
+      <div className='hidden md:block sticky top-0 z-[100]'>
         <DesktopNavbar />
       </div>
       <div className='md:hidden'>
         <MobileNavbar />
       </div>
-    </div>
+    </>
   );
 };
 

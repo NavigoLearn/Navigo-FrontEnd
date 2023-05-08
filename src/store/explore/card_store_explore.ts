@@ -1,5 +1,6 @@
 import { atom } from 'nanostores';
 import { CardType } from '@type/explore/card';
+import { errorHandlerDecorator } from '@typescript/error-handler';
 import {
   fetchDefaultCardsExplore,
   fetchRoadmapCardsProfile,
@@ -23,29 +24,26 @@ export function emptyStore() {
   cardsFromApi.set({});
 }
 
-export async function setRoadmapCardsFromApiExplore(
-  query: string,
-  page: number
-) {
-  const exploreRoadmaps = await fetchDefaultCardsExplore(query, page);
-  emptyStore();
-  exploreRoadmaps.roadmaps.forEach((value) => {
-    const newValueExplore: CardType = {
-      name: value.name,
-      author: value.ownerName,
-      description: value.description,
-      likes: value.likes,
-      isLiked: value.isLiked,
-      id: value.id,
-      authorId: value.ownerId,
-    };
-    addCardToStore(value.id, newValueExplore);
-  });
-
+export const setRoadmapCardsFromApiExplore = errorHandlerDecorator(
+  async (query: string, page: number) => {
+    const exploreRoadmaps = await fetchDefaultCardsExplore(query, page);
+    emptyStore();
+    exploreRoadmaps.roadmaps.forEach((value) => {
+      const newValueExplore: CardType = {
+        name: value.name,
+        author: value.ownerName,
+        description: value.description,
+        likes: value.likes,
+        isLiked: value.isLiked,
+        id: value.id,
+        authorId: value.ownerId,
+      };
+      addCardToStore(value.id, newValueExplore);
+    });
   return {
     pageCount: exploreRoadmaps.pageCount,
-  }
-}
+  }}
+);
 
 export async function setRoadmapCardsFromApiProfile(
   id: string,
