@@ -29,17 +29,22 @@ export async function setRoadmapCardsFromApiExplore(
 ) {
   const exploreRoadmaps = await fetchDefaultCardsExplore(query, page);
   emptyStore();
-  exploreRoadmaps.forEach((value) => {
+  exploreRoadmaps.roadmaps.forEach((value) => {
     const newValueExplore: CardType = {
       name: value.name,
       author: value.ownerName,
       description: value.description,
       likes: value.likes,
+      isLiked: value.isLiked,
       id: value.id,
       authorId: value.ownerId,
     };
     addCardToStore(value.id, newValueExplore);
   });
+
+  return {
+    pageCount: exploreRoadmaps.pageCount,
+  }
 }
 
 export async function setRoadmapCardsFromApiProfile(
@@ -50,9 +55,10 @@ export async function setRoadmapCardsFromApiProfile(
   idArray.forEach((value) => {
     const newValue: CardType = {
       name: value.name,
-      author,
+      author: value.ownerName,
       description: value.description,
-      likes: parseInt(value.likes, 10),
+      likes: value.likes,
+      isLiked: value.isLiked,
       id: value.id,
       authorId: value.ownerId,
     };

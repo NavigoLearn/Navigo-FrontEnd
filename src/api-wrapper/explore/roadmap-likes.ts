@@ -1,22 +1,22 @@
 import { likeType } from '@type/explore/card';
 
-export const likeCardFetch = async (id: string): Promise<{}> => {
+export const likeCardFetch = async (id: string): Promise<boolean> => {
   const fetchSource = `/api/roadmaps/${id}/like`;
   const response = await fetch(fetchSource, {
     method: 'GET',
     credentials: 'include',
-  }).then((res) => res);
-  const responseJson: likeType = await response.json();
-  console.log(responseJson.success);
-  return responseJson.success;
+  });
+  return response.status===200;
 };
 
-export const unlikeCardFetch = async (id: string): Promise<void> => {
+export const unlikeCardFetch = async (id: string): Promise<boolean> => {
   const fetchSource = `/api/roadmaps/${id}/like`;
-  await fetch(fetchSource, {
+  let res = await fetch(fetchSource, {
     method: 'DELETE',
     credentials: 'include',
   });
+
+  return res.status===200;
 };
 
 export const checkForLike = async (id: string): Promise<{}> => {
