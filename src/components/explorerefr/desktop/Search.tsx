@@ -103,7 +103,9 @@ const SearchDesktop = () => {
       <div className='flex justify-center items-center mt-16 '>
         <ul className='grid grid-cols-2 gap-x-9 gap-y-11 xl:grid-cols-3'>
           {loaded &&
-            Object.keys(cardStore).map((card: string) => (
+            Object.keys(cardStore).sort((a,b) => {
+              return cardStore[b].likes - cardStore[a].likes
+            }).map((card: string) => (
               <div key={card} className='flex items-center justify-center'>
                 <Card cardStore={cardStore[card]} />
               </div>
