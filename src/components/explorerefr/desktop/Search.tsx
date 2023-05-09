@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import loupe from '@assets/loupe.svg';
-import warn from '@assets/warningErr.webp';
+// import warn from '@assets/warningErr.webp';
 import chevroleftduo from '@assets/chevron-left-duo.svg';
 import chevronrightduo from '@assets/chevron-right-duo.svg';
 import chevronleft from '@assets/chevron-left.svg';
@@ -8,7 +8,7 @@ import chevronright from '@assets/chevron-right.svg';
 import cardsFromApi, {
   setRoadmapCardsFromApiExplore,
 } from '@store/explore/card_store_explore';
-import FilterAugD from './filterhoc/FilterAugD';
+// import FilterAugD from './filterhoc/FilterAugD';
 import Card from '../Card';
 
 const SearchDesktop = () => {
@@ -89,7 +89,7 @@ const SearchDesktop = () => {
         </div>
       </form>
 
-      <FilterAugD />
+      {/*<FilterAugD />
 
       <div className='bg-background h-20 w-full -mt-20 opacity-75 relative flex justify-center items-center 2xl:h-24 2xl:-mt-24'>
         <div className='w-full bg-background h-7 2xl:h-8 flex justify-center items-center absolute'>
@@ -103,7 +103,7 @@ const SearchDesktop = () => {
             Filters will be added post beta default: Likes.
           </div>
         </div>
-      </div>
+      </div>*/}
 
       <div className='flex justify-center items-center mt-16 '>
         <ul className='grid grid-cols-2 gap-x-9 gap-y-11 xl:grid-cols-3'>

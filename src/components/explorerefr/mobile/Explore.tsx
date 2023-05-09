@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import loupe from '@assets/loupe.svg';
-import filter from '@assets/filter.svg';
-import sort from '@assets/sortby.svg';
-import warn from '@assets/warningErr.webp';
+// import filter from '@assets/filter.svg';
+// import sort from '@assets/sortby.svg';
+// import warn from '@assets/warningErr.webp';
 import chevroleftduo from '@assets/chevron-left-duo.svg';
 import chevronrightduo from '@assets/chevron-right-duo.svg';
 import chevronleft from '@assets/chevron-left.svg';
@@ -23,22 +23,26 @@ const SearchMobile = () => {
   const [loaded, setLoaded] = useState(false);
   const [pageNr, setPageNr] = useState(1);
   const [query, setQuery] = useState('');
+  const [maxPage, setMaxPage] = useState(1);
   const cardStore = cardsFromApi.get();
   const cardCount = Object.keys(cardStore).length;
-  const disabledRight = cardCount < 9;
+  const disabledRight = pageNr >= maxPage;
+
   const disabledLeft = pageNr <= 1;
 
   useEffect(() => {
-    setRoadmapCardsFromApiExplore('', 1).then(() => {
+    setRoadmapCardsFromApiExplore('', 1).then(({ pageCount }) => {
       setRender((prev) => !prev);
+      setMaxPage(pageCount);
       setLoaded(true);
     });
   }, []);
 
   useEffect(() => {
     if (loaded) {
-      setRoadmapCardsFromApiExplore(query, pageNr).then(() => {
+      setRoadmapCardsFromApiExplore(query, pageNr).then(({ pageCount }) => {
         setRender((prev) => !prev);
+        setMaxPage(pageCount);
       });
     }
   }, [pageNr]);
@@ -46,8 +50,9 @@ const SearchMobile = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    setRoadmapCardsFromApiExplore(query, 1).then(() => {
+    setRoadmapCardsFromApiExplore(query, 1).then(({ pageCount }) => {
       setRender((prev) => !prev);
+      setMaxPage(pageCount);
     });
   };
 
@@ -95,7 +100,7 @@ const SearchMobile = () => {
         </div>
       </form>
 
-      <div className='flex justify-center items-center space-x-12 mt-7 sm:mt-9 select-none'>
+      {/*<div className='flex justify-center items-center space-x-12 mt-7 sm:mt-9 select-none'>
         <button type='button' onClick={() => handleClick('filter')}>
           <div className='bg-primary flex justify-center items-center shadow-standard rounded-lg w-[90px] text-white h-[30px] sm:w-[122px] sm:h-[42px]'>
             <img
@@ -134,12 +139,14 @@ const SearchMobile = () => {
           />
           Filters will be added post beta default: Likes.
         </div>
-      </div>
+      </div>*/}
 
       <div className='mt-10 sm:mt-12'>
         <ul className='flex flex-col gap-7 sm:gap-9'>
           {loaded &&
-            Object.keys(cardStore).map((card: string) => (
+            Object.keys(cardStore).sort((a,b) => {
+              return cardStore[b].likes -  cardStore[a].likes;
+            }).map((card: string) => (
               <div key={card} className='flex items-center justify-center'>
                 <Card cardStore={cardStore[card]} />
               </div>
@@ -148,7 +155,11 @@ const SearchMobile = () => {
       </div>
 
       <div className='flex justify-center items-center my-8 select-none'>
-        <button type='button'>
+        <button type='button'
+                className={`disabled:opacity-50`}
+                onClick={() => setPageNr(1)}
+                disabled={disabledLeft}
+        >
           <img
             draggable='false'
             src={chevroleftduo}
@@ -158,6 +169,7 @@ const SearchMobile = () => {
         </button>
         <button
           type='button'
+          className={`disabled:opacity-50`}
           onClick={() => setPageNr((prev) => prev - 1)}
           disabled={disabledLeft}
         >
@@ -171,6 +183,7 @@ const SearchMobile = () => {
         <span className='select-all'>{pageNr}</span>
         <button
           type='button'
+          className={`disabled:opacity-50`}
           onClick={() => setPageNr((prev) => prev + 1)}
           disabled={disabledRight}
         >
@@ -181,7 +194,11 @@ const SearchMobile = () => {
             className='w-6 h-6 sm:w-8 sm:h-8'
           />
         </button>
-        <button type='button'>
+        <button type='button'
+                className={`disabled:opacity-50`}
+                onClick={() => setPageNr(maxPage)}
+                disabled={disabledRight}
+        >
           <img
             draggable='false'
             src={chevronrightduo}

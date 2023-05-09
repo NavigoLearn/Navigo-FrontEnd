@@ -10,17 +10,15 @@ export const fetchDefaultCardsExplore = async (
 ): Promise<CardTypeApiResponseExplore> => {
   let fetchRouteExplore;
   if (query !== '') {
-    fetchRouteExplore = `api/explore/?query=${query}&count=9&page=${page}`;
+    fetchRouteExplore = `api/explore/?query=${query}&count=12&page=${page}`;
   } else {
-    fetchRouteExplore = `api/explore/?count=9&page=${page}`;
+    fetchRouteExplore = `api/explore/?count=12&page=${page}`;
   }
   const responseExplore = await fetch(fetchRouteExplore, {
     method: 'GET',
     credentials: 'include',
   }).then((res) => res);
-  const dataJsonExplore: CardTypeApiResponseExplore =
-    await responseExplore.json();
-  return dataJsonExplore;
+  return await responseExplore.json();
 };
 
 export const fetchRoadmapCardsProfile = async (

@@ -1,4 +1,3 @@
-import { emptyCachedNodeCoord } from '@store/roadmap/cache/cached-node-coords';
 import { addNewError } from '@store/roadmap/error-list';
 
 type ErrorTypes =
@@ -36,7 +35,8 @@ type TriggerFunctionNoId<T extends any[]> = (...args: T) => any;
 export function errorHandlerDecorator<T extends any[]>(
   func: TriggerFunctionNoId<T>
 ): TriggerFunctionNoId<T> {
-  return async function (...args: T) {
+  return async function (...args: T):
+    Promise<ReturnType<typeof func> | undefined> {
     try {
       return await func(...args);
     } catch (error) {
