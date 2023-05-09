@@ -6,8 +6,8 @@ import circle from '@assets/circle.svg';
 
 const universalLinks = [
   {
-    title: 'home',
-    path: '/home',
+    title: 'Home',
+    path: '/',
     cName:
       'text-[14px] flex items-center text-center font-medium inline-block text-secondary hover:text-main transtion-all duration-300 ',
     id: 1,
@@ -75,8 +75,8 @@ const guestLinks = [
 
 const mobileLogged = [
   {
-    title: 'home',
-    path: '/home',
+    title: 'Home',
+    path: '/',
     cName:
       'flex items-center text-center text-xl py-8 m-auto hover:underline w-10/12 h-12 justify-center font-normal -translate-x-1',
     cIcon: home,
@@ -118,7 +118,7 @@ const mobileLogged = [
 
 const mobileGuest = [
   {
-    title: 'home',
+    title: 'Home',
     path: '/home',
     cName:
       'flex items-center text-center text-xl py-8 m-auto hover:underline w-10/12 h-12 justify-center -translate-x-1',
