@@ -10,6 +10,7 @@ import cardsFromApi, {
 } from '@store/explore/card_store_explore';
 // import FilterAugD from './filterhoc/FilterAugD';
 import Card from '../Card';
+import EmptyCard from "@components/explorerefr/EmptyCard";
 
 const SearchDesktop = () => {
   const [query, setQuery] = useState('');
@@ -107,18 +108,24 @@ const SearchDesktop = () => {
 
       <div className='flex justify-center items-center mt-16 '>
         <ul className='grid grid-cols-2 gap-x-9 gap-y-11 xl:grid-cols-3'>
-          {loaded &&
+          {loaded ?
             Object.keys(cardStore).sort((a,b) => {
-              return cardStore[b].likes - cardStore[a].likes
+              return cardStore[b].likes -  cardStore[a].likes;
             }).map((card: string) => (
               <div key={card} className='flex items-center justify-center'>
                 <Card cardStore={cardStore[card]} />
               </div>
-            ))}
+            )) :
+            new Array(12).fill(0).map((_, i) => (
+              <div className='flex items-center justify-center'>
+                <EmptyCard />
+              </div>)
+            )
+          }
         </ul>
       </div>
 
-      {cardCount === 0 && (
+      {cardCount === 0 && loaded && (
         <div className='flex items-center justify-center font-kanit-text text-3xl text-secondary'>
           Oops! Seems like someone ate all the roadmaps!
         </div>

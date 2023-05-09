@@ -15,6 +15,7 @@ import SortBy from './SortBy';
 // import Filter from './Filter';
 import FilterAug from './FilterManager';
 import Card from '../Card';
+import EmptyCard from "@components/explorerefr/EmptyCard";
 
 const SearchMobile = () => {
   const [clickFilter, setClickFilter] = useState(false);
@@ -143,16 +144,28 @@ const SearchMobile = () => {
 
       <div className='mt-10 sm:mt-12'>
         <ul className='flex flex-col gap-7 sm:gap-9'>
-          {loaded &&
+          {loaded ?
             Object.keys(cardStore).sort((a,b) => {
               return cardStore[b].likes -  cardStore[a].likes;
             }).map((card: string) => (
               <div key={card} className='flex items-center justify-center'>
                 <Card cardStore={cardStore[card]} />
               </div>
-            ))}
+            )) :
+              new Array(12).fill(0).map((_, i) => (
+                <div className='flex items-center justify-center'>
+                  <EmptyCard />
+                </div>)
+              )
+            }
         </ul>
       </div>
+
+      {cardCount === 0 && loaded && (
+      <div className='flex items-center justify-center font-kanit-text text-3xl text-secondary'>
+        Oops! Seems like someone ate all the roadmaps!
+      </div>
+    )}
 
       <div className='flex justify-center items-center my-8 select-none'>
         <button type='button'
