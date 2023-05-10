@@ -11,11 +11,12 @@ import chevronright from '@assets/chevron-right.svg';
 import cardsFromApi, {
   setRoadmapCardsFromApiExplore,
 } from '@store/explore/card_store_explore';
+import EmptyCard from '@components/explorerefr/EmptyCard';
+import erase from '@assets/cross.svg';
 import SortBy from './SortBy';
 // import Filter from './Filter';
 import FilterAug from './FilterManager';
 import Card from '../Card';
-import EmptyCard from "@components/explorerefr/EmptyCard";
 
 const SearchMobile = () => {
   const [clickFilter, setClickFilter] = useState(false);
@@ -98,10 +99,19 @@ const SearchMobile = () => {
             alt='searchIcon'
             className='absolute left-3 top-3 sm:top-[14px]'
           />
+          {query && (
+            <button
+              type='button'
+              className='absolute right-[5%] top-[30%] font-roboto-text'
+              onClick={() => setQuery('')}
+            >
+              <img src={erase} alt='eraseButton' className='h-4 w-4' />
+            </button>
+          )}
         </div>
       </form>
 
-      {/*<div className='flex justify-center items-center space-x-12 mt-7 sm:mt-9 select-none'>
+      {/* <div className='flex justify-center items-center space-x-12 mt-7 sm:mt-9 select-none'>
         <button type='button' onClick={() => handleClick('filter')}>
           <div className='bg-primary flex justify-center items-center shadow-standard rounded-lg w-[90px] text-white h-[30px] sm:w-[122px] sm:h-[42px]'>
             <img
@@ -140,38 +150,40 @@ const SearchMobile = () => {
           />
           Filters will be added post beta default: Likes.
         </div>
-      </div>*/}
+      </div> */}
 
       <div className='mt-10 sm:mt-12'>
         <ul className='flex flex-col gap-7 sm:gap-9'>
-          {loaded ?
-            Object.keys(cardStore).sort((a,b) => {
-              return cardStore[b].likes -  cardStore[a].likes;
-            }).map((card: string) => (
-              <div key={card} className='flex items-center justify-center'>
-                <Card cardStore={cardStore[card]} />
-              </div>
-            )) :
-              new Array(12).fill(0).map((_, i) => (
+          {loaded
+            ? Object.keys(cardStore)
+                .sort((a, b) => {
+                  return cardStore[b].likes - cardStore[a].likes;
+                })
+                .map((card: string) => (
+                  <div key={card} className='flex items-center justify-center'>
+                    <Card cardStore={cardStore[card]} />
+                  </div>
+                ))
+            : new Array(12).fill(0).map((_, i) => (
                 <div className='flex items-center justify-center'>
                   <EmptyCard />
-                </div>)
-              )
-            }
+                </div>
+              ))}
         </ul>
       </div>
 
       {cardCount === 0 && loaded && (
-      <div className='flex items-center justify-center font-kanit-text text-3xl text-secondary'>
-        Oops! Seems like someone ate all the roadmaps!
-      </div>
-    )}
+        <div className='flex items-center justify-center font-kanit-text text-3xl text-secondary'>
+          Oops! Seems like someone ate all the roadmaps!
+        </div>
+      )}
 
       <div className='flex justify-center items-center my-8 select-none'>
-        <button type='button'
-                className={`disabled:opacity-50`}
-                onClick={() => setPageNr(1)}
-                disabled={disabledLeft}
+        <button
+          type='button'
+          className='disabled:opacity-50'
+          onClick={() => setPageNr(1)}
+          disabled={disabledLeft}
         >
           <img
             draggable='false'
@@ -182,7 +194,7 @@ const SearchMobile = () => {
         </button>
         <button
           type='button'
-          className={`disabled:opacity-50`}
+          className='disabled:opacity-50'
           onClick={() => setPageNr((prev) => prev - 1)}
           disabled={disabledLeft}
         >
@@ -196,7 +208,7 @@ const SearchMobile = () => {
         <span className='select-all'>{pageNr}</span>
         <button
           type='button'
-          className={`disabled:opacity-50`}
+          className='disabled:opacity-50'
           onClick={() => setPageNr((prev) => prev + 1)}
           disabled={disabledRight}
         >
@@ -207,10 +219,11 @@ const SearchMobile = () => {
             className='w-6 h-6 sm:w-8 sm:h-8'
           />
         </button>
-        <button type='button'
-                className={`disabled:opacity-50`}
-                onClick={() => setPageNr(maxPage)}
-                disabled={disabledRight}
+        <button
+          type='button'
+          className='disabled:opacity-50'
+          onClick={() => setPageNr(maxPage)}
+          disabled={disabledRight}
         >
           <img
             draggable='false'
