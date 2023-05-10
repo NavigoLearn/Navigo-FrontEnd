@@ -9,8 +9,9 @@ import cardsFromApi, {
   setRoadmapCardsFromApiExplore,
 } from '@store/explore/card_store_explore';
 // import FilterAugD from './filterhoc/FilterAugD';
+import EmptyCard from '@components/explorerefr/EmptyCard';
+import erase from '@assets/cross.svg';
 import Card from '../Card';
-import EmptyCard from "@components/explorerefr/EmptyCard";
 
 const SearchDesktop = () => {
   const [query, setQuery] = useState('');
@@ -43,7 +44,7 @@ const SearchDesktop = () => {
 
     setRoadmapCardsFromApiExplore('', 1).then(({ pageCount }) => {
       setRender((prev) => !prev);
-      setMaxPage(pageCount)
+      setMaxPage(pageCount);
       setLoaded(true);
     });
   }, []);
@@ -81,16 +82,19 @@ const SearchDesktop = () => {
             alt='LoupeSearch'
             className='absolute top-6 w-8 h-8 left-5'
           />
-          <button
-            type='submit'
-            className='absolute z-10 right-[3%] top-[20.5%] bg-primary py-2.5 px-10 rounded-full text-white font-roboto-text'
-          >
-            Search
-          </button>
+          {query && (
+            <button
+              type='button'
+              className='absolute right-[3%] top-[33%] font-roboto-text'
+              onClick={() => setQuery('')}
+            >
+              <img src={erase} alt='eraseButton' className='h-6 w-6' />
+            </button>
+          )}
         </div>
       </form>
 
-      {/*<FilterAugD />
+      {/* <FilterAugD />
 
       <div className='bg-background h-20 w-full -mt-20 opacity-75 relative flex justify-center items-center 2xl:h-24 2xl:-mt-24'>
         <div className='w-full bg-background h-7 2xl:h-8 flex justify-center items-center absolute'>
@@ -104,24 +108,25 @@ const SearchDesktop = () => {
             Filters will be added post beta default: Likes.
           </div>
         </div>
-      </div>*/}
+      </div> */}
 
       <div className='flex justify-center items-center mt-16 '>
         <ul className='grid grid-cols-2 gap-x-9 gap-y-11 xl:grid-cols-3'>
-          {loaded ?
-            Object.keys(cardStore).sort((a,b) => {
-              return cardStore[b].likes -  cardStore[a].likes;
-            }).map((card: string) => (
-              <div key={card} className='flex items-center justify-center'>
-                <Card cardStore={cardStore[card]} />
-              </div>
-            )) :
-            new Array(12).fill(0).map((_, i) => (
-              <div className='flex items-center justify-center'>
-                <EmptyCard />
-              </div>)
-            )
-          }
+          {loaded
+            ? Object.keys(cardStore)
+                .sort((a, b) => {
+                  return cardStore[b].likes - cardStore[a].likes;
+                })
+                .map((card: string) => (
+                  <div key={card} className='flex items-center justify-center'>
+                    <Card cardStore={cardStore[card]} />
+                  </div>
+                ))
+            : new Array(12).fill(0).map((_, i) => (
+                <div className='flex items-center justify-center'>
+                  <EmptyCard />
+                </div>
+              ))}
         </ul>
       </div>
 
@@ -132,12 +137,14 @@ const SearchDesktop = () => {
       )}
 
       <div className='flex justify-center items-center my-8 select-none'>
-        <button type='button'
-          className={`disabled:opacity-50`}
+        <button
+          type='button'
+          className='disabled:opacity-50'
           onClick={() => {
             setPageNr(1);
           }}
-          disabled={disabledLeft}>
+          disabled={disabledLeft}
+        >
           <img
             draggable='false'
             src={chevroleftduo}
@@ -147,7 +154,7 @@ const SearchDesktop = () => {
         </button>
         <button
           type='button'
-          className={`disabled:opacity-50`}
+          className='disabled:opacity-50'
           onClick={() => {
             setPageNr((prev) => prev - 1);
           }}
@@ -163,7 +170,7 @@ const SearchDesktop = () => {
         <span className='text-xl 2xl:text-2xl select-auto'>{pageNr}</span>
         <button
           type='button'
-          className={`disabled:opacity-50`}
+          className='disabled:opacity-50'
           onClick={() => {
             setPageNr((prev) => prev + 1);
           }}
@@ -176,12 +183,14 @@ const SearchDesktop = () => {
             className='w-9 h-9 2xl:w-11 2xl:h-11'
           />
         </button>
-        <button type='button'
-        className={`disabled:opacity-50`}
-        onClick={() => {
-          setPageNr(maxPage)
-        }}
-        disabled={disabledRight}>
+        <button
+          type='button'
+          className='disabled:opacity-50'
+          onClick={() => {
+            setPageNr(maxPage);
+          }}
+          disabled={disabledRight}
+        >
           <img
             draggable='false'
             src={chevronrightduo}
