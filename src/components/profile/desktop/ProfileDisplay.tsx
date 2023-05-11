@@ -103,6 +103,7 @@ const ProfileDisplay = ({ id }: { id: string }) => {
             <ButtonsFollow
               reqAgain={() => {
                 setRequestAgain((prev) => !prev);
+
               }}
             />
           )}
