@@ -12,8 +12,11 @@ const MobileNavbar = () => {
   const [hydrated, setHydrated] = useState(false);
   const { profilePictureUrl } = useStore(loggedUser);
   const { loaded, isLogged } = useStore(userStatus);
+  const [currentPath, setCurrentPath] = useState('');
+
   useEffect(() => {
     setHydrated(true);
+    setCurrentPath(window.location.pathname)
   }, []);
 
   const handleClick = () => {
@@ -101,19 +104,21 @@ const MobileNavbar = () => {
                     key={link.id}
                     className='items-center text-center justify-center relative'
                   >
-                    <a className={link.cName} href={link.path}>
-                      <div className='flex items-center justify-center '>
-                        {link.cIcon && (
-                          <img
-                            draggable='false'
-                            src={link.cIcon}
-                            alt='icon'
-                            className='w-8 flex -translate-x-2'
-                          />
-                        )}
-                        <div>{link.title}</div>
-                      </div>
-                    </a>
+                    {currentPath === '/roadmap/create' && link.path === '/roadmap/create' ? null : (
+                      <a className={link.cName} href={link.path}>
+                        <div className='flex items-center justify-center '>
+                          {link.cIcon && (
+                            <img
+                              draggable='false'
+                              src={link.cIcon}
+                              alt='icon'
+                              className='w-8 flex -translate-x-2'
+                            />
+                          )}
+                          <div>{link.title}</div>
+                        </div>
+                      </a>
+                    )}
                   </li>
                 );
               })}

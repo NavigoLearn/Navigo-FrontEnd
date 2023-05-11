@@ -3,19 +3,21 @@ import { useStore } from '@nanostores/react';
 import roadmapState from '@store/roadmap/data/roadmap_state';
 import buttonsEditOwner from '@components/roadmap/sidebar/buttons-edit';
 import buttonsCreate from '@components/roadmap/sidebar/buttons-create';
-import loggedUser, { getLoggedUserId } from '@store/user/logged-user';
+import loggedUser from '@store/user/user-status';
 import roadmapVisitData, {
   validData,
 } from '@store/roadmap/data/roadmap-visit-data';
 import GenericButtonDesktop from '@components/roadmap/sidebar/GenericButtonDesktop';
 import { buttonsViewVisitor, buttonsViewOwner } from './buttons-view';
+import { divWrapper } from '../tabs/utils/logic';
+import about from '@assets/about.svg';
 
 const SideBar = ({ isCreate }: { isCreate: string }) => {
   const [hover, setHover] = useState(false);
   const { editing } = useStore(roadmapState);
   const [hydrated, setHydrated] = useState(false);
   const [isOwner, setIsOwner] = useState(false);
-
+  const loggedStatus =  useStore(loggedUser).isLogged;
   const { visitorIsOwner } = useStore(roadmapVisitData);
 
   useEffect(() => {
@@ -60,6 +62,7 @@ const SideBar = ({ isCreate }: { isCreate: string }) => {
        ${hover ? 'w-48' : 'w-20 m-auto'} 
         `}
       >
+        {loggedStatus ? (
         <ul className='flex-col-4 min-h-full w-full gap-10 justify-self-center items-center '>
           {getButtonRoute().map((button) => {
             return (
@@ -73,7 +76,14 @@ const SideBar = ({ isCreate }: { isCreate: string }) => {
               />
             );
           })}
-        </ul>
+        </ul> ) : (   
+          <div className='flex justify-center flex-col items-center mt-4'>
+            <img draggable="false" src={about} alt='icons sidebar' className='w-9 h-9 select-none' />
+            {hover ? (
+              <div className='text-center font-kanit-text text-secondary text-xl'>You have to be logged in order to create roadmaps</div>
+            ) : null}
+          </div>
+        )}
       </div>
     </div>
   );

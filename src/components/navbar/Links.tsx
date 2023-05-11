@@ -3,6 +3,7 @@ import feedback from '@assets/feedback.svg';
 import home from '@assets/home.svg';
 import profile from '@assets/profile.svg';
 import circle from '@assets/circle.svg';
+import write from '@assets/write.svg';
 
 const universalLinks = [
   {
@@ -69,6 +70,15 @@ const guestLinks = [
       ' text-md font-semibold px-2 py-1 rounded-lg bg-primary border-2 border-transparent hover:border-black hover:bg-transparent hover:text-black transition-all text-white flex items-center text-center font-normal ',
     id: 2,
     cIcon: '',
+    hasUnder: false,
+  },
+  {
+    title: 'Try Tool',
+    path: '/roadmap/create',
+    cName:
+      ' text-md font-semibold px-2 py-1 rounded-lg bg-primary border-2 border-transparent hover:border-black hover:bg-transparent hover:text-black transition-all text-white flex items-center text-center font-normal ',
+    cIcon: '',
+    id: 3,
     hasUnder: false,
   },
 ];
@@ -148,6 +158,14 @@ const mobileGuest = [
       'flex items-center text-center text-xl py-8 mx-auto hover:underline w-10/12 h-12 justify-center -translate-x-2',
     cIcon: profile,
     id: 4,
+  },
+  {
+    title: 'Try Tool',
+    path: '/roadmap/create',
+    cName:
+    'flex items-center text-center text-xl py-8 mx-auto hover:underline w-10/12 h-12 justify-center -translate-x-2 mb-2',
+    cIcon: write,
+    id: 3,
   },
   {
     title: 'Get Started',

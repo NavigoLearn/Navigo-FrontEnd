@@ -155,7 +155,7 @@ const ProfileDisplay = ({ id }: { id: string }) => {
         <div className='flex justify-center  items-center'>
           <div className='text-4xl text-main opacity-20 select-none text-center w-5/6 '>
             We will add here some achivements at a later time. If you are one of
-            the first users to join, be sure you will get some special bagdes
+            the first users to join, be sure you will get some special rewards.
           </div>
         </div>
       </div>

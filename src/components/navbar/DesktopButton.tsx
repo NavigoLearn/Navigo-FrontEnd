@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 type Props = {
   id: number;
@@ -11,6 +11,11 @@ type Props = {
 
 const DesktopButton = ({ id, cName, path, cIcon, title, hasUnder }: Props) => {
   const lineRef = useRef<HTMLDivElement | null>(null);
+  const [currentPath, setCurrentPath] = useState('');
+
+  useEffect(() => {
+    setCurrentPath(window.location.pathname)
+  }, [])
 
   return (
     <li
@@ -41,10 +46,12 @@ const DesktopButton = ({ id, cName, path, cIcon, title, hasUnder }: Props) => {
           className='absolute -bottom-1 w-0 h-[2px] bg-black transition-all duration-300'
         />
       )}
-      <a className={cName} href={path}>
-        {cIcon && <img draggable="false" src={cIcon} alt='icon' className='w-6 flex m-1' />}
-        {title}
-      </a>
+      {currentPath === '/roadmap/create' && path === '/roadmap/create' ? null : (
+        <a className={cName} href={path}>
+          {cIcon && <img draggable="false" src={cIcon} alt='icon' className='w-6 flex m-1' />}
+          {title}
+        </a>
+      )}
     </li>
   );
 };
