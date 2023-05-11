@@ -56,7 +56,7 @@ const SideBarMobile = ({ isCreate }: { isCreate: string }) => {
   return (
     <>
       <div className='w-full h-12 bg-[#FFFFFF]  opacity-100   absolute top-[-48px] ' />
-      <div className='flex justify-start  pl-4 w-full h-8 absolute -top-10  pointer-events-none '>
+      <div className='flex justify-start  pl-4 w-full h-8 absolute -top-10 pointer-events-none'>
         {loggedStatus ? (
             <ul className='flex gap-8 z-10 '>
             {getButtonRoute().map((button) => {
@@ -72,8 +72,10 @@ const SideBarMobile = ({ isCreate }: { isCreate: string }) => {
           </ul>
         ) : (
           <div className='flex justify-center items-center'>
-            <img draggable="false" src={about} alt='icons sidebar' className='w-8 h-8 select-none' />
-            <div className='font-kanit-text text-secondary ml-2 sm:text-lg'>Login required to create</div>
+            <a href="/signup" className='pointer-events-auto'>
+              <img draggable="false" src={about} alt='icons sidebar' className='w-8 h-8 select-none' />
+            </a>
+            <div className='font-kanit-text ml-2 sm:text-lg'>Login required to create</div>
           </div>
         )}
       </div>

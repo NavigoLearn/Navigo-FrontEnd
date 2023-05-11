@@ -78,7 +78,9 @@ const SideBar = ({ isCreate }: { isCreate: string }) => {
           })}
         </ul> ) : (   
           <div className='flex justify-center flex-col items-center mt-4'>
-            <img draggable="false" src={about} alt='icons sidebar' className='w-9 h-9 select-none' />
+            <a href="/signup">
+              <img draggable="false" src={about} alt='icons sidebar' className='w-9 h-9 select-none' />
+            </a>
             {hover ? (
               <div className='text-center font-kanit-text text-secondary text-xl'>You have to be logged in order to create roadmaps</div>
             ) : null}

@@ -6,6 +6,23 @@ import { useStore } from '@nanostores/react';
 import loggedUser from '@store/user/logged-user';
 import userStatus from '@store/user/user-status';
 import { mobileLogged, mobileGuest } from './Links';
+import { handleLogout } from '@components/auth/socialAuth';
+import buttonsCreate from '@components/roadmap/sidebar/buttons-create';
+import logout from '@assets/logout.svg';
+
+const MobileLogoutButton = () => {
+  return (
+    <button className='flex justify-center items-center space-x-2 mb-4' type='button' onClick={() => {handleLogout()}}>
+      <img
+        draggable='false'
+        src={logout}
+        alt='icon'
+        className='w-8 h-6 flex justify-center'
+      />
+      <div className='flex items-center text-center text-xl py-8 m-auto hover:underline w-10/12 h-12 justify-center font-normal -translate-x-1'>Logout</div>
+    </button>
+  )
+}
 
 const MobileNavbar = () => {
   const [click, setClick] = useState(false);
@@ -84,17 +101,21 @@ const MobileNavbar = () => {
                     key={link.id}
                     className='flex items-center text-center justify-center relative'
                   >
-                    <a className={link.cName} href={link.path}>
-                      {link.cIcon && (
-                        <img
-                          draggable='false'
-                          src={link.cIcon}
-                          alt='icon'
-                          className='w-8 flex justify-center'
-                        />
-                      )}
-                      {link.title}
-                    </a>
+                    {link.path !== 'logout' ? (
+                      <a className={link.cName} href={link.path}>
+                        {link.cIcon && (
+                          <img
+                            draggable='false'
+                            src={link.cIcon}
+                            alt='icon'
+                            className='w-8 flex justify-center'
+                          />
+                        )}
+                        {link.title}
+                      </a>
+                    ) : (
+                      <MobileLogoutButton />
+                    )}
                   </li>
                 );
               })
