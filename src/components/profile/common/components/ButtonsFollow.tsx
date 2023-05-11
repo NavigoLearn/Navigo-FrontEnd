@@ -2,25 +2,24 @@ import React, { useState, useEffect } from 'react';
 import userDisplay from '@store/user/user-display';
 import {
   fetchFollowUser,
-  fetchGetUserIsFollowing,
   fetchUnfollowUser,
 } from '../../../../api-wrapper/user/user';
 import loggedUser from "@store/user/logged-user";
 
-const ButtonsFollow = ({ reqAgain }: { reqAgain: () => void }) => {
+const ButtonsFollow = (
+  { reqAgain }: { reqAgain: () => void }) => {
   const [loaded, setLoaded] = useState(false);
   const [following, setFollowing] = useState(false);
-  const { userId } = userDisplay.get();
+  const { userId, isFollowing } = userDisplay.get();
 
   useEffect(() => {
     // fetch data
     if (userId === '') {
       return;
     }
-    fetchGetUserIsFollowing(userId).then((response) => {
-      setFollowing(response.status);
-      setLoaded(true);
-    });
+    setLoaded(true);
+    setFollowing(isFollowing);
+
     // setLoaded(true);
   }, [userId]);
 

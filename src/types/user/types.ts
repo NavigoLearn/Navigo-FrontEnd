@@ -8,6 +8,7 @@ export type User = {
   websiteUrl: string;
   bio: string;
   roadmapsCount: number;
+  isFollowing: boolean;
 };
 
 export type UserResponse = {
