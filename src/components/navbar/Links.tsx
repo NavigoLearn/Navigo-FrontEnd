@@ -117,12 +117,17 @@ const mobileLogged = [
     id: 4,
   },
   {
+    title: 'Logout',
+    path: 'logout',
+    id: 5,
+  },
+  {
     title: 'Create roadmap',
     path: '/roadmap/create',
     cName:
       'flex items-center text-center text-xl py-8 m-auto  w-full h-8 justify-center font-normal bg-primary text-white ',
     cIcon: '',
-    id: 5,
+    id: 6,
   },
 ];
 
@@ -165,14 +170,14 @@ const mobileGuest = [
     cName:
     'flex items-center text-center text-xl py-8 mx-auto hover:underline w-10/12 h-12 justify-center -translate-x-2 mb-2',
     cIcon: write,
-    id: 3,
+    id: 5,
   },
   {
     title: 'Get Started',
     path: '/signup',
     cName:
       'flex items-center text-center text-xl m-auto hover:underline bg-primary text-background rounded-full px-4 py-8 justify-center h-12 rounded-xl w-56 h-14',
-    id: 5,
+    id: 6,
   },
 ];
 
