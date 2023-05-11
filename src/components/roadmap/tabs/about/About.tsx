@@ -26,7 +26,7 @@ const About = () => {
 
   const capLens = {
     name: 20,
-    description: 100,
+    description: 1000,
   };
 
   const aboutStore = useStore(aboutTabStore);

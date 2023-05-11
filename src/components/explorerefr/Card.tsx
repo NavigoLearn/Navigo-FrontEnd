@@ -69,18 +69,18 @@ const Card = ({ cardStore }: { cardStore: CardType }) => {
 
   return (
     <div
-      className='bg-white w-11/12 md:w-[340px] sm:w-96 h-40 sm:h-52 relative shadow-standard rounded-lg 2xl:w-[460px] 2xl:h-64'>
-      <div className='flex justify-center mt-3'>
-        <h1 className='font-kanit-text text-xl sm:text-2xl flex 2xl:text-3xl'>
+      className='bg-white w-72 sm:w-96 h-40 sm:h-52 relative shadow-standard rounded-lg 2xl:w-[460px] 2xl:h-64'>
+      <div className='flex justify-start mt-3'>
+        <h1 className='font-kanit-text sm:text-2xl flex 2xl:text-3xl ml-6 text-lg'>
           {name}
         </h1>
         <div className='font-roboto'>
           <div
-            className='absolute top-4 right-4 text-[9px] sm:text-xs sm:pl-[83px] flex flex-col justify-center items-center text-placeholder 2xl:text-sm 2xl:pl-[102px]'>
-            <div className='text-xs md:text-sm'>made by</div>
+            className='absolute top-3 right-2 text-[9px] sm:text-xs sm:pl-[83px] flex flex-col justify-center items-center text-placeholder 2xl:text-sm 2xl:pl-[102px]'>
+            <div>made by</div>
             <RedirectToProfile redirectUserId={authorId}>
               <div
-                className='text-xs md:text-md text-blue-400  hover:text-blue-600 transition-all '>
+                className='text-blue-400  hover:text-blue-600 transition-all'>
                 {author}
               </div>
             </RedirectToProfile>
@@ -88,7 +88,7 @@ const Card = ({ cardStore }: { cardStore: CardType }) => {
         </div>
       </div>
       <div
-        className='box-border h-[85px] w-full px-6 py-5 text-xs text-center sm:h-[120px] sm:text-sm sm:p-8 font-roboto-text text-secondary 2xl:h-36 2xl:text-base 2xl:py-10 2xl:px-9'>
+        className='box-border h-[85px] w-full px-6 py-5 text-xs text-start sm:h-[120px] sm:text-sm sm:p-8 font-roboto-text text-secondary 2xl:h-36 2xl:text-base 2xl:py-10 2xl:px-9'>
         <p className='line-clamp-3'>{description}</p>
       </div>
       <div className='flex justify-center items-center relative 2xl:mt-3'>
