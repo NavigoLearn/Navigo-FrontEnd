@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import { dispatchAnalyticsEvent } from '@store/misc/analytics';
 import DesktopLogin from './Desktop';
 import MobileLogin from './Mobile';
 
-const Profile = () => {
+const LoginMain = () => {
   const [isDesktop, setIsDesktop] = useState(undefined);
+
+  useEffect(() => {
+    dispatchAnalyticsEvent('pageView', {
+      page: 'login',
+    });
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -26,4 +33,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default LoginMain;

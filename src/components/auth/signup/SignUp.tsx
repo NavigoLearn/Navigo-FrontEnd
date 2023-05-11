@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import { dispatchAnalyticsEvent } from '@store/misc/analytics';
 import DesktopSignUp from './Desktop';
 import MobileSignUp from './Mobile';
 
 const Profile = () => {
   const [isDesktop, setIsDesktop] = useState(undefined);
 
+  useEffect(() => {
+    dispatchAnalyticsEvent('pageView', {
+      page: 'signUp',
+    });
+  }, []);
   useEffect(() => {
     const handleResize = () => {
       setIsDesktop(window.innerWidth >= 768);
