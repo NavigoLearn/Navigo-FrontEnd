@@ -2,8 +2,8 @@ import { atom } from 'nanostores';
 import { IssueComment } from '@type/roadmap/Issues';
 import IssuesDisplay from '@store/roadmap/display/issues-display';
 import { processUserUrlPic } from '@typescript/user/misc';
-import { fetchIssueComments } from '../../../api-wrapper/roadmap/issues';
-import { fetchGetMiniProfileDataById } from '../../../api-wrapper/user/user';
+import { fetchIssueComments } from '@src/api-wrapper/roadmap/issues';
+import { fetchGetMiniProfileDataById } from '@src/api-wrapper/user/user';
 
 const commentsDisplay = atom({
   comments: [],
@@ -35,6 +35,7 @@ export async function getCommentsAndSetDisplay(
         date: comment.createdAt,
         profilePictureUrl: processUserUrlPic(userMini.profilePictureUrl),
         author: userMini.name,
+        authorId: comment.userId,
       };
       newComments.push(newComment);
       return newComment;

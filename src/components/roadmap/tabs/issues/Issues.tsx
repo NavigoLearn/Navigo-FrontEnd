@@ -85,7 +85,9 @@ const Issues = () => {
                       key={issue.id}
                       id={issue.id}
                       title={issue.title}
+                      open={issue.open}
                       author={issue.author}
+                      authorId={issue.authorId}
                       imgUrl={issue.profilePictureUrl}
                     />
                   );

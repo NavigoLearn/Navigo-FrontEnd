@@ -53,7 +53,9 @@ export type TabManagerStore = {
 export type IssuePreview = {
   id: string;
   author: string;
+  authorId: string;
   profilePictureUrl: string;
+  open: boolean;
   title: string;
   createdAt: string;
   description: string;

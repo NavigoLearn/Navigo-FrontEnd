@@ -64,10 +64,36 @@ export async function fetchDeleteComment(
   commentId: string
 ) {
   const response = await fetch(
-    `/api/roadmaps/${roadmapId}/issues/${issueId}/comments/${commentId}/delete`,
+    `/api/roadmaps/${roadmapId}/issues/${issueId}/comments/${commentId}/`,
     {
-      method: 'POST',
+      method: 'DELETE',
     }
   );
-  return response.json();
+  return response.status === 200;
+}
+
+export async function fetchOpenIssue(
+  issueId: string,
+  roadmapId: string,
+) {
+  const response = await fetch(
+    `/api/roadmaps/${roadmapId}/issues/${issueId}/status`,
+    {
+      method: 'GET',
+    }
+  );
+  return response.status === 200;
+}
+
+export async function fetchCloseIssue(
+  issueId: string,
+  roadmapId: string,
+) {
+  const response = await fetch(
+    `/api/roadmaps/${roadmapId}/issues/${issueId}/status`,
+    {
+      method: 'DELETE',
+    }
+  );
+  return response.status === 200;
 }

@@ -130,75 +130,73 @@ const SearchDesktop = () => {
         </ul>
       </div>
 
-      {cardCount === 0 && loaded && (
-        <div className='flex items-center justify-center font-kanit-text text-3xl text-secondary'>
+      {cardCount === 0 && loaded ? (
+        <div className='flex items-center justify-center text-center font-kanit-text text-3xl text-secondary'>
           Oops! Seems like someone ate all the roadmaps!
         </div>
-      )}
-
-      <div className='flex justify-center items-center my-8 select-none'>
-        <button
-          type='button'
-          className='disabled:opacity-50'
-          onClick={() => {
-            setPageNr(1);
-          }}
-          disabled={disabledLeft}
-        >
-          <img
-            draggable='false'
-            src={chevroleftduo}
-            alt='doubleArrowLeft'
-            className='w-8 h-8 2xl:w-9 2xl:h-9'
-          />
-        </button>
-        <button
-          type='button'
-          className='disabled:opacity-50'
-          onClick={() => {
-            setPageNr((prev) => prev - 1);
-          }}
-          disabled={disabledLeft}
-        >
-          <img
-            draggable='false'
-            src={chevronleft}
-            alt='ArrowLeft'
-            className='w-9 h-9 2xl:w-11 2xl:h-11'
-          />
-        </button>
-        <span className='text-xl 2xl:text-2xl select-auto'>{pageNr}</span>
-        <button
-          type='button'
-          className='disabled:opacity-50'
-          onClick={() => {
-            setPageNr((prev) => prev + 1);
-          }}
-          disabled={disabledRight}
-        >
-          <img
-            draggable='false'
-            src={chevronright}
-            alt='ArrowRight'
-            className='w-9 h-9 2xl:w-11 2xl:h-11'
-          />
-        </button>
-        <button
-          type='button'
-          className='disabled:opacity-50'
-          onClick={() => {
-            setPageNr(maxPage);
-          }}
-          disabled={disabledRight}
-        >
-          <img
-            draggable='false'
-            src={chevronrightduo}
-            alt='doubleArrowRight'
-            className='w-8 h-8 2xl:w-9 2xl:h-9'
-          />
-        </button>
-      </div>
+      ) : (<div className='flex justify-center items-center my-8 select-none'>
+          <button
+            type='button'
+            className='disabled:opacity-50'
+            onClick={() => {
+              setPageNr(1);
+            }}
+            disabled={disabledLeft}
+          >
+            <img
+              draggable='false'
+              src={chevroleftduo}
+              alt='doubleArrowLeft'
+              className='w-8 h-8 2xl:w-9 2xl:h-9'
+            />
+          </button>
+          <button
+            type='button'
+            className='disabled:opacity-50'
+            onClick={() => {
+              setPageNr((prev) => prev - 1);
+            }}
+            disabled={disabledLeft}
+          >
+            <img
+              draggable='false'
+              src={chevronleft}
+              alt='ArrowLeft'
+              className='w-9 h-9 2xl:w-11 2xl:h-11'
+            />
+          </button>
+          <span className='text-xl 2xl:text-2xl select-auto'>{pageNr}</span>
+          <button
+            type='button'
+            className='disabled:opacity-50'
+            onClick={() => {
+              setPageNr((prev) => prev + 1);
+            }}
+            disabled={disabledRight}
+          >
+            <img
+              draggable='false'
+              src={chevronright}
+              alt='ArrowRight'
+              className='w-9 h-9 2xl:w-11 2xl:h-11'
+            />
+          </button>
+          <button
+            type='button'
+            className='disabled:opacity-50'
+            onClick={() => {
+              setPageNr(maxPage);
+            }}
+            disabled={disabledRight}
+          >
+            <img
+              draggable='false'
+              src={chevronrightduo}
+              alt='doubleArrowRight'
+              className='w-8 h-8 2xl:w-9 2xl:h-9'
+            />
+          </button>
+        </div>)}
     </div>
   );
 };
