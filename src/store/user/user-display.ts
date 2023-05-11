@@ -15,6 +15,7 @@ const generateUserBoilerplate = (): User => ({
   websiteUrl: '',
   bio: '',
   roadmapsCount: 0,
+  isFollowing: false,
 });
 
 const parseResponse = (response: UserResponse): User => {
