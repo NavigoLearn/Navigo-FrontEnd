@@ -1,7 +1,6 @@
 import { atom } from 'nanostores';
 import { User, UserResponse } from '@type/user/types';
 import { checkIsTypeUser } from '@type/user/typecheckers';
-import { fetchUserData } from '../../api-wrapper/user/user';
 
 const generateUserBoilerplate = (): User => ({
   userId: '',
@@ -14,6 +13,7 @@ const generateUserBoilerplate = (): User => ({
   websiteUrl: '',
   bio: '',
   roadmapsCount: 0,
+  isFollowing: false,
 });
 
 const loggedUser = atom(generateUserBoilerplate() as User);
