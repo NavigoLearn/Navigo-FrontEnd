@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import loupe from '@assets/loupe.svg';
-// import filter from '@assets/filter.svg';
-// import sort from '@assets/sortby.svg';
-// import warn from '@assets/warningErr.webp';
 import chevroleftduo from '@assets/chevron-left-duo.svg';
 import chevronrightduo from '@assets/chevron-right-duo.svg';
 import chevronleft from '@assets/chevron-left.svg';
@@ -176,7 +173,8 @@ const SearchMobile = () => {
         <div className='flex items-center justify-center text-center font-kanit-text text-3xl text-secondary'>
           Oops! Seems like someone ate all the roadmaps!
         </div>
-      ) : (<div className='flex justify-center items-center my-8 select-none'>
+      ) : (
+        <div className='flex justify-center items-center my-8 select-none'>
           <button
             type='button'
             className='disabled:opacity-50'
@@ -230,7 +228,8 @@ const SearchMobile = () => {
               className='w-5 h-5 sm:w-8 sm:h-8'
             />
           </button>
-        </div>)}
+        </div>
+      )}
     </div>
   );
 };

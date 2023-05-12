@@ -4,7 +4,7 @@ export type EventType =
   | 'pageView'
   | 'roadmapInteraction'
   | 'profileInteraction'
-  | 'exploreInteraction'
+  | 'exploreInteractionQuery'
   | 'authInteraction';
 
 type VisitPagePayload = {
@@ -34,15 +34,26 @@ type ProfileInteraction = {
   actionType: 'Follow' | 'Unfollow';
 };
 
-type ExploreInteraction = {
-  actionType: 'Search' | 'Like Roadmap';
+type ExploreInteractionTypes = 'Search' | 'Like Roadmap';
+
+type ExploreInteractionDataTypes = {
+  Search: {
+    query: string;
+  };
+  'Like Roadmap': {
+    roadmapId: string;
+  };
+};
+type ExploreInteraction<T extends ExploreInteractionTypes> = {
+  exploreActionType: T;
+  exploreData: ExploreInteractionDataTypes[T];
 };
 
 export type DataPayloads = {
   pageView: VisitPagePayload;
   roadmapInteraction: RoadmapInteraction;
   profileInteraction: ProfileInteraction;
-  exploreInteraction: ExploreInteraction;
+  exploreInteractionQuery: ExploreInteraction<'Search'>;
   authInteraction: AuthInteraction;
 };
 

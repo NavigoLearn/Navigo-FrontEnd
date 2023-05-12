@@ -10,8 +10,6 @@ import {
   checkIsEventProfileInteraction,
   checkIsEventRoadmapInteraction,
 } from '@type/misc/typecheckers';
-import userStatusStore from '@store/user/user-status';
-import loggedUser from '@store/user/logged-user';
 
 const DataCollectionManager = () => {
   const EventMap: EventMapper = {
@@ -26,14 +24,16 @@ const DataCollectionManager = () => {
         });
       }
     },
-    exploreInteraction: (
+    exploreInteractionQuery: (
       analytics: AnalyticsBrowser,
       event: Event<EventType>
     ) => {
       if (checkIsEventExploreInteraction(event)) {
         // explore interaction message
+        console.log('quer search', event.data.exploreData.query);
         analytics.track(event.type, {
-          actionType: event.data.actionType,
+          actionType: event.data.exploreActionType,
+          query: event.data.exploreData.query,
         });
       }
     },
@@ -49,10 +49,8 @@ const DataCollectionManager = () => {
       }
     },
     authInteraction: (analytics: AnalyticsBrowser, event: Event<EventType>) => {
-      console.log(' before check got to auth');
       if (checkIsEventAuthInteraction(event)) {
         // type of profile interaction
-        console.log('got to auth');
         analytics.track(event.type, {
           actionType: event.data.actionType,
         });
@@ -70,36 +68,38 @@ const DataCollectionManager = () => {
     analytics: AnalyticsBrowser
   ) => {
     const eventHandler = EventMap[event.type];
-    console.log(eventHandler);
     if (eventHandler) {
-      eventHandler(analytics, event);
+      console.log(eventHandler);
+      eventHandler(analytics, event).catch((err) => {
+        console.log('err catch', err);
+      });
     }
   };
 
   const { dispatchedEvents } = useStore(analyticsStore);
 
   const analytics = useMemo(() => {
-    return AnalyticsBrowser.load({
-      writeKey: 'gqHz7gJIiPkOPu1BRGc6kIAT569vnSWc',
-    });
-  }, []);
-
-  const { isLogged, loaded } = useStore(userStatusStore);
-  useEffect(() => {
-    // identify if user is logged in
-    if (loaded && isLogged) {
-      analytics.identify(loggedUser.get().userId, {
-        name: loggedUser.get().name,
-        id: loggedUser.get().userId,
+    let analyticsObject: AnalyticsBrowser;
+    try {
+      analyticsObject = AnalyticsBrowser.load({
+        writeKey: 'gqHz7gJIiPkOPu1BRGc6kIAT569vnSWc',
       });
+    } catch (err) {
+      // user has blocker or something
+      analyticsObject = null;
     }
-  }, [loaded]);
+
+    return analyticsObject;
+  }, []);
 
   useEffect(() => {
     if (dispatchedEvents.length === 0) return;
     dispatchedEvents.forEach((event) => {
-      console.log(event);
-      triggerEvents(event, analytics);
+      try {
+        triggerEvents(event, analytics);
+      } catch (err) {
+        // user has blocker or something
+      }
     });
     emptyDispatchedEvents();
   }, [dispatchedEvents]);

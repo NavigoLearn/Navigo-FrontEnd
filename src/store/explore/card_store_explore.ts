@@ -1,6 +1,7 @@
 import { atom } from 'nanostores';
 import { CardType } from '@type/explore/card';
 import { errorHandlerDecorator } from '@typescript/error-handler';
+import { dispatchAnalyticsEvent } from '@store/misc/analytics';
 import {
   fetchDefaultCardsExplore,
   fetchRoadmapCardsProfile,
@@ -27,6 +28,12 @@ export function emptyStore() {
 export const setRoadmapCardsFromApiExplore = errorHandlerDecorator(
   async (query: string, page: number) => {
     const exploreRoadmaps = await fetchDefaultCardsExplore(query, page);
+    dispatchAnalyticsEvent('exploreInteractionQuery', {
+      exploreActionType: 'Search',
+      exploreData: {
+        query,
+      },
+    });
     emptyStore();
     exploreRoadmaps.roadmaps.forEach((value) => {
       const newValueExplore: CardType = {
@@ -40,9 +47,10 @@ export const setRoadmapCardsFromApiExplore = errorHandlerDecorator(
       };
       addCardToStore(value.id, newValueExplore);
     });
-  return {
-    pageCount: exploreRoadmaps.pageCount,
-  }}
+    return {
+      pageCount: exploreRoadmaps.pageCount,
+    };
+  }
 );
 
 export async function setRoadmapCardsFromApiProfile(
