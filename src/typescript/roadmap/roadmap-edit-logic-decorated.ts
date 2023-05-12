@@ -34,6 +34,7 @@ import { ResourceSubNodeStore } from '@type/roadmap/resources';
 import roadmapState from '@store/roadmap/data/roadmap_state';
 import ErrorHandler from '@typescript/error-handler';
 import { getNodeCoords } from '@typescript/roadmap/render/coord-calc';
+import { dispatchAnalyticsEvent } from '@store/misc/analytics';
 
 export const changeNodeCoords = triggerPositionCacheClearDecorator(
   triggerRerenderDecorator(
@@ -196,6 +197,10 @@ export const generationFlow = triggerAddConnectionDecorator(
 
 export const addNodeNew = triggerChunkRerenderDecorator(
   (parentId: string, type: NodeIdentifierTypes) => {
+    dispatchAnalyticsEvent('roadmapInteraction', {
+      actionType: 'Add Node',
+    });
+
     const newId = getUnusedNodeId();
     const { x, y } = getNodeCoords(parentId);
     // sets parent and children properly
@@ -256,6 +261,10 @@ export const changeResourceSubNode = <T extends keyof ResourceSubNodeStore>(
 export const removeNode = handleErrorsDecorator(
   triggerChunkRerenderDecorator(
     triggerPositionCacheClearDecorator((id: string) => {
+      dispatchAnalyticsEvent('roadmapInteraction', {
+        actionType: 'Remove Node',
+      });
+
       const original = roadmapEdit.get();
       const { nodes } = original;
       const node = nodes[id];

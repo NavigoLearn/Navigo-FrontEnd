@@ -1,6 +1,6 @@
 import { atom } from 'nanostores';
 
-const loggedUser = atom({
+const userStatusStore = atom({
   userId: '',
   isLogged: false,
   loaded: false,
@@ -11,15 +11,15 @@ const loggedUser = atom({
 });
 
 export const setIsLogged = (isLogged: boolean) => {
-  loggedUser.set({ ...loggedUser.get(), isLogged });
+  userStatusStore.set({ ...userStatusStore.get(), isLogged });
 };
 
 export const setUserId = (userId: string) => {
-  loggedUser.set({ ...loggedUser.get(), userId });
+  userStatusStore.set({ ...userStatusStore.get(), userId });
 };
 
 export const setLoaded = (loaded: boolean) => {
-  loggedUser.set({ ...loggedUser.get(), loaded });
+  userStatusStore.set({ ...userStatusStore.get(), loaded });
 };
 
-export default loggedUser;
+export default userStatusStore;

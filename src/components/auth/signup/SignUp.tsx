@@ -7,11 +7,6 @@ const Profile = () => {
   const [isDesktop, setIsDesktop] = useState(undefined);
 
   useEffect(() => {
-    dispatchAnalyticsEvent('pageView', {
-      page: 'signUp',
-    });
-  }, []);
-  useEffect(() => {
     const handleResize = () => {
       setIsDesktop(window.innerWidth >= 768);
     };

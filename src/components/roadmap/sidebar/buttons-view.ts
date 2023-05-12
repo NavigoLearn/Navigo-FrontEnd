@@ -15,8 +15,19 @@ import {
 } from '@typescript/roadmap/utils2';
 import { toggleEditing } from '@typescript/roadmap/roadmap-edit-logic-decorated';
 import { setTabAboutFlow } from '@typescript/roadmap/tab-logic-flows';
+import { dispatchAnalyticsEvent } from '@store/misc/analytics';
 import { deleteRoadmap } from '../../../api-wrapper/roadmap/roadmaps';
 
+export const buttonsTryTool = [
+  {
+    id: 1,
+    cIcon: about,
+    title: 'Sign up',
+    clickHandler: () => {
+      window.location.href = '/signup';
+    },
+  },
+];
 export const buttonsViewVisitor = [
   {
     id: 2,
@@ -24,6 +35,9 @@ export const buttonsViewVisitor = [
     title: 'Issues',
     clickHandler: () => {
       setIssues();
+      dispatchAnalyticsEvent('roadmapInteraction', {
+        actionType: 'Open Issues',
+      });
     },
   },
 
@@ -33,6 +47,9 @@ export const buttonsViewVisitor = [
     title: 'About',
     clickHandler: () => {
       setTabAboutFlow(getRoadmapId());
+      dispatchAnalyticsEvent('roadmapInteraction', {
+        actionType: 'Open About',
+      });
     },
   },
   {
@@ -56,6 +73,9 @@ export const buttonsViewOwner = [
         saveEditingProtocol();
       } else {
         transferRoadmapToEdit();
+        dispatchAnalyticsEvent('roadmapInteraction', {
+          actionType: 'Edit Roadmap',
+        });
       }
       falseOpen();
       toggleEditing();
@@ -68,6 +88,9 @@ export const buttonsViewOwner = [
     title: 'Issues',
     clickHandler: () => {
       setIssues();
+      dispatchAnalyticsEvent('roadmapInteraction', {
+        actionType: 'Open Issues',
+      });
     },
   },
 
@@ -77,6 +100,9 @@ export const buttonsViewOwner = [
     title: 'About',
     clickHandler: () => {
       setTabAboutFlow(getRoadmapId());
+      dispatchAnalyticsEvent('roadmapInteraction', {
+        actionType: 'Open About',
+      });
     },
   },
   {
@@ -94,6 +120,9 @@ export const buttonsViewOwner = [
     clickHandler: () => {
       // delete roadmap
       deleteRoadmap(getRoadmapId());
+      dispatchAnalyticsEvent('roadmapInteraction', {
+        actionType: 'Delete Roadmap',
+      });
       window.location.href = '/profile';
     },
   },

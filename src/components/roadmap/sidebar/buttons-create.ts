@@ -7,6 +7,7 @@ import roadmapEdit from '@store/roadmap/data/roadmap_edit';
 import { createNewTabs } from '@store/roadmap/cache/diff-tabs';
 import book from '@assets/book.svg';
 import { setBook } from '@store/roadmap/display/tab-manager';
+import { dispatchAnalyticsEvent } from '@store/misc/analytics';
 import { postRoadmapData } from '../../../api-wrapper/roadmap/roadmaps';
 
 const buttonsCreate = [
@@ -20,6 +21,9 @@ const buttonsCreate = [
         setRoadmapId(roadmapId.id);
       });
       await createNewTabs();
+      dispatchAnalyticsEvent('roadmapInteraction', {
+        actionType: 'Create Roadmap',
+      });
       window.location.href = '/profile';
     },
   },
@@ -30,6 +34,9 @@ const buttonsCreate = [
     title: 'Cancel',
     clickHandler: () => {
       // canceling the roadmap creation and redirect to explore
+      dispatchAnalyticsEvent('roadmapInteraction', {
+        actionType: 'Cancel Create Roadmap',
+      });
       window.location.href = '/explore';
     },
   },
@@ -49,6 +56,9 @@ const buttonsCreate = [
     title: 'About',
     clickHandler: () => {
       setTabAboutFlow(getRoadmapId());
+      dispatchAnalyticsEvent('roadmapInteraction', {
+        actionType: 'Open About',
+      });
     },
   },
 ];

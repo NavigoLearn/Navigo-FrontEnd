@@ -7,12 +7,6 @@ const LoginMain = () => {
   const [isDesktop, setIsDesktop] = useState(undefined);
 
   useEffect(() => {
-    dispatchAnalyticsEvent('pageView', {
-      page: 'login',
-    });
-  }, []);
-
-  useEffect(() => {
     const handleResize = () => {
       setIsDesktop(window.innerWidth >= 768);
     };
