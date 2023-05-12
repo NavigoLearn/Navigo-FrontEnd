@@ -172,67 +172,65 @@ const SearchMobile = () => {
         </ul>
       </div>
 
-      {cardCount === 0 && loaded && (
-        <div className='flex items-center justify-center font-kanit-text text-3xl text-secondary'>
+      {cardCount === 0 && loaded ? (
+        <div className='flex items-center justify-center text-center font-kanit-text text-3xl text-secondary'>
           Oops! Seems like someone ate all the roadmaps!
         </div>
-      )}
-
-      <div className='flex justify-center items-center my-8 select-none'>
-        <button
-          type='button'
-          className='disabled:opacity-50'
-          onClick={() => setPageNr(1)}
-          disabled={disabledLeft}
-        >
-          <img
-            draggable='false'
-            src={chevroleftduo}
-            alt='doubleArrowLeft'
-            className='w-5 h-5 sm:w-7 sm:h-7'
-          />
-        </button>
-        <button
-          type='button'
-          className='disabled:opacity-50'
-          onClick={() => setPageNr((prev) => prev - 1)}
-          disabled={disabledLeft}
-        >
-          <img
-            draggable='false'
-            src={chevronleft}
-            alt='ArrowLeft'
-            className='w-6 h-6 sm:w-8 sm:h-8'
-          />
-        </button>
-        <span className='select-all'>{pageNr}</span>
-        <button
-          type='button'
-          className='disabled:opacity-50'
-          onClick={() => setPageNr((prev) => prev + 1)}
-          disabled={disabledRight}
-        >
-          <img
-            draggable='false'
-            src={chevronright}
-            alt='ArrowRight'
-            className='w-6 h-6 sm:w-8 sm:h-8'
-          />
-        </button>
-        <button
-          type='button'
-          className='disabled:opacity-50'
-          onClick={() => setPageNr(maxPage)}
-          disabled={disabledRight}
-        >
-          <img
-            draggable='false'
-            src={chevronrightduo}
-            alt='doubleArrowRight'
-            className='w-5 h-5 sm:w-8 sm:h-8'
-          />
-        </button>
-      </div>
+      ) : (<div className='flex justify-center items-center my-8 select-none'>
+          <button
+            type='button'
+            className='disabled:opacity-50'
+            onClick={() => setPageNr(1)}
+            disabled={disabledLeft}
+          >
+            <img
+              draggable='false'
+              src={chevroleftduo}
+              alt='doubleArrowLeft'
+              className='w-5 h-5 sm:w-7 sm:h-7'
+            />
+          </button>
+          <button
+            type='button'
+            className='disabled:opacity-50'
+            onClick={() => setPageNr((prev) => prev - 1)}
+            disabled={disabledLeft}
+          >
+            <img
+              draggable='false'
+              src={chevronleft}
+              alt='ArrowLeft'
+              className='w-6 h-6 sm:w-8 sm:h-8'
+            />
+          </button>
+          <span className='select-all'>{pageNr}</span>
+          <button
+            type='button'
+            className='disabled:opacity-50'
+            onClick={() => setPageNr((prev) => prev + 1)}
+            disabled={disabledRight}
+          >
+            <img
+              draggable='false'
+              src={chevronright}
+              alt='ArrowRight'
+              className='w-6 h-6 sm:w-8 sm:h-8'
+            />
+          </button>
+          <button
+            type='button'
+            className='disabled:opacity-50'
+            onClick={() => setPageNr(maxPage)}
+            disabled={disabledRight}
+          >
+            <img
+              draggable='false'
+              src={chevronrightduo}
+              alt='doubleArrowRight'
+              className='w-5 h-5 sm:w-8 sm:h-8'
+            />
+          </button>
+        </div>)}
     </div>
   );
 };

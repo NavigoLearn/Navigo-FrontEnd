@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react';
-
 import { v4 as uuid4 } from 'uuid';
 import NodeManager from '@components/roadmap/NodeManager';
 import { useStore } from '@nanostores/react';
@@ -27,6 +26,7 @@ import {
   setDisableZoomTrigger,
   setEnableZoomTrigger,
 } from '@store/roadmap/misc/miscParams';
+import { dispatchAnalyticsEvent } from '@store/misc/analytics';
 import Popup from './tabs/popups/Popup';
 
 const Roadmap = ({ pageId }: { pageId: string }) => {
@@ -56,6 +56,12 @@ const Roadmap = ({ pageId }: { pageId: string }) => {
         body.style.overflow = 'auto';
       }
     };
+  }, []);
+
+  useEffect(() => {
+    dispatchAnalyticsEvent('pageView', {
+      page: 'roadmap',
+    });
   }, []);
 
   const renderer = useRef(null);

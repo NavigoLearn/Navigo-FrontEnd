@@ -1,7 +1,7 @@
 import { atom } from 'nanostores';
 import { IssuePreview } from '@type/roadmap/tab-manager';
-import { IssueApi, IssueApiGet } from '@type/roadmap/Issues';
-import { fetchIssues } from '../../../api-wrapper/roadmap/issues';
+import { IssueApiGet } from '@type/roadmap/Issues';
+import { fetchIssues } from '@src/api-wrapper/roadmap/issues';
 
 const IssuesDisplay = atom({
   issues: [],
@@ -22,8 +22,7 @@ export const setDisplayIssues = (issues: IssuePreview[]) => {
 export const getDisplayIssue = (id: string) => {
   const original = IssuesDisplay.get();
   const { issues } = original;
-  const issue = issues.find((issueVal) => issueVal.id === id);
-  return issue;
+  return issues.find((issueVal) => issueVal.id === id);
 };
 
 export const setDisplayPage = (page: number, issuesPerPage: number) => {
@@ -43,12 +42,14 @@ export const getsIssuesAndSetsStore = async (roadmapId: string) => {
   const apiIssues: IssueApiGet[] = await fetchIssues(roadmapId);
   // transform APi issues into preview issues
   const issues: IssuePreview[] = apiIssues.map((issue) => {
-    const { id, title, createdAt, content, userId } = issue;
+    const { id, title, createdAt, content, userId, open } = issue;
     return {
       id,
       author: userId,
+      authorId: userId,
       title,
       createdAt,
+      open,
       profilePictureUrl: '',
       description: content,
     };

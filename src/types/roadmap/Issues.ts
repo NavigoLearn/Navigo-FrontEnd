@@ -1,6 +1,7 @@
 export type IssueComment = {
   id: string;
   author: string;
+  authorId: string;
   content: string;
   date: string;
   profilePictureUrl: string;

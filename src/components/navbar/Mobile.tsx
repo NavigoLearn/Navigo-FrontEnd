@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import dropdown from '@assets/menu.svg';
 import dropclose from '@assets/cross.svg';
 import logoSrc from '@assets/logo.svg';
@@ -30,10 +30,30 @@ const MobileNavbar = () => {
   const { profilePictureUrl } = useStore(loggedUser);
   const { loaded, isLogged } = useStore(userStatus);
   const [currentPath, setCurrentPath] = useState('');
+  const [defaultBodyOverflow, setDefaultBodyOverflow] = useState('auto');
+  const navbar = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setHydrated(true);
     setCurrentPath(window.location.pathname)
+
+    const body = document.querySelector('body');
+    window.addEventListener('resize', () => {
+      body.style.setProperty('--height', `${window.innerHeight}px`);
+    });
+
+    // add event listener for scroll
+    window.addEventListener('scroll', () => {
+      if (navbar) {
+        if (window.scrollY > 0) {
+          navbar.current?.classList.add('bg-white');
+          navbar.current?.classList.add('shadow-standard');
+        } else {
+          navbar.current?.classList.remove('bg-white');
+          navbar.current?.classList.remove('shadow-standard');
+        }
+      }
+    });
   }, []);
 
   const handleClick = () => {
@@ -42,16 +62,18 @@ const MobileNavbar = () => {
     const body = document.querySelector('body');
     if (body) {
       if (click) {
-        body.style.overflow = 'auto';
+        body.style.overflow = defaultBodyOverflow;
       } else {
-        body.style.overflow = 'hidden';
+        setDefaultBodyOverflow(body.style.overflow);
+        body.style.overflow = 'hidden'; // hide scroll clip
+        body.style.height= "var(--height)"; // set height to window height (should fix safari mobile)
       }
     }
   };
 
   return (
-    <nav
-      className={`bg-background relative  overflow-visible h-12 flex w-full justify-center select-none  ${
+    <nav ref={navbar}
+      className={`bg-background relative overflow-visible h-12 flex w-full justify-center select-none transition-all  duration-300 select-none ${
         click ? 'items-center ' : ' '
       }`}
     >

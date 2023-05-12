@@ -82,6 +82,9 @@ const Thread = () => {
                   date={comment.date}
                   urlPic={comment.profilePictureUrl}
                   author={comment.author}
+                  authorId={comment.authorId}
+                  id={comment.id}
+                  issueId={issueId}
                   text={comment.content}
                 />
               )}
