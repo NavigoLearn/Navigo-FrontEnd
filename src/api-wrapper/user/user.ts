@@ -7,7 +7,6 @@ export const fetchUserData = async (id: string): Promise<UserResponse> => {
     method: 'GET',
     credentials: 'include',
   }).then((res) => res.json());
-  console.log(data);
   return data;
 };
 

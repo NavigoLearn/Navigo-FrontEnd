@@ -58,12 +58,6 @@ const Roadmap = ({ pageId }: { pageId: string }) => {
     };
   }, []);
 
-  useEffect(() => {
-    dispatchAnalyticsEvent('pageView', {
-      page: 'roadmap',
-    });
-  }, []);
-
   const renderer = useRef(null);
 
   const enableZoomFn = () => {

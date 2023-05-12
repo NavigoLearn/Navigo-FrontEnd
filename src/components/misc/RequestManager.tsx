@@ -7,13 +7,10 @@ import { fetchGetMiniProfileData } from '../../api-wrapper/user/user';
 const RequestManager = () => {
   useEffect(() => {
     fetchGetMiniProfileData().then((res) => {
-      console.log(res);
       if (res === false) {
-        console.log('res is false');
         setIsLogged(false);
         setLoaded(true);
         // deletes token if exists because it is invalid
-
         if (document.cookie.includes('token')) {
           document.cookie =
             'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
@@ -25,10 +22,10 @@ const RequestManager = () => {
       setIsLogged(true);
       setLoaded(true);
     });
-    if (document.cookie.includes('token')) {
-      setIsLogged(true);
-    }
-    setLoaded(true);
+    // if (document.cookie.includes('token')) {
+    //   setIsLogged(true);
+    // }
+    // setLoaded(true);
   }, []);
 };
 

@@ -3,6 +3,7 @@ import yestick from '@assets/yestick.svg';
 import { setConfirmCancel, setConfirmSave } from '@store/roadmap/popup';
 import book from '@assets/book.svg';
 import { setBook } from '@store/roadmap/display/tab-manager';
+import { dispatchAnalyticsEvent } from '@store/misc/analytics';
 
 const buttonsEdit = [
   {
@@ -11,6 +12,10 @@ const buttonsEdit = [
     title: 'Save',
     clickHandler: () => {
       setConfirmSave();
+
+      dispatchAnalyticsEvent('roadmapInteraction', {
+        actionType: 'Save Roadmap',
+      });
     },
   },
   {
@@ -19,6 +24,9 @@ const buttonsEdit = [
     title: 'Cancel',
     clickHandler: () => {
       setConfirmCancel();
+      dispatchAnalyticsEvent('roadmapInteraction', {
+        actionType: 'Cancel Save Roadmap',
+      });
     },
   },
 

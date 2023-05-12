@@ -1,3 +1,5 @@
+import { dispatchAnalyticsEvent } from '@store/misc/analytics';
+
 function handleSocialLogin(link: string, features: string) {
   // open /api/auth/google-login in a new window and store the window reference
   const popup = window.open(link, '_blank', features);
@@ -34,6 +36,9 @@ function handleSocialLogin(link: string, features: string) {
 }
 
 export function handleGoogleLogin() {
+  dispatchAnalyticsEvent('authInteraction', {
+    actionType: 'Google Auth',
+  });
   // get the current monitor size
   const { width, height } = window.screen;
 
@@ -47,6 +52,9 @@ export function handleGoogleLogin() {
 }
 
 export function handleGitHubLogin() {
+  dispatchAnalyticsEvent('authInteraction', {
+    actionType: 'Github Auth',
+  });
   // get the current monitor size
   const { width, height } = window.screen;
 
@@ -59,6 +67,10 @@ export function handleGitHubLogin() {
 }
 
 export async function handleLogout() {
+  dispatchAnalyticsEvent('authInteraction', {
+    actionType: 'Logout',
+  });
+
   // makes call to api for logout
   await fetch('/api/auth/logout', {
     method: 'DELETE',

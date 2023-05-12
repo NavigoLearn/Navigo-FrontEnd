@@ -2,9 +2,11 @@
 import Base from '@layouts/Base.astro';
 import SearchMobile from '../../components/explorerefr/mobile/Explore';
 import SearchDesktop from '@components/explorerefr/desktop/Search';
+import PageViewCollection from '../../components/home/PageViewCollection';
 ---
 
 <Base title='Welcome to Astro.'>
+  <PageViewCollection page='Explore' client:load />
   <div class='hidden md:block'>
     <div class='h-[200px]'></div>
     <div class='flex justify-center items-center'>

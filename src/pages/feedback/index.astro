@@ -1,9 +1,10 @@
 ---
 import Base from '@layouts/Base.astro';
 import Feedback from '@components/feedback/Feedback';
+import PageViewCollection from '../../components/home/PageViewCollection';
 ---
 
 <Base title='Welcome to Astro.'>
-  <!-- <Feedback client:load /> -->
+  <PageViewCollection page='Feedback' client:load />
+  <Feedback client:load />
 </Base>
-

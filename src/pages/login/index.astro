@@ -1,9 +1,11 @@
 ---
 import Base from '@layouts/Base.astro';
 import Login from '@components/auth/login/Login';
+import PageViewCollection from '../../components/home/PageViewCollection';
 ---
 
 <Base title='Welcome to Astro.'>
+  <PageViewCollection page='Login' client:load />
   <div class='h-min-full flex justify-center items-center bg-background mb-20'>
     <Login client:load />
   </div>
