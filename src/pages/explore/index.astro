@@ -1,7 +1,7 @@
 ---
 import Base from '@layouts/Base.astro';
 import SearchMobile from '../../components/explorerefr/mobile/Explore';
-import SearchDesktop from '@components/explorerefr/desktop/Search';
+import ExploreDesktop from '../../components/explorerefr/desktop/Explore';
 import PageViewCollection from '../../components/home/PageViewCollection';
 ---
 
@@ -16,7 +16,7 @@ import PageViewCollection from '../../components/home/PageViewCollection';
         The journey of 1000 miles starts with 1 roadmap
       </h1>
     </div>
-    <SearchDesktop client:idle />
+    <ExploreDesktop client:idle />
   </div>
   <div class='md:hidden'>
     <div

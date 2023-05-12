@@ -1,46 +1,51 @@
 import { UserResponse } from '@type/user/types';
+import { errorHandlerDecorator } from '@typescript/error-handler';
 
-export const a = 1;
+export const fetchUserData = errorHandlerDecorator(
+  async (id: string): Promise<UserResponse> => {
+    const data = await fetch(`/api/users/${id}`, {
+      method: 'GET',
+      credentials: 'include',
+    }).then((res) => res.json());
+    return data;
+  }
+);
 
-export const fetchUserData = async (id: string): Promise<UserResponse> => {
-  const data = await fetch(`/api/users/${id}`, {
-    method: 'GET',
-    credentials: 'include',
-  }).then((res) => res.json());
-  return data;
-};
+export const handleLocalLogin = errorHandlerDecorator(
+  async (email: string, password: string) => {
+    const response = await fetch('/api/auth/login', {
+      method: 'POST',
+      credentials: 'include',
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then((res) => res);
+    return response;
+  }
+);
 
-export const handleLocalLogin = async (email: string, password: string) => {
-  const response = await fetch('/api/auth/login', {
-    method: 'POST',
-    credentials: 'include',
-    body: JSON.stringify({
-      email,
-      password,
-    }),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  }).then((res) => res);
-  return response;
-};
+export const postSignUpData = errorHandlerDecorator(
+  async (email: string, password: string) => {
+    const response = await fetch('/api/auth/register', {
+      method: 'POST',
+      credentials: 'include',
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then((res) => res);
+    return response;
+  }
+);
 
-export const postSignUpData = async (email: string, password: string) => {
-  const response = await fetch('/api/auth/register', {
-    method: 'POST',
-    credentials: 'include',
-    body: JSON.stringify({
-      email,
-      password,
-    }),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  }).then((res) => res);
-  return response;
-};
-
-export const postBioData = async (bio: string) => {
+export const postBioData = errorHandlerDecorator(async (bio: string) => {
   const response = await fetch('/api/users/bio', {
     method: 'POST',
     credentials: 'include',
@@ -52,9 +57,9 @@ export const postBioData = async (bio: string) => {
     },
   }).then((res) => res);
   return response;
-};
+});
 
-export const postNameData = async (name: string) => {
+export const postNameData = errorHandlerDecorator(async (name: string) => {
   const response = await fetch('/api/users/name', {
     method: 'POST',
     credentials: 'include',
@@ -66,9 +71,9 @@ export const postNameData = async (name: string) => {
     },
   }).then((res) => res);
   return response;
-};
+});
 
-export const postQuoteData = async (quote: string) => {
+export const postQuoteData = errorHandlerDecorator(async (quote: string) => {
   const response = await fetch('/api/users/quote', {
     method: 'POST',
     credentials: 'include',
@@ -80,20 +85,22 @@ export const postQuoteData = async (quote: string) => {
     },
   }).then((res) => res);
   return response;
-};
+});
 
-export const postWebsiteUrlData = async (websiteUrl: string) => {
-  const response = await fetch('/api/users/website-url', {
-    method: 'POST',
-    credentials: 'include',
-    body: JSON.stringify({
-      websiteUrl,
-    }),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  }).then((res) => res);
-};
+export const postWebsiteUrlData = errorHandlerDecorator(
+  async (websiteUrl: string) => {
+    const response = await fetch('/api/users/website-url', {
+      method: 'POST',
+      credentials: 'include',
+      body: JSON.stringify({
+        websiteUrl,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then((res) => res);
+  }
+);
 
 export const fetchGetMiniProfileData = async () => {
   try {
@@ -109,33 +116,37 @@ export const fetchGetMiniProfileData = async () => {
   }
 };
 
-export const fetchGetMiniProfileDataById = async (userId: string) => {
-  try {
-    const response = await fetch(`/api/users/${userId}/mini`, {
-      method: 'GET',
-      credentials: 'include',
-    }).then((res) => res);
-    if (!response.ok) throw new Error('User not found');
-    return response.json();
-  } catch (e) {
-    return false;
+export const fetchGetMiniProfileDataById = errorHandlerDecorator(
+  async (userId: string) => {
+    try {
+      const response = await fetch(`/api/users/${userId}/mini`, {
+        method: 'GET',
+        credentials: 'include',
+      }).then((res) => res);
+      if (!response.ok) throw new Error('User not found');
+      return response.json();
+    } catch (e) {
+      return false;
+    }
   }
-};
+);
 
-export const fetchGetUserIsFollowing = async (userId: string) => {
-  try {
-    const response = await fetch(`/api/users/${userId}/is-following`, {
-      method: 'GET',
-      credentials: 'include',
-    }).then((res) => res);
-    const responseData = await response.json();
-    return responseData;
-  } catch (e) {
-    return false;
+export const fetchGetUserIsFollowing = errorHandlerDecorator(
+  async (userId: string) => {
+    try {
+      const response = await fetch(`/api/users/${userId}/is-following`, {
+        method: 'GET',
+        credentials: 'include',
+      }).then((res) => res);
+      const responseData = await response.json();
+      return responseData;
+    } catch (e) {
+      return false;
+    }
   }
-};
+);
 
-export const fetchFollowUser = async (userId: string) => {
+export const fetchFollowUser = errorHandlerDecorator(async (userId: string) => {
   try {
     const response = await fetch(`/api/users/${userId}/follow`, {
       method: 'GET',
@@ -146,17 +157,19 @@ export const fetchFollowUser = async (userId: string) => {
   } catch (e) {
     return false;
   }
-};
+});
 
-export const fetchUnfollowUser = async (userId: string) => {
-  try {
-    const response = await fetch(`/api/users/${userId}/follow`, {
-      method: 'DELETE',
-      credentials: 'include',
-    }).then((res) => res);
-    const responseData = await response.json();
-    return responseData;
-  } catch (e) {
-    return false;
+export const fetchUnfollowUser = errorHandlerDecorator(
+  async (userId: string) => {
+    try {
+      const response = await fetch(`/api/users/${userId}/follow`, {
+        method: 'DELETE',
+        credentials: 'include',
+      }).then((res) => res);
+      const responseData = await response.json();
+      return responseData;
+    } catch (e) {
+      return false;
+    }
   }
-};
+);

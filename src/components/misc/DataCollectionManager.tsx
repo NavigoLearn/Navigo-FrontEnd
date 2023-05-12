@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState, useRef } from 'react';
 import { AnalyticsBrowser } from '@segment/analytics-next';
 import { useStore } from '@nanostores/react';
 import analyticsStore, { emptyDispatchedEvents } from '@store/misc/analytics';
@@ -12,6 +12,8 @@ import {
 } from '@type/misc/typecheckers';
 
 const DataCollectionManager = () => {
+  const disabled = useRef(false);
+
   const EventMap: EventMapper = {
     roadmapInteraction: (
       analytics: AnalyticsBrowser,
@@ -69,25 +71,16 @@ const DataCollectionManager = () => {
   ) => {
     const eventHandler = EventMap[event.type];
     if (eventHandler) {
-      console.log(eventHandler);
-      eventHandler(analytics, event).catch((err) => {
-        console.log('err catch', err);
-      });
+      eventHandler(analytics, event);
     }
   };
 
   const { dispatchedEvents } = useStore(analyticsStore);
 
   const analytics = useMemo(() => {
-    let analyticsObject: AnalyticsBrowser;
-    try {
-      analyticsObject = AnalyticsBrowser.load({
-        writeKey: 'gqHz7gJIiPkOPu1BRGc6kIAT569vnSWc',
-      });
-    } catch (err) {
-      // user has blocker or something
-      analyticsObject = null;
-    }
+    const analyticsObject = AnalyticsBrowser.load({
+      writeKey: 'gqHz7gJIiPkOPu1BRGc6kIAT569vnSWc',
+    });
 
     return analyticsObject;
   }, []);
@@ -95,11 +88,8 @@ const DataCollectionManager = () => {
   useEffect(() => {
     if (dispatchedEvents.length === 0) return;
     dispatchedEvents.forEach((event) => {
-      try {
-        triggerEvents(event, analytics);
-      } catch (err) {
-        // user has blocker or something
-      }
+      triggerEvents(event, analytics);
+      // user has blocker or something
     });
     emptyDispatchedEvents();
   }, [dispatchedEvents]);

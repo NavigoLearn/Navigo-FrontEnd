@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import loupe from '@assets/loupe.svg';
 import chevroleftduo from '@assets/chevron-left-duo.svg';
 import chevronrightduo from '@assets/chevron-right-duo.svg';
@@ -23,8 +24,8 @@ const SearchMobile = () => {
   const [pageNr, setPageNr] = useState(1);
   const [query, setQuery] = useState('');
   const [maxPage, setMaxPage] = useState(1);
-  const cardStore = cardsFromApi.get();
-  const cardCount = Object.keys(cardStore).length;
+  const { cards, ids } = cardsFromApi.get();
+  const cardCount = ids.length;
   const disabledRight = pageNr >= maxPage;
 
   const disabledLeft = pageNr <= 1;
@@ -108,64 +109,40 @@ const SearchMobile = () => {
         </div>
       </form>
 
-      {/* <div className='flex justify-center items-center space-x-12 mt-7 sm:mt-9 select-none'>
-        <button type='button' onClick={() => handleClick('filter')}>
-          <div className='bg-primary flex justify-center items-center shadow-standard rounded-lg w-[90px] text-white h-[30px] sm:w-[122px] sm:h-[42px]'>
-            <img
-              draggable='false'
-              src={filter}
-              alt='filterButton'
-              className='inline-block h-4 w-4 sm:h-5 sm:w-5'
-            />
-            <span className='font-roboto-text inline-block ml-[6px] text-[13px] sm:text-[16px] sm:ml-[8px]'>
-              Filter
-            </span>
-          </div>
-        </button>
-        <button type='button' onClick={() => handleClick('sort')}>
-          <div className='bg-primary flex justify-center items-center shadow-standard rounded-lg w-[90px] text-white h-[30px] sm:w-[122px] sm:h-[42px]'>
-            <img
-              draggable='false'
-              src={sort}
-              alt='filterButton'
-              className='inline-block h-4 w-4'
-            />
-            <span className='font-roboto-text inline-block ml-[6px] text-[13px] sm:text-[16px] sm:ml-[8px]'>
-              Sort By
-            </span>
-          </div>
-        </button>
-      </div>
-
-      <div className='bg-background w-full h-10 justify-center flex items-center -mt-9 relative opacity-75 sm:h-12 sm:-mt-12'>
-        <div className='w-full h-5 bg-red-100 text-xs flex justify-center items-center border border-red-700 sm:text-sm sm:h-6'>
-          <img
-            draggable='false'
-            src={warn}
-            alt='warnForMobile'
-            className='h-4 w-4 mr-2 sm:h-5 sm:w-5 select-none'
-          />
-          Filters will be added post beta default: Likes.
-        </div>
-      </div> */}
-
       <div className='mt-10 sm:mt-12'>
         <ul className='flex flex-col gap-7 sm:gap-9'>
-          {loaded
-            ? Object.keys(cardStore)
-                .sort((a, b) => {
-                  return cardStore[b].likes - cardStore[a].likes;
-                })
-                .map((card: string) => (
-                  <div key={card} className='flex items-center justify-center'>
-                    <Card cardStore={cardStore[card]} />
-                  </div>
-                ))
-            : new Array(12).fill(0).map((_, i) => (
-                <div className='flex items-center justify-center'>
-                  <EmptyCard />
+          {/* {loaded */}
+          {/*  ? Object.keys(cardStore) */}
+          {/*      .sort((a, b) => { */}
+          {/*        return cardStore[b].likes - cardStore[a].likes; */}
+          {/*      }) */}
+          {/*      .map((card: string) => ( */}
+          {/*        <div key={card} className='flex items-center justify-center'> */}
+          {/*          <Card cardStore={cardStore[card]} /> */}
+          {/*        </div> */}
+          {/*      )) */}
+          {/*  : new Array(12).fill(0).map((_, i) => ( */}
+          {/*      <div className='flex items-center justify-center'> */}
+          {/*        <EmptyCard /> */}
+          {/*      </div> */}
+          {/*    ))} */}
+
+          {loaded &&
+            ids.map((id) => {
+              return (
+                <div key={id} className='flex items-center justify-center'>
+                  <Card cardStore={cards[id]} />
                 </div>
-              ))}
+              );
+            })}
+
+          {!loaded &&
+            new Array(12).fill(0).map((_, i) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <div key={uuidv4()} className='flex items-center justify-center'>
+                <EmptyCard />
+              </div>
+            ))}
         </ul>
       </div>
 
@@ -235,3 +212,46 @@ const SearchMobile = () => {
 };
 
 export default SearchMobile;
+
+{
+  /* <div className='flex justify-center items-center space-x-12 mt-7 sm:mt-9 select-none'>
+        <button type='button' onClick={() => handleClick('filter')}>
+          <div className='bg-primary flex justify-center items-center shadow-standard rounded-lg w-[90px] text-white h-[30px] sm:w-[122px] sm:h-[42px]'>
+            <img
+              draggable='false'
+              src={filter}
+              alt='filterButton'
+              className='inline-block h-4 w-4 sm:h-5 sm:w-5'
+            />
+            <span className='font-roboto-text inline-block ml-[6px] text-[13px] sm:text-[16px] sm:ml-[8px]'>
+              Filter
+            </span>
+          </div>
+        </button>
+        <button type='button' onClick={() => handleClick('sort')}>
+          <div className='bg-primary flex justify-center items-center shadow-standard rounded-lg w-[90px] text-white h-[30px] sm:w-[122px] sm:h-[42px]'>
+            <img
+              draggable='false'
+              src={sort}
+              alt='filterButton'
+              className='inline-block h-4 w-4'
+            />
+            <span className='font-roboto-text inline-block ml-[6px] text-[13px] sm:text-[16px] sm:ml-[8px]'>
+              Sort By
+            </span>
+          </div>
+        </button>
+      </div>
+
+      <div className='bg-background w-full h-10 justify-center flex items-center -mt-9 relative opacity-75 sm:h-12 sm:-mt-12'>
+        <div className='w-full h-5 bg-red-100 text-xs flex justify-center items-center border border-red-700 sm:text-sm sm:h-6'>
+          <img
+            draggable='false'
+            src={warn}
+            alt='warnForMobile'
+            className='h-4 w-4 mr-2 sm:h-5 sm:w-5 select-none'
+          />
+          Filters will be added post beta default: Likes.
+        </div>
+      </div> */
+}
