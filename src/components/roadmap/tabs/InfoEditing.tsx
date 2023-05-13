@@ -50,12 +50,13 @@ const InfoEditing = () => {
       {divWrapper(
         <div className='flex justify-between'>
           <button
+            type='button'
             className=' h-8 w-8'
             onClick={() => {
               flipOpen();
             }}
           >
-            <img draggable="false" src={cross} className='w-6 h-6' />
+            <img draggable='false' src={cross} className='w-6 h-6' />
           </button>
         </div>
       )}
@@ -137,33 +138,16 @@ const InfoEditing = () => {
               </div>
             );
           })}
-          <div className='flex gap-2 my-2 w-full'>
-            <input
-              className='text-main font-semibold font-roboto-text text-base md:text-lg border-2 border-gray-100 w-1/2'
-              value={newLink.title}
-              onChange={(e) => {
-                const newVal = capStringLen(e.target.value, 20);
-                setNewLink({ ...newLink, title: newVal });
-              }}
-            />
-            <input
-              className=' text-blue-400 font-light font-roboto-text text-sm md:text-base border-2 border-gray-100 w-1/2'
-              value={newLink.link}
-              onChange={(e) => {
-                setNewLink({ ...newLink, link: e.target.value });
-              }}
-            />
-            <button
-              type='button'
-              className=' text-sm text-placeholder font-roboto-text font-light'
-              onClick={() => {
-                // add a new link to the array
+          <div className='flex gap-2 my-2 w-full justify-center'>
+            <Button
+              text='Add new link'
+              callback={() => {
                 addInfoTabLink({ ...newLink });
                 setNewLink({ title: '', link: '' });
               }}
-            >
-              add
-            </button>
+              color='primary'
+              size='small'
+            />
           </div>
         </div>
       )}

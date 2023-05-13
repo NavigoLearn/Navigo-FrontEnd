@@ -42,7 +42,7 @@ const Issues = () => {
         <div className=' font-kanit-text font-semibold text-2xl md:text-4xl  '>
           Issues
         </div>
-        <div className=' absolute right-10'>
+        <div className=' absolute right-2 sm:right-10'>
           {loggedUser.get().userId === '' ? (
             ''
           ) : (
@@ -59,7 +59,7 @@ const Issues = () => {
 
         <button
           type='button'
-          className=' w-6 h-6 absolute left-10 select-none'
+          className=' w-6 h-6 absolute left-2 sm:left-10 select-none'
           onClick={() => {
             // close tab
             flipOpen();

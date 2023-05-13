@@ -31,7 +31,6 @@ export async function getCommentsAndSetDisplay(
 ) {
   const { comments } = await fetchIssueComments(roadmapId, issueId);
   const newComments: IssueComment[] = [];
-  emptyComments();
 
   const commentMap = {};
   await Promise.all(

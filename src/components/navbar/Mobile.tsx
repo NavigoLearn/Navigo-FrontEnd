@@ -5,29 +5,35 @@ import logoSrc from '@assets/logo.svg';
 import { useStore } from '@nanostores/react';
 import loggedUser from '@store/user/logged-user';
 import userStatus from '@store/user/user-status';
-import { mobileLogged, mobileGuest } from './Links';
 import { handleLogout } from '@components/auth/socialAuth';
-import buttonsCreate from '@components/roadmap/sidebar/buttons-create';
 import logout from '@assets/logout.svg';
+import { mobileLogged, mobileGuest } from './Links';
 
 const MobileLogoutButton = () => {
   return (
-    <button className='flex justify-center items-center space-x-2 mb-4' type='button' onClick={() => {handleLogout()}}>
+    <button
+      className='flex justify-center items-center space-x-2 mb-4'
+      type='button'
+      onClick={() => {
+        handleLogout();
+      }}
+    >
       <img
         draggable='false'
         src={logout}
         alt='icon'
         className='w-8 h-6 flex justify-center'
       />
-      <div className='flex items-center text-center text-xl py-8 m-auto hover:underline w-10/12 h-12 justify-center font-normal -translate-x-1'>Logout</div>
+      <div className='flex items-center text-center text-xl py-8 m-auto hover:underline w-10/12 h-12 justify-center font-normal -translate-x-1'>
+        Logout
+      </div>
     </button>
-  )
-}
+  );
+};
 
 const MobileNavbar = () => {
   const [click, setClick] = useState(false);
   const [hydrated, setHydrated] = useState(false);
-  const { profilePictureUrl } = useStore(loggedUser);
   const { loaded, isLogged } = useStore(userStatus);
   const [currentPath, setCurrentPath] = useState('');
   const [defaultBodyOverflow, setDefaultBodyOverflow] = useState('auto');
@@ -35,7 +41,7 @@ const MobileNavbar = () => {
 
   useEffect(() => {
     setHydrated(true);
-    setCurrentPath(window.location.pathname)
+    setCurrentPath(window.location.pathname);
 
     const body = document.querySelector('body');
     window.addEventListener('resize', () => {
@@ -66,13 +72,14 @@ const MobileNavbar = () => {
       } else {
         setDefaultBodyOverflow(body.style.overflow);
         body.style.overflow = 'hidden'; // hide scroll clip
-        body.style.height= "var(--height)"; // set height to window height (should fix safari mobile)
+        body.style.height = 'var(--height)'; // set height to window height (should fix safari mobile)
       }
     }
   };
 
   return (
-    <nav ref={navbar}
+    <nav
+      ref={navbar}
       className={`bg-background relative overflow-visible h-12 flex w-full justify-center select-none transition-all  duration-300 select-none ${
         click ? 'items-center ' : ' '
       }`}
@@ -86,7 +93,7 @@ const MobileNavbar = () => {
         <img
           draggable='false'
           className={`relative z-[100] ${
-            click ? 'h-12' : 'h-12 object-contain'
+            click ? 'h-12' : 'h-12 w-7 object-contain'
           }`}
           src={click ? dropclose : dropdown}
           alt='dropdown'
@@ -147,7 +154,8 @@ const MobileNavbar = () => {
                     key={link.id}
                     className='items-center text-center justify-center relative'
                   >
-                    {currentPath === '/roadmap/create' && link.path === '/roadmap/create' ? null : (
+                    {currentPath === '/roadmap/create' &&
+                    link.path === '/roadmap/create' ? null : (
                       <a className={link.cName} href={link.path}>
                         <div className='flex items-center justify-center '>
                           {link.cIcon && (

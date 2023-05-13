@@ -34,7 +34,7 @@ const NavBook = ({ setSelect }: NavBookProps) => {
           size='small'
         />
       </div>
-      <div className=' font-bold text-lg font-roboto-text '>
+      <div className='hidden sm:block font-bold text-lg font-roboto-text '>
         Roadmap Guide Book
       </div>
       <div className='absolute right-2 top-2 text-sm text-placeholder '>
