@@ -60,16 +60,16 @@ const InfoEditing = () => {
           </button>
         </div>
       )}
-      <div className='w-5/6 flex justify-between items-center mx-8 mt-6 '>
+      <div className='w-5/6 flex justify-between items-center mx-auto mt-6 flex-col '>
         <input
-          className=' text-xl font-kanit-text font-semibold h-10 md:text-3xl border-2 border-gray-200 w-3/4'
+          className='text-xl font-kanit-text font-semibold h-10 md:text-3xl border-2 border-gray-300 rounded-md shadow-sm w-full flex'
           value={info.title}
           onChange={(e) => {
             const newVal = capStringLen(e.target.value, 20);
             changeInfoTabProp('title', newVal);
           }}
         />
-        <div className='mt-2 flex gap-2 items-center '>
+        <div className='mt-2 flex gap-2 items-center justify-center '>
           <Button
             text='Cancel'
             callback={() => {
@@ -96,7 +96,8 @@ const InfoEditing = () => {
       </div>
       {divWrapper(
         <textarea
-          className='w-full border-2 border-gray-200 text-sm md:text-lg'
+          className='w-full border-2 h-36 border-gray-300 rounded-md shadow-sm text-sm md:text-lg'
+          placeholder='Description...'
           value={info.description}
           onChange={(e) => {
             const newVal = capStringLen(e.target.value, 100);
@@ -110,18 +111,20 @@ const InfoEditing = () => {
           {info.links.map((resource, index) => {
             return (
               // eslint-disable-next-line
-              <div className='flex gap-2 my-2' key={`${index}`}>
+              <div className='flex-col gap-2 my-2' key={`${index}`}>
                 <input
-                  className='text-main font-semibold font-roboto-text text-sm md:text-lg border-2 border-gray-100 w-1/2'
+                  className='text-main flex font-semibold font-roboto-text text-sm md:text-lg border-2 rounded-md border-gray-300 w-full'
                   value={resource.title}
+                  placeholder='Resource Title'
                   onChange={(e) => {
                     const newVal = capStringLen(e.target.value, 20);
                     changeInfoTabLink(index, 'title', newVal);
                   }}
                 />
                 <input
-                  className=' text-blue-400 font-light font-roboto-text text-sm md:text-base border-2 border-gray-100 w-1/2'
+                  className=' text-blue-400 flex mt-2 font-light font-roboto-text text-sm md:text-base border-2 rounded-md border-gray-300 w-full'
                   value={resource.link}
+                  placeholder='https://example.com'
                   onChange={(e) => {
                     changeInfoTabLink(index, 'link', e.target.value);
                   }}
@@ -151,13 +154,15 @@ const InfoEditing = () => {
           </div>
         </div>
       )}
-      <div className='flex justify-center w-full'>
+      <hr className='bg-gray-300 flex mt-2 w-5/6 justify-center mx-auto border-1' />
+      {/* <div className='flex justify-center w-full'>
         <div className='absolute bottom-32 w-5/6 bg-gray-300 h-[1px] ' />
-      </div>
-      <div className='absolute bottom-20 w-full max-h-20'>
+      </div> */}
+      <div className='w-full max-h-36'>
         {divWrapper(
           <textarea
-            className='text-secondary font-normal font-roboto-text w-full h-10 mt-4 max-h-20 border-2 border-gray-200'
+            className='text-secondary -translate-y-6 font-normal font-roboto-text w-full h-12 mt-4 max-h-20 border-2 rounded-md shadow-sm border-gray-300 md:h-36'
+            placeholder='Additional Info...'
             value={info.additionalInfo}
             onChange={(e) => {
               const newVal = capStringLen(e.target.value, 100);
