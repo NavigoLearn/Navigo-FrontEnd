@@ -16,6 +16,7 @@ import {
 import { toggleEditing } from '@typescript/roadmap/roadmap-edit-logic-decorated';
 import { setTabAboutFlow } from '@typescript/roadmap/tab-logic-flows';
 import { dispatchAnalyticsEvent } from '@store/misc/analytics';
+import { setConfirmDelete } from '@store/roadmap/popup';
 import { deleteRoadmap } from '../../../api-wrapper/roadmap/roadmaps';
 
 export const buttonsTryTool = [
@@ -119,11 +120,10 @@ export const buttonsViewOwner = [
     title: 'Delete',
     clickHandler: () => {
       // delete roadmap
-      deleteRoadmap(getRoadmapId());
+      setConfirmDelete();
       dispatchAnalyticsEvent('roadmapInteraction', {
         actionType: 'Delete Roadmap',
       });
-      window.location.href = '/profile';
     },
   },
 ];

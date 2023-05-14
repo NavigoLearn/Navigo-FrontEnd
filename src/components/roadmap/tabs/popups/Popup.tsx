@@ -4,7 +4,7 @@ import popup from '@store/roadmap/popup';
 import Report from '@components/roadmap/tabs/popups/Report';
 import ConfirmSave from '@components/roadmap/tabs/popups/ConfirmSave';
 import ConfirmCancel from '@components/roadmap/tabs/popups/ConfirmCancel';
-import { divWrapper } from '../utils/logic';
+import ConfirmDelete from '@components/roadmap/tabs/popups/ConfirmDelete';
 
 const Popup = () => {
   const { type } = useStore(popup);
@@ -13,6 +13,7 @@ const Popup = () => {
       {type === 'report' && <Report />}
       {type === 'confirmSave' && <ConfirmSave />}
       {type === 'confirmCancel' && <ConfirmCancel />}
+      {type === 'confirmDelete' && <ConfirmDelete />}
     </div>
   );
 };

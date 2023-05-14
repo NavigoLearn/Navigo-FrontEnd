@@ -62,7 +62,7 @@ const InfoEditing = () => {
       )}
       <div className='w-5/6 flex justify-between items-center mx-8 mt-6 '>
         <input
-          className=' text-2xl font-kanit-text font-semibold md:text-4xl border-2 border-gray-200 w-3/4'
+          className=' text-xl font-kanit-text font-semibold h-10 md:text-3xl border-2 border-gray-200 w-3/4'
           value={info.title}
           onChange={(e) => {
             const newVal = capStringLen(e.target.value, 20);
