@@ -8,13 +8,11 @@ import roadmapVisitData, {
   validData,
 } from '@store/roadmap/data/roadmap-visit-data';
 import GenericButtonDesktop from '@components/roadmap/sidebar/GenericButtonDesktop';
-import about from '@assets/about.svg';
 import {
   buttonsViewVisitor,
   buttonsViewOwner,
   buttonsTryTool,
 } from './buttons-view';
-import { divWrapper } from '../tabs/utils/logic';
 
 const SideBar = ({ isCreate }: { isCreate: string }) => {
   const [hover, setHover] = useState(false);

@@ -19,12 +19,20 @@ export const setDisplayComments = (comments: IssueComment[]) => {
   });
 };
 
+export const emptyComments = () => {
+  commentsDisplay.set({
+    comments: [],
+  });
+};
+
 export async function getCommentsAndSetDisplay(
   roadmapId: string,
   issueId: string
 ) {
   const { comments } = await fetchIssueComments(roadmapId, issueId);
   const newComments: IssueComment[] = [];
+
+  const commentMap = {};
   await Promise.all(
     comments.map(async (comment): Promise<IssueComment> => {
       // fetch user mini for name and profile picture
@@ -37,10 +45,14 @@ export async function getCommentsAndSetDisplay(
         author: userMini.name,
         authorId: comment.userId,
       };
-      newComments.push(newComment);
+      commentMap[comment.id] = newComment;
       return newComment;
     })
   );
+
+  comments.map((comment) => {
+    newComments.push(commentMap[comment.id]);
+  });
   // formats the comments from api to the format to normal format
   setDisplayComments(newComments);
 }

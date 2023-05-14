@@ -20,7 +20,6 @@ const Profile = ({ id }: { id: string }) => {
     }
     setLoaded(true);
 
-    console.log('no token', !document.cookie.includes('token'), id === '', id);
     if (!document.cookie.includes('token') && (id === '' || !id)) {
       window.location.href = '/login';
     }

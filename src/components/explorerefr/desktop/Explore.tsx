@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useStore } from '@nanostores/react';
+import { v4 as uuidv4 } from 'uuid';
 import loupe from '@assets/loupe.svg';
 // import warn from '@assets/warningErr.webp';
 import chevroleftduo from '@assets/chevron-left-duo.svg';
@@ -13,25 +15,23 @@ import EmptyCard from '@components/explorerefr/EmptyCard';
 import erase from '@assets/cross.svg';
 import Card from '../Card';
 
-const SearchDesktop = () => {
+const ExploreDesktop = () => {
   const [query, setQuery] = useState('');
   const [render, setRender] = useState(false);
-  const cardStore = cardsFromApi.get();
   const [pageNr, setPageNr] = useState(1);
   const [isSafari, setIsSafari] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [maxPage, setMaxPage] = useState(1);
-  const cardCount = Object.keys(cardStore).length;
+  const { cards, ids } = cardsFromApi.get();
+  const cardCount = ids.length;
   const disabledRight = pageNr >= maxPage;
   const disabledLeft = pageNr <= 1;
 
-  console.log(cardCount);
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     setRoadmapCardsFromApiExplore(query, 1).then(({ pageCount }) => {
       setRender((prev) => !prev);
-
       setMaxPage(pageCount);
     });
   };
@@ -94,39 +94,24 @@ const SearchDesktop = () => {
         </div>
       </form>
 
-      {/* <FilterAugD />
-
-      <div className='bg-background h-20 w-full -mt-20 opacity-75 relative flex justify-center items-center 2xl:h-24 2xl:-mt-24'>
-        <div className='w-full bg-background h-7 2xl:h-8 flex justify-center items-center absolute'>
-          <div className='bg-red-100 w-96 h-full flex justify-center items-center text-opacity-40 text-sm border-2 border-red-700 border-opacity-50 rounded-md relative 2xl:text-base 2xl:w-[420px]'>
-            <img
-              draggable='false'
-              src={warn}
-              alt='postBetWarning'
-              className='w-5 h-5 absolute left-1 select-none '
-            />
-            Filters will be added post beta default: Likes.
-          </div>
-        </div>
-      </div> */}
-
       <div className='flex justify-center items-center mt-16 '>
         <ul className='grid grid-cols-2 gap-x-9 gap-y-11 xl:grid-cols-3'>
-          {loaded
-            ? Object.keys(cardStore)
-                .sort((a, b) => {
-                  return cardStore[b].likes - cardStore[a].likes;
-                })
-                .map((card: string) => (
-                  <div key={card} className='flex items-center justify-center'>
-                    <Card cardStore={cardStore[card]} />
-                  </div>
-                ))
-            : new Array(12).fill(0).map((_, i) => (
-                <div className='flex items-center justify-center'>
-                  <EmptyCard />
+          {loaded &&
+            ids.map((id) => {
+              return (
+                <div key={id} className='flex items-center justify-center'>
+                  <Card cardStore={cards[id]} />
                 </div>
-              ))}
+              );
+            })}
+
+          {!loaded &&
+            new Array(12).fill(0).map((_, i) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <div key={uuidv4()} className='flex items-center justify-center'>
+                <EmptyCard />
+              </div>
+            ))}
         </ul>
       </div>
 
@@ -134,7 +119,8 @@ const SearchDesktop = () => {
         <div className='flex items-center justify-center text-center font-kanit-text text-3xl text-secondary'>
           Oops! Seems like someone ate all the roadmaps!
         </div>
-      ) : (<div className='flex justify-center items-center my-8 select-none'>
+      ) : (
+        <div className='flex justify-center items-center my-8 select-none'>
           <button
             type='button'
             className='disabled:opacity-50'
@@ -196,9 +182,28 @@ const SearchDesktop = () => {
               className='w-8 h-8 2xl:w-9 2xl:h-9'
             />
           </button>
-        </div>)}
+        </div>
+      )}
     </div>
   );
 };
 
-export default SearchDesktop;
+export default ExploreDesktop;
+
+{
+  /* <FilterAugD />
+
+      <div className='bg-background h-20 w-full -mt-20 opacity-75 relative flex justify-center items-center 2xl:h-24 2xl:-mt-24'>
+        <div className='w-full bg-background h-7 2xl:h-8 flex justify-center items-center absolute'>
+          <div className='bg-red-100 w-96 h-full flex justify-center items-center text-opacity-40 text-sm border-2 border-red-700 border-opacity-50 rounded-md relative 2xl:text-base 2xl:w-[420px]'>
+            <img
+              draggable='false'
+              src={warn}
+              alt='postBetWarning'
+              className='w-5 h-5 absolute left-1 select-none '
+            />
+            Filters will be added post beta default: Likes.
+          </div>
+        </div>
+      </div> */
+}

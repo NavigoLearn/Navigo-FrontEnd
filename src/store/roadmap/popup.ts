@@ -24,6 +24,23 @@ export function setReport() {
   });
 }
 
+export function setConfirmDelete() {
+  const newPop = popup.get();
+  // closes popup if is confirm save
+  if (newPop.type === 'confirmDelete') {
+    newPop.type = 'none';
+    popup.set({
+      ...newPop,
+      type: 'none',
+    });
+    return;
+  }
+  // sets type to confirm save
+  popup.set({
+    ...newPop,
+    type: 'confirmDelete',
+  });
+}
 export function setConfirmSave() {
   const newPop = popup.get();
   // closes popup if is confirm save

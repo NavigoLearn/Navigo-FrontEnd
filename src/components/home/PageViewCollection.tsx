@@ -3,7 +3,6 @@ import { dispatchAnalyticsEvent } from '@store/misc/analytics';
 
 const PageViewCollection = ({ page }: { page: string }) => {
   useEffect(() => {
-    console.log('page', page);
     dispatchAnalyticsEvent('pageView', {
       page,
     });

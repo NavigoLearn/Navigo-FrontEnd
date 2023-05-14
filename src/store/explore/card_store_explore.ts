@@ -1,33 +1,55 @@
 import { atom } from 'nanostores';
 import { CardType } from '@type/explore/card';
 import { errorHandlerDecorator } from '@typescript/error-handler';
+import { dispatchAnalyticsEvent } from '@store/misc/analytics';
 import {
   fetchDefaultCardsExplore,
   fetchRoadmapCardsProfile,
 } from '../../api-wrapper/explore/roadmap-card-data';
 
-const cardsFromApi = atom(
-  {} as {
+const cardsFromApi = atom({
+  cards: {},
+  ids: [],
+} as {
+  cards: {
     [value: string]: CardType;
-  }
-);
+  };
+  ids: string[];
+});
 
 /* eslint-disable import/prefer-default-export */
 
-export function addCardToStore(id: string, card: CardType) {
+export function addCardIdToStore(id: string) {
   const original = cardsFromApi.get();
-  original[id] = card;
+  original.ids.push(id);
+  cardsFromApi.set({ ...original });
+}
+
+export function addCardToStore(id: string, card: CardType) {
+  addCardIdToStore(id);
+  const original = cardsFromApi.get();
+  original.cards[id] = card;
   cardsFromApi.set({ ...original });
 }
 
 export function emptyStore() {
-  cardsFromApi.set({});
+  const original = cardsFromApi.get();
+  original.cards = {};
+  original.ids = [];
+  cardsFromApi.set({ ...original });
 }
 
 export const setRoadmapCardsFromApiExplore = errorHandlerDecorator(
   async (query: string, page: number) => {
     const exploreRoadmaps = await fetchDefaultCardsExplore(query, page);
+    dispatchAnalyticsEvent('exploreInteractionQuery', {
+      exploreActionType: 'Search',
+      exploreData: {
+        query,
+      },
+    });
     emptyStore();
+
     exploreRoadmaps.roadmaps.forEach((value) => {
       const newValueExplore: CardType = {
         name: value.name,
@@ -40,9 +62,10 @@ export const setRoadmapCardsFromApiExplore = errorHandlerDecorator(
       };
       addCardToStore(value.id, newValueExplore);
     });
-  return {
-    pageCount: exploreRoadmaps.pageCount,
-  }}
+    return {
+      pageCount: exploreRoadmaps.pageCount,
+    };
+  }
 );
 
 export async function setRoadmapCardsFromApiProfile(

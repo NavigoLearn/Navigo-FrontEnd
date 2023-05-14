@@ -12,7 +12,6 @@ const buttonsEdit = [
     title: 'Save',
     clickHandler: () => {
       setConfirmSave();
-
       dispatchAnalyticsEvent('roadmapInteraction', {
         actionType: 'Save Roadmap',
       });

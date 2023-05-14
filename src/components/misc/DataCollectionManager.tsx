@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState, useRef } from 'react';
 import { AnalyticsBrowser } from '@segment/analytics-next';
 import { useStore } from '@nanostores/react';
 import analyticsStore, { emptyDispatchedEvents } from '@store/misc/analytics';
@@ -10,10 +10,10 @@ import {
   checkIsEventProfileInteraction,
   checkIsEventRoadmapInteraction,
 } from '@type/misc/typecheckers';
-import userStatusStore from '@store/user/user-status';
-import loggedUser from '@store/user/logged-user';
 
 const DataCollectionManager = () => {
+  const disabled = useRef(false);
+
   const EventMap: EventMapper = {
     roadmapInteraction: (
       analytics: AnalyticsBrowser,
@@ -26,14 +26,16 @@ const DataCollectionManager = () => {
         });
       }
     },
-    exploreInteraction: (
+    exploreInteractionQuery: (
       analytics: AnalyticsBrowser,
       event: Event<EventType>
     ) => {
       if (checkIsEventExploreInteraction(event)) {
         // explore interaction message
+        console.log('quer search', event.data.exploreData.query);
         analytics.track(event.type, {
-          actionType: event.data.actionType,
+          actionType: event.data.exploreActionType,
+          query: event.data.exploreData.query,
         });
       }
     },
@@ -49,10 +51,8 @@ const DataCollectionManager = () => {
       }
     },
     authInteraction: (analytics: AnalyticsBrowser, event: Event<EventType>) => {
-      console.log(' before check got to auth');
       if (checkIsEventAuthInteraction(event)) {
         // type of profile interaction
-        console.log('got to auth');
         analytics.track(event.type, {
           actionType: event.data.actionType,
         });
@@ -70,7 +70,6 @@ const DataCollectionManager = () => {
     analytics: AnalyticsBrowser
   ) => {
     const eventHandler = EventMap[event.type];
-    console.log(eventHandler);
     if (eventHandler) {
       eventHandler(analytics, event);
     }
@@ -79,27 +78,18 @@ const DataCollectionManager = () => {
   const { dispatchedEvents } = useStore(analyticsStore);
 
   const analytics = useMemo(() => {
-    return AnalyticsBrowser.load({
+    const analyticsObject = AnalyticsBrowser.load({
       writeKey: 'gqHz7gJIiPkOPu1BRGc6kIAT569vnSWc',
     });
-  }, []);
 
-  const { isLogged, loaded } = useStore(userStatusStore);
-  useEffect(() => {
-    // identify if user is logged in
-    if (loaded && isLogged) {
-      analytics.identify(loggedUser.get().userId, {
-        name: loggedUser.get().name,
-        id: loggedUser.get().userId,
-      });
-    }
-  }, [loaded]);
+    return analyticsObject;
+  }, []);
 
   useEffect(() => {
     if (dispatchedEvents.length === 0) return;
     dispatchedEvents.forEach((event) => {
-      console.log(event);
       triggerEvents(event, analytics);
+      // user has blocker or something
     });
     emptyDispatchedEvents();
   }, [dispatchedEvents]);

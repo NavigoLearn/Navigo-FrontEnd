@@ -2,9 +2,10 @@ import { EventType, Event } from '@type/misc/analytics';
 
 export function checkIsEventExploreInteraction(
   props: any
-): props is Event<'exploreInteraction'> {
-  return props.type === 'exploreInteraction';
+): props is Event<'exploreInteractionQuery'> {
+  return props.type === 'exploreInteractionQuery';
 }
+
 export function checkIsEventProfileInteraction(
   props: any
 ): props is Event<'profileInteraction'> {

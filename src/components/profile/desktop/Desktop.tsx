@@ -3,7 +3,6 @@ import ProfileDisplay from '@components/profile/desktop/ProfileDisplay';
 import CardDisplay from '@components/profile/common/CardDisplay';
 
 const DesktopProfile = ({ id }: { id: string }) => {
-  console.log('desktop profile');
   return (
     <div className='flex flex-col w-full h-full justify-center items-center '>
       <div className='flex flex-col gap-10 justify-center items-center mx-auto w-full h-full my-40'>

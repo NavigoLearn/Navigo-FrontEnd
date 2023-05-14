@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { divWrapper } from '@components/roadmap/tabs/utils/logic';
 import circledot from '@assets/circledot.svg';
 import { useStore } from '@nanostores/react';
@@ -21,6 +21,7 @@ const Thread = () => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [description, setDescription] = useState('');
+  const mobile = useRef(false);
 
   async function triggerRerender() {
     await getCommentsAndSetDisplay(id, issueId);
@@ -34,8 +35,10 @@ const Thread = () => {
 
     triggerRerender().then(() => {
       setLoaded(true);
-      setRender((prev) => !prev);
     });
+    if (window.innerWidth < 768) {
+      mobile.current = true;
+    }
   }, []);
 
   return (
@@ -43,7 +46,12 @@ const Thread = () => {
       <div className='relative mt-6 w-full flex justify-center'>
         <div className=' font-kanit-text font-semibold text-xl md:text-3xl relative flex flex-col '>
           <div className=' w-full flex justify-center py-2 '>
-            <img draggable="false" alt='img circledot' src={circledot} className='h-8 w-8' />
+            <img
+              draggable='false'
+              alt='img circledot'
+              src={circledot}
+              className='h-8 w-8'
+            />
           </div>
           <div className='flex justify-center font-medium font-kanit-text '>
             {title}
@@ -69,14 +77,19 @@ const Thread = () => {
             setIssues();
           }}
         >
-          <img draggable="false" alt='close tab issue' src={cross} className='w-6 h-6' />
+          <img
+            draggable='false'
+            alt='close tab issue'
+            src={cross}
+            className='w-6 h-6'
+          />
         </button>
       </div>
 
       <div className='w-full grow overflow-auto'>
         {loaded &&
           comments.map((comment) => (
-            <div className='' key={comment.id}>
+            <div key={comment.id}>
               {divWrapper(
                 <Comment
                   date={comment.date}
@@ -86,11 +99,24 @@ const Thread = () => {
                   id={comment.id}
                   issueId={issueId}
                   text={comment.content}
+                  rerender={() => {
+                    triggerRerender();
+                  }}
                 />
               )}
             </div>
           ))}
+        {loaded && mobile.current && (
+          <AddComment
+            author={author}
+            issueId={issueId}
+            rerender={() => {
+              triggerRerender();
+            }}
+          />
+        )}
         {loaded &&
+          !mobile.current &&
           divWrapper(
             <AddComment
               author={author}

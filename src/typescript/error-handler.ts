@@ -30,13 +30,13 @@ export default class ErrorHandler extends Error {
   }
 }
 
-type TriggerFunctionNoId<T extends any[]> = (...args: T) => any;
+type AsyncFunction<T extends any[], R> = (...args: T) => Promise<R>;
 
-export function errorHandlerDecorator<T extends any[]>(
-  func: TriggerFunctionNoId<T>
-): TriggerFunctionNoId<T> {
-  return async function (...args: T):
-    Promise<ReturnType<typeof func> | undefined> {
+export function errorHandlerDecorator<T extends any[], R>(
+  func: AsyncFunction<T, R>
+): AsyncFunction<T, R> {
+  // eslint-disable-next-line consistent-return
+  return async function (...args: T): Promise<R> {
     try {
       return await func(...args);
     } catch (error) {
