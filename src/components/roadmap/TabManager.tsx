@@ -35,12 +35,12 @@ const TabManager = () => {
   }
 
   function renderTab() {
-    if (type === 'issues') return fullScreenWrapper(<Issues />);
+    if (type === 'issues') return rightWrapper(<Issues />);
     if (type === 'info') return rightWrapper(<Info />);
     if (type === 'about') return rightWrapper(<About />);
     if (type === 'book') return rightExtendedWrapper(<Book />);
-    if (type === 'thread') return fullScreenWrapper(<Thread />);
-    if (type === 'addIssue') return fullScreenWrapper(<AddIssue />);
+    if (type === 'thread') return rightWrapper(<Thread />);
+    if (type === 'addIssue') return rightWrapper(<AddIssue />);
     return <div>Nothing</div>;
   }
 
