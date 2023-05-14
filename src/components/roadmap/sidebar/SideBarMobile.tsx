@@ -39,16 +39,16 @@ const SideBarMobile = ({ isCreate }: { isCreate: string }) => {
   };
 
   const getButtonRoute = () => {
-    if (hydrated && !editing && !isCreate && isOwner) {
+    if (hydrated && !editing && !isCreate && isOwner && isLogged) {
       return buttonsViewOwner;
     }
-    if (hydrated && editing && !isCreate && isOwner) {
+    if (hydrated && editing && !isCreate && isOwner && isLogged) {
       return buttonsEditOwner;
     }
-    if (hydrated && isCreate) {
+    if (hydrated && isCreate && isLogged) {
       return buttonsCreate;
     }
-    if (hydrated && !isOwner) {
+    if (hydrated && !isOwner && isLogged) {
       return buttonsViewVisitor;
     }
     if (hydrated && isCreate && !isLogged && loaded) {
