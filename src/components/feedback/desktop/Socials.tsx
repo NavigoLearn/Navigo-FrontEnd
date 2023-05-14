@@ -20,7 +20,12 @@ const Socials = () => {
           rel='noreferrer'
         >
           discord
-          <img draggable="false" src={discord} alt='discord' className='w-full h-full mt-6 select-none' />
+          <img
+            draggable='false'
+            src={discord}
+            alt='discord'
+            className='w-full h-full mt-6 select-none'
+          />
         </a>
         <a
           href='https://github.com/NavigoLearn'
@@ -29,14 +34,24 @@ const Socials = () => {
           className='w-32 text-placeholder font-kanit-text'
         >
           github organization
-          <img draggable="false" src={github} alt='github' className='mt-6 w-full h-full select-none' />
+          <img
+            draggable='false'
+            src={github}
+            alt='github'
+            className='mt-6 w-full h-full select-none'
+          />
         </a>
         <a
           href='mailto:navigolearn@gmail.com'
           className='w-20 text-placeholder font-kanit-text md:translate-y-12'
         >
           email
-          <img draggable="false" src={gmail} alt='gmail' className='flex md:mt-6 w-full h-full select-none' />
+          <img
+            draggable='false'
+            src={gmail}
+            alt='gmail'
+            className='flex md:mt-6 w-full h-full select-none'
+          />
         </a>
       </div>
     </div>
