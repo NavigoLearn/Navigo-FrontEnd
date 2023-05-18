@@ -100,7 +100,7 @@ const InfoEditing = () => {
           placeholder='Description...'
           value={info.description}
           onChange={(e) => {
-            const newVal = capStringLen(e.target.value, 100);
+            const newVal = capStringLen(e.target.value, 2048);
             changeInfoTabProp('description', newVal);
           }}
         />
