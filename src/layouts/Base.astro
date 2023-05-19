@@ -19,7 +19,7 @@ import '@fontsource/oxygen';
 import { PageMeta } from '../types/misc/PageMeta';
 ---
 
-<html lang='en'>
+<html lang='en' class="overflow-x-hidden">
   <head>
     <meta charset='UTF-8' />
     <meta name='viewport' content='width=device-width' />
@@ -28,7 +28,7 @@ import { PageMeta } from '../types/misc/PageMeta';
     <meta name='generator' content={Astro.generator} />
     <title>NavigoLearn | {title}</title>
   </head>
-  <body class='bg-background relative w-screen max-w-full min-h-screen'>
+  <body class='bg-background relative w-full min-h-screen'>
     <DataCollectionManager client:load />
     <RequestManager client:load />
     <Navbar client:load />
