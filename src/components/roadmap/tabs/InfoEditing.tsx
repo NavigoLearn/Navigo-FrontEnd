@@ -12,6 +12,8 @@ import tabStore, {
 } from '@store/roadmap/display/tab-manager';
 import { diffSaveTabInfo } from '@store/roadmap/cache/diff-tabs';
 import cross from '@assets/cross.svg';
+import addlink from '@assets/add-link.svg';
+import trash from '@assets/trash.svg';
 import { capStringLen } from '@typescript/roadmap/utils2';
 
 type link = {
@@ -56,48 +58,36 @@ const InfoEditing = () => {
               flipOpen();
             }}
           >
-            <img draggable='false' src={cross} className='w-6 h-6' />
+            <img
+              draggable='false'
+              alt='cross'
+              src={cross}
+              className='w-6 h-6 right-10 absolute'
+            />
           </button>
         </div>
       )}
+      {divWrapper(
+        <h1 className='font-kanit-text font-light text-main text-sm'>Title</h1>
+      )}
       <div className='w-5/6 flex justify-between items-center mx-auto mt-6 flex-col '>
         <input
-          className='text-xl font-kanit-text font-semibold h-10 md:text-3xl border-2 border-gray-300 rounded-md shadow-sm w-full flex'
+          className='text-xl font-kanit-text font-medium h-10 md:text-3xl border-b-[1px] border-b-primary shadow-sm w-full flex'
           value={info.title}
           onChange={(e) => {
             const newVal = capStringLen(e.target.value, 20);
             changeInfoTabProp('title', newVal);
           }}
         />
-        <div className='mt-2 flex gap-2 items-center justify-center '>
-          <Button
-            text='Cancel'
-            callback={() => {
-              save.current = false;
-              flipOpen();
-            }}
-            color='primary'
-            size='small'
-          />
-          <Button
-            text='Save'
-            callback={() => {
-              if (editing) {
-                save.current = true;
-                changeTabInfo();
-                flipOpen();
-              }
-              // to be done
-            }}
-            color='green'
-            size='small'
-          />
-        </div>
       </div>
       {divWrapper(
+        <h1 className='text-placeholder font-kanit-text font-light text-sm '>
+          Description
+        </h1>
+      )}
+      {divWrapper(
         <textarea
-          className='w-full border-2 h-36 border-gray-300 rounded-md shadow-sm text-sm md:text-lg'
-          placeholder='Description...'
+          className='w-full border-[1px] h-36 border-primary rounded-lg shadow-sm text-sm md:text-lg p-2'
           value={info.description}
           onChange={(e) => {
             const newVal = capStringLen(e.target.value, 2048);
@@ -105,7 +95,24 @@ const InfoEditing = () => {
           }}
         />
       )}
-      {divWrapper(<div>Visit the following resources to learn more</div>)}
+      {divWrapper(
+        <div className='flex gap-2'>
+          <div className='font-medium font-roboto-text text-placeholder'>
+            Resources
+          </div>
+          <div className='flex w-full -translate-y-3 -translate-x-2'>
+            <button
+              type='button'
+              onClick={() => {
+                addInfoTabLink({ ...newLink });
+                setNewLink({ title: '', link: '' });
+              }}
+            >
+              <img src={addlink} alt='add link' className=' w-12 h-12' />
+            </button>
+          </div>
+        </div>
+      )}
       {divWrapper(
         <div className='w-full'>
           {info.links.map((resource, index) => {
@@ -113,7 +120,7 @@ const InfoEditing = () => {
               // eslint-disable-next-line
               <div className='flex-col gap-2 my-2' key={`${index}`}>
                 <input
-                  className='text-main flex font-semibold font-roboto-text text-sm md:text-lg border-2 rounded-md border-gray-300 w-full'
+                  className='text-main flex font-semibold font-roboto-text text-sm md:text-lg border-b-[1px] p-2 border-primary rounded-lg w-full'
                   value={resource.title}
                   placeholder='Resource Title'
                   onChange={(e) => {
@@ -122,7 +129,7 @@ const InfoEditing = () => {
                   }}
                 />
                 <input
-                  className=' text-blue-400 flex mt-2 font-light font-roboto-text text-sm md:text-base border-2 rounded-md border-gray-300 w-full'
+                  className=' text-blue-400 flex mt-2 font-light font-roboto-text text-sm md:text-base border-b-[1px] p-2 border-primary rounded-lg w-full'
                   value={resource.link}
                   placeholder='https://example.com'
                   onChange={(e) => {
@@ -131,37 +138,26 @@ const InfoEditing = () => {
                 />
                 <button
                   type='button'
-                  className=' text-sm text-placeholder font-roboto-text font-light'
+                  className=' text-sm text-placeholder font-roboto-text font-light mt-1'
                   onClick={() => {
                     deleteInfoTabLink(index);
                   }}
                 >
-                  delete
+                  <img src={trash} alt='delete' className='w-8 h-8' />
                 </button>
               </div>
             );
           })}
-          <div className='flex gap-2 my-2 w-full justify-center'>
-            <Button
-              text='Add new link'
-              callback={() => {
-                addInfoTabLink({ ...newLink });
-                setNewLink({ title: '', link: '' });
-              }}
-              color='primary'
-              size='small'
-            />
-          </div>
         </div>
       )}
       <hr className='bg-gray-300 flex mt-2 w-5/6 justify-center mx-auto border-1' />
       {/* <div className='flex justify-center w-full'>
         <div className='absolute bottom-32 w-5/6 bg-gray-300 h-[1px] ' />
-      </div> */}
+      </div> eugene lol */}
       <div className='w-full max-h-36'>
         {divWrapper(
           <textarea
-            className='text-secondary -translate-y-6 font-normal font-roboto-text w-full h-12 mt-4 max-h-20 border-2 rounded-md shadow-sm border-gray-300 md:h-36'
+            className='text-secondary -translate-y-6 font-normal font-roboto-text w-full h-12 mt-4 max-h-20 border-[1px] p-2 border-primary rounded-lg shadow-sm md:h-36'
             placeholder='Additional Info...'
             value={info.additionalInfo}
             onChange={(e) => {
@@ -170,6 +166,30 @@ const InfoEditing = () => {
             }}
           />
         )}
+      </div>
+      <div className='mt-2 flex gap-2 justify-end mr-4'>
+        <Button
+          text='Cancel'
+          callback={() => {
+            save.current = false;
+            flipOpen();
+          }}
+          color='primary'
+          size='small'
+        />
+        <Button
+          text='Save'
+          callback={() => {
+            if (editing) {
+              save.current = true;
+              changeTabInfo();
+              flipOpen();
+            }
+            // to be done
+          }}
+          color='green'
+          size='small'
+        />
       </div>
     </div>
   );

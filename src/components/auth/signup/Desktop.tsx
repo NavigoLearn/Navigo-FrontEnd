@@ -33,7 +33,9 @@ const DesktopSignUp = () => {
 
   return (
     <div className='mt-28'>
-      <h1 className='text-6xl font-kanit-text'>Ya gave in too, right?</h1>
+      <h1 className='text-6xl font-kanit-text text-center'>
+        Ya gave in too, right?
+      </h1>
       <div className='text-base mt-3 font-light flex items-center justify-center font-roboto-text'>
         <span className='pr-1 text-secondary'>Already have an account?</span>
         {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
@@ -42,8 +44,13 @@ const DesktopSignUp = () => {
         </a>
       </div>
       <form className='mt-12' onSubmit={handleSubmit}>
-        <div className='flex flex-col w-96 mx-auto'>
-          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+        <h2 className='text-4xl font-kanit-text text-center'>
+          Right now, we only accept external logins on the site.
+        </h2>
+        <h2 className='text-4xl font-kanit-text text-center'>
+          We hope that you can understand!
+        </h2>
+        {/* <div className='flex flex-col w-96 mx-auto'>
           <label className='text-lg font-kanit-text text-secondary'>
             Email
           </label>
@@ -58,7 +65,6 @@ const DesktopSignUp = () => {
         </div>
         <div className='flex flex-col mt-5'>
           <div className='flex flex-col w-96 mx-auto'>
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label className='text-lg font-kanit-text text-secondary'>
               Password
             </label>
@@ -74,7 +80,6 @@ const DesktopSignUp = () => {
         </div>
         <div className='flex flex-col mt-5'>
           <div className='flex flex-col w-96 mx-auto'>
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label className='text-lg font-kanit-text text-secondary'>
               Confirm Password
             </label>
@@ -102,7 +107,7 @@ const DesktopSignUp = () => {
           <hr className='border-gray-500' />
           <p className='text-center text-xs font-roboto-text'>OR</p>
           <hr className='border-gray-500' />
-        </div>
+        </div> */}
         <div className='grid gap-2.5 mt-12 items-center justify-center'>
           <GithubLoginButton onClick={handleGitHubLogin} />
           <GoogleLoginButton onClick={handleGoogleLogin} />
