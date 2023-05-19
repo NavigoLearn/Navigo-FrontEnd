@@ -138,11 +138,12 @@ const ProfileDisplay = ({ id }: { id: string }) => {
                 // check if starts with http:// or https://
                 if (
                   !valueRef.current.startsWith('http://') &&
-                  !valueRef.current.startsWith('https://') &&
-                  valueRef.current !== ''
+                  !valueRef.current.startsWith('https://')
                 ) {
                   value = 'https://' + valueRef.current;
                 }
+
+                if (value === 'https://') value = '';
 
                 // use valueRef
                 await postWebsiteUrlData(value);
