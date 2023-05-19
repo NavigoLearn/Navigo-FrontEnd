@@ -38,14 +38,15 @@ const MobileNavbar = () => {
   const [currentPath, setCurrentPath] = useState('');
   const [defaultBodyOverflow, setDefaultBodyOverflow] = useState('auto');
   const navbar = useRef<HTMLDivElement>(null);
+  let scrollY = 0;
 
   useEffect(() => {
     setHydrated(true);
     setCurrentPath(window.location.pathname);
 
-    const body = document.querySelector('body');
+    const html = document.querySelector('html');
     window.addEventListener('resize', () => {
-      body.style.setProperty('--height', `${window.innerHeight}px`);
+      html.style.setProperty('--height', `${window.innerHeight}px`);
     });
 
     // add event listener for scroll
@@ -65,14 +66,19 @@ const MobileNavbar = () => {
   const handleClick = () => {
     setClick((prev) => !prev);
     // body overflow hidden
-    const body = document.querySelector('body');
-    if (body) {
+    const html = document.querySelector('html');
+    if (html) {
       if (click) {
-        body.style.overflow = defaultBodyOverflow;
+        html.style.overflow = defaultBodyOverflow;
+        html.style.height = '';
+        window.scrollTo(0, scrollY);
+
       } else {
-        setDefaultBodyOverflow(body.style.overflow);
-        body.style.overflow = 'hidden'; // hide scroll clip
-        body.style.height = 'var(--height)'; // set height to window height (should fix safari mobile)
+        setDefaultBodyOverflow(html.style.overflow);
+        html.style.overflow = 'hidden'; // hide scroll clip
+        html.style.height = 'calc(var(--height) - 1px)';
+        scrollY = window.scrollY;
+
       }
     }
   };
