@@ -8,7 +8,7 @@ const RedirectToProfile = ({
   children: any;
 }) => {
   return (
-    <a target='_blank' href={`/profile/${redirectUserId}`} rel='noreferrer'>
+    <a href={`/profile/${redirectUserId}`} rel='noreferrer'>
       {children}
     </a>
   );
