@@ -70,14 +70,14 @@ const Card = ({ cardStore }: { cardStore: CardType }) => {
   return (
     <div className='bg-white w-72 sm:w-96 h-40 sm:h-52 relative shadow-standard rounded-lg 2xl:w-[460px] 2xl:h-64'>
       <div className='flex justify-start mt-3'>
-        <h1 className='font-kanit-text sm:text-2xl flex 2xl:text-3xl ml-6 text-lg'>
+        <h1 className='font-kanit-text sm:text-2xl 2xl:text-3xl text-lg ml-6 w-44 sm:w-64 2xl:w-[320px] truncate'>
           {name}
         </h1>
         <div className='font-roboto'>
-          <div className='absolute top-3 right-2 text-[9px] sm:text-xs sm:pl-[83px] flex flex-col justify-center items-center text-placeholder 2xl:text-sm 2xl:pl-[102px]'>
+          <div className='absolute top-3 right-1 text-[9px] sm:text-xs sm:pl-[83px] flex flex-col justify-center items-center text-placeholder 2xl:text-sm 2xl:pl-[102px]'>
             <div>made by</div>
             <RedirectToProfile redirectUserId={authorId}>
-              <div className='text-blue-400  hover:text-blue-600 transition-all'>
+              <div className='text-blue-400  hover:text-blue-600 transition-all w-24 sm:w-28 2xl:w-[120px] truncate'>
                 {author}
               </div>
             </RedirectToProfile>
@@ -92,7 +92,6 @@ const Card = ({ cardStore }: { cardStore: CardType }) => {
           type='button'
           className='flex justify-center items-center bg-secondary w-20 h-7 text-white text-xs sm:w-24 sm:h-8 sm:text-sm rounded-lg font-roboto-text 2xl:text-base 2xl:w-28 2xl:h-9 select-none'
           href={`/roadmap/${id}`}
-          target='_blank'
           rel='noreferrer'
         >
           Explore

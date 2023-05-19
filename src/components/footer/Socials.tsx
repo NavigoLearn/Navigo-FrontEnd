@@ -11,7 +11,7 @@ const Socials = () => {
         {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
         <a
           // insert discord server link here
-          href='https://discord.gg/TRGqNXvj'
+          href='https://discord.gg/Y3sEfxGtGJ'
           target='_blank'
           className='text-placeholder font-kanit-text select-none'
           rel='noreferrer'

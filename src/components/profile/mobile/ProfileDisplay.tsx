@@ -1,4 +1,4 @@
-import React, { useEffect, useState, RefObject } from 'react';
+import React, { RefObject, useEffect, useState } from 'react';
 import Bio from '@components/profile/common/components/Bio';
 import arrowdwn from '@assets/arrow-down.svg';
 import arrowup from '@assets/arrow-up.svg';
@@ -22,24 +22,28 @@ import {
 
 type asyncCb = () => Promise<void>;
 const ProfileDisplay = ({ id }: { id: string }) => {
-  const [click, setClick] = useState(false);
+  const [ click, setClick ] = useState(false);
   const handleClick = () => {
     setClick((prev) => !prev);
   };
 
   const userData = useStore(userDisplay);
-  const [render, setRender] = useState(false);
-  const [requestAgain, setRequestAgain] = useState(false);
-  const [loaded, setLoaded] = useState(false);
-  const [edit, setEdit] = useState(false);
+  const [ render, setRender ] = useState(false);
+  const [ requestAgain, setRequestAgain ] = useState(false);
+  const [ loaded, setLoaded ] = useState(false);
+  const [ edit, setEdit ] = useState(false);
 
-  const [asyncCallbackList, setAsyncCallbackList] = useState<asyncCb[]>([]);
+  const [ asyncCallbackList, setAsyncCallbackList ] = useState<asyncCb[]>([]);
 
   useEffect(() => {
     fetchUserAndSetStore(id).then(() => {
       // sets userDisplay data and loads it into profile
       setRender((prev) => !prev);
       setLoaded(true);
+    }).catch((err) => {
+      if (err.message === 'User not found') {
+        window.location.href = '/profile';
+      }
     });
   }, []);
 
@@ -49,7 +53,7 @@ const ProfileDisplay = ({ id }: { id: string }) => {
       setRender((prev) => !prev);
       setEdit(false);
     });
-  }, [requestAgain]);
+  }, [ requestAgain ]);
 
   function setProfileUrl() {
     if (!loaded) return '';
@@ -61,9 +65,9 @@ const ProfileDisplay = ({ id }: { id: string }) => {
   return (
     <>
       <img draggable="false"
-        src={setProfileUrl()}
-        alt='avatar'
-        className='rounded-full flex w-6/12 '
+           src={setProfileUrl()}
+           alt="avatar"
+           className="rounded-full flex w-6/12 "
       />
       <Name
         edit={edit}
@@ -78,7 +82,7 @@ const ProfileDisplay = ({ id }: { id: string }) => {
           ]);
         }}
       />
-      <Label label='label not available' />
+      <Label label="label not available"/>
       {loggedUser.get().userId === userDisplay.get().userId ? (
         <ButtonsEdit
           edit={edit}
@@ -102,55 +106,68 @@ const ProfileDisplay = ({ id }: { id: string }) => {
           }}
         />
       )}
-      <Quote
-        edit={edit}
-        originalValue={userData.quote}
-        saveRequest={(valueRef: RefObject<string>) => {
-          setAsyncCallbackList((prev) => [
-            ...prev,
-            async () => {
-              // use valueRef
-              await postQuoteData(valueRef.current);
-            },
-          ]);
-        }}
-      />
+      {!!userData.quote ?
+        <Quote
+          edit={edit}
+          originalValue={userData.quote}
+          saveRequest={(valueRef: RefObject<string>) => {
+            setAsyncCallbackList((prev) => [
+              ...prev,
+              async () => {
+                // use valueRef
+                await postQuoteData(valueRef.current);
+              },
+            ]);
+          }}
+        /> : <></>}
       <Follow
         followerCount={userData.followerCount}
         followingCount={userData.followingCount}
       />
-      <WebsiteUrl
-        edit={edit}
-        originalValue={userData.websiteUrl}
-        saveRequest={(valueRef: RefObject<string>) => {
-          setAsyncCallbackList((prev) => [
-            ...prev,
-            async () => {
-              // use valueRef
-              await postWebsiteUrlData(valueRef.current);
-            },
-          ]);
-        }}
-      />
+
+      {!!userData.websiteUrl ?
+        <WebsiteUrl
+          edit={edit}
+          originalValue={userData.websiteUrl}
+          saveRequest={(valueRef: RefObject<string>) => {
+            setAsyncCallbackList((prev) => [
+              ...prev,
+              async () => {
+                let value = valueRef.current;
+
+                // check if starts with http:// or https://
+                if (
+                  !valueRef.current.startsWith('http://') &&
+                  !valueRef.current.startsWith('https://')
+                ) {
+                  value = 'https://' + valueRef.current;
+                }
+
+                // use valueRef
+                await postWebsiteUrlData(value);
+              },
+            ]);
+          }}
+        /> : <></>}
 
       {click ? (
-        <div className='text-center items-center w-full'>
+        <div className="text-center items-center w-full">
           <button
-            type='button'
-            className='flex mx-auto text-[16px] justify-center font-roboto-text text-secondary items-center text-center mt-4'
+            type="button"
+            className="flex mx-auto text-[16px] justify-center font-roboto-text text-secondary items-center text-center mt-4"
             onClick={handleClick}
             onKeyDown={handleClick}
           >
-            <h3 className='inline-block text-center'>See less</h3>
+            <h3 className="inline-block text-center">See less</h3>
             <img draggable="false"
-              src={arrowup}
-              alt='arrowupicon'
-              className='inline-block ml-4 w-4'
+                 src={arrowup}
+                 alt="arrowupicon"
+                 className="inline-block ml-4 w-4"
             />
           </button>
-          <div className='flex flex-col justify-center items-center'>
-            <Statistics roadmapsCount={userData.roadmapsCount} />
-            <div className='w-5/6'>
+          <div className="flex flex-col justify-center items-center">
+            <Statistics roadmapsCount={userData.roadmapsCount}/>
+            <div className="w-5/6">
               <Bio
                 originalValue={userData.bio}
                 edit={edit}
@@ -169,16 +186,16 @@ const ProfileDisplay = ({ id }: { id: string }) => {
         </div>
       ) : (
         <button
-          type='button'
-          className='flex text-[16px] font-roboto-text text-secondary items-center text-center mt-4'
+          type="button"
+          className="flex text-[16px] font-roboto-text text-secondary items-center text-center mt-4"
           onClick={handleClick}
           onKeyDown={handleClick}
         >
-          <h3 className='inline-block'>See more</h3>
+          <h3 className="inline-block">See more</h3>
           <img draggable="false"
-            src={arrowdwn}
-            alt='arrowdownicon'
-            className='inline-block ml-4 w-4'
+               src={arrowdwn}
+               alt="arrowdownicon"
+               className="inline-block ml-4 w-4"
           />
         </button>
       )}

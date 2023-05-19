@@ -3,6 +3,7 @@ import { useStore } from '@nanostores/react';
 import roadmapVisitData from '@store/roadmap/data/roadmap-visit-data';
 import loggedUser from '@store/user/logged-user';
 import { fetchDeleteComment } from '@src/api-wrapper/roadmap/issues';
+import { TimeProcess } from '@typescript/utils/TimeProcess';
 
 type CommentProps = {
   id: string;
@@ -41,7 +42,7 @@ const Comment = ({
       <div className='border-2 border-gray-500 flex relative gap-4 rounded-full py-0.5 z-10 bg-[#E3E6EB] '>
         <div className='text-main font-semibold ml-5'>{author}</div>
         <div className='text-secondary font-light hidden md:block'>
-          commented on {date.toString()}
+          {TimeProcess(date)}
         </div>
         {gotPermission && (
           <button

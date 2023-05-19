@@ -18,7 +18,7 @@ const Follow = ({
         />
         {followerCount}
         <div className='flex text-md text-placeholder mx-2 font-roboto-text'>
-          followers
+          follower{followerCount === 1 ? '' : 's'}
         </div>
       </div>
       <div className='text-md font-normal text-center flex font-roboto-text'>

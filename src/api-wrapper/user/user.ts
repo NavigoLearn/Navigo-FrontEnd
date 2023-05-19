@@ -2,12 +2,16 @@ import { UserResponse } from '@type/user/types';
 import { errorHandlerDecorator } from '@typescript/error-handler';
 
 export const fetchUserData = errorHandlerDecorator(
-  async (id: string): Promise<UserResponse> => {
+  async (id: string): Promise<{ data: UserResponse, status: number }> => {
+    let status: number;
     const data = await fetch(`/api/users/${id}`, {
       method: 'GET',
       credentials: 'include',
-    }).then((res) => res.json());
-    return data;
+    }).then((res) => {
+      status = res.status;
+      return res.json();
+    });
+    return { data, status};
   }
 );
 
