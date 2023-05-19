@@ -34,6 +34,10 @@ const ProfileDisplay = ({ id }: { id: string }) => {
       // sets userDisplay data and loads it into profile
       setRender((prev) => !prev);
       setLoaded(true);
+    }).catch((err) => {
+      if(err.message === 'User not found') {
+        window.location.href = '/profile';
+      }
     });
   }, []);
 

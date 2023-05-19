@@ -34,11 +34,15 @@ const userDisplay = atom(generateUserBoilerplate() as User);
 
 export const fetchUserAndSetStore = async (id: string) => {
   const originalUser = userDisplay.get();
-  const response = await fetchUserData(id);
-  if (!checkIsTypeUser(response)) {
+  const { data, status } = await fetchUserData(id);
+  if (status === 404) {
+    throw new Error('User not found');
+  }
+
+  if (!checkIsTypeUser(data)) {
     throw new Error('Response is not of type User');
   }
-  const parsedResponse = parseResponse(response);
+  const parsedResponse = parseResponse(data);
   if (parsedResponse.profilePictureUrl === '') {
     parsedResponse.profilePictureUrl = originalUser.profilePictureUrl;
   }
