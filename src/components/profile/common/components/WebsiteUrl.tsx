@@ -19,7 +19,7 @@ const WebsiteUrl = ({ edit, onEdit, value }: ProfileComponentProps) => {
             className='mx-2 inline-block w-4 h-4 select-none'
             alt='linkicon'
           />
-          {value}
+          {value.replaceAll('https://', '').replaceAll('http://', '')}
         </a>
       ) : (
         <div className='flex'>
