@@ -77,7 +77,7 @@ const Card = ({ cardStore }: { cardStore: CardType }) => {
           <div className='absolute top-3 right-1 text-[9px] sm:text-xs sm:pl-[83px] flex flex-col justify-center items-center text-placeholder 2xl:text-sm 2xl:pl-[102px]'>
             <div>made by</div>
             <RedirectToProfile redirectUserId={authorId}>
-              <div className='text-blue-400  hover:text-blue-600 transition-all w-24 sm:w-28 2xl:w-[120px] truncate'>
+              <div className='text-blue-400  hover:text-blue-600 transition-all w-24 sm:w-28 2xl:w-[120px] truncate text-center'>
                 {author}
               </div>
             </RedirectToProfile>
