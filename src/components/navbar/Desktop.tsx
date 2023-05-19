@@ -39,7 +39,7 @@ const DesktopNavbar = () => {
           alt='navbar-logo'
         />
       </a>
-      <ul className='flex absolute w-full pointer-events-none justify-center text-center items-center gap-10 h-full '>
+      <ul className='flex absolute left-3 w-full pointer-events-none justify-center text-center items-center gap-10 h-full '>
         {universalLinks.map((link) => {
           return (
             <DesktopButton

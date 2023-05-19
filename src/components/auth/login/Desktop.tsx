@@ -35,7 +35,7 @@ const DesktopLogin = () => {
 
   return (
     <div className='mt-28'>
-      <h1 className='text-6xl font-kanit-text'>Welcome back!</h1>
+      <h1 className='text-6xl font-kanit-text text-center'>Welcome back!</h1>
       <div className='text-base mt-3 font-light flex items-center justify-center font-roboto-text'>
         <span className='pr-1 text-secondary'>
           You don&apos;t have an account?
@@ -46,8 +46,13 @@ const DesktopLogin = () => {
         </a>
       </div>
       <form className='mt-12' onSubmit={handleSubmit}>
-        <div className='flex flex-col'>
-          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+        <h2 className='text-4xl font-kanit-text text-center'>
+          Right now, we only accept external logins on the site.
+        </h2>
+        <h2 className='text-4xl font-kanit-text text-center'>
+          We hope that you can understand!
+        </h2>
+        {/* <div className='flex flex-col'>
           <label className='text-lg font-kanit-text text-secondary'>
             Email
           </label>
@@ -62,7 +67,6 @@ const DesktopLogin = () => {
           />
         </div>
         <div className='flex flex-col mt-5'>
-          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label className='text-lg font-kanit-text text-secondary'>
             Password
           </label>
@@ -85,7 +89,6 @@ const DesktopLogin = () => {
           </button>
         </div>
         <div className='flex justify-center items-center mt-3.5'>
-          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
           <a href='#' className='text-sm font-roboto-text text-placeholder'>
             Forgot password?
           </a>
@@ -97,6 +100,7 @@ const DesktopLogin = () => {
           </p>
           <hr className='border-gray-500' />
         </div>
+  */}
         <div className='gap-2.5 mt-12 w-full flex flex-col justify-center items-center'>
           <GithubLoginButton onClick={handleGitHubLogin} />
           <GoogleLoginButton onClick={handleGoogleLogin} />
