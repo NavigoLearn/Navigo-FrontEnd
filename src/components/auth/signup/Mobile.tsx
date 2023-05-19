@@ -37,7 +37,13 @@ const MobileSignUp = () => {
         Ya gave in too, right?
       </h1>
       <form className='mt-12' onSubmit={handleSubmit}>
-        <div className='flex flex-col'>
+        <h2 className='text-2xl font-kanit-text text-center mx-2'>
+          Right now, we only accept external logins on the site.
+        </h2>
+        <h2 className='text-2xl font-kanit-text text-center mx-2'>
+          We hope that you can understand!
+        </h2>
+        {/* <div className='flex flex-col'>
           <div className='flex justify-center items-center'>
             <input
               required
@@ -83,7 +89,7 @@ const MobileSignUp = () => {
             OR
           </p>
           <hr className='border-gray-300' />
-        </div>
+        </div> */}
         <div className='grid gap-2.5 mt-6 items-center justify-center'>
           <GithubLoginButton onClick={handleGitHubLogin} />
           <GoogleLoginButton onClick={handleGoogleLogin} />

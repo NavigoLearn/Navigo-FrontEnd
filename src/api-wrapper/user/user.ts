@@ -112,7 +112,7 @@ export const fetchGetMiniProfileData = async () => {
     const responseData = await response.json();
     return responseData;
   } catch (e) {
-    return false;
+    return e.toString() === 'Error: User not found' ? false : 'Error';
   }
 };
 

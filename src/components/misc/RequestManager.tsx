@@ -7,9 +7,10 @@ import { fetchGetMiniProfileData } from '../../api-wrapper/user/user';
 const RequestManager = () => {
   useEffect(() => {
     fetchGetMiniProfileData().then((res) => {
+      setIsLogged(false);
+      setLoaded(true);
+
       if (res === false) {
-        setIsLogged(false);
-        setLoaded(true);
         // deletes token if exists because it is invalid
         if (document.cookie.includes('token')) {
           document.cookie =
@@ -17,10 +18,11 @@ const RequestManager = () => {
         }
         return;
       }
-      setProfileMini(res.profilePictureUrl, res.userId, res.name);
-      setVisitorId(res.userId);
+
+      if (res === 'Error') return;
+      setProfileMini(res?.profilePictureUrl, res?.userId, res?.name);
+      setVisitorId(res?.userId);
       setIsLogged(true);
-      setLoaded(true);
     });
     // if (document.cookie.includes('token')) {
     //   setIsLogged(true);
