@@ -119,6 +119,7 @@ const InfoEditing = () => {
                   }}
                 />
                 <input
+                  type='url'
                   className=' text-blue-400 font-light font-roboto-text text-sm md:text-base border-2 border-gray-100 w-1/2'
                   value={resource.link}
                   onChange={(e) => {
