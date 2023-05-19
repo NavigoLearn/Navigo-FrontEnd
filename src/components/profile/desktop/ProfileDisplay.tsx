@@ -21,7 +21,7 @@ import {
 type asyncCb = () => Promise<void>;
 const ProfileDisplay = ({ id }: { id: string }) => {
   const userData = useStore(userDisplay);
-  const [ render, setRender ] = useState(false);
+  const [ _, setRender ] = useState(false);
   const [ requestAgain, setRequestAgain ] = useState(false);
   const [ loaded, setLoaded ] = useState(false);
   const [ edit, setEdit ] = useState(false);
@@ -139,7 +139,8 @@ const ProfileDisplay = ({ id }: { id: string }) => {
                     // check if starts with http:// or https://
                     if (
                         !valueRef.current.startsWith('http://') &&
-                        !valueRef.current.startsWith('https://')
+                        !valueRef.current.startsWith('https://') &&
+                        valueRef.current !== ''
                     ) {
                         value = 'https://' + valueRef.current;
                     }
