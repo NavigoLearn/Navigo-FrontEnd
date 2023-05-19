@@ -7,6 +7,7 @@ import DataCollectionManager from '../components/misc/DataCollectionManager';
 
 export interface Props {
   title: string;
+  meta?: PageMeta; // TODO: - add meta tags
   excludeFooter?: boolean;
 }
 
@@ -15,6 +16,7 @@ const { title, excludeFooter } = Astro.props;
 import '@fontsource/kanit';
 import '@fontsource/roboto';
 import '@fontsource/oxygen';
+import { PageMeta } from '../types/misc/PageMeta';
 ---
 
 <html lang='en'>
@@ -24,7 +26,7 @@ import '@fontsource/oxygen';
     <link rel='preconnect' href='https://fonts.googleapis.com' />
     <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
     <meta name='generator' content={Astro.generator} />
-    <title>{title}</title>
+    <title>NavigoLearn | {title}</title>
   </head>
   <body class='bg-background relative w-screen max-w-full min-h-screen'>
     <DataCollectionManager client:load />
