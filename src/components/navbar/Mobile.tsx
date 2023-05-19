@@ -63,6 +63,10 @@ const MobileNavbar = () => {
     });
   }, []);
 
+  function preventDefault(e: Event) {
+    e.preventDefault();
+  }
+
   const handleClick = () => {
     setClick((prev) => !prev);
     // body overflow hidden
@@ -72,13 +76,13 @@ const MobileNavbar = () => {
         html.style.overflow = defaultBodyOverflow;
         html.style.height = '';
         window.scrollTo(0, scrollY);
-
+        document.body.removeEventListener('touchmove', preventDefault);
       } else {
         setDefaultBodyOverflow(html.style.overflow);
         html.style.overflow = 'hidden'; // hide scroll clip
         html.style.height = 'calc(var(--height) - 1px)';
         scrollY = window.scrollY;
-
+        document.body.addEventListener('touchmove', preventDefault, { passive: false });
       }
     }
   };
