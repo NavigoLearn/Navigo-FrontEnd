@@ -38,13 +38,20 @@ const MobileNavbar = () => {
   const [currentPath, setCurrentPath] = useState('');
   const [defaultBodyOverflow, setDefaultBodyOverflow] = useState('auto');
   const navbar = useRef<HTMLDivElement>(null);
-  let scrollY = 0;
+  const [locked, setLocked] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
+
+  function preventDefault(e: Event) {
+    if (locked) e.preventDefault();
+  }
 
   useEffect(() => {
     setHydrated(true);
     setCurrentPath(window.location.pathname);
 
     const html = document.querySelector('html');
+    html.addEventListener('touchmove', preventDefault, { passive: false });
+
     window.addEventListener('resize', () => {
       html.style.setProperty('--height', `${window.innerHeight}px`);
     });
@@ -63,10 +70,6 @@ const MobileNavbar = () => {
     });
   }, []);
 
-  function preventDefault(e: Event) {
-    e.preventDefault();
-  }
-
   const handleClick = () => {
     setClick((prev) => !prev);
     // body overflow hidden
@@ -76,13 +79,13 @@ const MobileNavbar = () => {
         html.style.overflow = defaultBodyOverflow;
         html.style.height = '';
         window.scrollTo(0, scrollY);
-        document.body.removeEventListener('touchmove', preventDefault);
+        setLocked(false);
       } else {
         setDefaultBodyOverflow(html.style.overflow);
         html.style.overflow = 'hidden'; // hide scroll clip
         html.style.height = 'calc(var(--height) - 1px)';
-        scrollY = window.scrollY;
-        document.body.addEventListener('touchmove', preventDefault, { passive: false });
+        setScrollY(window.scrollY)
+        setLocked(true);
       }
     }
   };
