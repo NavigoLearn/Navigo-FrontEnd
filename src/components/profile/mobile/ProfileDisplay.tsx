@@ -18,7 +18,7 @@ import {
   postNameData,
   postQuoteData,
   postWebsiteUrlData,
-} from '../../../api-wrapper/user/user';
+} from '@src/api-wrapper/user/user';
 
 type asyncCb = () => Promise<void>;
 const ProfileDisplay = ({ id }: { id: string }) => {
@@ -106,7 +106,7 @@ const ProfileDisplay = ({ id }: { id: string }) => {
           }}
         />
       )}
-      {!!userData.quote ?
+      {edit || userData.quote ?
         <Quote
           edit={edit}
           originalValue={userData.quote}
@@ -125,7 +125,7 @@ const ProfileDisplay = ({ id }: { id: string }) => {
         followingCount={userData.followingCount}
       />
 
-      {!!userData.websiteUrl ?
+      {edit || userData.websiteUrl ?
         <WebsiteUrl
           edit={edit}
           originalValue={userData.websiteUrl}

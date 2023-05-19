@@ -112,7 +112,7 @@ const ProfileDisplay = ({ id }: { id: string }) => {
               }}
             />
           )}
-          {userData.quote ?
+          {edit || userData.quote ?
             <Quote
               edit={edit}
               originalValue={userData.quote}
@@ -126,7 +126,7 @@ const ProfileDisplay = ({ id }: { id: string }) => {
                 ]);
               }}
             /> : <></>}
-          {userData.websiteUrl ?
+          {edit || userData.websiteUrl ?
             <WebsiteUrl
               edit={edit}
               originalValue={userData.websiteUrl}
