@@ -10,7 +10,10 @@ import {
   isNodeInfoStore,
   isNodeResourceStore,
 } from '@type/roadmap/typecheckers';
-import { triggerRerenderDecorator } from '@typescript/roadmap/roadmap-edit-decorators';
+import {
+  triggerRerenderDecorator,
+  triggerTabTitleChangeSideEffectDecorator,
+} from '@typescript/roadmap/roadmap-edit-decorators';
 import { NodeInfoStore, NodeResourceStore } from '@type/roadmap/nodes';
 import { ResourcesStoreTypes } from '@type/roadmap/resources';
 
@@ -144,7 +147,7 @@ export const addResourceSubNodeNew = triggerRerenderDecorator((id: string) => {
 });
 
 export const transferNodeInfoFromPlaceholderToEdit = triggerRerenderDecorator(
-  (id: string) => {
+  triggerTabTitleChangeSideEffectDecorator((id: string) => {
     const editRoamap = roadmapEdit.get();
     const original = roadmapPlaceholder.get();
     const { nodes } = original;
@@ -154,7 +157,7 @@ export const transferNodeInfoFromPlaceholderToEdit = triggerRerenderDecorator(
     }
     editRoamap.nodes[id] = deepCopy(node);
     roadmapEdit.set({ ...editRoamap });
-  }
+  })
 );
 
 export const transferResourceFromPlaceholderToEdit = triggerRerenderDecorator(
