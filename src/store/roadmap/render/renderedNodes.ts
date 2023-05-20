@@ -14,6 +14,14 @@ const renderNodeQueues = atom({
   nodesToAdd: string[];
 });
 
+const runner = atom({
+  nodesAddRunning: false,
+  nodesRemoveRunning: false,
+} as {
+  nodesAddRunning: boolean;
+  nodesRemoveRunning: boolean;
+});
+
 export function checkDiff(newNodes: string[]) {
   // checks if the ids are identical even if the order is different
 
@@ -64,26 +72,37 @@ export function addNewNodesInQueue(newNodes: string[]) {
       console.log('added node', i);
       placeInAddQueue(newNodes[i]);
     }
+    if (nodes.includes(newNodes[i]) && !nodesToAdd.includes(newNodes[i])) {
+      console.log('removed node', i);
+      placeInRemoveQueue(newNodes[i]);
+    }
   }
-  // remove the old unused nodes from the roadmap
-  // for (let i = 0; i < oldNodes.length; i += 1) {
-  //   if (!newNodes.includes(oldNodes[i])) {
-  //     // removes the old nodes 1 by 1 so roadmap has time to render
-  //     setTimeout(() => {
-  //       // removes the old node from the current store
-  //       renderNodesStore.set({
-  //         nodes: [...oldNodes.slice(0, i), ...oldNodes.slice(i + 1)],
-  //       });
-  //       console.log('chagend soter remove');
-  //     }, 10);
-  //   }
-  // }
-  console.log('finished adding new nodes');
 }
 
-export async function addFromQueueToNodes(nodesToAdd: string[]) {
+export async function removeFromQueueToNodes(nodesToRemove: string[]) {
+  setTimeout(() => {
+    // removes the nodes from the queue to the nodes array
+    const newNode = nodesToRemove[0];
+    const remaining = nodesToRemove.slice(1);
+    // removes newNode from the current store
+    renderNodesStore.set({
+      nodes: renderNodesStore.get().nodes.filter((node) => node !== newNode),
+    });
+    removeFirstFromRemoveQueue();
+    if (remaining.length > 0) {
+      removeFromQueueToNodes(remaining);
+    } else {
+      runner.set({
+        ...runner.get(),
+        nodesRemoveRunning: false,
+      });
+    }
+  }, 10);
+}
+export async function addFromQueueToNodes() {
   setTimeout(() => {
     // adds the nodes from the queue to the nodes array
+    const { nodesToAdd } = renderNodeQueues.get();
     const newNode = nodesToAdd[0];
     const remaining = nodesToAdd.slice(1);
     // adds newNode to the current store
@@ -92,15 +111,24 @@ export async function addFromQueueToNodes(nodesToAdd: string[]) {
     });
     removeFirstFromAddQueue();
     if (remaining.length > 0) {
-      addFromQueueToNodes(remaining);
+      addFromQueueToNodes();
+    } else {
+      runner.set({ ...runner.get(), nodesAddRunning: false });
     }
-  }, 100);
+  }, 10);
+}
+
+export function asyncRendering(newNodes: string[]) {
+  // not finished
+  addNewNodesInQueue(newNodes);
+  if (!runner.get().nodesAddRunning)
+    addFromQueueToNodes(renderNodeQueues.get().nodesToAdd);
+
+  // removeFromQueueToNodes(renderNodeQueues.get().nodesToRemove);
 }
 
 export function setNodes(newNodes: string[]) {
   if (checkDiff(newNodes)) {
-    // addNewNodesInQueue(newNodes);
-    // addFromQueueToNodes(renderNodeQueues.get().nodesToAdd);
     renderNodesStore.set({ nodes: newNodes });
   }
 }
