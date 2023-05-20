@@ -114,11 +114,11 @@ const InfoEditing = () => {
         </div>
       )}
       {divWrapper(
-        <div className='w-full'>
+        <div className='w-full overflow-auto max-h-80'>
           {info.links.map((resource, index) => {
             return (
               // eslint-disable-next-line
-              <div className='flex-col gap-2 my-2' key={`${index}`}>
+              <div className='flex-col gap-2 my-2 pr-4' key={`${index}`}>
                 <input
                   className='text-main flex font-semibold font-roboto-text text-sm md:text-lg border-b-[1px] p-2 border-primary rounded-lg w-full'
                   value={resource.title}
@@ -148,6 +148,23 @@ const InfoEditing = () => {
               </div>
             );
           })}
+          <style>
+            {`
+            ::-webkit-scrollbar {
+              width: 5px;
+            }
+            ::-webkit-scrollbar-track {
+              background: #f1f1f1;
+            }
+            ::-webkit-scrollbar-thumb {
+              border-radius: 5px;
+              background: #3361D8;
+            }
+            ::-webkit-scrollbar-thumb:hover {
+              background: #073EFF;
+            }
+            `}
+          </style>
         </div>
       )}
       <hr className='bg-gray-300 flex mt-2 w-5/6 justify-center mx-auto border-1' />
@@ -167,7 +184,7 @@ const InfoEditing = () => {
           />
         )}
       </div>
-      <div className='mt-2 flex gap-2 justify-end mr-4'>
+      <div className='mt-2 flex gap-2 justify-end mr-4 mb-2'>
         <Button
           text='Cancel'
           callback={() => {
