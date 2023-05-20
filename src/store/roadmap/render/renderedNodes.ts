@@ -121,8 +121,7 @@ export async function addFromQueueToNodes() {
 export function asyncRendering(newNodes: string[]) {
   // not finished
   addNewNodesInQueue(newNodes);
-  if (!runner.get().nodesAddRunning)
-    addFromQueueToNodes(renderNodeQueues.get().nodesToAdd);
+  if (!runner.get().nodesAddRunning) addFromQueueToNodes();
 
   // removeFromQueueToNodes(renderNodeQueues.get().nodesToRemove);
 }

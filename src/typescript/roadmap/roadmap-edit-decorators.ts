@@ -7,6 +7,8 @@ import {
   removeChunkNode,
   addChunkNode,
   addConnection,
+  getNodeInfoTitle,
+  getNodeInfoTabId,
 } from '@typescript/roadmap/roadmap-edit-logic';
 import { triggerChunkRerender } from '@store/roadmap/render/renderedChunks';
 import {
@@ -14,6 +16,8 @@ import {
   emptyCachedNodeCoordAll,
 } from '@store/roadmap/cache/cached-node-coords';
 import { addNewError } from '@store/roadmap/error-list';
+import { changeInfoTabProp } from '@store/roadmap/display/tab-manager';
+import { diffTabInfoProp } from '@store/roadmap/cache/diff-tabs';
 
 type TriggerFunction<T extends any[]> = (id: string, ...args: T) => any;
 type TriggerFunctionNoId<T extends any[]> = (...args: T) => any;
@@ -46,6 +50,21 @@ export function manualTrigger(id: string) {
   const trigger = triggers[id];
   if (trigger) trigger();
   else throw new Error('no trigger found');
+}
+
+export function triggerTabTitleChangeSideEffectDecorator<T extends any[]>(
+  func: TriggerFunction<T>
+): TriggerFunction<T> {
+  return (id: string, ...args: T) => {
+    // gets all rendered nodes
+    func(id, ...args);
+
+    // post the new title to the server
+
+    const title = getNodeInfoTitle(id);
+    const tabId = getNodeInfoTabId(id);
+    diffTabInfoProp(tabId, 'title', title);
+  };
 }
 
 export function triggerRerenderDecorator<T extends any[]>(

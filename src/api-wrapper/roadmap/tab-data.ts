@@ -19,6 +19,7 @@ export const fetchTabInfoData = errorHandlerDecorator(async (id: string) => {
   }).then((res) => res.json());
   const { tabInfo } = response;
   const decoded = JSON.parse(atob(tabInfo.content));
+  console.log('got decoded tab');
   return decoded;
 });
 
