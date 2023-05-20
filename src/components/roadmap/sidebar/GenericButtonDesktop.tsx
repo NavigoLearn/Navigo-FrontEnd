@@ -16,7 +16,7 @@ const GenericButtonDesktop = ({
   cIcon,
 }: ButtonProps) => {
   return (
-    <li key={id} className='flex items-center text-center ml-5 relative'>
+    <li key={id} className='flex items-center text-center ml-5'>
       <button
         type='button'
         className='w-full flex justify-self-center items-center text-center text-2xl hover:underline'
