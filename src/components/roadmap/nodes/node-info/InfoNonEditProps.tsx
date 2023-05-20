@@ -31,7 +31,7 @@ const InfoNonEditProps = <T,>({
           addNodeNew(id, 'Info');
         }}
       >
-        <img draggable="false" src={plus} width='16px' alt='add' />
+        <img draggable='false' src={plus} width='16px' alt='add' />
       </button>
       <button
         type='button'
@@ -54,7 +54,7 @@ const InfoNonEditProps = <T,>({
           setEdit();
         }}
       >
-        <img draggable="false" src={edit} width='20px' alt='edit' />
+        <img draggable='false' src={edit} width='20px' alt='edit' />
       </button>
     </div>
   );
