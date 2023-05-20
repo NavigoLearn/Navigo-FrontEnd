@@ -31,7 +31,7 @@ const Comment = ({
 
   return (
     <div className={`w-full relative `}>
-      <div className='absolute -left-10 w-8 h-8 hidden sm:block '>
+      <div className='absolute -left-8 top-1 w-6 h-6 hidden sm:block '>
         <img
           draggable='false'
           alt='img circledot'
