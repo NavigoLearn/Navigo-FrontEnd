@@ -93,7 +93,25 @@ const InfoEditing = () => {
             const newVal = capStringLen(e.target.value, 2048);
             changeInfoTabProp('description', newVal);
           }}
-        />
+        >
+          <style>
+            {`
+            ::-webkit-scrollbar {
+              width: 5px;
+            }
+            ::-webkit-scrollbar-track {
+              background: #f1f1f1;
+            }
+            ::-webkit-scrollbar-thumb {
+              border-radius: 5px;
+              background: #3361D8;
+            }
+            ::-webkit-scrollbar-thumb:hover {
+              background: #073EFF;
+            }
+            `}
+          </style>
+        </textarea>
       )}
       {divWrapper(
         <div className='flex gap-2'>
