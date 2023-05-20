@@ -48,7 +48,7 @@ const InfoEditing = () => {
   }, []);
 
   return (
-    <div className=' w-full h-full relative md:border-t-black md:border-t-2'>
+    <div className=' w-full h-full relative md:border-t-black md:border-t-2 overflow-auto'>
       {divWrapper(
         <div className='flex justify-between'>
           <button
