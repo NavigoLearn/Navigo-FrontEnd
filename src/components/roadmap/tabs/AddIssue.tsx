@@ -25,7 +25,12 @@ const AddIssue = () => {
             setIssues();
           }}
         >
-          <img draggable="false" alt='close tab issue' src={cross} className='w-6 h-6' />
+          <img
+            draggable='false'
+            alt='close tab issue'
+            src={cross}
+            className='w-6 h-6'
+          />
         </button>
       </div>
 
@@ -33,7 +38,7 @@ const AddIssue = () => {
         {divWrapper(
           <div className='w-full flex justify-center'>
             <input
-              className='w-full md:w-1/2 rounded-lg min-h-[40px] p-2 bg-background outline-gray-200'
+              className='w-full  rounded-lg min-h-[40px] p-2 bg-background outline-gray-200'
               value={title}
               onChange={(e) => {
                 setTitle(e.target.value);
@@ -45,7 +50,7 @@ const AddIssue = () => {
         {divWrapper(
           <div className='w-full flex justify-center'>
             <textarea
-              className='w-full md:w-1/2 rounded-lg min-h-[250px] p-2  bg-background outline-gray-200'
+              className='w-full  rounded-lg min-h-[250px] p-2  bg-background outline-gray-200'
               value={description}
               onChange={(e) => {
                 setDescription(e.target.value);
