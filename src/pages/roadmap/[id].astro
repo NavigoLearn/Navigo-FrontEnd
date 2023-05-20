@@ -3,7 +3,7 @@ import Base from '@layouts/Base.astro';
 import PageViewCollection from '../../components/home/PageViewCollection';
 import TopBarRoadmap from '../../components/roadmap/top-bar/TopBarRoadmap';
 import Roadmap from '@components/roadmap/Roadmap';
-import SideBar from '../../components/roadmap/sidebar/SideBar';
+import SideBar from '../../components/roadmap/sidebar/NewSidebarDesktop';
 import SideBarMobile from '../../components/roadmap/sidebar/SideBarMobile';
 import TabManager from '../../components/roadmap/TabManager';
 
@@ -18,7 +18,7 @@ const isCreate = id === 'create';
 
   <div class='h-[calc(100vh-64px)] md:mt-0 relative w-full'>
     <!-- offset from nav reduced from total screen size -->
-    <div class='md:ml-20 h-full relative'>
+    <div class='h-full relative'>
       <TopBarRoadmap client:idle />
       <Roadmap pageId={id} client:idle />
     </div>
