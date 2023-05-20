@@ -32,8 +32,8 @@ import '@fontsource/oxygen';
     <Navbar client:load />
 
     <slot />
-    <div class='h-32'></div>
-    {!excludeFooter && <Footer />}
+    
+    {!excludeFooter && <div class='h-32'><Footer /></div>}
     <div
       class='fixed top-[100px] flex justify-center w-full h-10 pointer-events-none'
     >
