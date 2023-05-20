@@ -15,7 +15,6 @@ const InfoEditProps = ({
     return (
       <SaveCancelButtons
         onSave={() => {
-          setZoomAllowed(true);
           onSave();
         }}
         onCancel={onCancel}
