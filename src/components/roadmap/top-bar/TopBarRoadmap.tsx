@@ -9,7 +9,7 @@ const TopBarRoadmap = () => {
   return (
     <div className='w-full h-[40px] md:h-6 relative bg-blue-100 flex justify-center'>
       <div className='absolute md:left-0 w-full justify-center  h-full pl-2 '>
-        <Coords />
+        {/* <Coords /> */}
       </div>
       <div className=' w-72  flex justify-center '>
         <Name />
