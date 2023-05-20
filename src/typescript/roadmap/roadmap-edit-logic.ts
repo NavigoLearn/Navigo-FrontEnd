@@ -54,7 +54,7 @@ export const generateNewTab = () => {
   const newId = getUnusedTabId();
   const newTab = generateTabInfo(
     newId,
-    'New TabManager',
+    'New Tab',
     false,
     '',
     [],

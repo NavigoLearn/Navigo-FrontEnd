@@ -12,7 +12,15 @@ const InfoEditProps = ({
   onCancel,
 }: EditingComponentNodesProps) => {
   const renderButtons = () => {
-    return <SaveCancelButtons onSave={onSave} onCancel={onCancel} />;
+    return (
+      <SaveCancelButtons
+        onSave={() => {
+          setZoomAllowed(true);
+          onSave();
+        }}
+        onCancel={onCancel}
+      />
+    );
   };
   const node = getNodeByIdEdit(id);
 
