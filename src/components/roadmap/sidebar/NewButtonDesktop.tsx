@@ -6,6 +6,7 @@ import {
 } from '@store/roadmap/sidebar/clickSubject';
 import BallStatic from '@components/roadmap/sidebar/BallStatic';
 import positionClickedIndex from '@store/roadmap/sidebar/clickedState';
+import displayTitle from '@store/roadmap/sidebar/displayTitle';
 
 type ButtonProps = {
   id: number;
@@ -26,6 +27,7 @@ const NewButtonDesktop = ({
   const imgRef = useRef<HTMLImageElement>(null);
   const [hovered, setHovered] = useState(false);
   const isClicked = useStore(positionClickedIndex).clickedIndex === index;
+  const { displayTitles } = useStore(displayTitle);
 
   function getDistanceFromTop() {
     const button = buttonRef.current;
@@ -70,18 +72,27 @@ const NewButtonDesktop = ({
               ${isClicked ? 'ml-4 brightness-0 invert ' : ''}
             `}
         />
-        <div className='absolute top-[-26px] left-[5px] '>
-          <BallStatic fill={hovered || isClicked} />
+        <div
+          className={` absolute top-[-26px] duration-400 transition-all left-[0px] group-hover/wrapper:left-[5px] ${
+            isClicked ? 'left-[5px]' : 'left-[0px]'
+          } `}
+        >
+          <BallStatic fill={isClicked || hovered} />
         </div>
         <div className='absolute w-20 h-10 pointer-events-auto left-10' />
         <div className='absolute left-24 top-0 '>
-          <h3
-            className={` ml-0 transition-all duration-400 group-hover/wrapper:pl-4 group-hover/wrapper:opacity-100 ${
-              isClicked ? 'pl-4 opacity-100 text-main' : 'opacity-50'
-            } `}
+          <div
+            className={` transition-all duration-300
+            ${!displayTitles ? 'opacity-0' : 'opacity-100'} `}
           >
-            {title}
-          </h3>
+            <h4
+              className={` ml-0 text-xl pt-1 transition-all duration-400 group-hover/wrapper:pl-4 group-hover/wrapper:opacity-100 
+            ${isClicked ? 'pl-4 opacity-100 text-main' : 'opacity-50'} 
+              `}
+            >
+              {title}
+            </h4>
+          </div>
         </div>
       </button>
     </li>

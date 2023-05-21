@@ -71,7 +71,7 @@ const SideBar = ({ isCreate }: { isCreate: string }) => {
     <div className='h-[calc(100%-52px)] top-10 absolute left-4 '>
       <div
         ref={sidebarRef}
-        className='bg-white rounded-xl w-20  h-full relative transition-all ease-linear duration-100 drop-shadow-xl z-0 '
+        className='bg-white rounded-xl w-20 pt-2 h-full relative transition-all ease-linear duration-100 drop-shadow-xl z-0 '
       >
         <ul className='flex-col items-center min-h-full w-full'>
           {hydrated &&

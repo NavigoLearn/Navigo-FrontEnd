@@ -26,7 +26,6 @@ import {
   setDisableZoomTrigger,
   setEnableZoomTrigger,
 } from '@store/roadmap/misc/miscParams';
-import { dispatchAnalyticsEvent } from '@store/misc/analytics';
 import Popup from './tabs/popups/Popup';
 
 const Roadmap = ({ pageId }: { pageId: string }) => {
