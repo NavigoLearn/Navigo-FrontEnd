@@ -2,6 +2,7 @@ import { atom } from 'nanostores';
 import { TabAbout } from '@type/roadmap/tab-manager';
 import { deepCopy } from '@typescript/roadmap/utils';
 import { RoadmapTypeApi } from '@type/explore/card';
+import { setClickedIndex } from '@store/roadmap/sidebar/clickedState';
 import { fetchGetMiniProfileDataById } from '../../../api-wrapper/user/user';
 
 const tabManagerStore = atom({
@@ -30,9 +31,11 @@ const tabManagerStore = atom({
   },
 } as any);
 
-export function flipOpen() {
+export function falseOpen() {
   const newTab = tabManagerStore.get();
-  newTab.open = !newTab.open;
+  newTab.open = false;
+  console.log('false open');
+  setClickedIndex(-1);
   tabManagerStore.set({
     ...newTab,
     open: newTab.open,
@@ -46,6 +49,14 @@ export function trueOpen() {
     ...newTab,
     open: newTab.open,
   });
+}
+export function flipOpen() {
+  const newTab = tabManagerStore.get();
+  if (newTab.open === false) {
+    trueOpen();
+  } else {
+    falseOpen();
+  }
 }
 
 export function changeInfoTabProp(property: string, value: string) {
@@ -66,15 +77,6 @@ export function changeAboutTabProp(property: string, value: string) {
 
 export function getAboutTab() {
   return tabManagerStore.get().about;
-}
-
-export function falseOpen() {
-  const newTab = tabManagerStore.get();
-  newTab.open = false;
-  tabManagerStore.set({
-    ...newTab,
-    open: newTab.open,
-  });
 }
 
 export function setInfo(infoData) {

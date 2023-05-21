@@ -6,10 +6,12 @@ import Thread from '@components/roadmap/tabs/thread/Thread';
 import AddIssue from '@components/roadmap/tabs/AddIssue';
 import Issues from '@components/roadmap/tabs/issues/Issues';
 import About from '@components/roadmap/tabs/about/About';
+import { setClickedIndex } from '@store/roadmap/sidebar/clickedState';
 import Info from './tabs/Info';
 
 const TabManager = () => {
   const { open, type } = useStore(tabStore);
+  // tab changed means index of selection is 0
 
   function rightWrapper(child) {
     return (
