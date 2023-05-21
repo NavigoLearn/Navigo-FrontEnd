@@ -1,4 +1,10 @@
 import { v4 as uuidv4 } from 'uuid';
+import {
+  isNodeInfoStore,
+  isNodeResourceStore,
+  isNodeTypesStore,
+} from '@type/roadmap/typecheckers';
+
 import roadmapEdit from '@store/roadmap/data/roadmap_edit';
 import { Roadmap } from '@type/roadmap/roadmap';
 import {
@@ -9,10 +15,6 @@ import {
 import { calculateChunkId } from '@typescript/roadmap/utils';
 import { TabInfo, TabIssue } from '@type/roadmap/tab-manager';
 import { NodeResourceStore } from '@type/roadmap/nodes';
-import {
-  isNodeResourceStore,
-  isNodeTypesStore,
-} from '@type/roadmap/typecheckers';
 import { ResourceSubNodeStore } from '@type/roadmap/resources';
 import { diffTabInfoNew } from '@store/roadmap/cache/diff-tabs';
 import { cacheTabInfo } from '@store/roadmap/cache/cached-tabs';
@@ -35,6 +37,23 @@ export function getNodeLevel(id: string) {
   const { nodes } = original;
   return nodes[id].level;
 }
+
+export function getNodeInfoTitle(id: string) {
+  const original = roadmapEdit.get();
+  const { nodes } = original;
+  return nodes[id].title;
+}
+
+export function getNodeInfoTabId(id: string) {
+  const original = roadmapEdit.get();
+  const { nodes } = original;
+  const node = nodes[id];
+  if (isNodeInfoStore(node)) {
+    return node.tabId;
+  }
+  throw new Error('No node found for given id');
+}
+
 export function getRoadmapEdit() {
   return roadmapEdit.get();
 }
@@ -54,7 +73,7 @@ export const generateNewTab = () => {
   const newId = getUnusedTabId();
   const newTab = generateTabInfo(
     newId,
-    'New TabManager',
+    'New Tab',
     false,
     '',
     [],
