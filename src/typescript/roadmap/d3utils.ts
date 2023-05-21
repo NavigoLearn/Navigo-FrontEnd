@@ -6,6 +6,8 @@ import { deepCopy } from '@typescript/roadmap/utils';
 import { calculateMiddleOfNodeOffsetStatic } from '@typescript/roadmap/render/coord-calc';
 import { setRecenterRoadmap } from '@store/roadmap/misc/miscParams';
 import { setScaleSafari } from '@store/roadmap/misc/scale-safari';
+import { setDisplayTitlesFalse } from '@store/roadmap/sidebar/displayTitle';
+import { throttle } from '@typescript/roadmap/chunks-logic';
 
 export const calculateRootNodeTransform = () => {
   const { editing } = roadmapState.get();
@@ -31,6 +33,10 @@ export const addZoom = (rootSvgId, rootGroupId, rerender) => {
   const svg = d3.select(`#${rootSvgId}`);
   const rootGroup = d3.select(`#${rootGroupId}`);
 
+  const setTitlesDisplay = throttle(() => {
+    setDisplayTitlesFalse();
+  }, 400);
+
   function zoomed() {
     rerender();
     this.zoomTransform = d3.zoomIdentity;
@@ -38,6 +44,7 @@ export const addZoom = (rootSvgId, rootGroupId, rerender) => {
     rootGroup.attr('transform', zoomTransform);
 
     setScaleSafari(zoomTransform.k);
+    setTitlesDisplay();
   }
 
   const zoom = d3
@@ -57,35 +64,6 @@ export const addZoom = (rootSvgId, rootGroupId, rerender) => {
   }
   setRecenterRoadmap(() => resetZoom());
   d3.select('#recenter-button').on('click', () => resetZoom());
-};
-
-export const addZoom2 = (rootSvgId, rootGroupId, rerender) => {
-  const svg = d3.select(`#${rootSvgId}`);
-  // rerender();
-  function zoomed() {
-    // triggers the chunk rendering flow
-    rerender();
-    this.zoomTransform = d3.zoomIdentity;
-    d3.select(`#${rootGroupId}`).attr('transform', d3.zoomTransform(this));
-  }
-
-  const zoom = d3
-    .zoom()
-    .scaleExtent([1 / 2, 2])
-    .on('zoom', zoomed);
-
-  svg.call(zoom);
-  svg.on('dblclick.zoom', null);
-
-  function centerToRoot() {
-    svg.transition().duration(750).call(zoom.transform, d3.zoomIdentity);
-  }
-
-  function resetZoom() {
-    const rootTransform = deepCopy(d3.zoomIdentity);
-    svg.transition().duration(750).call(zoom.transform, d3.zoomIdentity);
-  }
-  d3.select('#recenter-button').on('click', resetZoom);
 };
 
 export const disableZoom = (rootSvgId) => {

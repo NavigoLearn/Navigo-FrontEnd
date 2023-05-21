@@ -4,6 +4,7 @@ import { changeNodeCoords } from '@typescript/roadmap/roadmap-edit-logic-decorat
 import { setSelection } from '@store/roadmap/render/selection';
 import { getTransformXY } from '@typescript/roadmap/render/coord-calc';
 import { updateConnections } from '@typescript/roadmap/render/connections';
+import { setDisplayTitlesFalse } from '@store/roadmap/sidebar/displayTitle';
 
 export function moveOnDrag(id: string, newPos: { x: number; y: number }) {
   const sel = document.getElementById(`group${id}`);
@@ -40,6 +41,8 @@ export const addDraggabilityFlow = (id: string, allowed: boolean) => {
       offsets.y = offsetY;
       newPos.x = nodeX;
       newPos.y = NodeY;
+      // doesnt display sidebar titles while dragging
+      setDisplayTitlesFalse();
     })
     // eslint-disable-next-line func-names
     .on('drag', function (event) {

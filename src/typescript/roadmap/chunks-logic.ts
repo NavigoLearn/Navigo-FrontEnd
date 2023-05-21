@@ -146,7 +146,7 @@ export function calculateRenderedChunks(
   }
   setChunks(renderedChunks); // sets the chunks currently visible
 }
-function throttle(func, delay) {
+export function throttle(func, delay) {
   // throttleing function for optimization purposes
   let lastCall = 0;
   return (...args) => {
