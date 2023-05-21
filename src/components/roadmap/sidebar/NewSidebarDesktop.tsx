@@ -9,6 +9,8 @@ import roadmapVisitData, {
 } from '@store/roadmap/data/roadmap-visit-data';
 import NewButtonDesktop from '@components/roadmap/sidebar/NewButtonDesktop';
 import Ball from '@components/roadmap/sidebar/Ball';
+import { setOffsetY } from '@store/roadmap/sidebar/clickSubject';
+import { setClickedIndex } from '@store/roadmap/sidebar/clickedState';
 import {
   buttonsViewVisitor,
   buttonsViewOwner,
@@ -16,7 +18,6 @@ import {
 } from './buttons-view';
 
 const SideBar = ({ isCreate }: { isCreate: string }) => {
-  const [hover, setHover] = useState(false);
   const { editing } = useStore(roadmapState);
   const [hydrated, setHydrated] = useState(false);
   const [isOwner, setIsOwner] = useState(false);
@@ -43,7 +44,7 @@ const SideBar = ({ isCreate }: { isCreate: string }) => {
     if (sidebar) {
       // get client bounding rect
       const sidebarRect = sidebar.getBoundingClientRect();
-      console.log(sidebarRect);
+      setOffsetY(sidebarRect.top);
     }
   }, []);
 
@@ -70,23 +71,26 @@ const SideBar = ({ isCreate }: { isCreate: string }) => {
     <div className='h-[calc(100%-52px)] top-10 absolute left-4 '>
       <div
         ref={sidebarRef}
-        className='bg-white rounded-xl w-20 h-full relative transition-all ease-linear duration-100 drop-shadow-xl '
+        className='bg-white rounded-xl w-20  h-full relative transition-all ease-linear duration-100 drop-shadow-xl z-0 '
       >
         <ul className='flex-col items-center min-h-full w-full'>
           {hydrated &&
-            getButtonRoute().map((button) => {
+            getButtonRoute().map((button, index) => {
               return (
                 <NewButtonDesktop
                   key={button.id}
                   id={button.id}
-                  onClick={button.clickHandler}
+                  onClick={() => {
+                    setClickedIndex(index);
+                    button.clickHandler();
+                  }}
+                  index={index}
                   title={button.title}
                   cIcon={button.cIcon}
                 />
               );
             })}
         </ul>
-        <Ball />
       </div>
     </div>
   );

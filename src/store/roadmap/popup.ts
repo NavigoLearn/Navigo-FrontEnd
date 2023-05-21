@@ -1,4 +1,5 @@
 import { atom } from 'nanostores';
+import { setClickedIndex } from '@store/roadmap/sidebar/clickedState';
 
 const popup = atom({
   type: 'none',
@@ -24,15 +25,18 @@ export function setReport() {
   });
 }
 
+export function setTypeNone() {
+  setClickedIndex(-1);
+  popup.set({
+    type: 'none',
+  });
+}
+
 export function setConfirmDelete() {
   const newPop = popup.get();
   // closes popup if is confirm save
   if (newPop.type === 'confirmDelete') {
-    newPop.type = 'none';
-    popup.set({
-      ...newPop,
-      type: 'none',
-    });
+    setTypeNone();
     return;
   }
   // sets type to confirm save
@@ -45,11 +49,7 @@ export function setConfirmSave() {
   const newPop = popup.get();
   // closes popup if is confirm save
   if (newPop.type === 'confirmSave') {
-    newPop.type = 'none';
-    popup.set({
-      ...newPop,
-      type: 'none',
-    });
+    setTypeNone();
     return;
   }
   // sets type to confirm save
@@ -63,11 +63,7 @@ export function setConfirmCancel() {
   const newPop = popup.get();
   // closes popup if is confirm cancel
   if (newPop.type === 'confirmCancel') {
-    newPop.type = 'none';
-    popup.set({
-      ...newPop,
-      type: 'none',
-    });
+    setTypeNone();
     return;
   }
   // sets type to confirm cancel

@@ -1,4 +1,5 @@
 import { atom } from 'nanostores';
+import { v4 as uuidv4 } from 'uuid';
 import { Roadmap } from '@type/roadmap/roadmap';
 import {
   generateNodeInfo,
@@ -10,13 +11,22 @@ import { cacheTabInfo } from '@store/roadmap/cache/cached-tabs';
 import { diffTabInfoNew } from '@store/roadmap/cache/diff-tabs';
 
 export const generateInitialEditCreate = (): Roadmap => {
-  const initialTab = generateTabInfo('tab1', 'tab1 Title', false, '', [], '');
-  cacheTabInfo('tab1', initialTab);
-  diffTabInfoNew('tab1', initialTab);
+  // generates the initial state for the create roadmap
+  const rootNodeTabId = uuidv4();
+  const initialTab = generateTabInfo(
+    rootNodeTabId,
+    'tab1 Title',
+    false,
+    '',
+    [],
+    ''
+  );
+  cacheTabInfo(rootNodeTabId, initialTab);
+  diffTabInfoNew(rootNodeTabId, initialTab);
 
   return {
     // has the boilerplate for the create roadmap
-    nodes: generateStarterNode('tab1', 300, 150, 'root', []).nodes,
+    nodes: generateStarterNode(rootNodeTabId, 300, 150, 'root', []).nodes,
     connections: {
       // list of all connections
     },
@@ -24,7 +34,7 @@ export const generateInitialEditCreate = (): Roadmap => {
       // list of all resource nodes
     },
     chunks: generateStarterNode(
-      'rootNodeId',
+      rootNodeTabId,
       300,
 
       150,
