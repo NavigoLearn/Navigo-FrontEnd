@@ -25,7 +25,7 @@ const RoadmapController = () => {
         </button>
       </div>
       <div className="flex justify-evenly min-w-[160px] w-fit rounded-xl bg-white py-0.5 px-2 drop-shadow-xl">
-        <p className="text-middle m-1">X: {startX}</p>
+        <p className="text-middle m-1">X: {-startX}</p>
         <p className="text-middle m-1">Y: {startY}</p>
       </div>
       <div className="rounded-xl bg-white py-0.5 px-2 drop-shadow-xl">

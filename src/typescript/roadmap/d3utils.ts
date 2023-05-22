@@ -66,26 +66,16 @@ export const addZoom = (rootSvgId, rootGroupId, rerender) => {
   setRecenterRoadmap(() => resetZoom());
   d3.select('#recenter-button').on('click', () => resetZoom());
   d3.select('#zoomin-button').on('click', () => {
-    const transform = d3.zoomTransform(svg.node());
     svg
       .transition()
       .duration(250)
-      .call(zoom.scaleBy, 1.3,
-        [
-          transform.x + (window.innerWidth / 4 - 28) * transform.k,
-          transform.y + (window.innerHeight / 4 - 28) * transform.k,
-        ]);
+      .call(zoom.scaleBy, 1.3);
   });
   d3.select('#zoomout-button').on('click', () => {
-    const transform = d3.zoomTransform(svg.node());
     svg
       .transition()
       .duration(250)
-      .call(zoom.scaleBy, 0.7 ,
-        [
-          transform.x + (window.innerWidth / 4 - 28) * transform.k,
-          transform.y + (window.innerHeight / 4 - 28) * transform.k,
-        ]);
+      .call(zoom.scaleBy, 0.7);
   });
 };
 
