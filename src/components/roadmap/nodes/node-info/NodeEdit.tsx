@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { setToolTip, setZoomAllowed } from '@store/roadmap/misc/miscParams';
+import { setToolTip } from '@store/roadmap/misc/miscParams';
 import {
   getTriggerEnable,
   getTriggerDisable,
@@ -26,7 +26,6 @@ const NodeEdit = ({ title, tabId, id, level }: NodeInfoProps) => {
           id={id}
           onSave={() => {
             // transfers the data from the placeholder to the node
-            setZoomAllowed(true);
             transferNodeInfoFromPlaceholderToEdit(id);
             removeNodeInfoFromPlaceholder(id);
             getTriggerEnable(id)();
