@@ -18,17 +18,17 @@ const HeroRotate = ({ scale, animSpeed }: HeroRotateProps) => {
   useScrollTop();
   const rootRef = useRef<HTMLDivElement>(null);
   const allowed = useRef(true);
-  const centerSrc = '/home/nextjs.png';
+  const centerSrc = '/home/nextjs.svg';
   const baseArr: string[] = [
     '/home/cpp.png',
     '/home/csharp.png',
     '/home/css.png',
     '/home/html.png',
-    '/home/js.png',
+    '/home/javascript.svg',
     '/home/python.png',
     '/home/pytorch.png',
-    '/home/react.png',
-    '/home/ts.png',
+    '/home/react.svg',
+    '/home/typescript.svg',
   ];
 
   const baseParams: BaseParams = {
@@ -135,7 +135,7 @@ const HeroRotate = ({ scale, animSpeed }: HeroRotateProps) => {
                 draggable='false'
                 alt='imageCenter'
                 id='mainImg'
-                className='w-full h-full'
+                className='w-full h-full rounded-[10%] bg-white'
                 src={centerSrc}
               />
             </button>
@@ -151,7 +151,7 @@ const HeroRotate = ({ scale, animSpeed }: HeroRotateProps) => {
                     draggable='false'
                     alt='imagerotating'
                     src={el}
-                    className='w-full h-full rounded-md'
+                    className='w-full h-full rounded-[10%] bg-white'
                   />
                 </button>
               );
