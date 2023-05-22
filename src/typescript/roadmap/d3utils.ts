@@ -72,8 +72,8 @@ export const addZoom = (rootSvgId, rootGroupId, rerender) => {
       .duration(250)
       .call(zoom.scaleBy, 1.3,
         [
-          transform.x + (window.innerWidth / 4 + 56) * transform.k,
-          transform.y + (window.innerHeight / 4 + 56) * transform.k,
+          transform.x + (window.innerWidth / 4 - 28) * transform.k,
+          transform.y + (window.innerHeight / 4 - 28) * transform.k,
         ]);
   });
   d3.select('#zoomout-button').on('click', () => {
@@ -83,8 +83,8 @@ export const addZoom = (rootSvgId, rootGroupId, rerender) => {
       .duration(250)
       .call(zoom.scaleBy, 0.7 ,
         [
-          transform.x + (window.innerWidth / 4 + 56) * transform.k,
-          transform.y + (window.innerHeight / 4 + 56) * transform.k,
+          transform.x + (window.innerWidth / 4 - 28) * transform.k,
+          transform.y + (window.innerHeight / 4 - 28) * transform.k,
         ]);
   });
 };
