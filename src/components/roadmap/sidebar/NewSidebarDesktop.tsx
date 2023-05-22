@@ -8,7 +8,7 @@ import roadmapVisitData, {
   validData,
 } from '@store/roadmap/data/roadmap-visit-data';
 import NewButtonDesktop from '@components/roadmap/sidebar/NewButtonDesktop';
-import Ball from '@components/roadmap/sidebar/Ball';
+// import Ball from '@components/roadmap/sidebar/Ball';
 import { setOffsetY } from '@store/roadmap/sidebar/clickSubject';
 import { setClickedIndex } from '@store/roadmap/sidebar/clickedState';
 import {
@@ -30,11 +30,6 @@ const SideBar = ({ isCreate }: { isCreate: string }) => {
       if (visitorIsOwner) {
         setIsOwner(true);
       }
-    }
-    if (document.cookie.includes('token')) {
-      setIsOwner(true);
-    } else {
-      setIsOwner(false);
     }
     setHydrated(true);
   }, [visitorIsOwner]);
