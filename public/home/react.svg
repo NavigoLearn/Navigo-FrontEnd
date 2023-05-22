@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <rect
+     width="100%"
+     height="100%"
+     fill="#61dafb"/>
+  <g
+     stroke="#ffffff"
+     stroke-width="1"
+     fill="none"
+     transform="matrix(3.9130432,0,0,3.913055,50,50.000003)">
+    <circle
+       cx="0"
+       cy="0"
+       r="1.50"
+       fill="#ffffff"
+       id="circle38" />
+    <ellipse
+       rx="11"
+       ry="4.1999998"
+       id="ellipse40"
+       cx="0"
+       cy="0" />
+    <ellipse
+       rx="11"
+       ry="4.1999998"
+       transform="rotate(60)"
+       id="ellipse42"
+       cx="0"
+       cy="0" />
+    <ellipse
+       rx="11"
+       ry="4.1999998"
+       transform="rotate(120)"
+       id="ellipse44"
+       cx="0"
+       cy="0" />
+  </g>
+</svg>
