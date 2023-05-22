@@ -16,11 +16,11 @@ const RoadmapController = () => {
   return (
     <div className="flex gap-4">
       <div className="flex justify-between w-36 rounded-xl bg-white py-0.5 px-2 drop-shadow-xl">
-        <button>
+        <button id="zoomout-button">
           <img className="m-1 h-6 w-6" src={zoomOut} alt="Zoom out button"/>
         </button>
         <p className="text-middle m-1">{Math.floor(scale*100)}%</p>
-        <button>
+        <button id="zoomin-button">
           <img className="m-1 h-6 w-6" src={zoomIn} alt="Zoom in button"/>
         </button>
       </div>
@@ -29,7 +29,7 @@ const RoadmapController = () => {
         <p className="text-middle m-1">Y: {startY}</p>
       </div>
       <div className="rounded-xl bg-white py-0.5 px-2 drop-shadow-xl">
-        <button className="flex" >
+        <button className="flex" id="recenter-button">
           <img className="m-1 h-6 w-6" src={recenterCompass} alt="Zoom out button"/>
           <p className="text-middle m-1">Recenter</p>
         </button>

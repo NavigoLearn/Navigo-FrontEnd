@@ -2,8 +2,9 @@ import * as d3 from 'd3';
 import roadmapStatic from '@store/roadmap/data/roadmap_static';
 import roadmapEdit from '@store/roadmap/data/roadmap_edit';
 import roadmapState from '@store/roadmap/data/roadmap_state';
-import { deepCopy } from '@typescript/roadmap/utils';
-import { calculateMiddleOfNodeOffsetStatic } from '@typescript/roadmap/render/coord-calc';
+import {
+  calculateMiddleOfNodeOffsetStatic,
+} from '@typescript/roadmap/render/coord-calc';
 import { setRecenterRoadmap } from '@store/roadmap/misc/miscParams';
 import { setScaleSafari } from '@store/roadmap/misc/scale-safari';
 import { setDisplayTitlesFalse } from '@store/roadmap/sidebar/displayTitle';
@@ -21,12 +22,11 @@ export const calculateRootNodeTransform = () => {
   // gets the current screen size
   const { innerWidth, innerHeight } = window;
   // calculates a transform that centers the root node in the middle of the screen
-  const transform = {
+  return {
     x: x - innerWidth / 2 + widthNode / 2,
     y: y - innerHeight / 2 + heightNode / 2 + 100,
     k: 1,
   };
-  return transform;
 };
 
 export const addZoom = (rootSvgId, rootGroupId, rerender) => {
@@ -49,7 +49,7 @@ export const addZoom = (rootSvgId, rootGroupId, rerender) => {
 
   const zoom = d3
     .zoom()
-    .scaleExtent([1 / 3, 2])
+    .scaleExtent([ 1 / 3, 2 ])
     .on('zoom', zoomed);
 
   svg.call(zoom);
@@ -62,8 +62,31 @@ export const addZoom = (rootSvgId, rootGroupId, rerender) => {
       .scale(initialTransform.k);
     svg.transition().duration(750).call(zoom.transform, customTransform);
   }
+
   setRecenterRoadmap(() => resetZoom());
   d3.select('#recenter-button').on('click', () => resetZoom());
+  d3.select('#zoomin-button').on('click', () => {
+    const transform = d3.zoomTransform(svg.node());
+    svg
+      .transition()
+      .duration(250)
+      .call(zoom.scaleBy, 1.3,
+        [
+          transform.x + (window.innerWidth / 4 + 56) * transform.k,
+          transform.y + (window.innerHeight / 4 + 56) * transform.k,
+        ]);
+  });
+  d3.select('#zoomout-button').on('click', () => {
+    const transform = d3.zoomTransform(svg.node());
+    svg
+      .transition()
+      .duration(250)
+      .call(zoom.scaleBy, 0.7 ,
+        [
+          transform.x + (window.innerWidth / 4 + 56) * transform.k,
+          transform.y + (window.innerHeight / 4 + 56) * transform.k,
+        ]);
+  });
 };
 
 export const disableZoom = (rootSvgId) => {
