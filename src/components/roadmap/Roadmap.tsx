@@ -33,7 +33,6 @@ const Roadmap = ({ pageId }: { pageId: string }) => {
   if (isCreate) {
     setEditingTrueNoRerender();
   }
-  console.log('rerendered roadmap comp');
   const { editing } = isCreate ? { editing: true } : useStore(roadmapState);
   // the ids of the nodes that need to be rendered accorind to the current view and the chunks visible
   const { nodes: nodesIds } = useStore(renderNodesStore); // used to trigger a rerender when the nodes change
