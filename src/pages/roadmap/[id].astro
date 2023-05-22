@@ -1,11 +1,12 @@
 ---
 import Base from '@layouts/Base.astro';
-import PageViewCollection from '../../components/home/PageViewCollection';
-import TopBarRoadmap from '../../components/roadmap/top-bar/TopBarRoadmap';
+import PageViewCollection from '@components/home/PageViewCollection';
+import TopBarRoadmap from '@components/roadmap/top-bar/TopBarRoadmap';
 import Roadmap from '@components/roadmap/Roadmap';
-import SideBar from '../../components/roadmap/sidebar/NewSidebarDesktop';
-import SideBarMobile from '../../components/roadmap/sidebar/SideBarMobile';
-import TabManager from '../../components/roadmap/TabManager';
+import SideBar from '@components/roadmap/sidebar/NewSidebarDesktop';
+import SideBarMobile from '@components/roadmap/sidebar/SideBarMobile';
+import RoadmapController from '@components/roadmap/roadmapcontroler/RoadmapController';
+import TabManager from '@components/roadmap/TabManager';
 
 const { id } = Astro.params;
 // here we should get the data for the actual roadmap_static
@@ -28,6 +29,9 @@ const isCreate = id === 'create';
     </div>
     <div class='block opacity-100 md:hidden'>
       <SideBarMobile isCreate={isCreate} client:idle />
+    </div>
+    <div class="absolute bottom-3 md:left-28 left-0">
+        <RoadmapController client:idle />
     </div>
     <div class=''>
       <TabManager client:idle />
