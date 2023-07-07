@@ -2,10 +2,11 @@
 
 import { IColorSchemaOptions } from '@type/roadmap/node/colors';
 import { colorSchemas } from '@typescript/roadmap_ref/node/core/factories/params/params';
+import { NodeClass } from '@typescript/roadmap_ref/node/core/core';
 
-export function selectNodeColorScheme(
+export function injectNodeColorScheme(
+  node: NodeClass,
   selector: IColorSchemaOptions = 'default'
 ) {
-  const option: IColorSchemaOptions = selector;
-  return colorSchemas[option];
+  node.properties.color = colorSchemas[selector];
 }

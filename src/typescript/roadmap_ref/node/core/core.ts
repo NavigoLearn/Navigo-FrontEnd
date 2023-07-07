@@ -1,18 +1,19 @@
 // Represents the Node class
 import { IColorSchemaFields } from '@type/roadmap/node/colors';
-import { selectNodeColorScheme } from '@typescript/roadmap_ref/node/core/factories/injectors/injectors';
+import { selectNodeColorScheme } from '@typescript/roadmap_ref/node/core/factories/injectors/services';
 import {
   defaultColorSchemaOption,
   defaultNodeHeight,
   defaultNodeOpacity,
   defaultNodeWidth,
 } from '@typescript/roadmap_ref/node/core/factories/params/default-params';
+import { IAttachmentObject } from '@type/roadmap/node/attachments';
 
-class NodeClass {
+export class NodeClass {
   components: Component[] = [];
   properties: Properties = new Properties();
   nestedNodesIds: string[] = []; // reference to other NodeClasses from the roadmap
-  attachments: [] = [];
+  attachments: IAttachmentObject[] = [];
   actions: Actions;
   draggingBehavior: DraggingBehavior;
   flags: Flags;

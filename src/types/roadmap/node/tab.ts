@@ -5,19 +5,7 @@ export type ITabComponentType =
   | 'BulletList'
   | 'LinkBulletList';
 
-export interface ITabComponentPropertiesSelector {
-  Title: TitleProperties;
-  Description: DescriptionProperties;
-  Link: LinkProperties;
-  BulletList: BulletListProperties;
-  LinkBulletList: LinkBulletListProperties;
-}
-
-export type ITabComponentProperties<T extends ITabComponentType> = {
-  type: T;
-} & ITabComponentPropertiesSelector[T];
-
-export type ITabComponentPropertiesSelectorParallel =
+export type ITabComponentProperties =
   | ({
       type: 'Title';
     } & TitleProperties)
