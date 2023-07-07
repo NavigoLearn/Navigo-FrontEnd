@@ -8,7 +8,7 @@ export const fetchRoadmap = async (id: string) => {
     method: 'GET',
     credentials: 'include',
   }).then((res) => res.json());
-  // decodes the data field from base64 to json
+  // decodes the roadmap-data field from base64 to json
   response.data = JSON.parse(atob(response.data));
   return response;
 };

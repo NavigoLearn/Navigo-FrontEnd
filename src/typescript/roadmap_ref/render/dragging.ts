@@ -2,8 +2,8 @@ import * as d3 from 'd3';
 import roadmapEdit from '@store/roadmap/data/roadmap_edit';
 import { changeNodeCoords } from '@typescript/roadmap/roadmap-edit-logic-decorated';
 import { setSelection } from '@store/roadmap/render/selection';
-import { getTransformXY } from '@typescript/roadmap/render/coord-calc';
-import { updateConnections } from '@typescript/roadmap/render/connections';
+import { getTransformXY } from '@typescript/roadmap_ref/render/coord-calc';
+import { updateConnections } from '@typescript/roadmap_ref/render/connections';
 import { setDisplayTitlesFalse } from '@store/roadmap/sidebar/displayTitle';
 
 export function moveOnDrag(id: string, newPos: { x: number; y: number }) {

@@ -61,7 +61,7 @@ const DesktopLogin = () => {
             type='email'
             placeholder='Email'
             value={email}
-            data-testid='email'
+            roadmap-data-testid='email'
             onChange={({ target }) => setEmail(target.value)}
             className='py-3 mt-3 rounded-xl ml-px w-96 pl-3 placeholder:font-kanit-text placeholder:text-placeholder h-12 select-none'
           />
@@ -75,7 +75,7 @@ const DesktopLogin = () => {
             type='password'
             placeholder='Password'
             value={password}
-            data-testid='password'
+            roadmap-data-testid='password'
             onChange={({ target }) => setPassword(target.value)}
             className='py-3 mt-3 rounded-xl ml-px w-96 pl-3 placeholder:font-kanit-text placeholder:text-placeholder h-12 select-none'
           />

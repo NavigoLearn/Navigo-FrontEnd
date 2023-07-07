@@ -30,7 +30,7 @@ const ProfileDisplay = ({ id }: { id: string }) => {
 
   useEffect(() => {
     fetchUserAndSetStore(id).then(() => {
-      // sets userDisplay data and loads it into profile
+      // sets userDisplay roadmap-data and loads it into profile
       setRender((prev) => !prev);
       setLoaded(true);
     }).catch((err) => {

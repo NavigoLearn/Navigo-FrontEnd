@@ -21,7 +21,7 @@ const Button = ({
   };
   const sizes = {
     small: 'h-8 text-sm px-4',
-    medium: 'h-10 text-base px-6',
+    medium: 'h-10 text-core px-6',
     large: 'h-12 text-lg px-6',
   };
   return (

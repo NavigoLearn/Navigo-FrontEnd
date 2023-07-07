@@ -37,7 +37,7 @@ const InfoNonEditProps = <T,>({
         type='button'
         className={` text-sm font-semibold flex-grow py-1  bg-white `}
         onClick={() => {
-          // tab changing logic
+          // tab changing roadmap-data
           setInfoFlow(data.tabId);
         }}
       >

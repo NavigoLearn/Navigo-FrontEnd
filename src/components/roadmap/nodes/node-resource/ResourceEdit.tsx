@@ -24,7 +24,7 @@ const ResourceEdit = ({ id, title, nodes }: NodeResourceProps) => {
         <ResourceEditProps
           id={id}
           onSave={() => {
-            // transfers the data from the placeholder to the node
+            // transfers the roadmap-data from the placeholder to the node
             transferNodeResourceFromPlaceholderToEdit(id);
             removeNodeResourceFromPlaceholder(id);
             getTriggerEnable(id)();

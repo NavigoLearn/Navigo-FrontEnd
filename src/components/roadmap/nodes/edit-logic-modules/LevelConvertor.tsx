@@ -4,7 +4,7 @@ import { changeNodeLevel } from '@typescript/roadmap/roadmap-edit-logic-decorate
 import { LevelTypes, levelTypesArray } from '@type/roadmap/level-types';
 import { isLevelType } from '@type/roadmap/typecheckers';
 
-// handles the level change logic for every node
+// handles the level change roadmap-data for every node
 const DropdownLevel = ({ id, level }: { id: string; level: LevelTypes }) => {
   const [selectedOption, setSelectedOption] = useState(level);
   const [open, setOpen] = useState(false);
