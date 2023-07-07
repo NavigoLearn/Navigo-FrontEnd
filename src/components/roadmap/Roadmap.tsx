@@ -16,11 +16,11 @@ import {
   setTriggerRender,
 } from '@store/roadmap/render/rerenderTriggers';
 import { addZoom, disableZoom } from '@typescript/roadmap/d3utils';
-import { RoadmapChunkingManager } from '@typescript/roadmap/chunks-logic';
+import { RoadmapChunkingManager } from '@typescript/roadmap_ref/render/chunks';
 import renderNodesStore from '@store/roadmap/render/renderedNodes';
 import { setChunkRerenderTrigger } from '@store/roadmap/render/renderedChunks';
 import renderConnectionsStore from '@store/roadmap/render/renderedConnections';
-import { renderConnections } from '@typescript/roadmap/render/connections';
+import { renderConnections } from '@typescript/roadmap_ref/render/connections';
 import roadmapEdit from '@store/roadmap/data/roadmap_edit';
 import {
   setDisableZoomTrigger,
@@ -81,9 +81,9 @@ const Roadmap = ({ pageId }: { pageId: string }) => {
     );
     if (!isCreate) setRoadmapId(pageId);
     else setRoadmapId(uuid4());
-    // fetches the data from the api-wrapper
+    // fetches the roadmap-data from the api-wrapper
     if (!isCreate) {
-      setRoadmapFromAPI(pageId); // when request finishes it triggers chunk renderer which sets the nodes and connections to render
+      setRoadmapFromAPI(pageId); // when request finishes it triggers chunk renderer which sets the nodes and connections to render-roadmap-data
       // to their respective stores. The node rendering is triggered by the rerender of the Roadmap component
       // for the connections we need to subscribe to the store with a callback
     } else {
@@ -93,7 +93,7 @@ const Roadmap = ({ pageId }: { pageId: string }) => {
     renderConnectionsStore.subscribe(() => {
       // calling the connection rendering function
       setTimeout(() => {
-        // wait for event loop to finish rendering the nodes and then render the connections
+        // wait for event loop to finish rendering the nodes and then render-roadmap-data the connections
         renderConnections();
       }, 0);
     });
@@ -126,7 +126,7 @@ const Roadmap = ({ pageId }: { pageId: string }) => {
           </g>
           <g id='rootGroupNodes'>
             {nodesIds.map((id) => {
-              // gets the data
+              // gets the roadmap-data
               const data = nodesValues[id];
               return (
                 <NodeManager

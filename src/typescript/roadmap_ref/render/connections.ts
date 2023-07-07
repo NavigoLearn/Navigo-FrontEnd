@@ -8,7 +8,7 @@ import selection from '@store/roadmap/render/selection';
 import {
   getNodeMiddleCoordsFlow,
   calculateCoordOfNodeStatic,
-} from '@typescript/roadmap/render/coord-calc';
+} from '@typescript/roadmap_ref/render/coord-calc';
 
 export function renderConnections() {
   const renderConns = renderConnectionsStore.get();
@@ -47,7 +47,7 @@ export function renderConnections() {
     .selectAll('line')
     .data(connectionArray, (d) => {
       return d.id;
-    }); // Use the data value as the key function
+    }); // Use the roadmap-data value as the key function
   // calculates the middle of the node for each node
   // we append line objects
   nodeSelection
@@ -112,7 +112,7 @@ export function renderConnectionsSelected(connIds: string[]) {
     .selectAll('line')
     .data(connectionArray, (d) => {
       return d.id;
-    }); // Use the data value as the key function
+    }); // Use the roadmap-data value as the key function
   // calculates the middle of the node for each node
   // we append line objects
   nodeSelection
@@ -153,7 +153,7 @@ export function updateConnections() {
     .selectAll('line')
     .data(connectionArray, (d) => {
       return d.id;
-    }); // Use the data value as the key function
+    }); // Use the roadmap-data value as the key function
 
   // calculates the new positions based on the new node positions
   nodeSelection

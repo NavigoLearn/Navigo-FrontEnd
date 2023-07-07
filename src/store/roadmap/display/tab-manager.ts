@@ -11,17 +11,17 @@ const tabManagerStore = atom({
   type: 'about',
   open: false,
   about: {
-    // the data for the about tab
+    // the roadmap-data for the about tab
     name: '',
     author: '',
     description: '',
   },
   issues: {
-    // the data for the issues tab
+    // the roadmap-data for the issues tab
     issues: [],
   },
   info: {
-    // the data for the currently displayed info node
+    // the roadmap-data for the currently displayed info node
     id: '',
     title: '',
     done: false,

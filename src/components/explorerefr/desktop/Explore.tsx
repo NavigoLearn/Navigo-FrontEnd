@@ -195,7 +195,7 @@ export default ExploreDesktop;
 
       <div className='bg-background h-20 w-full -mt-20 opacity-75 relative flex justify-center items-center 2xl:h-24 2xl:-mt-24'>
         <div className='w-full bg-background h-7 2xl:h-8 flex justify-center items-center absolute'>
-          <div className='bg-red-100 w-96 h-full flex justify-center items-center text-opacity-40 text-sm border-2 border-red-700 border-opacity-50 rounded-md relative 2xl:text-base 2xl:w-[420px]'>
+          <div className='bg-red-100 w-96 h-full flex justify-center items-center text-opacity-40 text-sm border-2 border-red-700 border-opacity-50 rounded-md relative 2xl:text-core 2xl:w-[420px]'>
             <img
               draggable='false'
               src={warn}

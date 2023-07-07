@@ -11,7 +11,7 @@ import {
   isNodeResourceProps,
 } from '@type/roadmap/typecheckers';
 import { getNodeById } from '@store/roadmap/data/roadmap_static';
-import { addDraggabilityFlow } from '@typescript/roadmap/render/drag-flows';
+import { addDraggabilityFlow } from '@typescript/roadmap_ref/render/dragging';
 import levels from '@styles/levelStyles';
 import { getNodeByIdEdit } from '@typescript/roadmap/roadmap-edit-logic';
 import Tooltip from '@components/roadmap/nodes/misc/Tooltip';
@@ -57,7 +57,7 @@ const NodeManager = ({ data, editing, triggerCb }: NodeManagerProps) => {
   }, [editing]);
 
   const renderNode = () => {
-    // we fetch the data from the nanostores here in order to get rerendering on data change
+    // we fetch the roadmap-data from the nanostores here in order to get rerendering on roadmap-data change
     const { id } = data as NodeInfoProps;
     let node;
     if (editing) {

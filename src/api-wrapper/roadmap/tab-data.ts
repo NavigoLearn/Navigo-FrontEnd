@@ -7,7 +7,7 @@ import roadmapState from '@store/roadmap/data/roadmap_state';
 import { errorHandlerDecorator } from '@typescript/error-handler';
 
 export const fetchTabInfoData = errorHandlerDecorator(async (id: string) => {
-  // uses fetch to get data from the server
+  // uses fetch to get roadmap-data from the server
   const roadmapId = roadmapState.get().id;
   const response = await fetch(`/api/roadmaps/${roadmapId}/tabsInfo/${id}`, {
     method: 'GET',
@@ -25,7 +25,7 @@ export const fetchTabInfoData = errorHandlerDecorator(async (id: string) => {
 
 export const updateTabInfoData = errorHandlerDecorator(
   async (id: string, tabData: TabInfo) => {
-    // uses fetch to post data on the server
+    // uses fetch to post roadmap-data on the server
     const roadmapId = roadmapState.get().id;
     // creates the API object
     const apiTabData: TabInfoApi = {
@@ -51,7 +51,7 @@ export const updateTabInfoData = errorHandlerDecorator(
 
 export const createTabInfoData = errorHandlerDecorator(
   async (id: string, tabData: TabInfo) => {
-    // uses fetch to post data on the server
+    // uses fetch to post roadmap-data on the server
     const roadmapId = roadmapState.get().id;
     // creates the API object
     const apiTabData: TabInfoApi = {

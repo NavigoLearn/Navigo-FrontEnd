@@ -26,7 +26,7 @@ export function setRoadmapFromAPI(pageId: string) {
   fetchRoadmap(pageId).then((roadmapData: RoadmapTypeApi) => {
     if (isRoadmapType(roadmapData.data)) {
       const roadmap: Roadmap = roadmapData.data;
-      roadmapStatic.set(roadmap); // sets the roadmap to its data
+      roadmapStatic.set(roadmap); // sets the roadmap to its roadmap-data
       setOwnerId(roadmapData.ownerId);
       setRoadmapId(roadmapData.id);
       setTabAboutFromApi(roadmapData);
@@ -34,7 +34,7 @@ export function setRoadmapFromAPI(pageId: string) {
       triggerChunkRerender();
       miscParams.get().recenterRoadmap();
     } else {
-      throw new Error('Roadmap data is not of type Roadmap');
+      throw new Error('Roadmap roadmap-data is not of type Roadmap');
     }
   });
 }

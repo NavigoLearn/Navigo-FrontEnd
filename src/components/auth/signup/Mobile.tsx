@@ -85,7 +85,7 @@ const MobileSignUp = () => {
         </div>
         <div className='mt-6 grid grid-cols-3 items-center text-placeholder mx-8 select-none'>
           <hr className='border-gray-300' />
-          <p className='text-center text-xs sm:text-base font-roboto-text'>
+          <p className='text-center text-xs sm:text-core font-roboto-text'>
             OR
           </p>
           <hr className='border-gray-300' />

@@ -13,7 +13,7 @@ const Tooltip = ({ id }: { id: string }) => {
     navigator.userAgent.indexOf('Safari') !== -1 &&
     navigator.userAgent.indexOf('Chrome') === -1;
 
-  // render tells if the tooltip should be rendered again
+  // render-roadmap-data tells if the tooltip should be rendered again
   const [render, setRender] = useState(false);
   useEffect(() => {
     setTriggerTooltip(id, () => {

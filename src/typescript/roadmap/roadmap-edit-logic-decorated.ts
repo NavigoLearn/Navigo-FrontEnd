@@ -33,7 +33,7 @@ import {
 import { ResourceSubNodeStore } from '@type/roadmap/resources';
 import roadmapState from '@store/roadmap/data/roadmap_state';
 import ErrorHandler from '@typescript/error-handler';
-import { getNodeCoords } from '@typescript/roadmap/render/coord-calc';
+import { getNodeCoords } from '@typescript/roadmap_ref/render/coord-calc';
 import { dispatchAnalyticsEvent } from '@store/misc/analytics';
 
 export const changeNodeCoords = triggerPositionCacheClearDecorator(

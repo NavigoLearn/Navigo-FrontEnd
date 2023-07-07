@@ -13,7 +13,7 @@ const ButtonsFollow = (
   const { userId, isFollowing } = userDisplay.get();
 
   useEffect(() => {
-    // fetch data
+    // fetch roadmap-data
     if (userId === '') {
       return;
     }

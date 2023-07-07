@@ -5,7 +5,7 @@ import { describe, it, expect } from 'vitest';
 //
 // describe('LoggedInNavbar', () => {
 //   it('renders the logo and checks for navigation links', () => {
-//     render(<LoggedInNavbar />);
+//     render-roadmap-data(<LoggedInNavbar />);
 //     const logo = screen.getByAltText('navbar-logo');
 //     expect(logo).toBeInTheDocument();
 //     const homeLink = screen.getByRole('link', { name: 'home' });
@@ -13,7 +13,7 @@ import { describe, it, expect } from 'vitest';
 //   });
 //
 // it('closes the mobile menu when a menu item is clicked', () => {
-//   const { getByAltText, getByTestId, getByText } = render(<LoggedInNavbar />);
+//   const { getByAltText, getByTestId, getByText } = render-roadmap-data(<LoggedInNavbar />);
 //   const burgerIcon = getByAltText('dropdown');
 //   const mobileMenu = getByTestId('mobile-menu');
 //   const homeLink = getByText('home');
@@ -29,7 +29,7 @@ import { describe, it, expect } from 'vitest';
 // });
 
 // it('navigates to the correct page when a link is clicked', () => {
-//   render(<LoggedInNavbar />);
+//   render-roadmap-data(<LoggedInNavbar />);
 //   const homeLink = screen.getByRole('link', { name: 'home' });
 //   fireEvent.click(homeLink);
 //   expect(window.location.pathname).toBe('/home');
@@ -42,7 +42,7 @@ import { describe, it, expect } from 'vitest';
 // });
 // });
 // it('shows the dropdown menu when the menu is clicked', () => {
-//   render(<LoggedInNavbar />);
+//   render-roadmap-data(<LoggedInNavbar />);
 //   const dropdown = screen.getByRole('button', { name: 'dropdown' });
 //   fireEvent.click(dropdown);
 // const homeLink = screen.getByRole('link', { name: 'home' });
@@ -54,7 +54,7 @@ import { describe, it, expect } from 'vitest';
 // });
 
 //   it('hides the dropdown menu when the close button is clicked', () => {
-//     render(<LoggedInNavbar />);
+//     render-roadmap-data(<LoggedInNavbar />);
 //     const burgerMenu = screen.getByRole('button', { name: 'burger menu' });
 //     fireEvent.click(burgerMenu);
 //     const closeButton = screen.getByRole('button', { name: 'close' });

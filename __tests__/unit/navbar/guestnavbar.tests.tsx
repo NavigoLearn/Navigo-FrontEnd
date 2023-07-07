@@ -4,13 +4,13 @@ import { render, screen, fireEvent } from '@testing-library/react';
 //
 // describe('LoggedInNavbar component', () => {
 //   test('renders logo', () => {
-//     render(<LoggedInNavbar />);
+//     render-roadmap-data(<LoggedInNavbar />);
 //     const logo = screen.getByRole('img');
 //     expect(logo).toBeInTheDocument();
 //   });
 //
 //   test('hamburger menu opens on click', () => {
-//     render(<LoggedInNavbar />);
+//     render-roadmap-data(<LoggedInNavbar />);
 //     const menuButton = screen.getByRole('button', { name: 'open menu' });
 //     fireEvent.click(menuButton);
 //     const menu = screen.getByRole('list');
@@ -18,7 +18,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 //   });
 //
 //   test('hamburger menu closes on second click', () => {
-//     render(<LoggedInNavbar />);
+//     render-roadmap-data(<LoggedInNavbar />);
 //     const menuButton = screen.getByRole('button', { name: 'open menu' });
 //     fireEvent.click(menuButton);
 //     fireEvent.click(menuButton);
@@ -27,7 +27,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 //   });
 //
 //   test('menu links have correct href', () => {
-//     render(<LoggedInNavbar />);
+//     render-roadmap-data(<LoggedInNavbar />);
 //     const homeLink = screen.getByRole('link', { name: 'home' });
 //     const feedbackLink = screen.getByRole('link', { name: 'Feedback' });
 //     const signUpLink = screen.getByRole('link', { name: 'Sign Up' });

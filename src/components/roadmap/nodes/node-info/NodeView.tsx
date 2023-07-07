@@ -13,7 +13,7 @@ const NodeView = ({ title, tabId, id, level }: NodeInfoProps) => {
         level === 'main' ? 'border-2 border-primary ' : ''
       } `}
       onClick={() => {
-        // tab changing logic
+        // tab changing roadmap-data
         setInfoFlow(tabId);
       }}
     >

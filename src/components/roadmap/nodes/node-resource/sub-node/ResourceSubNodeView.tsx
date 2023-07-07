@@ -11,7 +11,7 @@ const ResourceSubNodeView = ({ title, tabId, id }: NodeInfoProps) => {
       ref={rootRef}
       className=' text-sm p-2  rounded-xl shadow-standard w-48 h-8 bg-resourceSubNode border-2 border-light font-medium'
       onClick={() => {
-        // tab changing logic
+        // tab changing roadmap-data
         setInfoFlow(tabId);
       }}
     >
