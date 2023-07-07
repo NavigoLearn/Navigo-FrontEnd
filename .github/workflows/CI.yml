@@ -1,9 +1,9 @@
 name: CI workflow
 on:
   push:
-    branches: [master, dev]
+    branches: [master, dummy-data-holder]
   pull_request:
-    branches: [master, dev]
+    branches: [master, dummy-data-holder]
 jobs:
   test:
     timeout-minutes: 60

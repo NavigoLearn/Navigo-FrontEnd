@@ -10,9 +10,15 @@ export type IAttachmentBuilder =
       components: ITabComponentProperties[];
     })
   | ({
-      type: 'Tabelse';
+      type: 'ultra mega fine attachment';
     } & {
-      someotherprop: string;
+      onClick: () => void;
+      properties: {
+        ceva1: string;
+        ceva2: string;
+        arr: string[];
+      };
+      anotherfunc: () => void;
     });
 
 export type IAttachmentObject =

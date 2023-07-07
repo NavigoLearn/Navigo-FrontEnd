@@ -1,5 +1,8 @@
 import { NodeClass } from '@typescript/roadmap_ref/node/core/core';
-import { appendAttachment } from '@typescript/roadmap_ref/node/core/data-mutation/append';
+import {
+  appendAttachment,
+  appendComponentTitle,
+} from '@typescript/roadmap_ref/node/core/data-mutation/append';
 import { injectClassicFlags } from '@typescript/roadmap_ref/node/core/factories/injectors/injectors';
 
 export function classicNodeFactoryBoilerplate(): NodeClass {
@@ -8,6 +11,7 @@ export function classicNodeFactoryBoilerplate(): NodeClass {
   // classic nodes has a tab attachment and the default color scheme
   injectClassicFlags(node);
 
+  appendComponentTitle(node, 'Boilerplate title');
   appendAttachment(node, {
     type: 'Tab',
     components: [
