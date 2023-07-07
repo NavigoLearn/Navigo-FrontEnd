@@ -17,7 +17,7 @@ export class NodeClass {
   actions: Actions;
   draggingBehavior: DraggingBehavior;
   flags: Flags;
-
+  data: any;
   constructor() {}
 }
 
@@ -69,8 +69,8 @@ class Flags {
   connFlag: boolean = false;
   nestedFlag: boolean = false;
   chunkFlag: boolean = false;
-  connectionPivot: boolean = false;
-  markAsDoneBehavior: boolean = false;
+  connectionPivotFlag: boolean = false;
+  markAsDoneBehaviorFlag: boolean = false;
 
   constructor() {}
 }

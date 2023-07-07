@@ -10,3 +10,9 @@ export function injectNodeColorScheme(
 ) {
   node.properties.color = colorSchemas[selector];
 }
+
+export function injectClassicFlags(node: NodeClass) {
+  node.flags.chunkFlag = true;
+  node.flags.connFlag = true;
+  node.flags.connectionPivotFlag = true;
+}
