@@ -1,20 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import OnChangeStore from '@src/HOC-library/store-based-hoc/OnChangeStore';
 
 type props = {
   value: string;
   onChange: (value: string) => void;
-  otherparam: string;
 };
 
-function Title({ value, onChange, otherparam }: props) {
-  useEffect(() => {
-    onChange(2);
-  }, []);
-
+function Title({ onChange, value }: props) {
   return (
     <div>
-      <input value={value} onChange={(e) => onChange(e.target.value)} />
+      <div></div>
     </div>
   );
 }

@@ -7,23 +7,23 @@ import {
 export function injectNewTitle(
   node: NodeClass,
   id: string,
-  title: TitleComponent
+  newTitle: TitleComponent
 ) {
   const index = node.components.findIndex((component) => component.id === id);
   if (index === -1) throw new Error('Component not found');
   if (node.components[index].type !== 'Title')
     throw new Error('Component is not a title');
-  node.components[index].component = title;
+  node.components[index].component = newTitle;
 }
 
 export function injectNewDescription(
   node: NodeClass,
   id: string,
-  description: DescriptionComponent
+  newDescription: DescriptionComponent
 ) {
   const index = node.components.findIndex((component) => component.id === id);
   if (index === -1) throw new Error('Component not found');
   if (node.components[index].type !== 'Description')
     throw new Error('Component is not a description');
-  node.components[index].component = description;
+  node.components[index].component = newDescription;
 }

@@ -8,11 +8,7 @@ function Alta(props) {
   return (
     <div>
       <div>
-        <Title
-          field={'titleString'}
-          store_temporary={tempStore}
-          otherparam={'altceva'}
-        />
+        <Title store_temporary={tempStore} field={'fe1'} />
       </div>
     </div>
   );
