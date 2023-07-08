@@ -1,15 +1,17 @@
 import React from 'react';
 import Title from '@components/test/Title';
+import { atom } from 'nanostores';
+
+const tempStore = atom({});
 
 function Alta(props) {
   return (
     <div>
       <div>
         <Title
-          value={'ceva'}
-          field={'f1'}
-          store_temporary={'ceg'}
-          not2r={'rbwefqw'}
+          field={'titleString'}
+          store_temporary={tempStore}
+          otherparam={'altceva'}
         />
       </div>
     </div>

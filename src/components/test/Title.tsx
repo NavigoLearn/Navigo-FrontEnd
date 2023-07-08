@@ -1,14 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import OnChangeStore from '@src/HOC-library/store-based-hoc/OnChangeStore';
 
 type props = {
   value: string;
   onChange: (value: string) => void;
-  not2r: string;
+  otherparam: string;
 };
 
-function Title({ value, onChange, not2r }: props) {
-  return <div>{value}</div>;
+function Title({ value, onChange, otherparam }: props) {
+  useEffect(() => {
+    onChange(2);
+  }, []);
+
+  return (
+    <div>
+      <input value={value} onChange={(e) => onChange(e.target.value)} />
+    </div>
+  );
 }
 
 export default OnChangeStore(Title);

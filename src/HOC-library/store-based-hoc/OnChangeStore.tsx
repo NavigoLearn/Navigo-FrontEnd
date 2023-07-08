@@ -1,33 +1,47 @@
 import React from 'react';
+import { WritableAtom } from 'nanostores';
+import { HashMap } from '@type/roadmap/stores/roadmap';
 
-interface HOCConfigProps {
-  store_temporary: any;
-  field: any;
+interface HOCConfigProps<T> {
+  store_temporary: WritableAtom<HashMap<T>>;
+  field: string;
 }
 
-interface ProvidedProps {
-  onChange: (value: any) => void;
+interface ProvidedProps<T> {
+  onChange: (value: T) => void;
+  value: T;
 }
 
-type ExcludeProvidedProps<P> = Pick<P, Exclude<keyof P, keyof ProvidedProps>>;
+type ExcludeProvidedProps<R, T> = Pick<
+  T,
+  Exclude<keyof T, keyof ProvidedProps<R>>
+>;
 
-function typeGuard<T extends ProvidedProps>(props: any): props is T {
-  return props.onChange !== undefined;
+function typeGuard<R, T extends ProvidedProps<R>>(props: any): props is T {
+  return 'onChange' in props && 'value' in props;
 }
 
-function HOC_on_change<T extends ProvidedProps>(
+function HOC_on_change<R, T extends ProvidedProps<R>>(
   WrappedComponent: React.ComponentType<T>
 ) {
   return function EnhancedComponent({
     store_temporary,
     field,
     ...props
-  }: HOCConfigProps & ExcludeProvidedProps<T>) {
-    function onChange(value: any) {
-      // console.log(store_temporary, field, value);
+  }: HOCConfigProps<R> & ExcludeProvidedProps<R, T>) {
+    function onChange(value: R) {
+      const modifiedStore = { ...store_temporary.get() };
+      modifiedStore[field] = value;
+      store_temporary.set(modifiedStore);
     }
-    const newProps = { ...props, onChange }; // adds onChange to all the other props of the WrappedComponent
-    if (typeGuard<T>(newProps)) {
+
+    const newProps = {
+      ...props,
+      onChange,
+      value: store_temporary.get()[field],
+    }; // adds onChange to all the other props of the WrappedComponent
+
+    if (typeGuard<R, T>(newProps)) {
       return <WrappedComponent {...newProps} />;
     } else {
       return <div>error occured in HOC on change in store</div>;
