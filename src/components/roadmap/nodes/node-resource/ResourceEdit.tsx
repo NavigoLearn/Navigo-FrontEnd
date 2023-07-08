@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import ResourceEditProps from '@components/roadmap/nodes/node-resource/ResourceEditProps';
 import ResourceNonEditProps from '@components/roadmap/nodes/node-resource/ResourceNonEditProps';
-import { NodeResourceProps } from '@type/roadmap/nodes';
+import { NodeResourceProps } from '@type/roadmap/old/nodes';
 import {
   getTriggerDisable,
   getTriggerEnable,
-} from '@store/roadmap/render/rerenderTriggers';
-import { setToolTip } from '@store/roadmap/misc/miscParams';
+} from '@store/roadmap-refactor/render/rerenderTriggers';
+import { setToolTip } from '@store/roadmap-refactor/misc/miscParams';
 import { manualTrigger } from '@typescript/roadmap/roadmap-edit-decorators';
 import {
   removeNodeInfoFromPlaceholder,

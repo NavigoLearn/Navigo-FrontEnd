@@ -3,8 +3,8 @@ import roadmapStatic from '@store/roadmap/data/roadmap_static';
 import roadmapEdit from '@store/roadmap/data/roadmap_edit';
 import roadmapState from '@store/roadmap/data/roadmap_state';
 import { calculateMiddleOfNodeOffsetStatic } from '@typescript/roadmap_ref/render/coord-calc';
-import { setRecenterRoadmap } from '@store/roadmap/misc/miscParams';
-import { setScaleSafari } from '@store/roadmap/misc/scale-safari';
+import { setRecenterRoadmap } from '@store/roadmap-refactor/misc/miscParams';
+import { setScaleSafari } from '@store/roadmap-refactor/misc/scale-safari';
 import { setDisplayTitlesFalse } from '@store/roadmap/sidebar/displayTitle';
 import { throttle } from '@typescript/roadmap_ref/render/chunks';
 

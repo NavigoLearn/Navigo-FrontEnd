@@ -1,22 +1,21 @@
-import { getNodes } from '@store/roadmap/render/renderedNodes';
+import { getNodes } from '@store/roadmap-refactor/render/renderedNodes';
 import { getNodeCoords } from '@typescript/roadmap_ref/render/coord-calc';
 import { renderConnections } from '@typescript/roadmap_ref/render/connections';
-import { getTriggersRenderAll } from '@store/roadmap/render/rerenderTriggers';
+import { getTriggersRenderAll } from '@store/roadmap-refactor/render/rerenderTriggers';
 import { calculateChunkId } from '@typescript/roadmap/utils';
 import {
-  removeChunkNode,
   addChunkNode,
   addConnection,
-  getNodeInfoTitle,
   getNodeInfoTabId,
+  getNodeInfoTitle,
+  removeChunkNode,
 } from '@typescript/roadmap/roadmap-edit-logic';
-import { triggerChunkRerender } from '@store/roadmap/render/renderedChunks';
+import { triggerChunkRerender } from '@store/roadmap-refactor/render/renderedChunks';
 import {
   emptyCachedNodeCoord,
   emptyCachedNodeCoordAll,
 } from '@store/roadmap/cache/cached-node-coords';
-import { addNewError } from '@store/roadmap/error-list';
-import { changeInfoTabProp } from '@store/roadmap/display/tab-manager';
+import { addNewError } from '@store/roadmap-refactor/popups/error-list';
 import { diffTabInfoProp } from '@store/roadmap/cache/diff-tabs';
 
 type TriggerFunction<T extends any[]> = (id: string, ...args: T) => any;

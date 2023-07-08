@@ -1,7 +1,6 @@
 import React from 'react';
 import { divWrapper } from '@components/roadmap/tabs/utils/logic';
-import { saveEditingProtocol } from '@typescript/roadmap/utils2';
-import { setConfirmDelete, setConfirmSave } from '@store/roadmap/popup';
+import { setConfirmDelete } from '@store/roadmap-refactor/popups/popup';
 import { deleteRoadmap } from '@src/api-wrapper/roadmap/roadmaps';
 import { getRoadmapId } from '@store/roadmap/data/roadmap_state';
 import { dispatchAnalyticsEvent } from '@store/misc/analytics';

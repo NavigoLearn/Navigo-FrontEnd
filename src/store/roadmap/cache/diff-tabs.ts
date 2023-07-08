@@ -5,8 +5,8 @@ import {
   getCachedTabInfo,
   updateTabsToServer,
 } from '@store/roadmap/cache/cached-tabs';
-import { HashMap } from '@type/roadmap/roadmap';
-import { TabInfo, TabIssue, TabAbout } from '@type/roadmap/tab-manager';
+import { HashMap } from '@type/roadmap/old/roadmap';
+import { TabAbout, TabInfo, TabIssue } from '@type/roadmap/old/tab-manager';
 import { createTabInfoData } from '../../../api-wrapper/roadmap/tab-data';
 
 const diffTabsStore = atom({

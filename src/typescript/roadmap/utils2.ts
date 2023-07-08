@@ -6,8 +6,8 @@ import {
 } from '@typescript/roadmap/roadmap-edit-logic-decorated';
 import { applyAllDiffs, emptyAllDiffs } from '@store/roadmap/cache/diff-tabs';
 import { deepCopy } from '@typescript/roadmap/utils';
-import { resetAllTooltips } from '@store/roadmap/misc/miscParams';
-import { triggerChunkRerender } from '@store/roadmap/render/renderedChunks';
+import { resetAllTooltips } from '@store/roadmap-refactor/misc/miscParams';
+import { triggerChunkRerender } from '@store/roadmap-refactor/render/renderedChunks';
 import { updateRoadmapData } from '../../api-wrapper/roadmap/roadmaps';
 
 export function transferRoadmapToEdit() {

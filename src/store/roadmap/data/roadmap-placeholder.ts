@@ -3,19 +3,19 @@ import {
   generateNewTab,
   generateResourceSubNodeEmpty,
 } from '@typescript/roadmap/roadmap-edit-logic';
-import { Roadmap } from '@type/roadmap/roadmap';
+import { Roadmap } from '@type/roadmap/old/roadmap';
 import roadmapEdit from '@store/roadmap/data/roadmap_edit';
 import { deepCopy } from '@typescript/roadmap/utils';
 import {
   isNodeInfoStore,
   isNodeResourceStore,
-} from '@type/roadmap/typecheckers';
+} from '@type/roadmap/old/typecheckers';
 import {
   triggerRerenderDecorator,
   triggerTabTitleChangeSideEffectDecorator,
 } from '@typescript/roadmap/roadmap-edit-decorators';
-import { NodeInfoStore, NodeResourceStore } from '@type/roadmap/nodes';
-import { ResourcesStoreTypes } from '@type/roadmap/resources';
+import { NodeInfoStore, NodeResourceStore } from '@type/roadmap/old/nodes';
+import { ResourcesStoreTypes } from '@type/roadmap/old/resources';
 
 const roadmapPlaceholder = atom({
   nodes: {},

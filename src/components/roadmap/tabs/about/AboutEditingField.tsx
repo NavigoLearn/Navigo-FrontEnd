@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  EditingComponentBasicProps,
-  EditingComponentNodesProps,
-} from '@type/roadmap/components';
+import { EditingComponentBasicProps } from '@type/roadmap/old/components';
 
 const AboutEditingField = ({
   data,

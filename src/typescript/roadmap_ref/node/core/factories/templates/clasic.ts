@@ -3,15 +3,19 @@ import {
   appendAttachment,
   appendComponentTitle,
 } from '@typescript/roadmap_ref/node/core/data-mutation/append';
-import { injectClassicFlags } from '@typescript/roadmap_ref/node/core/factories/injectors/injectors';
+import {
+  injectClassicData,
+  injectClassicFlags,
+} from '@typescript/roadmap_ref/node/core/factories/injectors/injectors';
 
 export function classicNodeFactoryBoilerplate(): NodeClass {
   // return boilerplate class for classic nodes and the most common
   const node = new NodeClass();
   // classic nodes has a tab attachment and the default color scheme
   injectClassicFlags(node);
+  injectClassicData(node, 'someparent', []);
 
-  appendComponentTitle(node, 'Boilerplate title');
+  appendComponentTitle(node, 'Boilerplate title', 0, 0, 100, 100);
   appendAttachment(node, {
     type: 'Tab',
     components: [

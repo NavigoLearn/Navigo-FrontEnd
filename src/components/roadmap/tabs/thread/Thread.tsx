@@ -1,15 +1,17 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { divWrapper } from '@components/roadmap/tabs/utils/logic';
 import circledot from '@assets/circledot.svg';
 import { useStore } from '@nanostores/react';
-import tabManagerStore, { setIssues } from '@store/roadmap/display/tab-manager';
+import tabManagerStore, {
+  setIssues,
+} from '@store/roadmap-refactor/display/tab-manager';
 import cross from '@assets/cross.svg';
 import commentsDisplay, {
   getCommentsAndSetDisplay,
-} from '@store/roadmap/display/comments-display';
+} from '@store/roadmap-refactor/display/comments-display';
 import Comment from '@components/roadmap/tabs/thread/Comment';
 import AddComment from '@components/roadmap/tabs/thread/AddComment';
-import { getDisplayIssue } from '@store/roadmap/display/issues-display';
+import { getDisplayIssue } from '@store/roadmap-refactor/display/issues-display';
 import roadmapState from '@store/roadmap/data/roadmap_state';
 
 const Thread = () => {

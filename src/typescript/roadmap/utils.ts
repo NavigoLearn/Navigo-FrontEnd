@@ -1,5 +1,5 @@
 import roadmapState from '@store/roadmap/data/roadmap_state';
-import miscParams from '@store/roadmap/misc/miscParams';
+import miscParams from '@store/roadmap-refactor/misc/miscParams';
 
 export function setLoadedTrue() {
   const original = roadmapState.get();

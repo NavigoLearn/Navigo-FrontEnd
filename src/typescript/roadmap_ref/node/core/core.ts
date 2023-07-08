@@ -1,4 +1,5 @@
 import { IColorSchemaFields } from '@type/roadmap/node/colors';
+import { IDataKeys, IDataKeysFields } from '@type/roadmap/node/core';
 import { selectNodeColorScheme } from '@typescript/roadmap_ref/node/core/factories/injectors/services';
 import {
   defaultColorSchemaOption,
@@ -23,7 +24,15 @@ export class NodeClass {
   availableActions: {}; // the actions that can be set on the node
   draggingBehavior: DraggingBehavior; // the dragging behavior of the node
   flags: Flags; // flags to indificate different behaviors of the node
-  data: any; // data related to parents, connection stuff in general
+  data: {
+    id: string;
+    centerCoords: {
+      x: number;
+      y: number;
+    };
+  } & {
+    [key in IDataKeys]: IDataKeysFields[key];
+  }; // data related to parents, connection stuff in general
   constructor() {}
 }
 
@@ -40,8 +49,8 @@ export class ComponentNode {
     this.height = height;
   }
 }
-
 // Represents the Properties class
+
 class Properties {
   color: IColorSchemaFields;
   width: number;

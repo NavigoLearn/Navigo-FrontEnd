@@ -1,15 +1,15 @@
 import React, {
+  useEffect,
   useLayoutEffect,
+  useMemo,
   useRef,
   useState,
-  useMemo,
-  useEffect,
 } from 'react';
-import { NodeInfoProps, NodeManagerProps } from '@type/roadmap/nodes';
+import { NodeInfoProps, NodeManagerProps } from '@type/roadmap/old/nodes';
 import {
   isNodeInfoProps,
   isNodeResourceProps,
-} from '@type/roadmap/typecheckers';
+} from '@type/roadmap/old/typecheckers';
 import { getNodeById } from '@store/roadmap/data/roadmap_static';
 import { addDraggabilityFlow } from '@typescript/roadmap_ref/render/dragging';
 import levels from '@styles/levelStyles';

@@ -3,19 +3,19 @@ import {
   isNodeInfoStore,
   isNodeResourceStore,
   isNodeTypesStore,
-} from '@type/roadmap/typecheckers';
+} from '@type/roadmap/old/typecheckers';
 
 import roadmapEdit from '@store/roadmap/data/roadmap_edit';
-import { Roadmap } from '@type/roadmap/roadmap';
+import { Roadmap } from '@type/roadmap/old/roadmap';
 import {
   generateNodeInfoEmpty,
   generateNodeResourceEmpty,
   generateTabInfo,
 } from '@typescript/roadmap/generators';
 import { calculateChunkId } from '@typescript/roadmap/utils';
-import { TabInfo, TabIssue } from '@type/roadmap/tab-manager';
-import { NodeResourceStore } from '@type/roadmap/nodes';
-import { ResourceSubNodeStore } from '@type/roadmap/resources';
+import { TabInfo, TabIssue } from '@type/roadmap/old/tab-manager';
+import { NodeResourceStore } from '@type/roadmap/old/nodes';
+import { ResourceSubNodeStore } from '@type/roadmap/old/resources';
 import { diffTabInfoNew } from '@store/roadmap/cache/diff-tabs';
 import { cacheTabInfo } from '@store/roadmap/cache/cached-tabs';
 import { changeTabIssuePropFlow } from '@typescript/roadmap/tab-logic-flows';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { NodeInfoProps } from '@type/roadmap/nodes';
+import { NodeInfoProps } from '@type/roadmap/old/nodes';
 import NodeEdit from '@components/roadmap/nodes/node-info/NodeEdit';
 import NodeView from '@components/roadmap/nodes/node-info/NodeView';
 

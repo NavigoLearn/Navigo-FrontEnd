@@ -1,13 +1,9 @@
 import React from 'react';
-import {
-  decreaseEditingCount,
-  increaseEditingCount,
-} from '@store/roadmap/misc/miscParams';
 import StateMangerCallbacks from '@components/roadmap/nodes/HOCs/StateMangerLocal';
 import {
   checkPossibleTypes,
   WrappedComponentProps,
-} from '@type/roadmap/components';
+} from '@type/roadmap/old/components';
 
 const InfoTitleEdit = <T,>({
   onChange,

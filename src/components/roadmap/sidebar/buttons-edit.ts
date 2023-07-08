@@ -1,8 +1,11 @@
 import notick from '@assets/notick.svg';
 import yestick from '@assets/yestick.svg';
-import { setConfirmCancel, setConfirmSave } from '@store/roadmap/popup';
+import {
+  setConfirmCancel,
+  setConfirmSave,
+} from '@store/roadmap-refactor/popups/popup';
 import book from '@assets/book.svg';
-import { setBook } from '@store/roadmap/display/tab-manager';
+import { setBook } from '@store/roadmap-refactor/display/tab-manager';
 import { dispatchAnalyticsEvent } from '@store/misc/analytics';
 
 const buttonsEdit = [

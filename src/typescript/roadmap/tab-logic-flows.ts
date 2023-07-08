@@ -1,27 +1,27 @@
 import {
-  changeCachedTabIssueProp,
+  cacheTabAbout,
   cacheTabInfo,
   cacheTabIssues,
+  changeCachedTabAboutProp,
   changeCachedTabInfoProp,
+  changeCachedTabIssueProp,
+  checkCachedTabAbout,
   checkCachedTabInfo,
   checkCachedTabIssues,
-  checkCachedTabAbout,
-  cacheTabAbout,
-  changeCachedTabAboutProp,
 } from '@store/roadmap/cache/cached-tabs';
-import { TabAbout, TabInfo, TabIssue } from '@type/roadmap/tab-manager';
+import { TabAbout, TabInfo, TabIssue } from '@type/roadmap/old/tab-manager';
 import {
   setAbout,
   setAboutTabData,
   setInfo,
-} from '@store/roadmap/display/tab-manager';
+} from '@store/roadmap-refactor/display/tab-manager';
 import {
   applyDiffInfoToTab,
   applyDiffIssueToTab,
 } from '@store/roadmap/cache/diff-tabs';
 import {
-  fetchTabInfoData,
   fetchTabAbout,
+  fetchTabInfoData,
 } from '../../api-wrapper/roadmap/tab-data';
 
 export const getTabInfoFlow = async (id: string) => {

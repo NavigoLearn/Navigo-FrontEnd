@@ -1,6 +1,6 @@
 import { atom } from 'nanostores';
-import { HashMap } from '@type/roadmap/roadmap';
-import { Coord } from '@type/roadmap/nodes';
+import { HashMap } from '@type/roadmap/old/roadmap';
+import { Coord } from '@type/roadmap/old/nodes';
 
 const cachedCoords = atom({} as HashMap<Coord>);
 

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import arrow from '@assets/arrow-up.svg';
 import { changeNodeLevel } from '@typescript/roadmap/roadmap-edit-logic-decorated';
-import { LevelTypes, levelTypesArray } from '@type/roadmap/level-types';
-import { isLevelType } from '@type/roadmap/typecheckers';
+import { LevelTypes, levelTypesArray } from '@type/roadmap/old/level-types';
+import { isLevelType } from '@type/roadmap/old/typecheckers';
 
 // handles the level change roadmap-data for every node
 const DropdownLevel = ({ id, level }: { id: string; level: LevelTypes }) => {
@@ -49,7 +49,8 @@ const DropdownLevel = ({ id, level }: { id: string; level: LevelTypes }) => {
           <div className=' text-secondary text-sm  mb-1  relative'>
             {selectedOption}
 
-            <img draggable="false"
+            <img
+              draggable='false'
               src={arrow}
               alt='chose element'
               className={` w-2 opacity-50 transition-transform absolute -right-4 bottom-1   ${

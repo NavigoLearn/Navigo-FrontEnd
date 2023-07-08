@@ -1,5 +1,5 @@
 import React from 'react';
-import { EditingComponentBasicProps } from '@type/roadmap/components';
+import { EditingComponentBasicProps } from '@type/roadmap/old/components';
 
 const AboutEditingFieldTextarea = ({
   data,

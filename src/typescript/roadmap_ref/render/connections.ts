@@ -1,13 +1,13 @@
 import * as d3 from 'd3';
-import renderConnectionsStore from '@store/roadmap/render/renderedConnections';
+import renderConnectionsStore from '@store/roadmap-refactor/render/renderedConnections';
 import roadmapState from '@store/roadmap/data/roadmap_state';
 import roadmapEdit from '@store/roadmap/data/roadmap_edit';
 import roadmapStatic from '@store/roadmap/data/roadmap_static';
-import { ConnectionStore } from '@type/roadmap/connections';
-import selection from '@store/roadmap/render/selection';
+import { ConnectionStore } from '@type/roadmap/old/connections';
+import selection from '@store/roadmap-refactor/render/selection';
 import {
-  getNodeMiddleCoordsFlow,
   calculateCoordOfNodeStatic,
+  getNodeMiddleCoordsFlow,
 } from '@typescript/roadmap_ref/render/coord-calc';
 
 export function renderConnections() {

@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import useStateAndRef from '@hooks/useStateAndRef';
-import { HOCProps, StateManagerProps } from '@type/roadmap/components';
+import { HOCProps, StateManagerProps } from '@type/roadmap/old/components';
 
 export default <T,>(WrappedComponent: StateManagerProps<T>) => {
   const HOCComponent = ({ originalValue, onChange }: HOCProps<T>) => {

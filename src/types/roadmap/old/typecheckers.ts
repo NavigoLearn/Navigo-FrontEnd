@@ -1,15 +1,18 @@
-import { ConnectionProps, ConnectionStore } from '@type/roadmap/connections';
-import { Roadmap } from '@type/roadmap/roadmap';
-import { ResourceSubNodeProps } from '@type/roadmap/resources';
-import { LevelTypes, levelTypesArray } from '@type/roadmap/level-types';
 import {
-  NodeInfoStore,
-  NodeStore,
-  nodeIdentifierTypesArray,
+  ConnectionProps,
+  ConnectionStore,
+} from '@type/roadmap/old/connections';
+import { Roadmap } from '@type/roadmap/old/roadmap';
+import { ResourceSubNodeProps } from '@type/roadmap/old/resources';
+import { LevelTypes, levelTypesArray } from '@type/roadmap/old/level-types';
+import {
   NodeIdentifierTypes,
+  nodeIdentifierTypesArray,
   NodeInfoProps,
+  NodeInfoStore,
   NodeResourceProps,
   NodeResourceStore,
+  NodeStore,
   NodeTypesStore,
 } from './nodes';
 

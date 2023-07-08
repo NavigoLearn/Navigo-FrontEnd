@@ -1,12 +1,11 @@
 import React from 'react';
 import { useStore } from '@nanostores/react';
-import tabStore from '@store/roadmap/display/tab-manager';
+import tabStore from '@store/roadmap-refactor/display/tab-manager';
 import Book from '@components/roadmap/tabs/book/Book';
 import Thread from '@components/roadmap/tabs/thread/Thread';
 import AddIssue from '@components/roadmap/tabs/AddIssue';
 import Issues from '@components/roadmap/tabs/issues/Issues';
 import About from '@components/roadmap/tabs/about/About';
-import { setClickedIndex } from '@store/roadmap/sidebar/clickedState';
 import Info from './tabs/Info';
 
 const TabManager = () => {

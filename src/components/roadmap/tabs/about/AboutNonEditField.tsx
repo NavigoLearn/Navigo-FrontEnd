@@ -1,5 +1,5 @@
 import React from 'react';
-import { NonEditingComponentBasicProps } from '@type/roadmap/components';
+import { NonEditingComponentBasicProps } from '@type/roadmap/old/components';
 
 const AboutNonEditField = ({ data, setCb }: NonEditingComponentBasicProps) => {
   return (

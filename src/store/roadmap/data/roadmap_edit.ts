@@ -1,6 +1,6 @@
 import { atom } from 'nanostores';
 import { v4 as uuidv4 } from 'uuid';
-import { Roadmap } from '@type/roadmap/roadmap';
+import { Roadmap } from '@type/roadmap/old/roadmap';
 import {
   generateNodeInfo,
   generateStarterNode,

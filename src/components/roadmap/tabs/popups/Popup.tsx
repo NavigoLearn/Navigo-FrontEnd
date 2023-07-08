@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useStore } from '@nanostores/react';
-import popup from '@store/roadmap/popup';
+import popup from '@store/roadmap-refactor/popups/popup';
 import Report from '@components/roadmap/tabs/popups/Report';
 import ConfirmSave from '@components/roadmap/tabs/popups/ConfirmSave';
 import ConfirmCancel from '@components/roadmap/tabs/popups/ConfirmCancel';
 import ConfirmDelete from '@components/roadmap/tabs/popups/ConfirmDelete';
-import { setClickedIndex } from '@store/roadmap/sidebar/clickedState';
 
 const Popup = () => {
   const { type } = useStore(popup);

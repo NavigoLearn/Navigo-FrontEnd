@@ -1,8 +1,8 @@
-import { NodeIdentifierTypes } from '@type/roadmap/nodes';
+import { NodeIdentifierTypes } from '@type/roadmap/old/nodes';
 import DropdownType from '@components/roadmap/nodes/edit-logic-modules/DropdownType';
 import React from 'react';
 import LevelConvertor from '@components/roadmap/nodes/edit-logic-modules/LevelConvertor';
-import { LevelTypes } from '@type/roadmap/level-types';
+import { LevelTypes } from '@type/roadmap/old/level-types';
 import { removeNode } from '@typescript/roadmap/roadmap-edit-logic-decorated';
 
 const Buttons = ({

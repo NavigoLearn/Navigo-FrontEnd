@@ -1,9 +1,7 @@
 import { atom } from 'nanostores';
-import { TabAbout } from '@type/roadmap/tab-manager';
+import { TabAbout } from '@type/roadmap/old/tab-manager';
 import { deepCopy } from '@typescript/roadmap/utils';
-import { RoadmapTypeApi } from '@type/explore/card';
 import { setClickedIndex } from '@store/roadmap/sidebar/clickedState';
-import { fetchGetMiniProfileDataById } from '../../../api-wrapper/user/user';
 
 const tabManagerStore = atom({
   // holds the currently displayed tabs and is also used for editing tabs and issues

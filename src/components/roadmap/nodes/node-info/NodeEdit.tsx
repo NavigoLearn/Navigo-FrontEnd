@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { setToolTip } from '@store/roadmap/misc/miscParams';
+import { setToolTip } from '@store/roadmap-refactor/misc/miscParams';
 import {
-  getTriggerEnable,
   getTriggerDisable,
-} from '@store/roadmap/render/rerenderTriggers';
-import { NodeInfoProps } from '@type/roadmap/nodes';
+  getTriggerEnable,
+} from '@store/roadmap-refactor/render/rerenderTriggers';
+import { NodeInfoProps } from '@type/roadmap/old/nodes';
 import InfoNonEditProps from '@components/roadmap/nodes/node-info/InfoNonEditProps';
 import InfoEditProps from '@components/roadmap/nodes/node-info/InfoEditProps';
 import {

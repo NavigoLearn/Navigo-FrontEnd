@@ -1,23 +1,23 @@
 import {
-  triggerRerenderDecorator,
+  handleErrorsDecorator,
+  manualTrigger,
+  triggerAddConnectionDecorator,
   triggerChunkRecalculationDecorator,
   triggerChunkRerenderDecorator,
-  manualTrigger,
-  triggerRerenderAllDecorator,
-  triggerAddConnectionDecorator,
-  triggerPositionCacheClearDecorator,
-  handleErrorsDecorator,
   triggerConnectionsForcedRerenderDecorator,
+  triggerPositionCacheClearDecorator,
+  triggerRerenderAllDecorator,
+  triggerRerenderDecorator,
 } from '@typescript/roadmap/roadmap-edit-decorators';
-import { NodeIdentifierTypes, NodeInfoStore } from '@type/roadmap/nodes';
-import { LevelTypes } from '@type/roadmap/level-types';
+import { NodeIdentifierTypes, NodeInfoStore } from '@type/roadmap/old/nodes';
+import { LevelTypes } from '@type/roadmap/old/level-types';
 import roadmapEdit from '@store/roadmap/data/roadmap_edit';
 import {
   isNodeInfoProps,
   isNodeInfoStore,
   isNodeResourceStore,
   isNodeTypesStore,
-} from '@type/roadmap/typecheckers';
+} from '@type/roadmap/old/typecheckers';
 import {
   generateNodeInfoEmpty,
   generateNodeResourceEmpty,
@@ -30,7 +30,7 @@ import {
   getUnusedNodeId,
   removeChunkNode,
 } from '@typescript/roadmap/roadmap-edit-logic';
-import { ResourceSubNodeStore } from '@type/roadmap/resources';
+import { ResourceSubNodeStore } from '@type/roadmap/old/resources';
 import roadmapState from '@store/roadmap/data/roadmap_state';
 import ErrorHandler from '@typescript/error-handler';
 import { getNodeCoords } from '@typescript/roadmap_ref/render/coord-calc';

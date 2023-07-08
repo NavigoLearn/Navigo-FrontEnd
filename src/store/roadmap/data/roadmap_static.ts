@@ -1,10 +1,10 @@
 import { atom } from 'nanostores';
-import { Roadmap } from '@type/roadmap/roadmap';
-import { triggerChunkRerender } from '@store/roadmap/render/renderedChunks';
+import { Roadmap } from '@type/roadmap/old/roadmap';
+import { triggerChunkRerender } from '@store/roadmap-refactor/render/renderedChunks';
 import { setLoadedTrue } from '@typescript/roadmap/utils';
-import miscParams from '@store/roadmap/misc/miscParams';
+import miscParams from '@store/roadmap-refactor/misc/miscParams';
 import { RoadmapTypeApi } from '@type/explore/card';
-import { isRoadmapType } from '@type/roadmap/typecheckers';
+import { isRoadmapType } from '@type/roadmap/old/typecheckers';
 import { setRoadmap } from '@typescript/roadmap/roadmap-edit-logic';
 import { generateInitialEditCreate } from '@store/roadmap/data/roadmap_edit';
 import {

@@ -1,12 +1,10 @@
 import React from 'react';
 import { renderNodeNormal } from '@components/roadmap/nodes/node-resource/utils';
-import { NodeResourceProps } from '@type/roadmap/nodes';
+import { NodeResourceProps } from '@type/roadmap/old/nodes';
 
 const ResourceView = ({ id: idProp, title, nodes }: NodeResourceProps) => {
   return (
-    <div
-      className={`w-[224px]  pb-6 bg-white shadow-standard rounded-md `}
-    >
+    <div className={`w-[224px]  pb-6 bg-white shadow-standard rounded-md `}>
       <div className='text-lg py-4 flex justify-center items-center text-placeholder  '>
         {title}
       </div>

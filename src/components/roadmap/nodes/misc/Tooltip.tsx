@@ -1,9 +1,8 @@
-import * as d3 from 'd3';
-import React, { useState, useEffect } from 'react';
-import { useToolTip } from '@store/roadmap/misc/miscParams';
-import { setTriggerTooltip } from '@store/roadmap/render/rerenderTriggers';
+import React, { useEffect, useState } from 'react';
+import { useToolTip } from '@store/roadmap-refactor/misc/miscParams';
+import { setTriggerTooltip } from '@store/roadmap-refactor/render/rerenderTriggers';
 import { useStore } from '@nanostores/react';
-import scaleSafari from '@store/roadmap/misc/scale-safari';
+import scaleSafari from '@store/roadmap-refactor/misc/scale-safari';
 
 const Tooltip = ({ id }: { id: string }) => {
   // get the scale from the store (throttled, so a better way should be found)

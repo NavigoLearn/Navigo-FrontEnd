@@ -1,8 +1,8 @@
-import { NodeTypesStore } from '@type/roadmap/nodes';
+import { NodeTypesStore } from '@type/roadmap/old/nodes';
 import {
   isNodeInfoStore,
   isNodeResourceStore,
-} from '@type/roadmap/typecheckers';
+} from '@type/roadmap/old/typecheckers';
 import roadmapEdit from '@store/roadmap/data/roadmap_edit';
 import roadmapState from '@store/roadmap/data/roadmap_state';
 import roadmapStatic from '@store/roadmap/data/roadmap_static';

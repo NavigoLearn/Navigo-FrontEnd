@@ -1,15 +1,15 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import roadmapState from '@store/roadmap/data/roadmap_state';
 import Button from '@components/roadmap/tabs/utils/Button';
 import { divWrapper } from '@components/roadmap/tabs/utils/logic';
 import { useStore } from '@nanostores/react';
 import tabStore, {
-  changeInfoTabProp,
-  changeInfoTabLink,
-  deleteInfoTabLink,
   addInfoTabLink,
+  changeInfoTabLink,
+  changeInfoTabProp,
+  deleteInfoTabLink,
   flipOpen,
-} from '@store/roadmap/display/tab-manager';
+} from '@store/roadmap-refactor/display/tab-manager';
 import { diffSaveTabInfo } from '@store/roadmap/cache/diff-tabs';
 import cross from '@assets/cross.svg';
 import { capStringLen } from '@typescript/roadmap/utils2';
@@ -55,7 +55,7 @@ const InfoEditing = () => {
               flipOpen();
             }}
           >
-            <img draggable="false" src={cross} className='w-6 h-6' />
+            <img draggable='false' src={cross} className='w-6 h-6' />
           </button>
         </div>
       )}

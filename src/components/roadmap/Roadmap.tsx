@@ -14,18 +14,18 @@ import {
   setTriggerDisable,
   setTriggerEnable,
   setTriggerRender,
-} from '@store/roadmap/render/rerenderTriggers';
+} from '@store/roadmap-refactor/render/rerenderTriggers';
 import { addZoom, disableZoom } from '@typescript/roadmap/d3utils';
 import { RoadmapChunkingManager } from '@typescript/roadmap_ref/render/chunks';
-import renderNodesStore from '@store/roadmap/render/renderedNodes';
-import { setChunkRerenderTrigger } from '@store/roadmap/render/renderedChunks';
-import renderConnectionsStore from '@store/roadmap/render/renderedConnections';
+import renderNodesStore from '@store/roadmap-refactor/render/renderedNodes';
+import { setChunkRerenderTrigger } from '@store/roadmap-refactor/render/renderedChunks';
+import renderConnectionsStore from '@store/roadmap-refactor/render/renderedConnections';
 import { renderConnections } from '@typescript/roadmap_ref/render/connections';
 import roadmapEdit from '@store/roadmap/data/roadmap_edit';
 import {
   setDisableZoomTrigger,
   setEnableZoomTrigger,
-} from '@store/roadmap/misc/miscParams';
+} from '@store/roadmap-refactor/misc/miscParams';
 import Popup from './tabs/popups/Popup';
 
 const Roadmap = ({ pageId }: { pageId: string }) => {

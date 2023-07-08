@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { renderNodeNormal } from '@components/roadmap/nodes/node-resource/utils';
 import { addNodeNew } from '@typescript/roadmap/roadmap-edit-logic-decorated';
-import { NonEditingComponentProps } from '@type/roadmap/components';
+import { NonEditingComponentProps } from '@type/roadmap/old/components';
 import { getNodeByIdEdit } from '@typescript/roadmap/roadmap-edit-logic';
-import { isNodeResourceStore } from '@type/roadmap/typecheckers';
-import { setToolTip } from '@store/roadmap/misc/miscParams';
+import { isNodeResourceStore } from '@type/roadmap/old/typecheckers';
+import { setToolTip } from '@store/roadmap-refactor/misc/miscParams';
 import ButtonsView from '@components/roadmap/nodes/misc/ButtonsView';
 import plus from '@assets/plus.svg';
 import edit from '@assets/edit.svg';
@@ -36,7 +36,7 @@ const ResourceNonEditProps = ({
             addNodeNew(idProp, 'Info');
           }}
         >
-          <img draggable="false" src={plus} width='16px' alt='add' />
+          <img draggable='false' src={plus} width='16px' alt='add' />
         </button>
         <div className='text-lg  text-placeholder'>{node.title}</div>
         <button
@@ -46,7 +46,7 @@ const ResourceNonEditProps = ({
             setCb();
           }}
         >
-          <img draggable="false" src={edit} width='20px' alt='edit' />
+          <img draggable='false' src={edit} width='20px' alt='edit' />
         </button>
       </div>
       {node.nodes.map((id) => {

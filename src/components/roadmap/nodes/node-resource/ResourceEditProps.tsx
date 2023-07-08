@@ -2,15 +2,18 @@ import React, { useEffect } from 'react';
 
 import ResourceSubNodeEdit from '@components/roadmap/nodes/node-resource/sub-node/ResourceSubNodeEdit';
 import roadmapPlaceholder, {
-  getNodeByIdPlaceholder,
-  changeNodeResource,
   addResourceSubNodeNew,
+  changeNodeResource,
+  getNodeByIdPlaceholder,
 } from '@store/roadmap/data/roadmap-placeholder';
-import { EditingComponentNodesProps } from '@type/roadmap/components';
+import { EditingComponentNodesProps } from '@type/roadmap/old/components';
 import TitleEdit from '@components/roadmap/nodes/node-info/editable-fields/InfoTitleEdit';
-import { isNodeResourceStore } from '@type/roadmap/typecheckers';
+import { isNodeResourceStore } from '@type/roadmap/old/typecheckers';
 import SaveCancelButtons from '@components/roadmap/nodes/misc/SaveButtons';
-import { setToolTip, setZoomAllowed } from '@store/roadmap/misc/miscParams';
+import {
+  setToolTip,
+  setZoomAllowed,
+} from '@store/roadmap-refactor/misc/miscParams';
 
 const ResourceEditProps = ({
   id,

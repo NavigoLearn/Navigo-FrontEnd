@@ -1,7 +1,7 @@
-import { ConnectionStore } from '@type/roadmap/connections';
-import { NodeTypesStore } from '@type/roadmap/nodes';
-import { ResourcesStoreTypes } from '@type/roadmap/resources';
-import { TabInfo } from '@type/roadmap/tab-manager';
+import { ConnectionStore } from '@type/roadmap/old/connections';
+import { NodeTypesStore } from '@type/roadmap/old/nodes';
+import { ResourcesStoreTypes } from '@type/roadmap/old/resources';
+import { TabInfo } from '@type/roadmap/old/tab-manager';
 
 export interface HashMap<T> {
   [key: string]: T;

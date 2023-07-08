@@ -2,7 +2,7 @@ import {
   TabInfo,
   TabInfoApi,
   TabInfoApiSendFormat,
-} from '@type/roadmap/tab-manager';
+} from '@type/roadmap/old/tab-manager';
 import roadmapState from '@store/roadmap/data/roadmap_state';
 import { errorHandlerDecorator } from '@typescript/error-handler';
 

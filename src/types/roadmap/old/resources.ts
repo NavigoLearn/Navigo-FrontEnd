@@ -1,4 +1,4 @@
-import { LevelTypes } from '@type/roadmap/level-types';
+import { LevelTypes } from '@type/roadmap/old/level-types';
 
 export type ResourcesStoreTypesIdentifiers = 'ResourceSubNode';
 

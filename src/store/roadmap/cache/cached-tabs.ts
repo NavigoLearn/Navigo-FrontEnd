@@ -1,6 +1,6 @@
 import { atom } from 'nanostores';
-import { cachedTabs } from '@type/roadmap/cache';
-import { TabAbout, TabInfo, TabIssue } from '@type/roadmap/tab-manager';
+import { cachedTabs } from '@type/roadmap/old/cache';
+import { TabAbout, TabInfo, TabIssue } from '@type/roadmap/old/tab-manager';
 import {
   createTabInfoData,
   updateTabInfoData,

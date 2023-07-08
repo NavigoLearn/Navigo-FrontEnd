@@ -1,7 +1,7 @@
 import { atom } from 'nanostores';
 import roadmapEdit from '@store/roadmap/data/roadmap_edit';
-import { ConnectionStore } from '@type/roadmap/connections';
-import { HashMap } from '@type/roadmap/roadmap';
+import { ConnectionStore } from '@type/roadmap/old/connections';
+import { HashMap } from '@type/roadmap/old/roadmap';
 
 const selection = atom({
   selectedNodeId: '',

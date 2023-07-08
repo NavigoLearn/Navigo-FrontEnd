@@ -3,7 +3,7 @@ import StateMangerCallbacks from '@components/roadmap/nodes/HOCs/StateMangerLoca
 import {
   checkPossibleTypes,
   WrappedComponentProps,
-} from '@type/roadmap/components';
+} from '@type/roadmap/old/components';
 
 const TitleEdit = <T,>({
   onChange,

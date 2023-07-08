@@ -1,5 +1,5 @@
 import { atom } from 'nanostores';
-import { Viewport } from '@type/roadmap/misc';
+import { Viewport } from '@type/roadmap/old/misc';
 
 const viewportCoord = atom({
   startX: 0,

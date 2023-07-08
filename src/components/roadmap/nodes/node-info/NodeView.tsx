@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
-import { NodeInfoProps } from '@type/roadmap/nodes';
+import { NodeInfoProps } from '@type/roadmap/old/nodes';
 import { setInfoFlow } from '@typescript/roadmap/tab-logic-flows';
-import { addNewError } from '@store/roadmap/error-list';
 
 const NodeView = ({ title, tabId, id, level }: NodeInfoProps) => {
   const rootRef = useRef<HTMLButtonElement>(null);

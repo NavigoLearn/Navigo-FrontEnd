@@ -1,6 +1,6 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import cross from '@assets/cross.svg';
-import { flipOpen } from '@store/roadmap/display/tab-manager';
+import { flipOpen } from '@store/roadmap-refactor/display/tab-manager';
 import AboutNonEditField from '@components/roadmap/tabs/about/AboutNonEditField';
 import AboutEditingField from '@components/roadmap/tabs/about/AboutEditingField';
 import { useStore } from '@nanostores/react';
@@ -8,7 +8,7 @@ import aboutTabStore, {
   setTabAboutProp,
   setTabAboutPropNoRequest,
 } from '@store/roadmap/data/about';
-import { TabAbout } from '@type/roadmap/tab-manager';
+import { TabAbout } from '@type/roadmap/old/tab-manager';
 import EditingManagerTabs from '@components/roadmap/tabs/EditingManagerTabs';
 import useStateAndRef from '@hooks/useStateAndRef';
 import AboutStaticField from '@components/roadmap/tabs/about/AboutStaticField';

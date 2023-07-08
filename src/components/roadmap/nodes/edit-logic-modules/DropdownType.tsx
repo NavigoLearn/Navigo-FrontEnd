@@ -4,8 +4,8 @@ import { changeNodeType } from '@typescript/roadmap/roadmap-edit-logic-decorated
 import {
   NodeIdentifierTypes,
   nodeIdentifierTypesArray,
-} from '@type/roadmap/nodes';
-import { isValidNodeType } from '@type/roadmap/typecheckers';
+} from '@type/roadmap/old/nodes';
+import { isValidNodeType } from '@type/roadmap/old/typecheckers';
 
 // handles all the node type change roadmap-data for every node
 const DropdownType = ({
@@ -59,7 +59,8 @@ const DropdownType = ({
           <div className=' text-secondary text-md mb-1  relative'>
             {selectedOption}
 
-            <img draggable="false"
+            <img
+              draggable='false'
               src={arrow}
               alt='chose element'
               className={` w-3 opacity-50 transition-transform absolute -right-5 bottom-1   ${
