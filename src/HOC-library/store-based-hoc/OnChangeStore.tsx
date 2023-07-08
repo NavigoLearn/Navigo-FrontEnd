@@ -11,8 +11,12 @@ interface ProvidedProps {
 
 type ExcludeProvidedProps<P> = Pick<P, Exclude<keyof P, keyof ProvidedProps>>;
 
+function typeGuard<T extends ProvidedProps>(props: any): props is T {
+  return props.onChange !== undefined;
+}
+
 function HOC_on_change<T extends ProvidedProps>(
-  WrappedComponent: React.ComponentType<T & ProvidedProps>
+  WrappedComponent: React.ComponentType<T>
 ) {
   return function EnhancedComponent({
     store_temporary,
@@ -22,16 +26,12 @@ function HOC_on_change<T extends ProvidedProps>(
     function onChange(value: any) {
       // console.log(store_temporary, field, value);
     }
-    const newProps: T & ProvidedProps = { ...props };
-
-    return (
-      <WrappedComponent
-        {...newProps}
-        onChange={(value) => {
-          onChange(value);
-        }}
-      />
-    );
+    const newProps = { ...props, onChange }; // adds onChange to all the other props of the WrappedComponent
+    if (typeGuard<T>(newProps)) {
+      return <WrappedComponent {...newProps} />;
+    } else {
+      return <div>error occured in HOC on change in store</div>;
+    }
   };
 }
 
