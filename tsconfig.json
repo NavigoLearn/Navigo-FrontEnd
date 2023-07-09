@@ -41,7 +41,7 @@
   "include": [
     "src/**/*",
     ".eslintrcworka.cjs",
-    "__tests__/unit/**/*"
+    "__tests__/unit/**/*",
   ],
   "exclude": [
     "node_modules",

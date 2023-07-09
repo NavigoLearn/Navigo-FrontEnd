@@ -7,6 +7,7 @@ import AddIssue from '@components/roadmap/tabs/AddIssue';
 import Issues from '@components/roadmap/tabs/issues/Issues';
 import About from '@components/roadmap/tabs/about/About';
 import Info from './tabs/Info';
+import TabSwitcher from './tabeditor/TabSwitcher';
 
 const TabManager = () => {
   const { open, type } = useStore(tabStore);
@@ -36,18 +37,19 @@ const TabManager = () => {
   }
 
   function renderTab() {
-    if (type === 'issues') return rightWrapper(<Issues />);
-    if (type === 'info') return rightWrapper(<Info />);
-    if (type === 'about') return rightWrapper(<About />);
-    if (type === 'book') return rightExtendedWrapper(<Book />);
-    if (type === 'thread') return rightWrapper(<Thread />);
-    if (type === 'addIssue') return rightWrapper(<AddIssue />);
+    // if (type === 'issues') return rightWrapper(<Issues />);
+    // if (type === 'info') return rightWrapper(<Info />);
+    // if (type === 'about') return rightWrapper(<About />);
+    // if (type === 'book') return rightExtendedWrapper(<Book />);
+    // if (type === 'thread') return rightWrapper(<Thread />);
+    // if (type === 'addIssue') return rightWrapper(<AddIssue />);
     return <div>Nothing</div>;
   }
 
   return (
     <>
-      {open && renderTab()}
+      {/* {open && renderTab()} */}
+      <TabSwitcher />
       <div />
     </>
   );
