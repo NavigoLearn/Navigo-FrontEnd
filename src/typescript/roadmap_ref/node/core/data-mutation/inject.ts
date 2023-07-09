@@ -6,10 +6,12 @@ import {
 
 export function injectNewTitle(
   node: NodeClass,
-  id: string,
+  titleId: string,
   newTitle: TitleComponent
 ) {
-  const index = node.components.findIndex((component) => component.id === id);
+  const index = node.components.findIndex(
+    (component) => component.id === titleId
+  );
   if (index === -1) throw new Error('Component not found');
   if (node.components[index].type !== 'Title')
     throw new Error('Component is not a title');
@@ -18,10 +20,12 @@ export function injectNewTitle(
 
 export function injectNewDescription(
   node: NodeClass,
-  id: string,
+  descriptionId: string,
   newDescription: DescriptionComponent
 ) {
-  const index = node.components.findIndex((component) => component.id === id);
+  const index = node.components.findIndex(
+    (component) => component.id === descriptionId
+  );
   if (index === -1) throw new Error('Component not found');
   if (node.components[index].type !== 'Description')
     throw new Error('Component is not a description');
