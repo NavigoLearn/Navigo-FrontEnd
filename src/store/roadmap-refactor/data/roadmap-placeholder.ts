@@ -10,3 +10,5 @@ const roadmapPlaceholder = atom({
   connections: {},
   chunks: {},
 } as Roadmap);
+
+export default roadmapPlaceholder;

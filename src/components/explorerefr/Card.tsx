@@ -27,6 +27,7 @@ const Card = ({ cardStore }: { cardStore: CardType }) => {
     if (!userStatus.get().isLogged) {
       // redirect to login
       location.href = '/login';
+      const a = 2;
       return;
     }
 

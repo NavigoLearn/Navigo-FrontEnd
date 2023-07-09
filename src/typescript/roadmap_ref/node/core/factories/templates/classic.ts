@@ -6,7 +6,7 @@ import {
 import {
   injectClassicData,
   injectClassicFlags,
-} from '@typescript/roadmap_ref/node/core/factories/injectors/injectors';
+} from '@typescript/roadmap_ref/node/core/factories/injectors/inject';
 
 export function classicNodeFactoryBoilerplate(): NodeClass {
   // return boilerplate class for classic nodes and the most common

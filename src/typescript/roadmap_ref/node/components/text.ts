@@ -1,10 +1,28 @@
-import { ComponentNode } from '@typescript/roadmap_ref/node/core/core';
+export class ComponentNode {
+  x: number;
 
+  y: number;
+
+  width: number;
+
+  height: number;
+
+  constructor(x: number, y: number, width: number, height: number) {
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+  }
+}
 class TextComponent extends ComponentNode {
   text: string;
+
   textSize: number;
+
   textFont: string;
+
   textColor: string;
+
   constructor(
     x: number,
     y: number,

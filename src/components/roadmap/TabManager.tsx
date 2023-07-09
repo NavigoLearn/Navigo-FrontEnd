@@ -1,13 +1,7 @@
 import React from 'react';
 import { useStore } from '@nanostores/react';
 import tabStore from '@store/roadmap-refactor/display/tab-manager';
-import Book from '@components/roadmap/tabs/book/Book';
-import Thread from '@components/roadmap/tabs/thread/Thread';
-import AddIssue from '@components/roadmap/tabs/AddIssue';
-import Issues from '@components/roadmap/tabs/issues/Issues';
-import About from '@components/roadmap/tabs/about/About';
-import Info from './tabs/Info';
-import TabSwitcher from './tabeditor/TabSwitcher';
+import TabSwitcher from '@components/roadmap/editor/TabSwitcher';
 
 const TabManager = () => {
   const { open, type } = useStore(tabStore);
@@ -45,11 +39,13 @@ const TabManager = () => {
     // if (type === 'addIssue') return rightWrapper(<AddIssue />);
     return <div>Nothing</div>;
   }
+  console.log('rendering tab manager');
 
   return (
     <>
       {/* {open && renderTab()} */}
       <TabSwitcher />
+
       <div />
     </>
   );

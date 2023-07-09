@@ -64,6 +64,8 @@ module.exports = {
           { extensions: ['.js', '.jsx', '.tsx'] },
         ],
         'import/no-extraneous-dependencies': 'off',
+        'import/prefer-default-export': 'off',
+        'max-classes-per-file': 'off',
         'react/function-component-definition': [
           2,
           {
