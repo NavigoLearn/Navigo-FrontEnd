@@ -31,6 +31,7 @@ export class NodeClass {
 
   flags: Flags = new Flags(); // flags to indificate different behaviors of the node
 
+  // @ts-ignore
   data: {
     id: string;
     centerCoords: {

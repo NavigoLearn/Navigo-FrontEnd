@@ -66,6 +66,8 @@ module.exports = {
         'import/no-extraneous-dependencies': 'off',
         'import/prefer-default-export': 'off',
         'max-classes-per-file': 'off',
+        'no-param-reassign': 'off',
+        '@typescript-eslint/ban-ts-comment': 'off',
         'react/function-component-definition': [
           2,
           {

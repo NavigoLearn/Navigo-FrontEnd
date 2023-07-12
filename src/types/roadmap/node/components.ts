@@ -1,7 +1,7 @@
 import {
   DescriptionComponent,
   TitleComponent,
-} from '@typescript/roadmap_ref/node/components/text';
+} from '@typescript/roadmap_ref/node/components/text/core';
 
 export type IComponentsOptions = 'Title' | 'Description';
 

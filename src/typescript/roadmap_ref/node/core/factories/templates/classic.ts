@@ -1,4 +1,5 @@
 import { NodeClass } from '@typescript/roadmap_ref/node/core/core';
+import { factoryComponentTitle } from '@typescript/roadmap_ref/node/components/text/factories';
 import {
   appendAttachment,
   appendComponentTitle,
@@ -15,7 +16,7 @@ export function classicNodeFactoryBoilerplate(): NodeClass {
   injectClassicFlags(node);
   injectClassicData(node, 'someparent', []);
 
-  appendComponentTitle(node, 'Boilerplate title', 0, 0, 100, 100);
+  appendComponentTitle(node, factoryComponentTitle('Boilerplate title'));
   appendAttachment(node, {
     type: 'Tab',
     components: [

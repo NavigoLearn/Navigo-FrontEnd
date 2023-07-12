@@ -2,7 +2,7 @@ import { NodeClass } from '@typescript/roadmap_ref/node/core/core';
 import {
   DescriptionComponent,
   TitleComponent,
-} from '@typescript/roadmap_ref/node/components/text';
+} from '@typescript/roadmap_ref/node/components/text/core';
 
 export function injectNewTitle(
   node: NodeClass,

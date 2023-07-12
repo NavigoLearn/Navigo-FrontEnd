@@ -6,8 +6,13 @@ import Properties from '@components/roadmap/editor/tabs/Properties';
 import Nodes from '@components/roadmap/editor/tabs/Nodes';
 import roadmapPlaceholder from '@store/roadmap-refactor/data/roadmap-placeholder';
 import { useStore } from '@nanostores/react';
-import { mutateWidth } from '@typescript/roadmap_ref/node/core/data-mutation/mutate';
-import { deepCopy } from '@typescript/roadmap/utils';
+import { appendComponentTitle } from '@typescript/roadmap_ref/node/core/data-mutation/append';
+import { factoryComponentTitle } from '@typescript/roadmap_ref/node/components/text/factories';
+import { getComponentTitleById } from '@typescript/roadmap_ref/node/core/data-get/components';
+import {
+  mutateComponentTitleHeight,
+  mutateComponentTitleWidth,
+} from '@typescript/roadmap_ref/node/components/text/mutate';
 
 // 1. First, to add a new button, add a new string to the array below
 const tabs = [
@@ -45,14 +50,17 @@ const TabSwitcher = () => {
   }
 
   useEffect(() => {
-    // change the node somehow and check if the changes took place
-    console.log(deepCopy(roadmapPlaceholder.get().nodes));
-    console.log(nodes);
-    const node = nodes[0];
-    console.log(node);
-    mutateWidth(node, 100);
-    console.log(node);
-    console.log(deepCopy(roadmapPlaceholder.get().nodes));
+    // ADD NEW TITLE EXAMPLE
+    const title = 'New Title string';
+    const id = 0; // any valid id here
+    const node = nodes[id];
+    appendComponentTitle(node, factoryComponentTitle(title));
+    // MUTATE POSITION
+    const componentId = 0; // any valid id here
+    const component = getComponentTitleById(node, componentId);
+    const newPosition = { x: 100, y: 100 };
+    mutateComponentTitleHeight(component, 100);
+    mutateComponentTitleWidth(component, 100);
   }, []);
 
   return (

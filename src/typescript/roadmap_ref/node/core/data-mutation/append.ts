@@ -2,6 +2,10 @@ import { NodeClass } from '@typescript/roadmap_ref/node/core/core';
 import { IAttachmentBuilder } from '@type/roadmap/node/attachments';
 import { factoryAttachment } from '@typescript/roadmap_ref/node/attachments/factory';
 import { v4 as uuidv4 } from 'uuid';
+import {
+  DescriptionComponent,
+  TitleComponent,
+} from '@typescript/roadmap_ref/node/components/text/core';
 
 export function appendAttachment(
   node: NodeClass,
@@ -13,7 +17,7 @@ export function appendAttachment(
     id,
     attachment: attachmentObject,
   });
-  //.... other ifs for building other attachments
+  // .... other ifs for building other attachments
 }
 
 export function appendSubnode(node: NodeClass, id: string) {
@@ -22,51 +26,26 @@ export function appendSubnode(node: NodeClass, id: string) {
 
 export function appendComponentDescription(
   node: NodeClass,
-  description: string,
-  x: number,
-  y: number,
-  width: number,
-  height: number
+  descriptionComponent: DescriptionComponent
 ) {
   const id = uuidv4();
   node.components.push({
-    id: uuidv4(),
+    id,
     type: 'Description',
-    component: {
-      text: description,
-      textSize: 50,
-      textFont: '',
-      textColor: '',
-      x,
-      y,
-      width,
-      height,
-    },
+    component: descriptionComponent,
   });
   return id;
 }
+
 export function appendComponentTitle(
   node: NodeClass,
-  title: string,
-  x: number,
-  y: number,
-  width: number,
-  height: number
+  titleComponent: TitleComponent
 ) {
   const id = uuidv4();
   node.components.push({
-    id: uuidv4(),
+    id,
     type: 'Title',
-    component: {
-      text: title,
-      textSize: 100,
-      textFont: '',
-      textColor: '',
-      x,
-      y,
-      width,
-      height,
-    },
+    component: titleComponent,
   });
   return id;
 }
