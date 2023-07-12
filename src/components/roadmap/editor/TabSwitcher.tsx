@@ -12,7 +12,7 @@ import { deepCopy } from '@typescript/roadmap/utils';
 // 1. First, to add a new button, add a new string to the array below
 const tabs = [
   'Add Attachements',
-  'Components',
+  // 'Components',
   'Functionalities',
   'Properties',
   'Nodes',
